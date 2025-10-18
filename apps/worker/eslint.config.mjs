@@ -1,4 +1,4 @@
-import createConfig from '@kollektiv/eslint-config/create-config';
+import createConfig from '@conduit8/eslint-config/create-config';
 import drizzle from 'eslint-plugin-drizzle';
 
 export default createConfig(

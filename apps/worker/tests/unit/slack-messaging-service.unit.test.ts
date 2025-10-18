@@ -42,7 +42,7 @@ describe('slackMessagingService', () => {
       expect(mockWebClient.chat.postMessage).toHaveBeenCalledWith(
         expect.objectContaining({
           channel: 'C456',
-          text: '🔧 Kollektiv needs configuration to continue.',
+          text: '🔧 Conduit8 needs configuration to continue.',
           thread_ts: 'thread.123',
         }),
       );
@@ -54,7 +54,7 @@ describe('slackMessagingService', () => {
       expect(mockWebClient.chat.postMessage).toHaveBeenCalledWith(
         expect.objectContaining({
           channel: 'C456',
-          text: 'Welcome to Kollektiv',
+          text: 'Welcome to Conduit8',
           thread_ts: 'thread.123',
         }),
       );
@@ -68,7 +68,7 @@ describe('slackMessagingService', () => {
       expect(mockWebClient.chat.postMessage).toHaveBeenCalledWith(
         expect.objectContaining({
           channel: 'C456',
-          text: '✅ Configuration saved! Send any message to start your Kollektiv bot instance.',
+          text: '✅ Configuration saved! Send any message to start your Conduit8 bot instance.',
         }),
       );
     });
@@ -80,7 +80,7 @@ describe('slackMessagingService', () => {
       expect(mockWebClient.chat.postMessage).toHaveBeenCalledWith(
         expect.objectContaining({
           channel: 'DM123',
-          text: '✅ Configuration saved! Send any message to start your Kollektiv bot instance.',
+          text: '✅ Configuration saved! Send any message to start your Conduit8 bot instance.',
         }),
       );
     });

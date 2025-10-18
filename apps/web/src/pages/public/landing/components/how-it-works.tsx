@@ -34,7 +34,7 @@ export const HowItWorksSection = () => {
           icon={<MagicWandIcon className="size-5" />}
           featureName="Step 3"
           title="Ship from Slack"
-          subtitle="@kollektiv fix the login bug → PR in 10 mins"
+          subtitle="@conduit8 fix the login bug → PR in 10 mins"
           visual={<SlackToPrVisual />}
         />
 

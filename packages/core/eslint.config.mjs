@@ -1,3 +1,3 @@
-import config from '@kollektiv/eslint-config';
+import config from '@conduit8/eslint-config';
 
 export default config;

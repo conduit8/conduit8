@@ -44,28 +44,28 @@ export function SlackToPrVisual() {
             <span className="text-[10px] text-muted-foreground">10:34 AM</span>
           </div>
           <p className="text-xs text-left">
-            <span className="text-muted-foreground font-medium">@kollektiv</span>
+            <span className="text-muted-foreground font-medium">@conduit8</span>
             {' '}
             fix the login bug
           </p>
         </div>
       </div>
 
-      {/* Message 2: Kollektiv acknowledgment */}
+      {/* Message 2: Conduit8 acknowledgment */}
       <div className="flex items-start gap-2 w-full">
         <div className="h-5 w-5 rounded bg-accent flex items-center justify-center flex-shrink-0">
           <span className="text-accent-foreground text-[10px] font-bold">K</span>
         </div>
         <div className="flex-1 text-left">
           <div className="flex items-baseline gap-2 mb-0.5">
-            <span className="text-xs font-semibold">Kollektiv</span>
+            <span className="text-xs font-semibold">Conduit8</span>
             <span className="text-[10px] text-muted-foreground">10:34 AM</span>
           </div>
           <p className="text-xs text-left">On it! Let me analyze and fix that for you...</p>
         </div>
       </div>
 
-      {/* Message 3: Kollektiv result (types on hover) */}
+      {/* Message 3: Conduit8 result (types on hover) */}
       <div
         className={cn(
           'flex items-start gap-2 w-full transition-opacity duration-300',
@@ -77,7 +77,7 @@ export function SlackToPrVisual() {
         </div>
         <div className="flex-1 text-left">
           <div className="flex items-baseline gap-2 mb-0.5">
-            <span className="text-xs font-semibold">Kollektiv</span>
+            <span className="text-xs font-semibold">Conduit8</span>
             <span className="text-[10px] text-muted-foreground">10:44 AM</span>
           </div>
           <div className="text-xs text-left">

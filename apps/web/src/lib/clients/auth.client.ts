@@ -1,4 +1,4 @@
-import { APP_ROUTES } from '@kollektiv/core';
+import { APP_ROUTES } from '@conduit8/core';
 import { settings } from '@web/lib/settings';
 import { magicLinkClient } from 'better-auth/client/plugins';
 import { createAuthClient } from 'better-auth/react';

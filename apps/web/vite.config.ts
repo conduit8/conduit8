@@ -33,7 +33,7 @@ export default defineConfig({
     jsx: 'react',
   }), tailwindcss(), sentryVitePlugin({
     org: 'azcompany',
-    project: 'kollektiv-web',
+    project: 'conduit8-ui',
     authToken: process.env.SENTRY_AUTH_TOKEN,
     sourcemaps: {
       filesToDeleteAfterUpload: ['dist/**/*.map'],

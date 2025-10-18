@@ -1,9 +1,9 @@
 {
-  "name": "@kollektiv/worker",
+  "name": "@conduit8/worker",
   "type": "module",
   "version": "0.1.0",
   "private": true,
-  "description": "Kollektiv API server",
+  "description": "Conduit8 API server",
   "engines": {
     "node": ">=22.0.0",
     "npm": "please-use-pnpm"
@@ -17,8 +17,8 @@
     "test:watch": "vitest watch",
     "test:unit": "vitest run tests/unit --reporter=dot --silent",
     "test:integration": "vitest run tests/integration --reporter=dot --silent",
-    "deploy": "pnpm --filter @kollektiv/core build && tsc && wrangler deploy --env preview --minify --outdir dist --upload-source-maps --var SENTRY_RELEASE:$(sentry-cli releases propose-version)",
-    "deploy:prod": "pnpm --filter @kollektiv/core build && tsc && wrangler deploy --env prod --minify --outdir dist --upload-source-maps --var SENTRY_RELEASE:$(sentry-cli releases propose-version)",
+    "deploy": "pnpm --filter @conduit8/core build && tsc && wrangler deploy --env preview --minify --outdir dist --upload-source-maps --var SENTRY_RELEASE:$(sentry-cli releases propose-version)",
+    "deploy:prod": "pnpm --filter @conduit8/core build && tsc && wrangler deploy --env prod --minify --outdir dist --upload-source-maps --var SENTRY_RELEASE:$(sentry-cli releases propose-version)",
     "lint": "eslint . --quiet",
     "lint:fix": "eslint . --fix --quiet",
     "db:generate": "drizzle-kit generate",
@@ -34,8 +34,8 @@
     "better-auth-generate": "npx @better-auth/cli@latest generate --config src/infrastructure/auth/auth-gen.ts --output src/infrastructure/persistence/database/schema/auth.ts -y",
     "stripe:tunnel": "stripe listen --forward-to localhost:8787/auth/stripe/webhook",
     "stripe:test-event": "stripe trigger payment_intent.succeeded",
-    "tunnel": "cloudflared tunnel run --token-file ~/.cloudflared/kollektiv-preview.token",
-    "sentry:sourcemaps": "_SENTRY_RELEASE=$(sentry-cli releases propose-version) && sentry-cli releases new $_SENTRY_RELEASE --org=azcompany --project=kollektiv-worker && sentry-cli sourcemaps upload --org=azcompany --project=kollektiv-worker --release=$_SENTRY_RELEASE --strip-prefix 'dist/..' dist",
+    "tunnel": "cloudflared tunnel run --token-file ~/.cloudflared/conduit8-preview.token",
+    "sentry:sourcemaps": "_SENTRY_RELEASE=$(sentry-cli releases propose-version) && sentry-cli releases new $_SENTRY_RELEASE --org=azcompany --project=conduit8-worker && sentry-cli sourcemaps upload --org=azcompany --project=conduit8-worker --release=$_SENTRY_RELEASE --strip-prefix 'dist/..' dist",
     "postdeploy": "pnpm sentry:sourcemaps"
   },
   "dependencies": {
@@ -43,7 +43,7 @@
     "@cloudflare/containers": "^0.0.28",
     "@cloudflare/workers-oauth-provider": "^0.0.10",
     "@hono/zod-validator": "^0.7.3",
-    "@kollektiv/core": "workspace:*",
+    "@conduit8/core": "workspace:*",
     "@sentry/cloudflare": "^10.15.0",
     "@slack/types": "^2.16.0",
     "@slack/web-api": "^7.10.0",
@@ -64,7 +64,7 @@
     "@eslint/js": "^9.36.0",
     "@eslint/json": "^0.13.2",
     "@eslint/markdown": "^7.3.0",
-    "@kollektiv/eslint-config": "workspace:*",
+    "@conduit8/eslint-config": "workspace:*",
     "@sentry/cli": "^2.56.0",
     "@types/node": "catalog:",
     "@typescript-eslint/eslint-plugin": "^8.44.1",

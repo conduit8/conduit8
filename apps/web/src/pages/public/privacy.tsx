@@ -28,7 +28,7 @@ export function PrivacyPage() {
           {/* Introduction */}
           <section className="flex flex-col gap-sm">
             <p>
-              At Kollektiv, we take your privacy seriously. This Privacy
+              At Conduit8, we take your privacy seriously. This Privacy
               Policy explains how we collect, use, and protect your personal information when you
               use our AI-powered Slack integration service.
             </p>
@@ -40,13 +40,13 @@ export function PrivacyPage() {
             <div className="flex flex-col gap-sm">
               <h3 className="text-xl font-medium">Account Information</h3>
               <p>
-                When you connect Kollektiv to your Slack workspace, we collect your Slack workspace ID,
+                When you connect Conduit8 to your Slack workspace, we collect your Slack workspace ID,
                 team information, and any preferences you configure for the AI assistant.
               </p>
 
               <h3 className="text-xl font-medium">Slack Messages and AI Interactions</h3>
               <p>
-                We process messages sent to the Kollektiv bot in your Slack workspace and store
+                We process messages sent to the Conduit8 bot in your Slack workspace and store
                 conversation history to maintain context. These interactions are stored securely
                 and associated with your workspace. You maintain full control and can disconnect at any time.
               </p>
@@ -267,7 +267,7 @@ export function PrivacyPage() {
                 <br />
                 <strong>Company:</strong>
                 {' '}
-                Kollektiv LLC
+                Conduit8 LLC
                 <br />
                 <strong>Address:</strong>
                 {' '}

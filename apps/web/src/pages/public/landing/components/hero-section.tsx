@@ -106,7 +106,7 @@ export const HeroSection = ({ user }: HeroSectionProps) => {
         {/* Poster image - always visible as background */}
         <img
           src="/demo/web-demo-poster.jpg"
-          alt="Kollektiv demo"
+          alt="Conduit8 demo"
           className="absolute inset-0 w-full h-full object-cover"
           loading="eager"
           fetchPriority="high"

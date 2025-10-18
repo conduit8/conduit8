@@ -1,4 +1,4 @@
-import type { ErrorResponse } from '@kollektiv/core';
+import type { ErrorResponse } from '@conduit8/core';
 import type { ErrorHandler } from 'hono';
 
 import * as Sentry from '@sentry/cloudflare';

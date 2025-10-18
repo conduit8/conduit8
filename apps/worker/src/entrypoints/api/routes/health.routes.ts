@@ -1,6 +1,6 @@
 import type { AppContext } from '@worker/entrypoints/api/types';
 
-import { APP_ROUTES } from '@kollektiv/core';
+import { APP_ROUTES } from '@conduit8/core';
 import { Hono } from 'hono';
 
 const app = new Hono<AppContext>().basePath(APP_ROUTES.api.prefix);

@@ -1,4 +1,4 @@
-import createConfig from '@kollektiv/eslint-config/create-config';
+import createConfig from '@conduit8/eslint-config/create-config';
 import tanstackQuery from '@tanstack/eslint-plugin-query';
 
 export default createConfig(

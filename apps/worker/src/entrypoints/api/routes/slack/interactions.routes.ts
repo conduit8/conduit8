@@ -1,6 +1,6 @@
 import type { BaseCommand } from '@worker/domain/messages';
 
-import { APP_ROUTES } from '@kollektiv/core';
+import { APP_ROUTES } from '@conduit8/core';
 import { Hono } from 'hono';
 
 import type { AppContext } from '@worker/entrypoints/api/types/context';

@@ -1,5 +1,5 @@
 {
-  "name": "@kollektiv/eslint-config",
+  "name": "@conduit8/eslint-config",
   "type": "module",
   "version": "1.0.0",
   "exports": {

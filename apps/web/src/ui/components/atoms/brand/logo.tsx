@@ -95,7 +95,7 @@ interface LogoTextProps {
 
 const LogoText = memo(({ textSize }: LogoTextProps) => (
   <span className={cn('font-brand font-bold tracking-wide', textSize)}>
-    Kollektiv
+    Conduit8
   </span>
 ));
 LogoText.displayName = 'LogoText';

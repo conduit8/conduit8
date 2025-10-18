@@ -228,7 +228,7 @@ export function createApiClient<TRoutes = string>(options: ApiClientConfig): Api
     // Handle successful responses with JSON bodies
     try {
       const jsonResponse = await response.json();
-      // Apply case conversion only if Kollektiv to do so
+      // Apply case conversion only if Conduit8 to do so
       const processedResponse = shouldConvertResponseToCamelCase
         ? convertToCamelCase(jsonResponse)
         : jsonResponse;

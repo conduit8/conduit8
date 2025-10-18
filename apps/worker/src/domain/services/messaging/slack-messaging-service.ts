@@ -45,14 +45,14 @@ export class SlackMessagingService implements IMessagingService {
         // Send setup message with config button
         await this.postMessage(
           channel,
-          '🔧 Kollektiv needs configuration to continue.',
+          '🔧 Conduit8 needs configuration to continue.',
           [
             {
               type: 'section',
               text: {
                 type: 'mrkdwn',
                 text:
-                  '🔧 *Kollektiv needs configuration to continue.*\n\nConfigure your'
+                  '🔧 *Conduit8 needs configuration to continue.*\n\nConfigure your'
                   + ' Anthropic API key and optional GitHub Personal Access Token (if you need to'
                   + ' work with private repos).'
                   + ' You can later change these settings in the App Home.',
@@ -90,14 +90,14 @@ export class SlackMessagingService implements IMessagingService {
         // Send initial bot introduction with capabilities (muted like session_restored)
         await this.postMessage(
           channel,
-          'Welcome to Kollektiv', // Provide text for notifications/screen readers
+          'Welcome to Conduit8', // Provide text for notifications/screen readers
           [
             {
               type: 'context',
               elements: [{
                 type: 'mrkdwn',
                 text:
-                'Use Kollektiv to handle your async tasks, such as:\n'
+                'Use Conduit8 to handle your async tasks, such as:\n'
                 + '• Talk to your codebase, explain logic, document flows\n'
                 + '• Create code changes and open pull requests\n'
                 + '• Connect to MCP servers - _requires MCP connection_\n'
@@ -392,14 +392,14 @@ export class SlackMessagingService implements IMessagingService {
         await this.webClient.chat.postMessage({
           channel,
           thread_ts: threadTs,
-          text: '🔧 Kollektiv needs configuration to continue.',
+          text: '🔧 Conduit8 needs configuration to continue.',
           blocks: [
             {
               type: 'section',
               text: {
                 type: 'mrkdwn',
                 text:
-                  '🔧 *Kollektiv needs configuration to continue.*\n\nConfigure your'
+                  '🔧 *Conduit8 needs configuration to continue.*\n\nConfigure your'
                   + ' Anthropic API key and optional GitHub Personal Access Token (if you need to'
                   + ' work with private repos).'
                   + ' You can later change these settings in the App Home.',
@@ -437,7 +437,7 @@ export class SlackMessagingService implements IMessagingService {
         await this.webClient.chat.postMessage({
           channel,
           thread_ts: threadTs,
-          text: '👋 *Kollektiv is ready to start *\n\nWhat can I help you with?',
+          text: '👋 *Conduit8 is ready to start *\n\nWhat can I help you with?',
         });
       }
 
@@ -452,8 +452,8 @@ export class SlackMessagingService implements IMessagingService {
 
       // Fallback: send simple text message
       const fallbackMessage = isConfigured
-        ? 'Kollektiv is ready. How can I help you today?'
-        : 'Kollektiv needs configuration to continue. Please set up your configuration. Contact support if you need help.';
+        ? 'Conduit8 is ready. How can I help you today?'
+        : 'Conduit8 needs configuration to continue. Please set up your configuration. Contact support if you need help.';
 
       await this.sendErrorMessage(channel, fallbackMessage, threadTs);
     }
@@ -470,16 +470,16 @@ export class SlackMessagingService implements IMessagingService {
       await this.webClient.chat.postMessage({
         channel,
         thread_ts: threadTs,
-        text: '❌ Your message cannot be processed - Kollektiv needs configuration.',
+        text: '❌ Your message cannot be processed - Conduit8 needs configuration.',
         blocks: [
           {
             type: 'section',
             text: {
               type: 'mrkdwn',
               text:
-                '❌ *Your message cannot be processed because Kollektiv is not configured.*\n\n'
+                '❌ *Your message cannot be processed because Conduit8 is not configured.*\n\n'
                 + 'Please configure your Anthropic API key and optional GitHub Personal Access Token'
-                + ' to start using Kollektiv.',
+                + ' to start using Conduit8.',
             },
           },
           {
@@ -519,7 +519,7 @@ export class SlackMessagingService implements IMessagingService {
 
       await this.sendErrorMessage(
         channel,
-        'Your message cannot be processed. Please configure Kollektiv first.',
+        'Your message cannot be processed. Please configure Conduit8 first.',
         threadTs,
       );
     }
@@ -576,7 +576,7 @@ export class SlackMessagingService implements IMessagingService {
 
       await this.webClient.chat.postMessage({
         channel: targetChannel,
-        text: '✅ Configuration saved! Send any message to start your Kollektiv bot instance.',
+        text: '✅ Configuration saved! Send any message to start your Conduit8 bot instance.',
       });
 
       console.log('Config success message sent successfully', { userId, channel: targetChannel });
@@ -645,7 +645,7 @@ export class SlackMessagingService implements IMessagingService {
       await this.webClient.chat.postMessage({
         channel,
         text:
-          ':gear: Starting your Kollektiv bot instance... This may take 10-30 seconds. The'
+          ':gear: Starting your Conduit8 bot instance... This may take 10-30 seconds. The'
           + ' container will auto-sleep after 60 minutes of inactivity.',
         thread_ts: threadTs,
       });
@@ -766,7 +766,7 @@ export class SlackMessagingService implements IMessagingService {
       // Send generic ready message
       await this.webClient.chat.postMessage({
         channel: channelId,
-        text: `🎉 Your Kollektiv bot is ready!\n\nAsk me anything about your code. To reconfigure, visit the App Home.`,
+        text: `🎉 Your Conduit8 bot is ready!\n\nAsk me anything about your code. To reconfigure, visit the App Home.`,
       });
 
       console.log('Assistant thread started successfully', {

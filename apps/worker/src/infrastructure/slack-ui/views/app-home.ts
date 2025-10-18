@@ -11,7 +11,7 @@ export function createAppHomeBlocks(
   // Header
   blocks.push({
     type: 'header',
-    text: { type: 'plain_text', text: '🏠 Kollektiv Home' },
+    text: { type: 'plain_text', text: '🏠 Conduit8 Home' },
   });
 
   // Add spacing after header - empty section for breathing room
@@ -67,7 +67,7 @@ export function createAppHomeBlocks(
     type: 'button',
     text: { type: 'plain_text', text: configButtonText },
     action_id: 'open_config_modal',
-    style: isConfigured ? undefined : 'primary', // Make configure primary when not Kollektiv
+    style: isConfigured ? undefined : 'primary', // Make configure primary when not Conduit8
   });
 
   // Feedback

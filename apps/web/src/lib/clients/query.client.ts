@@ -1,4 +1,4 @@
-import type { ApiError } from '@kollektiv/core';
+import type { ApiError } from '@conduit8/core';
 import type { QueryClientConfig } from '@tanstack/react-query';
 
 import { QueryClient } from '@tanstack/react-query';

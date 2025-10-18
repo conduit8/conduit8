@@ -10,7 +10,7 @@ import { SectionHeader } from './section-header';
 
 const faqItems = [
   {
-    question: 'What is Kollektiv?',
+    question: 'What is Conduit8?',
     answer: 'An AI coding assistant that turns your Slack messages into shipped features. It analyzes your GitHub repos, writes code, creates PRs, updates docs, and fixes bugs - directly from Slack.',
   },
   {
@@ -19,7 +19,7 @@ const faqItems = [
   },
   {
     question: 'How much does it cost?',
-    answer: 'Kollektiv is in beta, so it\'s free. You incur costs on your Anthropic API key though.',
+    answer: 'Conduit8 is in beta, so it\'s free. You incur costs on your Anthropic API key though.',
   },
   {
     question: 'Is it secure?',

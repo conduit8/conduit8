@@ -29,7 +29,7 @@ export function createFeedbackModal(defaultType: 'bug' | 'feature' = 'feature'):
           type: 'mrkdwn',
           text: isBug
             ? '🐛 *Report a Bug*\n\nTell us what went wrong so we can fix it.'
-            : '✨ *Suggest a Feature*\n\nShare your ideas to make Kollektiv better.',
+            : '✨ *Suggest a Feature*\n\nShare your ideas to make Conduit8 better.',
         },
       },
       {

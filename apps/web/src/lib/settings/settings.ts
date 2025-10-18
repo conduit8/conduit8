@@ -42,7 +42,7 @@ export const settings = {
   },
 
   app: {
-    name: 'Kollektiv',
+    name: 'Conduit8',
     baseUrl: env.VITE_BASE_URL,
     paths: {
       auth: '/auth',

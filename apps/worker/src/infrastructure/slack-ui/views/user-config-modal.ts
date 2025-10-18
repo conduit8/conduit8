@@ -1,5 +1,5 @@
 /**
- * Slack Block Kit modal for user Kollektiv configuration
+ * Slack Block Kit modal for user Conduit8 configuration
  * Allows users to set up their GitHub token and Anthropic API key
  */
 
@@ -32,7 +32,7 @@ export function buildUserConfigModal(userId: string, channel?: string): UserConf
     callback_id: 'user_config_modal',
     title: {
       type: 'plain_text',
-      text: 'Kollektiv Configuration',
+      text: 'Conduit8 Configuration',
     },
     submit: {
       type: 'plain_text',
@@ -50,7 +50,7 @@ export function buildUserConfigModal(userId: string, channel?: string): UserConf
         text: {
           type: 'mrkdwn',
           text:
-            'Configure your Kollektiv instance. Your information is securely stored and'
+            'Configure your Conduit8 instance. Your information is securely stored and'
             + ' encrypted in transit and at rest. You can change your settings at any time.',
         },
       },
@@ -85,7 +85,7 @@ export function buildUserConfigModal(userId: string, channel?: string): UserConf
         hint: {
           type: 'plain_text',
           text:
-            'Get your API key from: console.anthropic.com - you will be charged for Kollektiv'
+            'Get your API key from: console.anthropic.com - you will be charged for Conduit8'
             + ' usage as per Anthropic billing policy with no additional fees.',
         },
         optional: false,
@@ -121,7 +121,7 @@ export function buildUserConfigModal(userId: string, channel?: string): UserConf
           type: 'plain_text',
           text:
             'Create a token at: github.com/settings/tokens with repo permissions you want'
-            + ' Kollektiv instance to have.',
+            + ' Conduit8 instance to have.',
         },
         optional: false,
       },
@@ -168,7 +168,7 @@ export function buildUserConfigModal(userId: string, channel?: string): UserConf
             type: 'mrkdwn',
             text:
               '🔒 *Security Notice:* Your credentials are encrypted and stored securely and'
-              + ' used to setup your private, secure, isolated Kollektiv instance connected to'
+              + ' used to setup your private, secure, isolated Conduit8 instance connected to'
               + ' Slack.',
           },
         ],

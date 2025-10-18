@@ -1,4 +1,4 @@
-import type { UUIDv4 } from '@kollektiv/core';
+import type { UUIDv4 } from '@conduit8/core';
 
 import {
   ConversationStarted,

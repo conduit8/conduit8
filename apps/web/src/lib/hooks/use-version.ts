@@ -1,8 +1,8 @@
-import type { HealthResponse } from '@kollektiv/core';
+import type { HealthResponse } from '@conduit8/core';
 
 import { useQuery } from '@tanstack/react-query';
 
-import { api } from '@web/lib/clients/kollektiv-http.client';
+import { api } from '@web/lib/clients/conduit8-http.client';
 
 import { settings } from '../settings';
 

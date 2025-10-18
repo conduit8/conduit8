@@ -15,7 +15,7 @@ const Logo1Current = ({ size = 32 }) => (
         })}
       </svg>
     </div>
-    <span className="font-brand font-bold text-foreground" style={{ fontSize: size * 0.6 }}>Kollektiv</span>
+    <span className="font-brand font-bold text-foreground" style={{ fontSize: size * 0.6 }}>Conduit8</span>
   </div>
 );
 
@@ -33,7 +33,7 @@ const Logo2Chromatic = ({ size = 32 }) => (
         <text x="12" y="24" fontFamily="Space Mono, monospace" fontSize="28" fontWeight="700" fill="black" textAnchor="middle">K</text>
       </svg>
     </div>
-    <span className="font-brand font-bold text-foreground" style={{ fontSize: size * 0.6 }}>Kollektiv</span>
+    <span className="font-brand font-bold text-foreground" style={{ fontSize: size * 0.6 }}>Conduit8</span>
   </div>
 );
 
@@ -44,7 +44,7 @@ const Logo3Terminal = ({ size = 32 }) => (
       <span className="font-mono font-bold text-background" style={{ fontSize: size * 0.8 }}>K</span>
       <div className="absolute bottom-1 right-1 bg-[rgb(251,146,60)]" style={{ width: size * 0.15, height: size * 0.15 }}></div>
     </div>
-    <span className="font-brand font-bold text-foreground" style={{ fontSize: size * 0.6 }}>Kollektiv</span>
+    <span className="font-brand font-bold text-foreground" style={{ fontSize: size * 0.6 }}>Conduit8</span>
   </div>
 );
 
@@ -61,7 +61,7 @@ const Logo4Outlined = ({ size = 32 }) => (
         <text x="12" y="24" fontFamily="Space Mono, monospace" fontSize="28" fontWeight="700" fill="white" stroke="black" strokeWidth="3" textAnchor="middle">K</text>
       </svg>
     </div>
-    <span className="font-brand font-bold text-foreground" style={{ fontSize: size * 0.6 }}>Kollektiv</span>
+    <span className="font-brand font-bold text-foreground" style={{ fontSize: size * 0.6 }}>Conduit8</span>
   </div>
 );
 
@@ -74,7 +74,7 @@ const Logo5Geometric = ({ size = 32 }) => (
         <rect x="0" y="18" width="20" height="2" fill="rgb(251, 146, 60)"/>
       </svg>
     </div>
-    <span className="font-brand font-bold text-foreground" style={{ fontSize: size * 0.6 }}>Kollektiv</span>
+    <span className="font-brand font-bold text-foreground" style={{ fontSize: size * 0.6 }}>Conduit8</span>
   </div>
 );
 
@@ -97,7 +97,7 @@ const Logo6Network = ({ size = 32 }) => (
         <line x1="12" y1="16" x2="20" y2="28" stroke="black" strokeWidth="2"/>
       </svg>
     </div>
-    <span className="font-brand font-bold text-foreground" style={{ fontSize: size * 0.6 }}>Kollektiv</span>
+    <span className="font-brand font-bold text-foreground" style={{ fontSize: size * 0.6 }}>Conduit8</span>
   </div>
 );
 
@@ -107,7 +107,7 @@ const Logo7Slash = ({ size = 32 }) => (
     <div className="relative bg-foreground rounded flex items-center justify-center px-1" style={{ height: size }}>
       <span className="font-mono font-bold text-background" style={{ fontSize: size * 0.6 }}>K/</span>
     </div>
-    <span className="font-brand font-bold text-foreground" style={{ fontSize: size * 0.6 }}>Kollektiv</span>
+    <span className="font-brand font-bold text-foreground" style={{ fontSize: size * 0.6 }}>Conduit8</span>
   </div>
 );
 
@@ -118,7 +118,7 @@ const Logo8Framed = ({ size = 32 }) => (
       <span className="font-mono font-bold text-foreground" style={{ fontSize: size * 0.6 }}>K</span>
       <div className="absolute top-0 right-0 bg-[rgb(251,146,60)]" style={{ width: size * 0.25, height: size * 0.25 }}></div>
     </div>
-    <span className="font-brand font-bold text-foreground" style={{ fontSize: size * 0.6 }}>Kollektiv</span>
+    <span className="font-brand font-bold text-foreground" style={{ fontSize: size * 0.6 }}>Conduit8</span>
   </div>
 );
 
@@ -129,7 +129,7 @@ const Logo9Minimal = ({ size = 32 }) => (
       <span className="font-mono font-bold text-foreground" style={{ fontSize: size }}>K</span>
       <div className="absolute -top-1 -right-1 bg-[rgb(251,146,60)] rounded-full" style={{ width: size * 0.3, height: size * 0.3 }}></div>
     </div>
-    <span className="font-brand font-bold text-foreground" style={{ fontSize: size * 0.6 }}>Kollektiv</span>
+    <span className="font-brand font-bold text-foreground" style={{ fontSize: size * 0.6 }}>Conduit8</span>
   </div>
 );
 
@@ -142,7 +142,7 @@ const Logo10Stacked = ({ size = 32 }) => (
         <div className="bg-[rgb(251,146,60)]" style={{ width: size * 0.8, height: size * 0.15, marginTop: 2 }}></div>
       </div>
     </div>
-    <span className="font-brand font-bold text-foreground" style={{ fontSize: size * 0.6 }}>Kollektiv</span>
+    <span className="font-brand font-bold text-foreground" style={{ fontSize: size * 0.6 }}>Conduit8</span>
   </div>
 );
 
@@ -211,7 +211,7 @@ const LogoWrapper = ({ size = 'md', variant = 'default', className = '', interac
       )}
       {showText && (
         <span className={`font-brand text-foreground font-bold tracking-wide ${config.text}`}>
-          Kollektiv
+          Conduit8
         </span>
       )}
     </div>
@@ -248,7 +248,7 @@ export const LogoAlternatives = () => {
     <div className="space-y-16 p-8">
       <div>
         <h1 className="text-3xl font-bold mb-2">Logo Alternatives</h1>
-        <p className="text-muted-foreground mb-8">10 variations exploring different directions for Kollektiv's brand identity</p>
+        <p className="text-muted-foreground mb-8">10 variations exploring different directions for Conduit8's brand identity</p>
       </div>
 
       {/* Full Logos (Icon + Text) */}
@@ -310,7 +310,7 @@ export const LogoAlternatives = () => {
         <div className="border-border bg-card rounded-lg border p-8">
           <div className="grid grid-cols-2 gap-12">
             <div className="flex flex-col items-center gap-4">
-              <span className="font-brand font-bold text-foreground text-3xl">Kollektiv</span>
+              <span className="font-brand font-bold text-foreground text-3xl">Conduit8</span>
               <p className="text-sm text-muted-foreground">Standard (Space Mono)</p>
             </div>
             <div className="flex flex-col items-center gap-4">
@@ -319,14 +319,14 @@ export const LogoAlternatives = () => {
             </div>
             <div className="flex flex-col items-center gap-4">
               <div className="flex items-center gap-1">
-                <span className="font-brand font-bold text-foreground text-3xl">Kollektiv</span>
+                <span className="font-brand font-bold text-foreground text-3xl">Conduit8</span>
                 <div className="w-2 h-2 bg-[rgb(251,146,60)] rounded-full"></div>
               </div>
               <p className="text-sm text-muted-foreground">With Orange Dot</p>
             </div>
             <div className="flex flex-col items-center gap-4">
               <div className="flex flex-col">
-                <span className="font-brand font-bold text-foreground text-3xl leading-none">Kollektiv</span>
+                <span className="font-brand font-bold text-foreground text-3xl leading-none">Conduit8</span>
                 <div className="bg-[rgb(251,146,60)] h-1 w-full mt-1"></div>
               </div>
               <p className="text-sm text-muted-foreground">With Underline</p>

@@ -2,7 +2,7 @@ import type { BetterAuthOptions } from 'better-auth';
 
 // import Stripe from 'stripe';
 // import { stripe } from '@better-auth/stripe';
-// import { STRIPE_CONFIG } from '@kollektiv/core';
+// import { STRIPE_CONFIG } from '@conduit8/core';
 import { captcha, magicLink, openAPI } from 'better-auth/plugins';
 
 import {
@@ -16,7 +16,7 @@ import { createKVStorage, createRateLimitStorage } from './storage';
 /**
  * Factory function to create BetterAuthOptions
  * When env is not provided (CLI mode), returns options with stub functions
- * When env is provided (runtime), returns fully Kollektiv options
+ * When env is provided (runtime), returns fully Conduit8 options
  */
 export function createBetterAuthOptions(
   database: NonNullable<BetterAuthOptions['database']>,

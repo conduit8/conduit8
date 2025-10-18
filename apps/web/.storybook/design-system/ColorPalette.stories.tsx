@@ -46,7 +46,7 @@ export const ColorsAndComponents: Story = {
   render: () => (
     <div className="space-y-12 p-8">
       <div>
-        <h1 className="mb-4 text-3xl font-bold">Kollektiv Color Palette</h1>
+        <h1 className="mb-4 text-3xl font-bold">Conduit8 Color Palette</h1>
         <p className="text-muted-foreground">
           A comprehensive view of all colors in our design system, organized by semantic meaning and
           visual hierarchy.

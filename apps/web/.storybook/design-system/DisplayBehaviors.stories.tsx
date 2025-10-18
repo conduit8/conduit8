@@ -138,7 +138,7 @@ export const LogoDisplayBehavior: Story = {
           <div className="rounded border-2 border-dashed border-red-300 p-4">
             <div className="flex items-center gap-2 bg-red-50 p-2">
               <div className="h-7 w-7 rounded bg-foreground"></div>
-              <span className="font-bold">Kollektiv</span>
+              <span className="font-bold">Conduit8</span>
             </div>
             <p className="mt-2 text-sm text-muted-foreground">
               Logo takes entire width, pushes other nav items down
@@ -152,7 +152,7 @@ export const LogoDisplayBehavior: Story = {
           <div className="rounded border-2 border-dashed border-green-300 p-4">
             <div className="inline-flex items-center gap-2 bg-green-50 p-2">
               <div className="h-7 w-7 rounded bg-foreground"></div>
-              <span className="font-bold">Kollektiv</span>
+              <span className="font-bold">Conduit8</span>
             </div>
             <span className="ml-4 text-sm">Other nav items can sit alongside</span>
             <p className="mt-2 text-sm text-muted-foreground">
@@ -169,7 +169,7 @@ export const LogoDisplayBehavior: Story = {
               {/* Logo with inline-flex */}
               <div className="inline-flex items-center gap-2">
                 <div className="h-7 w-7 rounded bg-foreground"></div>
-                <span className="font-bold">Kollektiv</span>
+                <span className="font-bold">Conduit8</span>
               </div>
 
               {/* Nav items */}

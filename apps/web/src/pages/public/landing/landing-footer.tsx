@@ -50,7 +50,7 @@ export const LandingFooter = () => {
 
       <div id="separator" className="hidden md:block md:py-32"></div>
 
-      {/* Large Kollektiv watermark text */}
+      {/* Large Conduit8 watermark text */}
       <div
         className="absolute inset-x-0 pointer-events-none select-none overflow-hidden hidden md:block"
         style={{ bottom: '-5vw' }}
@@ -61,7 +61,7 @@ export const LandingFooter = () => {
             style={{ fontSize: '15vw', lineHeight: '1' }}
             aria-hidden="true"
           >
-            Kollektiv
+            Conduit8
           </span>
         </div>
       </div>

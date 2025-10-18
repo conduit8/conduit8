@@ -9,6 +9,6 @@
  * Queries return DTOs/plain data, not domain models
  */
 
-// import type { TranscriptionDetail, TranscriptionListItem } from '@kollektiv/core';
+// import type { TranscriptionDetail, TranscriptionListItem } from '@conduit8/core';
 
 // import { BaseQuery } from './base';

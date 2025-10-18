@@ -26,7 +26,7 @@ const Card1MinimalCenter = () => (
   >
     <LogoIcon size={120} />
     <div className="flex flex-col items-center gap-4">
-      <h1 className="font-brand font-bold text-foreground text-7xl">Kollektiv</h1>
+      <h1 className="font-brand font-bold text-foreground text-7xl">Conduit8</h1>
       <p className="font-brand text-muted-foreground text-3xl max-w-3xl text-center">
         Turn Slack messages into{' '}
         <span className="relative inline-block">
@@ -36,7 +36,7 @@ const Card1MinimalCenter = () => (
       </p>
     </div>
     <div className="absolute bottom-8 right-8">
-      <span className="font-brand text-muted-foreground text-xl">kollektiv.sh</span>
+      <span className="font-brand text-muted-foreground text-xl">conduit8.dev</span>
     </div>
   </div>
 );
@@ -57,7 +57,7 @@ const Card2ComicPanel = () => (
       {/* Panel 2 - Main panel with logo */}
       <div className="border-r-4 border-foreground flex flex-col items-center justify-center gap-6 p-8 bg-foreground">
         <LogoIcon size={100} />
-        <h1 className="font-brand font-bold text-background text-5xl text-center">Kollektiv</h1>
+        <h1 className="font-brand font-bold text-background text-5xl text-center">Conduit8</h1>
         <div className="w-full h-1 bg-[rgb(251,146,60)]"></div>
         <p className="font-brand text-background text-xl text-center">AI that Gets Shit Done</p>
       </div>
@@ -84,7 +84,7 @@ const Card3Terminal = () => (
         <div className="w-4 h-4 rounded-full border-2 border-background"></div>
         <div className="w-4 h-4 rounded-full border-2 border-background"></div>
       </div>
-      <span className="font-brand text-background text-xl ml-4">kollektiv.sh</span>
+      <span className="font-brand text-background text-xl ml-4">conduit8.dev</span>
     </div>
 
     {/* Terminal content */}
@@ -128,7 +128,7 @@ const Card4BoldStatement = () => (
   >
     <div className="flex items-center gap-4">
       <LogoIcon size={60} />
-      <span className="font-brand font-bold text-foreground text-3xl">Kollektiv</span>
+      <span className="font-brand font-bold text-foreground text-3xl">Conduit8</span>
     </div>
 
     <div className="flex flex-col gap-6">
@@ -147,7 +147,7 @@ const Card4BoldStatement = () => (
     </div>
 
     <div className="flex justify-between items-end">
-      <span className="font-brand text-muted-foreground text-2xl">kollektiv.sh</span>
+      <span className="font-brand text-muted-foreground text-2xl">conduit8.dev</span>
       <div className="flex items-center gap-2">
         <span className="font-brand text-muted-foreground text-xl">Free to try</span>
         <div className="w-3 h-3 rounded-full bg-[rgb(251,146,60)]"></div>
@@ -175,7 +175,7 @@ const Card5SplitScreen = () => (
     {/* Right side - Light with text */}
     <div className="flex-1 flex flex-col justify-center gap-8 p-16 border-y-4 border-r-4 border-foreground">
       <div>
-        <h1 className="font-brand font-bold text-foreground text-7xl mb-4">Kollektiv</h1>
+        <h1 className="font-brand font-bold text-foreground text-7xl mb-4">Conduit8</h1>
         <div className="w-32 h-1 bg-[rgb(251,146,60)]"></div>
       </div>
 
@@ -195,7 +195,7 @@ const Card5SplitScreen = () => (
       </div>
 
       <div className="flex items-center gap-3 mt-8">
-        <span className="font-brand font-bold text-foreground text-2xl">kollektiv.sh</span>
+        <span className="font-brand font-bold text-foreground text-2xl">conduit8.dev</span>
         <div className="flex-1 h-px bg-border"></div>
       </div>
     </div>

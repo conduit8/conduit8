@@ -1,5 +1,5 @@
 /**
- * @kollektiv/core - Single entry point
+ * @conduit8/core - Single entry point
  *
  * Clean top-level exports only. Each module's index.ts
  * controls what gets exposed from that module.

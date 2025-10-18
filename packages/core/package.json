@@ -1,5 +1,5 @@
 {
-  "name": "@kollektiv/core",
+  "name": "@conduit8/core",
   "type": "module",
   "version": "1.0.0",
   "description": "Core package with shared domain models, contracts, API schemas, and HTTP client utilities",
@@ -27,7 +27,7 @@
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20250831.0",
-    "@kollektiv/eslint-config": "workspace:*",
+    "@conduit8/eslint-config": "workspace:*",
     "@types/node": "catalog:",
     "@vitest/coverage-istanbul": "catalog:",
     "eslint": "catalog:",

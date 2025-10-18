@@ -1,6 +1,6 @@
 import type { AppContext } from '@worker/entrypoints/api/types';
 
-import { APP_ROUTES, imageProxyRequestSchema } from '@kollektiv/core';
+import { APP_ROUTES, imageProxyRequestSchema } from '@conduit8/core';
 import { onError, validate } from '@worker/entrypoints/api/utils';
 import { Hono } from 'hono';
 import { HTTPException } from 'hono/http-exception';
@@ -50,7 +50,7 @@ app.get(
     try {
       const response = await fetch(url, {
         headers: {
-          'User-Agent': 'Kollektiv-Avatar-Proxy/1.0',
+          'User-Agent': 'Conduit8-Avatar-Proxy/1.0',
         },
         signal: AbortSignal.timeout(10000), // 10 second timeout
       });

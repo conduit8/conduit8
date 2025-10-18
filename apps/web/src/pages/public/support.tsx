@@ -21,12 +21,12 @@ const faqItems = [
     answer: 'Right now, MCPs come pre-connected out of the box. We\'re planning to add more MCPs and custom configuration options soon.',
   },
   {
-    question: 'Kollektiv is not responding in Slack',
-    answer: 'Make sure you\'ve mentioned @kollektiv in your message. Check that your API key is configured correctly in Settings. If the issue persists, reach out via email above.',
+    question: 'Conduit8 is not responding in Slack',
+    answer: 'Make sure you\'ve mentioned @conduit8 in your message. Check that your API key is configured correctly in Settings. If the issue persists, reach out via email above.',
   },
   {
-    question: 'How do I remove Kollektiv from my workspace?',
-    answer: 'Go to your Slack workspace settings, navigate to Apps, find Kollektiv, and click Remove App. All your data will be deleted.',
+    question: 'How do I remove Conduit8 from my workspace?',
+    answer: 'Go to your Slack workspace settings, navigate to Apps, find Conduit8, and click Remove App. All your data will be deleted.',
   },
   {
     question: 'Is my data secure?',
@@ -47,7 +47,7 @@ export const SupportPage = () => {
         <div className="text-center">
           <h1 className="mb-4">Need Help?</h1>
           <p className="text-muted-foreground">
-            Get support for Kollektiv
+            Get support for Conduit8
           </p>
         </div>
 

@@ -1,4 +1,4 @@
-import { queueMessageSchema } from '@kollektiv/core';
+import { queueMessageSchema } from '@conduit8/core';
 
 import { MessageBus } from '@worker/application/message-bus';
 

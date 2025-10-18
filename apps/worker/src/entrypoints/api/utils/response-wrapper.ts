@@ -1,4 +1,4 @@
-import type { SuccessResponse } from '@kollektiv/core';
+import type { SuccessResponse } from '@conduit8/core';
 import type { Context } from 'hono';
 
 /**

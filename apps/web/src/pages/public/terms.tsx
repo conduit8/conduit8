@@ -29,15 +29,15 @@ export const TermsPage = () => {
           {/* Introduction */}
           <section className="flex flex-col gap-sm">
             <p>
-              Welcome to Kollektiv, operated by Kollektiv LLC ("Company", "we", "us", or "our"). These
+              Welcome to Conduit8, operated by Conduit8 LLC ("Company", "we", "us", or "our"). These
               Terms of Service ("Terms") govern your use of our AI-powered Slack integration service. By
-              accessing or using Kollektiv, you agree to be bound by these Terms.
+              accessing or using Conduit8, you agree to be bound by these Terms.
             </p>
             <p>
               <strong>Age Requirement:</strong>
               {' '}
               You must be at least 18 years old to use this
-              service. By using Kollektiv, you represent and warrant that you are 18 years of age or
+              service. By using Conduit8, you represent and warrant that you are 18 years of age or
               older.
             </p>
           </section>
@@ -48,7 +48,7 @@ export const TermsPage = () => {
             <div className="flex flex-col gap-sm">
               <h3 className="text-xl font-medium">What We Provide</h3>
               <p>
-                Kollektiv provides AI-powered assistance through Slack integration. Users can interact
+                Conduit8 provides AI-powered assistance through Slack integration. Users can interact
                 with Claude Code directly in their Slack workspace to automate tasks, fix bugs, and
                 get development assistance. Our service brings Claude's capabilities to your team collaboration.
               </p>
@@ -146,7 +146,7 @@ export const TermsPage = () => {
               <h3 className="text-xl font-medium">Your Content</h3>
               <p>
                 You retain all ownership rights to any code, data, or other content you process through
-                Kollektiv. We do not claim any ownership of your content. The AI-generated responses and
+                Conduit8. We do not claim any ownership of your content. The AI-generated responses and
                 code produced from your prompts belong to you.
               </p>
 
@@ -159,8 +159,8 @@ export const TermsPage = () => {
 
               <h3 className="text-xl font-medium">Our Technology</h3>
               <p>
-                The Kollektiv service, including our website, software, and technology (excluding your
-                content and AI-generated responses), remains the property of Kollektiv LLC. You may not
+                The Conduit8 service, including our website, software, and technology (excluding your
+                content and AI-generated responses), remains the property of Conduit8 LLC. You may not
                 copy, modify, or reverse engineer any part of our service.
               </p>
             </div>
@@ -172,7 +172,7 @@ export const TermsPage = () => {
             <div className="flex flex-col gap-sm">
               <h3 className="text-xl font-medium">Paid Service</h3>
               <p>
-                Kollektiv offers a paid subscription service. You can sign up for a monthly or yearly
+                Conduit8 offers a paid subscription service. You can sign up for a monthly or yearly
                 subscription that will automatically renew. You can cancel your subscription at any
                 time through your account settings. Subscriptions cancelled mid-period will remain
                 active until the end of the current billing period.
@@ -233,7 +233,7 @@ export const TermsPage = () => {
             <h2 className="text-2xl font-bold">7. Indemnification</h2>
             <div className="flex flex-col gap-sm">
               <p>
-                You shall defend, indemnify, and hold harmless Kollektiv, Kollektiv LLC, its affiliates
+                You shall defend, indemnify, and hold harmless Conduit8, Conduit8 LLC, its affiliates
                 and each of its, and its affiliates employees, contractors, directors, suppliers and
                 representatives from all liabilities, losses, claims, and expenses, including
                 reasonable attorneys' fees, that arise from or relate to (i) your use or misuse of,
@@ -357,7 +357,7 @@ export const TermsPage = () => {
                 <br />
                 <strong>Company:</strong>
                 {' '}
-                Kollektiv LLC
+                Conduit8 LLC
                 <br />
                 <strong>Address:</strong>
                 {' '}

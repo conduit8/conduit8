@@ -1,4 +1,4 @@
-import { getApiRoute } from '@kollektiv/core';
+import { getApiRoute } from '@conduit8/core';
 
 /**
  * Builds a proxy URL for external images

@@ -2,7 +2,7 @@
  * Base message types for our domain-driven message bus
  * These define the contract for all messages in the system
  */
-import type { Timestamptz, UUIDv4 } from '@kollektiv/core';
+import type { Timestamptz, UUIDv4 } from '@conduit8/core';
 /**
  * Commands represent intent - "do this"
  * - Must have exactly one handler

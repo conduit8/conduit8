@@ -38,7 +38,7 @@ export const OAuthResultPage = ({ status, platform, workspaceName, teamId, botUs
             {isSuccess
               ? (
                   <>
-                    Kollektiv has been installed to
+                    Conduit8 has been installed to
                     {' '}
                     <span className="font-medium">{workspaceName}</span>
                     {' '}
@@ -46,7 +46,7 @@ export const OAuthResultPage = ({ status, platform, workspaceName, teamId, botUs
                   </>
                 )
               : (
-                  `We couldn't add Kollektiv to your workspace - try reinstalling. If the problem persists, contact support.`
+                  `We couldn't add Conduit8 to your workspace - try reinstalling. If the problem persists, contact support.`
                 )}
           </CardDescription>
         </CardHeader>
@@ -55,9 +55,9 @@ export const OAuthResultPage = ({ status, platform, workspaceName, teamId, botUs
             <div className="rounded-md bg-muted p-4">
               <h4 className="mb-3 text-center font-medium">What's next?</h4>
               <div className="space-y-2 text-sm text-muted-foreground">
-                <p>1. Find Kollektiv bot in your Apps</p>
+                <p>1. Find Conduit8 bot in your Apps</p>
                 <p>2. Send a direct message or click "New Chat"</p>
-                <p>3. Use Kollektiv on the go!</p>
+                <p>3. Use Conduit8 on the go!</p>
               </div>
             </div>
           )}
@@ -69,7 +69,7 @@ export const OAuthResultPage = ({ status, platform, workspaceName, teamId, botUs
                       ? `slack://user?team=${teamId}&id=${botUserId}`
                       : "slack://open"
                     }>
-                      Open DM with Kollektiv
+                      Open DM with Conduit8
                     </a>
                   </Button>
                 )

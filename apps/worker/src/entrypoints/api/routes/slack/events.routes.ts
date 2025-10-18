@@ -1,7 +1,7 @@
-import type { SlackEventPayload } from '@kollektiv/core';
+import type { SlackEventPayload } from '@conduit8/core';
 import type { BaseCommand } from '@worker/domain/messages';
 
-import { APP_ROUTES } from '@kollektiv/core';
+import { APP_ROUTES } from '@conduit8/core';
 import { Hono } from 'hono';
 
 import type { AppContext } from '@worker/entrypoints/api/types/context';
@@ -91,8 +91,8 @@ function createCommandFromSlackEvent(outerEvent: Exclude<SlackEventPayload, { ty
     }
 
     // TODO: Handle app_mention event - this is a bigger feature that would allow
-    // Kollektiv to work in different contexts (channels, threads) when @mentioned.
-    // Currently Kollektiv only responds to direct messages and assistant threads.
+    // Conduit8 to work in different contexts (channels, threads) when @mentioned.
+    // Currently Conduit8 only responds to direct messages and assistant threads.
     // See: https://api.slack.com/events/app_mention
     // case 'app_mention': {
     //   const userId = outerEvent.event.user;
