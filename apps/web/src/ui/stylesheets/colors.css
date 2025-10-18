@@ -1,0 +1,408 @@
+@import '@radix-ui/colors/slate.css';
+@import '@radix-ui/colors/slate-dark.css';
+@import '@radix-ui/colors/slate-alpha.css';
+@import '@radix-ui/colors/slate-dark-alpha.css';
+@import '@radix-ui/colors/indigo.css';
+@import '@radix-ui/colors/indigo-dark.css';
+@import '@radix-ui/colors/indigo-alpha.css';
+@import '@radix-ui/colors/indigo-dark-alpha.css';
+@import '@radix-ui/colors/blue.css';
+@import '@radix-ui/colors/blue-dark.css';
+@import '@radix-ui/colors/green.css';
+@import '@radix-ui/colors/green-dark.css';
+@import '@radix-ui/colors/green-alpha.css';
+@import '@radix-ui/colors/green-dark-alpha.css';
+@import '@radix-ui/colors/amber.css';
+@import '@radix-ui/colors/amber-dark.css';
+@import '@radix-ui/colors/amber-alpha.css';
+@import '@radix-ui/colors/amber-dark-alpha.css';
+@import '@radix-ui/colors/gray.css';
+@import '@radix-ui/colors/gray-dark.css';
+@import '@radix-ui/colors/gray-alpha.css';
+@import '@radix-ui/colors/gray-dark-alpha.css';
+@import '@radix-ui/colors/orange.css';
+@import '@radix-ui/colors/orange-dark.css';
+@import '@radix-ui/colors/orange-alpha.css';
+@import '@radix-ui/colors/orange-dark-alpha.css';
+@import '@radix-ui/colors/red.css';
+@import '@radix-ui/colors/red-dark.css';
+
+/*
+ * ⚠️  SHADCN/UI DEPENDENCY - Token names below are REQUIRED by ShadCN components
+ *
+ * Design Token System - Raw tokens defined OUTSIDE CSS layers
+ *
+ * Light/Dark Mode Architecture:
+ * 1. All custom design tokens (colors, fonts, etc.) defined in :root
+ * 2. Tokens mapped to Tailwind CSS classes via @theme inline
+ * 3. Dark mode uses .dark class to override only necessary :root variables
+ * 4. Non-themeable tokens (like brand colors) stay consistent across modes
+ */
+
+/* === LIGHT MODE (DEFAULT) === */
+/* Raw CSS custom properties - these are the source of truth for all design tokens */
+:root {
+  /* === STRUCTURAL HIERARCHY ===
+     * Layer Stack (from back to front):
+     *
+     * Layer 0: Background (--background)
+     *   └─ Base canvas for the entire application
+     *   └─ Used: body, main content areas, Dialog content
+     *
+     * Layer 1: Surface (--surface)
+     *   └─ Primary content containers
+     *   └─ Used: Card, Sidebar base
+     *
+     * Layer 2: Popover (--popover)
+     *   └─ Floating overlays and menus
+     *   └─ Used: DropdownMenu, Tooltip, Select options
+     *
+     * Interactive States (additive):
+     *   └─ Hover: --surface-hover
+     *   └─ Active: --surface-active
+     * --------------------------------- */
+  /* BASE SURFACES COLORS */
+  --background: var(--gray-1); /* Layer 0: Main canvas */
+  --surface: var(--gray-2); /* Layer 1: Cards, panels */
+  --sidebar: var(--gray-2); /* Layer 1: Sidebar (same as surface) */
+  --popover: var(--gray-3); /* Layer 2: Floating elements */
+  --panel-translucent: var(--gray-a2); /* Semi-transparent panels */
+  --overlay: var(--gray-a8); /* Modal overlays */
+
+  /* BRAND COLORS - Black/white with orange accent */
+  --accent: var(--orange-9); /* Orange accent for contrast */
+  --accent-secondary: var(--red-9);
+
+  /* SEMANTIC COLORS */
+  --success: var(--green-9);
+  --destructive: var(--red-9);
+  --info: var(--blue-9);
+  --warning: var(--amber-9);
+
+  /* TEXT FOREGROUND COLORS */
+  --foreground: var(--gray-12); /* Main text color */
+  --secondary-foreground: var(--gray-12); /* Dark text on secondary buttons */
+  --accent-foreground: var(--gray-1); /* Light text */
+  --primary-foreground: var(--gray-1); /* Light text on primary buttons */
+  --destructive-foreground: var(--gray-1);
+  --success-foreground: var(--green-12);
+
+  /* LOW CONTRAST ON COLOR BACKGROUND */
+  --destructive-foreground-low-contrast: var(--red-5);
+  --accent-foreground-low-contrast: var(--orange-5); /* Orange low contrast */
+  --success-foreground-low-contrast: var(--green-5); /* More muted text on primary buttons */
+  --warning-foreground-low-contrast: var(--amber-5); /* More muted text on primary buttons */
+  --info-foreground-low-contrast: var(--blue-5); /* More muted text on primary buttons */
+
+  /* MUTED TEXT FOREGROUND COLOR (step 11 for contrast) */
+  --muted-foreground: var(--gray-11);
+  --secondary-foreground-muted: var(--gray-11);
+  --success-muted-foreground: var(--green-11);
+  --destructive-muted-foreground: var(--red-11);
+  --info-muted-foreground: var(--blue-11);
+  --warning-muted-foreground: var(--amber-11);
+  --accent-muted-foreground: var(--orange-11); /* Orange muted text */
+
+  /* HOVER STATE (1 step darker then solid)*/
+  --background-hover: var(--gray-3); /* step 2 is too dim for hover */
+  --surface-hover: var(--gray-4); /* Hover state */
+  --accent-hover: var(--orange-10); /* Accent button hover */
+  --destructive-hover: var(--red-10); /* Already defined above */
+  --success-hover: var(--green-10); /* Already defined above */
+  --warning-hover: var(--amber-10); /* Warning button hover */
+  --info-hover: var(--blue-10); /* Info button hover */
+
+  /* ACTIVE STATE (1 step darker then hover) */
+  --background-active: var(--gray-4); /* */
+  --surface-active: var(--gray-5); /* Active/pressed */
+  --accent-active: var(--orange-7); /* Accent button active */
+  --destructive-active: var(--red-7); /* Already defined above */
+  --success-active: var(--green-7); /* Already defined above */
+
+  /* TRANSCRIPT SEGMENT STATES */
+  --segment-hover-bg: var(--gray-3); /* Subtle hover background */
+  --segment-active-bg: var(--gray-4); /* Active/clicked background - monochrome */
+  --segment-active-text: var(--gray-12); /* Active text color - high contrast */
+
+  /* MUTED SOLID COLORS (step 3 for backgrounds) */
+  --muted: var(--gray-3);
+  --accent-muted: var(--orange-3); /* Orange muted background */
+  --success-muted: var(--green-3);
+  --destructive-muted: var(--red-3);
+  --info-muted: var(--blue-3);
+  --warning-muted: var(--amber-3);
+
+  /* MUTED HOVER COLORS (step 4 - 1 step darker) */
+  --success-muted-hover: var(--green-4);
+  --destructive-muted-hover: var(--red-4);
+  --info-muted-hover: var(--blue-4);
+  --warning-muted-hover: var(--amber-4);
+  --accent-muted-hover: var(--orange-4); /* Orange muted hover */
+
+  /* BORDER COLORS - Stronger for graphic novel aesthetic */
+  /* DEFAULT BORDER COLOR (step 9 - very pronounced)*/
+  /* HOVERED BORDER COLOR (step 11)*/
+  /* FOCUSED/ACTIVE BORDER COLOR (step 12)*/
+  --border-non-interactive: var(--gray-9); /* Bumped to 9 for max contrast */
+  --border-interactive: var(--gray-11); /* Bumped to 11 */
+  --border-interactive-strong: var(--gray-12); /* Bumped to 12 (pure black) */
+  --border: var(--border-non-interactive);
+
+  /* DESTRUCTIVE BORDER COLORS (for error states) */
+  --border-destructive-non-interactive: var(--red-6);
+  --border-destructive-interactive: var(--red-8);
+  --border-destructive-interactive-strong: var(--red-9);
+
+  /* UI COLOR MAPPINGS */
+  --primary: var(--accent); /* Bright green from palette */
+  --secondary: var(--gray-5); /* Light blue from palette */
+  --sidebar-primary: var(--primary);
+  --sidebar-primary-foreground: var(--primary-foreground);
+  --sidebar-accent: var(--accent);
+  --sidebar-accent-foreground: var(--accent-foreground);
+  --ring: var(--accent); /* Use accent color for focus rings */
+  --sidebar-ring: var(--accent);
+  --card-foreground: var(--foreground);
+  --popover-foreground: var(--foreground);
+  --sidebar-foreground: var(--foreground);
+  --sidebar-border: var(--border-non-interactive);
+  --input: var(--border-interactive);
+
+  /*CHART COLORS */
+  --chart-1: var(--blue-9); /* Primary blue - great for main data */
+  --chart-2: var(--amber-9); /* Secondary data */
+  --chart-3: var(--green-9); /* Success/positive metrics */
+  --chart-4: var(--red-9); /* Something else */
+  --chart-5: var(--red-9); /* Error/negative metrics */
+
+  /* === LIGHT MODE DESIGN TOKENS === */
+  /*Original shadcn design tokens. I no longer need it but keeping for history.*/
+  /* Core Layout - ⚠️ SHADCN REQUIRED TOKEN NAMES */
+  /*--background: var(--background);*/
+  /*--foreground: oklch(0.13 0.028 261.692);*/
+  /*--card: oklch(1 0 0);*/
+  /*--card-foreground: var(--foreground);*/
+  /*--popover: oklch(1 0 0);*/
+  /*--popover-foreground: var(--foreground);*/
+  /*--primary: oklch(0.21 0.034 264.665);*/
+  /*--primary-foreground: oklch(0.985 0.002 247.839);*/
+  /*--secondary: oklch(0.967 0.003 264.542);*/
+  /*--secondary-foreground: oklch(0.21 0.034 264.665);*/
+  /*--muted: oklch(0.967 0.003 264.542);*/
+  /*--muted-foreground: oklch(0.551 0.027 264.364);*/
+  /*--accent: oklch(0.967 0.003 264.542);*/
+  /*--accent-foreground: oklch(0.21 0.034 264.665);*/
+  /*--destructive: oklch(0.577 0.245 27.325);*/
+  /*--border: oklch(0.928 0.006 264.531);*/
+  /*--input: oklch(0.928 0.006 264.531);*/
+  /*--ring: var(--orange-a9);*/
+  /*--ring: oklch(0.707 0.022 261.325);*/
+  /*--sidebar: oklch(0.985 0.002 247.839);*/
+  /*--sidebar-foreground: oklch(0.13 0.028 261.692);*/
+  /*--sidebar-primary: oklch(0.21 0.034 264.665);*/
+  /*--sidebar-primary-foreground: oklch(0.985 0.002 247.839);*/
+  /*--sidebar-accent: var(--accent);*/
+  /*--sidebar-accent-foreground: var(--accent-foreground);*/
+  /*--sidebar-border: oklch(0.928 0.006 264.531);*/
+  /*--sidebar-ring: oklch(0.707 0.022 261.325);*/
+  /*--chart-1: oklch(0.646 0.222 41.116);*/
+  /*--chart-2: oklch(0.6 0.118 184.704);*/
+  /*--chart-3: oklch(0.398 0.07 227.392);*/
+  /*--chart-4: oklch(0.828 0.189 84.429);*/
+  /*--chart-5: oklch(0.769 0.188 70.08);*/
+}
+
+/* === TAILWIND THEME MAPPING === */
+/* Map raw CSS tokens to Tailwind utility classes */
+/* This enables: bg-primary, text-foreground, rounded-lg, etc. */
+/* ⚠️ SHADCN REQUIRED MAPPINGS - DO NOT RENAME --color-* tokens */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-card: var(--surface);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--background);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-accent-foreground-muted: var(--accent-foreground-low-contrast);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent-secondary: var(--accent-secondary);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-success-foreground: var(--primary-foreground);
+  --color-success-hover: var(--success-hover);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  /*    Additional custom tokens */
+  /*INTERACTIVE STATES*/
+  --color-destructive-hover: var(--destructive-hover);
+  --color-background-hover: var(--background-hover);
+  --color-surface-hover: var(--surface-hover); /* Make existing token available */
+  --color-surface-active: var(--surface-active);
+
+  /*    States */
+  --color-success: var(--success);
+  --color-info: var(--info);
+  --color-warning: var(--warning);
+  --color-error: var(--destructive);
+
+  /*    Low contrast foreground variants */
+  --color-accent-foreground-low-contrast: var(--accent-foreground-low-contrast);
+  --color-destructive-foreground-low-contrast: var(--destructive-foreground-low-contrast);
+  --color-success-foreground-low-contrast: var(--success-foreground-low-contrast);
+  --color-warning-foreground-low-contrast: var(--warning-foreground-low-contrast);
+  --color-info-foreground-low-contrast: var(--info-foreground-low-contrast);
+
+  /*    True muted foreground (step 11 for muted backgrounds) */
+  --color-accent-muted-foreground: var(--accent-muted-foreground);
+  --color-destructive-muted-foreground: var(--destructive-muted-foreground);
+  --color-success-muted-foreground: var(--success-muted-foreground);
+  --color-warning-muted-foreground: var(--warning-muted-foreground);
+  --color-info-muted-foreground: var(--info-muted-foreground);
+
+  /*    Hover states for semantic colors */
+  --color-accent-hover: var(--accent-hover);
+  --color-success-hover: var(--success-hover);
+  --color-warning-hover: var(--warning-hover);
+  --color-info-hover: var(--info-hover);
+
+  /*    Muted backgrounds */
+  --color-accent-muted: var(--accent-muted);
+  --color-success-muted: var(--success-muted);
+  --color-destructive-muted: var(--destructive-muted);
+  --color-warning-muted: var(--warning-muted);
+  --color-info-muted: var(--info-muted);
+
+  /*    Muted background hovers */
+  --color-accent-muted-hover: var(--accent-muted-hover);
+  --color-success-muted-hover: var(--success-muted-hover);
+  --color-destructive-muted-hover: var(--destructive-muted-hover);
+  --color-warning-muted-hover: var(--warning-muted-hover);
+  --color-info-muted-hover: var(--info-muted-hover);
+
+  /*    Keycap colors */
+  --color-keycap-edge: var(--keycap-edge);
+  --color-keycap-top: var(--keycap-top);
+  --color-keycap-shadow: var(--keycap-shadow);
+
+  /*    Badge backgrounds (translucent) */
+  --color-gray-a6: var(--gray-a6);
+  --color-green-a6: var(--green-a6);
+  --color-amber-a6: var(--amber-a6);
+  --color-red-a6: var(--red-a6);
+  --color-blue-a6: var(--blue-a6);
+
+  /*    Badge borders (step 6 - subtle non-interactive) */
+  --color-gray-6: var(--gray-6);
+  --color-green-6: var(--green-6);
+  --color-amber-6: var(--amber-6);
+  --color-red-6: var(--red-6);
+  --color-blue-6: var(--blue-6);
+
+  /*    Badge text (step 12 - high contrast) */
+  --color-gray-12: var(--gray-12);
+  --color-green-12: var(--green-12);
+  --color-amber-12: var(--amber-12);
+  --color-red-12: var(--red-12);
+  --color-blue-12: var(--blue-12);
+
+  /*    Transcript segment states */
+  --color-segment-hover-bg: var(--segment-hover-bg);
+  --color-segment-active-bg: var(--segment-active-bg);
+  --color-segment-active-text: var(--segment-active-text);
+
+  /*    Overlay and translucent panels */
+  --color-overlay: var(--overlay);
+  --color-panel-translucent: var(--panel-translucent);
+
+  /*    Border states for interactive elements */
+  --color-border-non-interactive: var(--border-non-interactive);
+  --color-border-interactive: var(--border-interactive);
+  --color-border-interactive-strong: var(--border-interactive-strong);
+
+  /*    Destructive border states for error elements */
+  --color-border-destructive-non-interactive: var(--border-destructive-non-interactive);
+  --color-border-destructive-interactive: var(--border-destructive-interactive);
+  --color-border-destructive-interactive-strong: var(--border-destructive-interactive-strong);
+}
+
+/*!* === DARK MODE OVERRIDES === *!*/
+/*!* Shadcn uses manual dark color overrides, since I am using Radix colors
+- I do not need this anymore *!*/
+/*!* ⚠️ SHADCN REQUIRED TOKEN NAMES - DO NOT RENAME *!*/
+.dark {
+  /*--background: var(--slate-1);*/
+  /*--foreground: oklch(0.985 0.002 247.839);*/
+  /*--card: oklch(0.21 0.034 264.665);*/
+  /*--card-foreground: oklch(0.985 0.002 247.839);*/
+  /*--popover: oklch(0.21 0.034 264.665);*/
+  /*--popover-foreground: oklch(0.985 0.002 247.839);*/
+  /*--primary: oklch(0.928 0.006 264.531);*/
+  /*--primary-foreground: oklch(0.21 0.034 264.665);*/
+  /*--secondary: oklch(0.278 0.033 256.848);*/
+  /*--secondary-foreground: oklch(0.985 0.002 247.839);*/
+  /*--muted: oklch(0.278 0.033 256.848);*/
+  /*--muted-foreground: oklch(0.707 0.022 261.325);*/
+  /*--accent: oklch(0.278 0.033 256.848);*/
+  /*--accent-foreground: oklch(0.985 0.002 247.839);*/
+  /*--destructive: oklch(0.704 0.191 22.216);*/
+  /*--border: oklch(1 0 0 / 10%);*/
+  /*--input: oklch(1 0 0 / 15%);*/
+  /*--ring: oklch(0.551 0.027 264.364);*/
+  /*--sidebar: oklch(0.21 0.034 264.665);*/
+  /*--sidebar-foreground: oklch(0.985 0.002 247.839);*/
+  /*--sidebar-primary: oklch(0.488 0.243 264.376);*/
+  /*--sidebar-primary-foreground: oklch(0.985 0.002 247.839);*/
+  /*--sidebar-accent: oklch(0.278 0.033 256.848);*/
+  /*--sidebar-accent-foreground: oklch(0.985 0.002 247.839);*/
+  /*--sidebar-border: oklch(1 0 0 / 10%);*/
+  /*--sidebar-ring: oklch(0.551 0.027 264.364);*/
+  /*--chart-1: oklch(0.488 0.243 264.376);*/
+  /*--chart-2: oklch(0.696 0.17 162.48);*/
+  /*--chart-3: oklch(0.769 0.188 70.08);*/
+  /*--chart-4: oklch(0.627 0.265 303.9);*/
+  /*--chart-5: oklch(0.645 0.246 16.439);*/
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+
+  /* Text selection styling */
+  ::selection {
+    background-color: var(--accent-muted);
+    color: var(--foreground);
+  }
+
+  ::-moz-selection {
+    background-color: var(--accent-muted);
+    color: var(--foreground);
+  }
+}

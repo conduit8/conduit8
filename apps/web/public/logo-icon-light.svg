@@ -1,0 +1,66 @@
+<!-- Light mode logo: Black square with white K (filled version matching social cards) -->
+<svg width="100" height="100" viewBox="-1 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Black rounded square background -->
+  <rect x="-1" y="0" width="10" height="10" rx="0.8" fill="#202020"/>
+
+  <!-- White pixelated K (8x10 grid, fills space) -->
+  <!-- Row 1 -->
+  <rect x="-0.01" y="-0.01" width="1.02" height="1.02" fill="#fcfcfc"/>
+  <rect x="0.99" y="-0.01" width="1.02" height="1.02" fill="#fcfcfc"/>
+  <rect x="5.99" y="-0.01" width="1.02" height="1.02" fill="#fcfcfc"/>
+  <rect x="6.99" y="-0.01" width="1.02" height="1.02" fill="#fcfcfc"/>
+
+  <!-- Row 2 -->
+  <rect x="-0.01" y="0.99" width="1.02" height="1.02" fill="#fcfcfc"/>
+  <rect x="0.99" y="0.99" width="1.02" height="1.02" fill="#fcfcfc"/>
+  <rect x="5.99" y="0.99" width="1.02" height="1.02" fill="#fcfcfc"/>
+  <rect x="6.99" y="0.99" width="1.02" height="1.02" fill="#fcfcfc"/>
+
+  <!-- Row 3 -->
+  <rect x="-0.01" y="1.99" width="1.02" height="1.02" fill="#fcfcfc"/>
+  <rect x="0.99" y="1.99" width="1.02" height="1.02" fill="#fcfcfc"/>
+  <rect x="3.99" y="1.99" width="1.02" height="1.02" fill="#fcfcfc"/>
+  <rect x="4.99" y="1.99" width="1.02" height="1.02" fill="#fcfcfc"/>
+
+  <!-- Row 4 -->
+  <rect x="-0.01" y="2.99" width="1.02" height="1.02" fill="#fcfcfc"/>
+  <rect x="0.99" y="2.99" width="1.02" height="1.02" fill="#fcfcfc"/>
+  <rect x="3.99" y="2.99" width="1.02" height="1.02" fill="#fcfcfc"/>
+  <rect x="4.99" y="2.99" width="1.02" height="1.02" fill="#fcfcfc"/>
+
+  <!-- Row 5 -->
+  <rect x="-0.01" y="3.99" width="1.02" height="1.02" fill="#fcfcfc"/>
+  <rect x="0.99" y="3.99" width="1.02" height="1.02" fill="#fcfcfc"/>
+  <rect x="1.99" y="3.99" width="1.02" height="1.02" fill="#fcfcfc"/>
+  <rect x="2.99" y="3.99" width="1.02" height="1.02" fill="#fcfcfc"/>
+
+  <!-- Row 6 -->
+  <rect x="-0.01" y="4.99" width="1.02" height="1.02" fill="#fcfcfc"/>
+  <rect x="0.99" y="4.99" width="1.02" height="1.02" fill="#fcfcfc"/>
+  <rect x="1.99" y="4.99" width="1.02" height="1.02" fill="#fcfcfc"/>
+  <rect x="2.99" y="4.99" width="1.02" height="1.02" fill="#fcfcfc"/>
+
+  <!-- Row 7 -->
+  <rect x="-0.01" y="5.99" width="1.02" height="1.02" fill="#fcfcfc"/>
+  <rect x="0.99" y="5.99" width="1.02" height="1.02" fill="#fcfcfc"/>
+  <rect x="3.99" y="5.99" width="1.02" height="1.02" fill="#fcfcfc"/>
+  <rect x="4.99" y="5.99" width="1.02" height="1.02" fill="#fcfcfc"/>
+
+  <!-- Row 8 -->
+  <rect x="-0.01" y="6.99" width="1.02" height="1.02" fill="#fcfcfc"/>
+  <rect x="0.99" y="6.99" width="1.02" height="1.02" fill="#fcfcfc"/>
+  <rect x="3.99" y="6.99" width="1.02" height="1.02" fill="#fcfcfc"/>
+  <rect x="4.99" y="6.99" width="1.02" height="1.02" fill="#fcfcfc"/>
+
+  <!-- Row 9 -->
+  <rect x="-0.01" y="7.99" width="1.02" height="1.02" fill="#fcfcfc"/>
+  <rect x="0.99" y="7.99" width="1.02" height="1.02" fill="#fcfcfc"/>
+  <rect x="5.99" y="7.99" width="1.02" height="1.02" fill="#fcfcfc"/>
+  <rect x="6.99" y="7.99" width="1.02" height="1.02" fill="#fcfcfc"/>
+
+  <!-- Row 10 -->
+  <rect x="-0.01" y="8.99" width="1.02" height="1.02" fill="#fcfcfc"/>
+  <rect x="0.99" y="8.99" width="1.02" height="1.02" fill="#fcfcfc"/>
+  <rect x="5.99" y="8.99" width="1.02" height="1.02" fill="#fcfcfc"/>
+  <rect x="6.99" y="8.99" width="1.02" height="1.02" fill="#fcfcfc"/>
+</svg>

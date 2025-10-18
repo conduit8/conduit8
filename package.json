@@ -1,0 +1,27 @@
+{
+  "name": "kollektiv",
+  "type": "module",
+  "description": "Kollektiv - AI agent for product teams",
+  "version": "1.0.0",
+  "private": true,
+  "packageManager": "pnpm@10.18.3",
+  "scripts": {
+    "typecheck": "pnpm run -r --stream typecheck",
+    "cf-typegen": "pnpm --filter @kollektiv/worker cf-typegen",
+    "dev": "pnpm run -r --parallel --stream dev",
+    "build:pkg": "pnpm --filter @kollektiv/core run build",
+    "build": "pnpm --filter @kollektiv/core build && pnpm --filter @kollektiv/worker build",
+    "build:prod": "pnpm --filter @kollektiv/core build && pnpm --filter @kollektiv/worker build:prod",
+    "test": "pnpm run -r --stream --parallel test",
+    "test:unit": "pnpm --filter @kollektiv/worker test:unit",
+    "test:integration": "pnpm --filter @kollektiv/worker test:integration",
+    "test:web": "pnpm --filter @kollektiv/web test",
+    "lint": "pnpm run -r --stream --parallel lint",
+    "lint:fix": "pnpm run -r --stream --parallel lint:fix",
+    "deploy": "pnpm --filter @kollektiv/worker run deploy",
+    "deploy:prod": "echo '⚠️  WARNING: Deploying to PRODUCTION! Use CI/CD instead.' && pnpm --filter @kollektiv/worker run deploy:prod"
+  },
+  "lint-staged": {
+    "**": "npx -y eslint --quiet --fix"
+  }
+}

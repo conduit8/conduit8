@@ -1,0 +1,1 @@
+ALTER TABLE `platform_users` ADD `firecrawl_key` text;

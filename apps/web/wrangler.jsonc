@@ -1,0 +1,35 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "kollektiv-web",
+  "compatibility_date": "2025-09-01",
+  "compatibility_flags": ["nodejs_compat"],
+
+  "env": {
+    "preview": {
+      "name": "kollektiv-web-preview",
+      "routes": [
+        {
+          "pattern": "preview.kollektiv.sh",
+          "custom_domain": true
+        }
+      ],
+      "assets": {
+        "directory": "./dist",
+        "not_found_handling": "single-page-application"
+      }
+    },
+    "prod": {
+      "name": "kollektiv-web-prod",
+      "routes": [
+        {
+          "pattern": "kollektiv.sh",
+          "custom_domain": true
+        }
+      ],
+      "assets": {
+        "directory": "./dist",
+        "not_found_handling": "single-page-application"
+      }
+    }
+  }
+}

@@ -1,0 +1,152 @@
+/**
+ * content-container
+ *
+ * Standard container with consistent horizontal padding.
+ * ! - uses built-in max-width defined by Tailwind.
+ * Can be used on any layout element that needs standard spacing
+ */
+@utility container-responsive {
+  @apply container mx-auto p-4 md:px-8;
+}
+
+/**
+ * content-container-full-width
+ *
+ * Full-width container with consistent horizontal padding.
+ * ! - overrides the built-in max-width defined by Tailwind.
+ * Can be used on any layout element that needs standard spacing
+ */
+@utility container-full-width {
+  @apply mx-auto w-full;
+}
+
+/**
+ * content-fixed
+ *
+ * Simple fixed-width container with consistent padding.
+ * - Always uses max-w-6xl regardless of screen size
+ * - Provides consistent horizontal padding
+ * - Centers content with mx-auto
+ * - No responsive breakpoints or container behavior
+ */
+@utility container-max-w-4xl {
+  @apply w-full max-w-4xl mx-auto p-4 md:px-8;
+}
+
+@utility container-max-w-5xl {
+  @apply w-full max-w-5xl mx-auto p-4 md:px-8;
+}
+
+@utility container-max-w-6xl {
+  @apply w-full max-w-6xl mx-auto p-4 md:px-8;
+}
+
+/*
+===== SPACING SYSTEM =====
+*/
+
+/* TODO: Refactor spacing system to use Radix Themes 9-step scale
+ *
+ * Current system has inconsistent perceptual jumps (8px → 16px = 100% increase)
+ * Radix scale provides consistent perceptual increments:
+ *
+ * Scale values:
+ * 1 = 4px   (smallest gap - inline elements)
+ * 2 = 8px   (form label to input)
+ * 3 = 12px  (between related items)
+ * 4 = 16px  (card padding, form groups)
+ * 5 = 24px  (between cards)
+ * 6 = 32px  (section spacing)
+ * 7 = 40px  (large sections)
+ * 8 = 48px  (hero sections)
+ * 9 = 64px  (maximum spacing)
+ *
+ * Where to apply:
+ * 1. Gap utilities (space BETWEEN elements)
+ * 2. Padding utilities (space INSIDE elements)
+ * 3. Margin utilities (space AROUND elements)
+ * 4. Size utilities (icon sizes, button heights - NOT content widths)
+ *
+ * Implementation:
+ * - Replace gap-sm/md/lg/xl with gap-1 through gap-9
+ * - Create matching p-1 through p-9 for padding
+ * - Create size-1 through size-9 for element sizing
+ * - Use same scale consistently across all spacing properties
+ *
+ * Benefits:
+ * - Consistent with Radix Themes
+ * - Perceptually uniform scale
+ * - Easier decision making (next size is always noticeably different)
+ */
+
+/* Form elements - input fields, labels, form sections */
+@utility gap-sm {
+  @apply gap-2; /* 8px - between label and input, between form fields */
+}
+
+/* Card internals - card title to content, list items */
+@utility gap-md {
+  @apply gap-4; /* 16px - inside cards, between related content blocks */
+}
+
+/* Layout sections - between cards, between sidebar items */
+@utility gap-lg {
+  @apply gap-6; /* 24px - between major content blocks */
+}
+
+/* Page regions - hero to features, between page sections */
+@utility gap-xl {
+  @apply gap-8; /* 32px - between distinct page areas */
+}
+
+/* Internal padding (cushioning inside containers) */
+@utility section-padding {
+  @apply py-16; /* Consistent section padding */
+}
+
+@utility card-padding {
+  @apply p-6; /* Standard card internal space */
+}
+
+/* Shimmer animation for premium gradient */
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@utility animate-shimmer {
+  animation: shimmer 3s ease-in-out infinite;
+}
+
+/* Slide up animation for text cycling */
+@keyframes slide-up {
+  from {
+    transform: translateY(20%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@utility animate-slide-up {
+  animation: slide-up 100ms ease-out;
+}
+
+/* Blog typography utilities */
+@utility prose-drop-cap {
+  & > p:first-of-type::first-letter {
+    float: left;
+    font-size: 3.25rem; /* ~52px to span exactly 2 lines */
+    line-height: 0.8; /* Tighter line height for proper alignment */
+    font-weight: 700;
+    margin-right: 0.5rem;
+    margin-top: 0.125rem; /* Slight offset to align with text baseline */
+    margin-bottom: -0.25rem;
+  }
+}

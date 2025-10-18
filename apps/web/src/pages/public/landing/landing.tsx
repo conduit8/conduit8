@@ -1,0 +1,36 @@
+import type { AuthUser } from '@web/lib/auth/models';
+
+import * as sections from '@web/pages/public/landing/components';
+import { SignInModal } from '@web/pages/public/landing/components/sign-in-modal';
+
+import { PageLayout } from '@web/ui/components/layout/page/page-layout';
+
+import { LandingFooter } from './landing-footer';
+import { LandingHeader } from './landing-header';
+
+interface LandingPageProps {
+  user: AuthUser | null;
+  loginModal: any;
+}
+
+export const LandingPage = ({ user, loginModal }: LandingPageProps) => {
+  return (
+    <>
+      <PageLayout
+        header={<LandingHeader />}
+        footer={<LandingFooter />}
+        variant="full-width"
+        contentPadding={false}
+      >
+        <sections.HeroSection user={user} />
+        <sections.HowItWorksSection />
+        <sections.FAQSection />
+      </PageLayout>
+
+      <SignInModal
+        open={loginModal.isOpen}
+        onOpenChange={open => open ? loginModal.open() : loginModal.close()}
+      />
+    </>
+  );
+};

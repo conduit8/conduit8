@@ -1,0 +1,22 @@
+/*
+ * ⚠️  SHADCN/UI DEPENDENCY - DO NOT RENAME TOKENS ⚠️
+ *
+ * These exact token names (--radius, --radius-sm, etc.) are REQUIRED by ShadCN components.
+ * If you change token names, you MUST update the ShadCN component library mappings.
+ *
+ * Safe to change: Values (0.625rem → 0.5rem)
+ * DO NOT change: Token names (--radius → --border-radius)
+ */
+
+/* === RADIUS TOKENS (SHADCN REQUIRED) === */
+:root {
+  --radius: 0.35rem; /* ⚠️ SHADCN REQUIRED TOKEN NAME - Sharper for graphic novel aesthetic */
+}
+
+/* === TAILWIND THEME MAPPING (SHADCN REQUIRED) === */
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}

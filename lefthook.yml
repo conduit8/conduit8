@@ -1,0 +1,33 @@
+pre-commit:
+  jobs:
+    - name: lint-and-format
+      group:
+        parallel: false
+        jobs:
+          # - name: lint-staged
+          # run: npx -y lint-staged
+          # - name: python-lint-and-format
+          #   run: uv run --directory apps/agent-runtime ruff check src/ tests/ --fix && uv run --directory apps/agent-runtime ruff format src/ tests/
+    - name: build-core
+      run: pnpm --filter @kollektiv/core build
+    - name: tests-and-builds
+      group:
+        parallel: true
+        jobs:
+          - name: worker-unit-tests
+            run: pnpm --filter @kollektiv/worker test:unit
+          # - name: web-tests
+          # run: pnpm test:web
+          # - name: python-unit-tests
+          #   run: uv run --directory apps/agent-runtime python -m pytest tests/ -m "not integration" --tb=short -q
+          # - name: build-web
+          # run: pnpm --filter @kollektiv/web build
+          # - name: build-worker-check
+          # run: pnpm --filter @kollektiv/worker build:dry
+# pre-push:
+# parallel: true
+# commands:
+# python-integration-tests:
+# run: uv run --directory apps/agent-runtime python -m pytest tests/ -m integration --tb=short -q
+# integration-tests:
+# run: pnpm test:integration

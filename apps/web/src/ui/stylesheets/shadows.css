@@ -1,0 +1,45 @@
+/*
+ * Shadow Design System
+ * Defines custom shadow utilities for special effects
+ */
+
+:root {
+  /* Soft shadows with slightly more opacity for graphic novel feel */
+  --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.15);
+  --shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.18);
+  --shadow-md: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  --shadow-lg: 0 8px 16px 0 rgba(0, 0, 0, 0.22);
+
+  /* Hard shadows for isometric/cartoon effects */
+  --shadow-hard: 4px 4px 0px 0px var(--foreground);
+  --shadow-hard-sm: 2px 2px 0px 0px var(--foreground);
+  --shadow-hard-lg: 6px 6px 0px 0px var(--foreground);
+
+  /* Using pure black for maximum contrast */
+  --shadow-hard-black: 4px 4px 0px 0px rgba(0, 0, 0, 1);
+  --shadow-hard-black-sm: 2px 2px 0px 0px rgba(0, 0, 0, 1);
+  --shadow-hard-black-lg: 6px 6px 0px 0px rgba(0, 0, 0, 1);
+
+  /* Colored hard shadows */
+  --shadow-hard-primary: 4px 4px 0px 0px var(--primary);
+  --shadow-hard-accent: 4px 4px 0px 0px var(--accent);
+}
+
+/* Map to Tailwind utilities */
+@theme inline {
+  /* Soft shadows */
+  --shadow-sm: var(--shadow-sm);
+  --shadow: var(--shadow);
+  --shadow-md: var(--shadow-md);
+  --shadow-lg: var(--shadow-lg);
+
+  /* Hard shadows */
+  --shadow-hard: var(--shadow-hard);
+  --shadow-hard-sm: var(--shadow-hard-sm);
+  --shadow-hard-lg: var(--shadow-hard-lg);
+  --shadow-hard-black: var(--shadow-hard-black);
+  --shadow-hard-black-sm: var(--shadow-hard-black-sm);
+  --shadow-hard-black-lg: var(--shadow-hard-black-lg);
+  --shadow-hard-primary: var(--shadow-hard-primary);
+  --shadow-hard-accent: var(--shadow-hard-accent);
+}

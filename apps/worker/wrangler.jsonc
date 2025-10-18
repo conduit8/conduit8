@@ -1,0 +1,217 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "kollektiv",
+  "main": "src/index.ts",
+  "compatibility_date": "2025-09-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "observability": {
+    "enabled": true
+  },
+  "placement": {
+    "mode": "smart"
+  },
+  "migrations": [
+    {
+      "tag": "v1",
+      "new_sqlite_classes": ["RateLimiterDO", "ClaudeRuntime"]
+    }
+  ],
+
+  "env": {
+    "preview": {
+      "name": "kollektiv-preview",
+      "vars": {
+        "ENV": "preview",
+        "POSTHOG_HOST": "https://us.i.posthog.com",
+        "BETTER_AUTH_URL": "https://preview.kollektiv.sh/auth",
+        "SENTRY_RELEASE": ""
+      },
+      "version_metadata": {
+        "binding": "CF_VERSION_METADATA"
+      },
+      "kv_namespaces": [
+        {
+          "binding": "KV",
+          "id": "900abf55802f457ba28b66c87ea81638"
+        },
+        {
+          "binding": "AUTH_KV",
+          "id": "694f193b42c14072bee86ced7ce5ced2"
+        }
+      ],
+      "d1_databases": [
+        {
+          "binding": "D1",
+          "database_name": "kollektiv-d1-preview",
+          "database_id": "07e8c544-7d9c-40d0-8cc6-f82c3e3eb13b",
+          "migrations_dir": "src/infrastructure/persistence/database/migrations"
+        }
+      ],
+      "durable_objects": {
+        "bindings": [
+          {
+            "name": "AUTH_RATE_LIMITER_DO",
+            "class_name": "RateLimiterDO"
+          },
+          {
+            "name": "CLAUDE_RUNTIME",
+            "class_name": "ClaudeRuntime"
+          }
+        ]
+      },
+      "containers": [
+        {
+          "class_name": "ClaudeRuntime",
+          "image": "../../apps/agent-runtime/Dockerfile",
+          "max_instances": 1,
+          "instance_type": "basic"
+        }
+      ],
+      "r2_buckets": [
+        {
+          "bucket_name": "kollektiv-r2-preview",
+          "binding": "R2"
+        }
+      ],
+      "queues": {
+        "producers": [
+          {
+            "queue": "kollektiv-priority-queue-preview",
+            "binding": "PRIORITY_QUEUE"
+          },
+          {
+            "queue": "kollektiv-background-queue-preview",
+            "binding": "BACKGROUND_QUEUE"
+          }
+        ],
+        "consumers": [
+          {
+            "queue": "kollektiv-priority-queue-preview",
+            "dead_letter_queue": "kollektiv-dlq-preview",
+            "max_batch_size": 1,
+            "max_batch_timeout": 0
+          },
+          {
+            "queue": "kollektiv-background-queue-preview",
+            "dead_letter_queue": "kollektiv-dlq-preview",
+            "max_batch_size": 10,
+            "max_batch_timeout": 5,
+            "max_retries": 3
+          }
+        ]
+      },
+      "triggers": {
+        "crons": ["0 9 * * *", "0 */3 * * *"]
+      },
+      "routes": [
+        {
+          "pattern": "preview.kollektiv.sh/api/*",
+          "zone_id": "9872bcde1d4edb481370c350695a9175"
+        },
+        {
+          "pattern": "preview.kollektiv.sh/auth/*",
+          "zone_id": "9872bcde1d4edb481370c350695a9175"
+        }
+      ]
+    },
+    "prod": {
+      "name": "kollektiv-prod",
+      "vars": {
+        "ENV": "production",
+        "POSTHOG_HOST": "https://us.i.posthog.com",
+        "BETTER_AUTH_URL": "https://kollektiv.sh/auth",
+        "SENTRY_RELEASE": ""
+      },
+      "ai": {
+        "binding": "AI"
+      },
+      "version_metadata": {
+        "binding": "CF_VERSION_METADATA"
+      },
+      "kv_namespaces": [
+        {
+          "binding": "KV",
+          "id": "c765b5c1eb8c40589e9ea4c0f9b0a9da"
+        },
+        {
+          "binding": "AUTH_KV",
+          "id": "91bd0a1166d94eda83f08aaac3361544"
+        }
+      ],
+      "d1_databases": [
+        {
+          "binding": "D1",
+          "database_name": "kollektiv-d1",
+          "database_id": "774c7cb4-ce10-4934-be6c-e90e452209cc",
+          "migrations_dir": "src/infrastructure/persistence/database/migrations"
+        }
+      ],
+      "durable_objects": {
+        "bindings": [
+          {
+            "name": "AUTH_RATE_LIMITER_DO",
+            "class_name": "RateLimiterDO"
+          },
+          {
+            "name": "CLAUDE_RUNTIME",
+            "class_name": "ClaudeRuntime"
+          }
+        ]
+      },
+      "containers": [
+        {
+          "class_name": "ClaudeRuntime",
+          "image": "../../apps/agent-runtime/Dockerfile",
+          "max_instances": 250,
+          "instance_type": "basic"
+        }
+      ],
+      "r2_buckets": [
+        {
+          "bucket_name": "kollektiv-r2",
+          "binding": "R2"
+        }
+      ],
+      "queues": {
+        "producers": [
+          {
+            "queue": "kollektiv-priority-queue",
+            "binding": "PRIORITY_QUEUE"
+          },
+          {
+            "queue": "kollektiv-background-queue",
+            "binding": "BACKGROUND_QUEUE"
+          }
+        ],
+        "consumers": [
+          {
+            "queue": "kollektiv-priority-queue",
+            "dead_letter_queue": "kollektiv-dlq",
+            "max_batch_size": 1,
+            "max_batch_timeout": 0
+          },
+          {
+            "queue": "kollektiv-background-queue",
+            "dead_letter_queue": "kollektiv-dlq",
+            "max_batch_size": 10,
+            "max_batch_timeout": 5,
+            "max_retries": 3
+          }
+        ]
+      },
+      "triggers": {
+        "crons": ["0 9 * * *", "0 */3 * * *"]
+      },
+      "routes": [
+        {
+          "pattern": "kollektiv.sh/api/*",
+          "zone_id": "9872bcde1d4edb481370c350695a9175"
+        },
+        {
+          "pattern": "kollektiv.sh/auth/*",
+          "zone_id": "9872bcde1d4edb481370c350695a9175"
+        }
+      ]
+    }
+  }
+}

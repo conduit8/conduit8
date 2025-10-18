@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.worker.tsbuildinfo",
+    "target": "ES2023",
+    "lib": ["ES2023"],
+    "baseUrl": ".",
+    "paths": {
+      "@worker/*": ["./src/*"]
+    },
+    "types": ["./worker-configuration.d.ts"],
+    "verbatimModuleSyntax": true
+  },
+  "include": ["./src/**/*", "./worker-configuration.d.ts", "./drizzle.config.ts"]
+}

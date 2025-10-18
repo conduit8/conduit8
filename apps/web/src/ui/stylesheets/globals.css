@@ -1,0 +1,144 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import './colors.css';
+@import './typography.css';
+@import './radius.css';
+@import './shadows.css';
+@import './utilities.css';
+
+@tailwind utilities;
+
+/* Premium Button Animations */
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(200%);
+  }
+}
+
+@keyframes wiggle {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-10deg);
+  }
+  75% {
+    transform: rotate(10deg);
+  }
+}
+
+/* Custom dark mode variant - triggers when .dark class is present on any parent */
+@custom-variant dark (&:is(.dark *));
+
+/*!* === LIGHT MODE (DEFAULT) === *!*/
+/*!* Raw CSS custom properties - these are the source of truth for all design tokens *!*/
+:root {
+  /* === System Defaults === */
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  /* === Browser Theme Support === */
+  /* IMPORTANT: Dark Mode Configuration
+     *
+     * The 'color-scheme' property tells the browser which color modes your site supports.
+     * Setting 'light dark' means the browser may apply its own dark mode styles
+     * based on the user's OS preference (e.g., macOS Night Mode).
+     *
+     * Current setting: 'light' - Forces light mode only
+     *
+     * To enable OS dark mode preference:
+     * Change to: color-scheme: light dark;
+     *
+     * Note: This project is currently optimized for light mode only.
+     * Dark mode colors are imported in colors.css but not actively used.
+     */
+  color-scheme: light;
+}
+
+/*!*Namespace	Utility classes*!*/
+/*!*--color-*	Color utilities like bg-red-500, text-sky-300, and many more*!*/
+/*!*--font-*	Font family utilities like font-sans*!*/
+/*!*--text-*	Font size utilities like text-xl*!*/
+/*!*--font-weight-*	Font weight utilities like font-bold*!*/
+/*!*--tracking-*	Letter spacing utilities like tracking-wide*!*/
+/*!*--leading-*	Line height utilities like leading-tight*!*/
+/*!*--breakpoint-*	Responsive breakpoint variants like sm:**!*/
+/*!*--container-*	Container query variants like @sm:* and size utilities like max-w-md*!*/
+/*!*--spacing-*	Spacing and sizing utilities like px-4, max-h-16, and many more*!*/
+/*!*--radius-*	Border radius utilities like rounded-sm*!*/
+/*!*--shadow-*	Box shadow utilities like shadow-md*!*/
+/*!*--inset-shadow-*	Inset box shadow utilities like inset-shadow-xs*!*/
+/*!*--drop-shadow-*	Drop shadow filter utilities like drop-shadow-md*!*/
+/*!*--blur-*	Blur filter utilities like blur-md*!*/
+/*!*--perspective-*	Perspective utilities like perspective-near*!*/
+/*!*--aspect-*	Aspect ratio utilities like aspect-video*!*/
+/*!*--ease-*	Transition timing function utilities like ease-out*!*/
+/*!*--animate-*	Animation utilities like animate-spin*!*/
+
+/* === BASE LAYER === */
+/* Global element defaults using Tailwind utilities */
+/* This layer has lowest specificity - easily overridden by components */
+@layer base {
+  html {
+    @apply scroll-smooth;
+    /* border-box: border-box; */
+    box-sizing: border-box;
+  }
+
+  *,
+  *:before,
+  *:after {
+    box-sizing: inherit; /* All elements inherit box-sizing */
+  }
+
+  a {
+    @apply hover:underline;
+  }
+}
+
+/* === UTILITIES LAYER === */
+/* Higher specificity than base, can be overridden by inline styles */
+@layer utilities {
+  .segment-timestamp {
+    display: none;
+  }
+
+  [data-show-timestamps='true'] .segment-timestamp {
+    display: inline;
+    margin-right: 0.25rem;
+    /*margin-left: 0.5rem;*/
+  }
+
+  /* Remove left margin for first timestamp */
+  [data-show-timestamps='true'] span:first-child .segment-timestamp {
+    margin-left: 0;
+  }
+
+  /* Segment wrapper styles */
+  .segment-wrapper {
+    cursor: pointer;
+    padding: 0.125rem;
+    margin: -0.125rem; /* Negative margin to extend clickable area */
+    border-radius: 0.25rem;
+    transition:
+      background-color 0.15s ease,
+      color 0.15s ease;
+  }
+
+  /* Hover state for entire segment */
+  .segment-wrapper:hover {
+    background-color: var(--color-segment-hover-bg);
+  }
+
+  /* Active/clicked state for segment */
+  .segment-wrapper:active,
+  .segment-wrapper.active {
+    background-color: var(--color-segment-active-bg);
+  }
+}
