@@ -4,11 +4,14 @@
 
 **DO NOT** create public issues for security vulnerabilities.
 
-Email: security@kollektiv.sh
+Please report security issues via:
+- **GitHub Security Advisories** (preferred): Use the "Security" tab → "Report a vulnerability"
+- **Email**: security@conduit8.dev
 
 Include:
-- Description
+- Description of the vulnerability
 - Steps to reproduce
-- Impact
+- Potential impact
+- Any suggested fixes
 
-We'll respond within 48 hours.
+We'll respond within 48 hours and work with you to address the issue.

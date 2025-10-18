@@ -82,7 +82,7 @@ export function createAppHomeBlocks(
     type: 'button',
     text: { type: 'plain_text', text: '❓ Get support' },
     action_id: 'show_help',
-    url: 'https://kollektiv.sh/support',
+    url: 'https://conduit8.dev/support',
   });
 
   blocks.push({

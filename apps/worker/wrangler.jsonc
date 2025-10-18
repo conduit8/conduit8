@@ -1,6 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "kollektiv",
+  "name": "conduit8",
   "main": "src/index.ts",
   "compatibility_date": "2025-09-01",
   "compatibility_flags": ["nodejs_compat"],
@@ -19,11 +19,11 @@
 
   "env": {
     "preview": {
-      "name": "kollektiv-preview",
+      "name": "conduit8-preview",
       "vars": {
         "ENV": "preview",
         "POSTHOG_HOST": "https://us.i.posthog.com",
-        "BETTER_AUTH_URL": "https://preview.kollektiv.sh/auth",
+        "BETTER_AUTH_URL": "https://preview.conduit8.dev/auth",
         "SENTRY_RELEASE": ""
       },
       "version_metadata": {
@@ -42,7 +42,7 @@
       "d1_databases": [
         {
           "binding": "D1",
-          "database_name": "kollektiv-d1-preview",
+          "database_name": "conduit8-d1-preview",
           "database_id": "07e8c544-7d9c-40d0-8cc6-f82c3e3eb13b",
           "migrations_dir": "src/infrastructure/persistence/database/migrations"
         }
@@ -69,31 +69,31 @@
       ],
       "r2_buckets": [
         {
-          "bucket_name": "kollektiv-r2-preview",
+          "bucket_name": "conduit8-r2-preview",
           "binding": "R2"
         }
       ],
       "queues": {
         "producers": [
           {
-            "queue": "kollektiv-priority-queue-preview",
+            "queue": "conduit8-priority-queue-preview",
             "binding": "PRIORITY_QUEUE"
           },
           {
-            "queue": "kollektiv-background-queue-preview",
+            "queue": "conduit8-background-queue-preview",
             "binding": "BACKGROUND_QUEUE"
           }
         ],
         "consumers": [
           {
-            "queue": "kollektiv-priority-queue-preview",
-            "dead_letter_queue": "kollektiv-dlq-preview",
+            "queue": "conduit8-priority-queue-preview",
+            "dead_letter_queue": "conduit8-dlq-preview",
             "max_batch_size": 1,
             "max_batch_timeout": 0
           },
           {
-            "queue": "kollektiv-background-queue-preview",
-            "dead_letter_queue": "kollektiv-dlq-preview",
+            "queue": "conduit8-background-queue-preview",
+            "dead_letter_queue": "conduit8-dlq-preview",
             "max_batch_size": 10,
             "max_batch_timeout": 5,
             "max_retries": 3
@@ -105,21 +105,21 @@
       },
       "routes": [
         {
-          "pattern": "preview.kollektiv.sh/api/*",
+          "pattern": "preview.conduit8.dev/api/*",
           "zone_id": "9872bcde1d4edb481370c350695a9175"
         },
         {
-          "pattern": "preview.kollektiv.sh/auth/*",
+          "pattern": "preview.conduit8.dev/auth/*",
           "zone_id": "9872bcde1d4edb481370c350695a9175"
         }
       ]
     },
     "prod": {
-      "name": "kollektiv-prod",
+      "name": "conduit8-prod",
       "vars": {
         "ENV": "production",
         "POSTHOG_HOST": "https://us.i.posthog.com",
-        "BETTER_AUTH_URL": "https://kollektiv.sh/auth",
+        "BETTER_AUTH_URL": "https://conduit8.dev/auth",
         "SENTRY_RELEASE": ""
       },
       "ai": {
@@ -141,7 +141,7 @@
       "d1_databases": [
         {
           "binding": "D1",
-          "database_name": "kollektiv-d1",
+          "database_name": "conduit8-d1",
           "database_id": "774c7cb4-ce10-4934-be6c-e90e452209cc",
           "migrations_dir": "src/infrastructure/persistence/database/migrations"
         }
@@ -168,31 +168,31 @@
       ],
       "r2_buckets": [
         {
-          "bucket_name": "kollektiv-r2",
+          "bucket_name": "conduit8-r2",
           "binding": "R2"
         }
       ],
       "queues": {
         "producers": [
           {
-            "queue": "kollektiv-priority-queue",
+            "queue": "conduit8-priority-queue",
             "binding": "PRIORITY_QUEUE"
           },
           {
-            "queue": "kollektiv-background-queue",
+            "queue": "conduit8-background-queue",
             "binding": "BACKGROUND_QUEUE"
           }
         ],
         "consumers": [
           {
-            "queue": "kollektiv-priority-queue",
-            "dead_letter_queue": "kollektiv-dlq",
+            "queue": "conduit8-priority-queue",
+            "dead_letter_queue": "conduit8-dlq",
             "max_batch_size": 1,
             "max_batch_timeout": 0
           },
           {
-            "queue": "kollektiv-background-queue",
-            "dead_letter_queue": "kollektiv-dlq",
+            "queue": "conduit8-background-queue",
+            "dead_letter_queue": "conduit8-dlq",
             "max_batch_size": 10,
             "max_batch_timeout": 5,
             "max_retries": 3
@@ -204,11 +204,11 @@
       },
       "routes": [
         {
-          "pattern": "kollektiv.sh/api/*",
+          "pattern": "conduit8.dev/api/*",
           "zone_id": "9872bcde1d4edb481370c350695a9175"
         },
         {
-          "pattern": "kollektiv.sh/auth/*",
+          "pattern": "conduit8.dev/auth/*",
           "zone_id": "9872bcde1d4edb481370c350695a9175"
         }
       ]

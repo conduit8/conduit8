@@ -200,7 +200,7 @@ export const TermsPage = () => {
               <p className="mt-2">
                 <strong>How to Request:</strong>
                 {' '}
-                Contact support@kollektiv.sh within 7 days with
+                Contact support@conduit8.dev within 7 days with
                 your order details and reason for refund. We'll respond within 48 hours.
               </p>
 
@@ -252,7 +252,7 @@ export const TermsPage = () => {
             <div className="flex flex-col gap-sm">
               <p>
                 ALL USE OF THE SERVICE AND ANY CONTENT IS UNDERTAKEN ENTIRELY AT YOUR OWN RISK. THE
-                SERVICE (INCLUDING, WITHOUT LIMITATION, THE TYPIST WEB APPLICATION AND ANY CONTENT)
+                SERVICE (INCLUDING, WITHOUT LIMITATION, THE CONDUIT8 WEB APPLICATION AND ANY CONTENT)
                 IS PROVIDED "AS IS" AND "AS AVAILABLE" AND IS WITHOUT WARRANTY OF ANY KIND, EXPRESS
                 OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF TITLE,
                 NON-INFRINGEMENT, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE, AND ANY
@@ -268,7 +268,7 @@ export const TermsPage = () => {
             <h2 className="text-2xl font-bold">9. Limitation of Liability</h2>
             <div className="flex flex-col gap-sm">
               <p>
-                IN NO EVENT SHALL TYPIST, KOLLEKTIV LLC OR ITS DIRECTORS, EMPLOYEES, AGENTS,
+                IN NO EVENT SHALL CONDUIT8, KOLLEKTIV LLC OR ITS DIRECTORS, EMPLOYEES, AGENTS,
                 PARTNERS, SUPPLIERS OR CONTENT PROVIDERS, BE LIABLE UNDER CONTRACT, TORT, STRICT
                 LIABILITY, NEGLIGENCE OR ANY OTHER LEGAL OR EQUITABLE THEORY WITH RESPECT TO THE
                 SERVICE (I) FOR ANY LOST PROFITS, DATA LOSS, COST OF PROCUREMENT OF SUBSTITUTE GOODS
@@ -281,7 +281,7 @@ export const TermsPage = () => {
               </p>
 
               <p>
-                IN NO EVENT SHALL TYPIST OR KOLLEKTIV LLC BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+                IN NO EVENT SHALL CONDUIT8 OR KOLLEKTIV LLC BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
                 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
                 OR IN CONNECTION WITH USE OF THIS APPLICATION.
               </p>
@@ -353,7 +353,7 @@ export const TermsPage = () => {
               <p>
                 <strong>Email:</strong>
                 {' '}
-                support@kollektiv.sh
+                support@conduit8.dev
                 <br />
                 <strong>Company:</strong>
                 {' '}

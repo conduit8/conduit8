@@ -6,7 +6,7 @@ import type { IEmailService } from '../interfaces';
 
 export class ResendEmailService implements IEmailService {
   private readonly resend: Resend;
-  private readonly fromAddress = 'Kollektiv <noreply@mail.kollektiv.sh>';
+  private readonly fromAddress = 'Conduit8 <noreply@mail.conduit8.dev>';
 
   constructor(apiKey: string) {
     if (!apiKey) {

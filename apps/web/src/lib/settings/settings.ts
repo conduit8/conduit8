@@ -62,8 +62,8 @@ export const settings = {
     url: isDevelopment
       ? 'http://localhost:5173'
       : isPreview
-        ? 'https://preview.kollektiv.sh'
-        : 'https://kollektiv.sh',
+        ? 'https://preview.conduit8.dev'
+        : 'https://conduit8.dev',
   },
 
   posthog: {

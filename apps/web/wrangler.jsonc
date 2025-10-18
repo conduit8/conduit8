@@ -1,15 +1,15 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "kollektiv-web",
+  "name": "conduit8-web",
   "compatibility_date": "2025-09-01",
   "compatibility_flags": ["nodejs_compat"],
 
   "env": {
     "preview": {
-      "name": "kollektiv-web-preview",
+      "name": "conduit8-web-preview",
       "routes": [
         {
-          "pattern": "preview.kollektiv.sh",
+          "pattern": "preview.conduit8.dev",
           "custom_domain": true
         }
       ],
@@ -19,10 +19,10 @@
       }
     },
     "prod": {
-      "name": "kollektiv-web-prod",
+      "name": "conduit8-web-prod",
       "routes": [
         {
-          "pattern": "kollektiv.sh",
+          "pattern": "conduit8.dev",
           "custom_domain": true
         }
       ],

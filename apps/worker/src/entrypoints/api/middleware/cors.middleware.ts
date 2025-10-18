@@ -6,8 +6,8 @@ export const globalCors = cors({
     env.ENV === 'development'
       ? ['http://localhost:5173']
       : env.ENV === 'preview'
-        ? ['https://preview.kollektiv.sh']
-        : ['https://kollektiv.sh'],
+        ? ['https://preview.conduit8.dev']
+        : ['https://conduit8.dev'],
   allowHeaders: [
     'Content-Type',
     'Authorization',

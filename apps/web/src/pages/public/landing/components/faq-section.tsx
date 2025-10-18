@@ -27,7 +27,7 @@ const faqItems = [
   },
   {
     question: 'How do I get in touch?',
-    answer: 'Send your feedback to az@kollektiv.sh',
+    answer: 'Send your feedback to az@conduit8.dev',
   },
 ];
 

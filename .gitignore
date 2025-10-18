@@ -224,3 +224,4 @@ MANIFEST
 .sentryclirc
 
 ./test-files
+/docs/internal

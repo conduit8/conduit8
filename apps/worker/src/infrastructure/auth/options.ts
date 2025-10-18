@@ -39,7 +39,7 @@ export function createBetterAuthOptions(
   const rateLimitStorage = isCliMode ? undefined : createRateLimitStorage(env.AUTH_RATE_LIMITER_DO);
 
   return {
-    appName: 'kollektiv',
+    appName: 'conduit8',
     baseURL: env?.BETTER_AUTH_URL, // always exists if not run via CLI
     // basePath: APP_ROUTES.auth.basePath,
     database,
@@ -59,8 +59,8 @@ export function createBetterAuthOptions(
 
     trustedOrigins: [
       'http://localhost:5173',
-      'https://preview.kollektiv.sh',
-      'https://kollektiv.sh',
+      'https://preview.conduit8.dev',
+      'https://conduit8.dev',
     ],
 
     advanced: {

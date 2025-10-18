@@ -55,10 +55,10 @@ export const SupportPage = () => {
         <div className="flex flex-col items-center gap-4 p-8 border border-border rounded-lg bg-surface/50">
           <h2 className="text-xl font-medium">Get in Touch</h2>
           <a
-            href="mailto:az@kollektiv.sh"
+            href="mailto:az@conduit8.dev"
             className="text-lg font-medium hover:underline"
           >
-            az@kollektiv.sh
+            az@conduit8.dev
           </a>
         </div>
 

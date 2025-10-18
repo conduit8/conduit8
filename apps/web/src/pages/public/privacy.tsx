@@ -263,7 +263,7 @@ export function PrivacyPage() {
               <p>
                 <strong>Email:</strong>
                 {' '}
-                support@kollektiv.sh
+                support@conduit8.dev
                 <br />
                 <strong>Company:</strong>
                 {' '}
