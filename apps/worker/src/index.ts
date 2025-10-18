@@ -4,7 +4,6 @@ import { app, queue, scheduled } from '@worker/entrypoints';
 
 // Re-export the Durable Object classes for Cloudflare Workers
 export { RateLimiterDO } from '@worker/infrastructure/persistence/durable-objects';
-export { ClaudeRuntime } from '@worker/infrastructure/runtime';
 
 export default Sentry.withSentry(
   env => ({

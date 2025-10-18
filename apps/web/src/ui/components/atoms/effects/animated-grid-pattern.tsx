@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { useEffect, useId, useRef, useState } from "react";
-import { motion } from "framer-motion";
+import { motion } from 'framer-motion';
+import { useEffect, useId, useRef, useState } from 'react';
 
-import { cn } from "@web/lib/utils/index";
+import { cn } from '@web/lib/utils/index';
 
 interface AnimatedGridPatternProps {
   width?: number;
@@ -36,7 +36,7 @@ export function AnimatedGridPattern({
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
   const [squares, setSquares] = useState(() => generateSquares(numSquares));
 
-  function getPos() {
+  function getPos(): [number, number] {
     return [
       Math.floor((Math.random() * dimensions.width) / width),
       Math.floor((Math.random() * dimensions.height) / height),
@@ -53,8 +53,8 @@ export function AnimatedGridPattern({
 
   // Function to update a single square's position
   const updateSquarePosition = (id: number) => {
-    setSquares((currentSquares) =>
-      currentSquares.map((sq) =>
+    setSquares(currentSquares =>
+      currentSquares.map(sq =>
         sq.id === id
           ? {
               ...sq,
@@ -75,7 +75,7 @@ export function AnimatedGridPattern({
   // Resize observer to update container dimensions
   useEffect(() => {
     const resizeObserver = new ResizeObserver((entries) => {
-      for (let entry of entries) {
+      for (const entry of entries) {
         setDimensions({
           width: entry.contentRect.width,
           height: entry.contentRect.height,
@@ -99,7 +99,7 @@ export function AnimatedGridPattern({
       ref={containerRef}
       aria-hidden="true"
       className={cn(
-        "pointer-events-none absolute inset-0 h-full w-full fill-gray-400/30 stroke-gray-400/30",
+        'pointer-events-none absolute inset-0 h-full w-full fill-gray-400/30 stroke-gray-400/30',
         className,
       )}
       {...props}
@@ -130,7 +130,7 @@ export function AnimatedGridPattern({
               duration,
               repeat: 1,
               delay: index * 0.1,
-              repeatType: "reverse",
+              repeatType: 'reverse',
             }}
             onAnimationComplete={() => updateSquarePosition(id)}
             key={`${x}-${y}-${index}`}

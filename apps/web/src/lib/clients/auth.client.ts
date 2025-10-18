@@ -9,9 +9,6 @@ export const authClient = createAuthClient({
   baseURL: `${settings.app.baseUrl}${APP_ROUTES.auth.basePath}`,
   plugins: [
     magicLinkClient(),
-    // stripeClient({
-    //   subscription: true,
-    // }),
   ],
 });
 

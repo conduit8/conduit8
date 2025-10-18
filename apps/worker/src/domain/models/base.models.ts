@@ -30,10 +30,6 @@ export abstract class AggregateRoot extends Entity {
   clearEvents(): void {
     this._events = [];
   }
-
-  protected copyEventsFrom(other: AggregateRoot): void {
-    this._events = [...other._events];
-  }
 }
 
 /**

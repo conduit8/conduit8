@@ -13,7 +13,7 @@
   "migrations": [
     {
       "tag": "v1",
-      "new_sqlite_classes": ["RateLimiterDO", "ClaudeRuntime"]
+      "new_sqlite_classes": ["RateLimiterDO"]
     }
   ],
 
@@ -52,21 +52,9 @@
           {
             "name": "AUTH_RATE_LIMITER_DO",
             "class_name": "RateLimiterDO"
-          },
-          {
-            "name": "CLAUDE_RUNTIME",
-            "class_name": "ClaudeRuntime"
           }
         ]
       },
-      "containers": [
-        {
-          "class_name": "ClaudeRuntime",
-          "image": "../../apps/agent-runtime/Dockerfile",
-          "max_instances": 1,
-          "instance_type": "basic"
-        }
-      ],
       "r2_buckets": [
         {
           "bucket_name": "conduit8-r2-preview",
@@ -151,21 +139,9 @@
           {
             "name": "AUTH_RATE_LIMITER_DO",
             "class_name": "RateLimiterDO"
-          },
-          {
-            "name": "CLAUDE_RUNTIME",
-            "class_name": "ClaudeRuntime"
           }
         ]
       },
-      "containers": [
-        {
-          "class_name": "ClaudeRuntime",
-          "image": "../../apps/agent-runtime/Dockerfile",
-          "max_instances": 250,
-          "instance_type": "basic"
-        }
-      ],
       "r2_buckets": [
         {
           "bucket_name": "conduit8-r2",

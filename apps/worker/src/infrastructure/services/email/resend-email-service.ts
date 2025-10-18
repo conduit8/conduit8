@@ -6,7 +6,7 @@ import type { IEmailService } from '../interfaces';
 
 export class ResendEmailService implements IEmailService {
   private readonly resend: Resend;
-  private readonly fromAddress = 'Conduit8 <noreply@mail.conduit8.dev>';
+  private readonly fromAddress = 'Conduit8 <hello@mail.conduit8.dev>';
 
   constructor(apiKey: string) {
     if (!apiKey) {
@@ -19,6 +19,24 @@ export class ResendEmailService implements IEmailService {
     return new ResendEmailService(env.RESEND_API_KEY);
   }
 
+  /**
+   * Converts HTML to plain text by stripping tags
+   */
+  private htmlToPlainText(html: string): string {
+    return html
+      .replace(/<style[^>]*>.*?<\/style>/gi, '')
+      .replace(/<script[^>]*>.*?<\/script>/gi, '')
+      .replace(/<[^>]+>/g, '')
+      .replace(/&nbsp;/g, ' ')
+      .replace(/&amp;/g, '&')
+      .replace(/&lt;/g, '<')
+      .replace(/&gt;/g, '>')
+      .replace(/&quot;/g, '"')
+      .replace(/&#39;/g, '\'')
+      .replace(/\n\s*\n\s*\n/g, '\n\n')
+      .trim();
+  }
+
   async sendEmail(options: {
     to: string | string[];
     subject: string;
@@ -28,14 +46,20 @@ export class ResendEmailService implements IEmailService {
     tags?: string[];
   }): Promise<{ id: string; success: boolean }> {
     try {
+      // Auto-generate plain text if not provided
+      const plainText = options.text || this.htmlToPlainText(options.html);
+
       const result = await this.resend.emails.send({
         from: this.fromAddress,
         to: options.to,
         subject: options.subject,
         html: options.html,
-        text: options.text,
+        text: plainText,
         replyTo: options.replyTo,
         tags: options.tags?.map(tag => ({ name: tag, value: tag })),
+        headers: {
+          'List-Unsubscribe': '<mailto:unsubscribe@mail.conduit8.dev>',
+        },
       });
 
       console.log('Email sent successfully', {

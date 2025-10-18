@@ -1,67 +1,51 @@
 # ========================================
-# Environment Configuration
+# Conduit8 Worker Environment Variables
 # ========================================
+# Copy this file to .dev.vars for local development
+# These variables are loaded by Wrangler CLI for local dev
+# In production, set these in Cloudflare Dashboard
+# ========================================
+
 ENV=development
-
-
-# ========================================
-# Local Development Variables Only (not used or set in production)
-# These are used to simplify local development
-# ========================================
-
-# Anthropic (Claude SDK)
-ANTHROPIC_API_KEY=sk-ant-
-GITHUB_PAT_TOKEN=github_pat_
-FIRECRAWL_API_KEY=fc-
 
 # ========================================
 # Authentication & Security
 # ========================================
 
-# Better Auth
-BETTER_AUTH_SECRET=your-secret-key-here
+# Better Auth - Required
+BETTER_AUTH_SECRET=your-random-secret-key-min-32-chars
 BETTER_AUTH_URL=http://localhost:5173
 
-# OAuth Providers
+# OAuth Providers - Required for social login
 GOOGLE_CLIENT_ID=your-google-client-id.apps.googleusercontent.com
 GOOGLE_CLIENT_SECRET=GOCSPX-your-google-secret
 
-# Turnstile (Captcha)
-# Test secret key for localhost (works with 1x00000000000000000000AA)
+# Cloudflare Turnstile - Required for captcha
+# Test secret key for localhost (works with site key 1x00000000000000000000AA)
 TURNSTILE_SECRET_KEY=1x0000000000000000000000000000000AA
 
 # ========================================
-# Integrations
+# Email Service
 # ========================================
 
-# Slack App (Polymer Bot)
-SLACK_CLIENT_ID=6959503069491.9140053645266
-SLACK_CLIENT_SECRET=cbf432b3dd05c7888a2d253c18eb6dc8
-
-
-# ========================================
-# Payments
-# ========================================
-
-
-## Stripe (Payments)
-#STRIPE_SECRET_KEY=sk_test_your-stripe-secret-key
-#STRIPE_WEBHOOK_SECRET=whsec_your-webhook-secret
-
-# ========================================
-# Communications
-# ========================================
-
-# Resend (Email)
+# Resend - Required for transactional emails
 RESEND_API_KEY=re_your-resend-api-key
-
 
 # ========================================
 # Monitoring & Analytics
 # ========================================
 
-# Sentry (Error Tracking)
-SENTRY_DSN=https://f790e8e1d0e2851b3359ac1433682229@o4508393623257088.ingest.us.sentry.io/4510068854489088
+# Sentry - Optional but recommended for error tracking
+SENTRY_DSN=https://your-sentry-dsn@o4508393623257088.ingest.us.sentry.io/4510068854489088
 
-# PostHog (Analytics)
-POSTHOG_API_KEY=phc_lA7P1Q6a6kqmyGxymAOQ4b520tUhPpRyUDWjr8IoiDr
+# PostHog - Optional for product analytics
+POSTHOG_API_KEY=phc_your-posthog-api-key
+POSTHOG_HOST=https://us.i.posthog.com
+
+# ========================================
+# Payments (Optional - Commented Out)
+# ========================================
+
+# Stripe - Uncomment if you implement payments
+# STRIPE_SECRET_KEY=sk_test_your-stripe-secret-key
+# STRIPE_WEBHOOK_SECRET=whsec_your-webhook-secret

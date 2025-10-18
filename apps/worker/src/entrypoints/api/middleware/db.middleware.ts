@@ -1,7 +1,8 @@
 import type { AppContext } from '@worker/entrypoints/api/types';
-import type { DrizzleDb } from '@worker/infrastructure/persistence/database/types';
 
 import { createMiddleware } from 'hono/factory';
+
+import type { DrizzleDb } from '@worker/infrastructure/persistence/database/types';
 
 import { createDatabase } from '@worker/infrastructure/persistence/database/connection';
 

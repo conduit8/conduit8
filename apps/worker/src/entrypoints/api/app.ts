@@ -2,9 +2,6 @@ import {
   authRoutes,
   avatarRoutes,
   healthRoutes,
-  slackEventsRoutes,
-  slackInteractionsRoutes,
-  slackOAuthRoutes,
 } from '@worker/entrypoints/api/routes';
 import { Hono } from 'hono';
 
@@ -24,11 +21,23 @@ app.use('*', extractAuth);
 app.route('', authRoutes);
 
 // Mount api routes (handles /api/v1/*)
-app.route('', slackOAuthRoutes);
-app.route('', slackEventsRoutes);
-app.route('', slackInteractionsRoutes);
 app.route('', healthRoutes);
 app.route('', avatarRoutes);
+
+// Temporary test route for email diagnostics
+app.get('/test-email', async (c) => {
+  const { ResendEmailService } = await import('@worker/infrastructure/services/email/resend-email-service');
+  const emailService = ResendEmailService.create(c.env);
+
+  await emailService.sendEmail({
+    to: 'test-kfl2i4h7x@srv1.mail-tester.com',
+    subject: 'Conduit8 Email Deliverability Test',
+    html: '<h1>Test Email</h1><p>This is a test email to check deliverability.</p>',
+    text: 'Test Email\n\nThis is a test email to check deliverability.',
+  });
+
+  return c.json({ success: true, message: 'Test email sent' });
+});
 
 // Set error handler
 app.onError(errorHandler);

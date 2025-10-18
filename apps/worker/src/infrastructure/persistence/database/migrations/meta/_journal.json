@@ -5,22 +5,8 @@
     {
       "idx": 0,
       "version": "6",
-      "when": 1758615297649,
-      "tag": "0000_large_quasar",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "6",
-      "when": 1758904763029,
-      "tag": "0001_busy_hairball",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "6",
-      "when": 1758906175123,
-      "tag": "0002_handy_moondragon",
+      "when": 1760818255821,
+      "tag": "0000_condemned_smasher",
       "breakpoints": true
     }
   ]
