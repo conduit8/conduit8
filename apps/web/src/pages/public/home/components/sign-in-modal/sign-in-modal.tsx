@@ -40,20 +40,20 @@ export const SignInModal = ({
   open: boolean;
   onOpenChange: (v: boolean) => void;
 }) => {
-  const [loadingMethod, setLoadingMethod] = React.useState<'apple' | 'google' | 'email' | null>(
+  const [loadingMethod, setLoadingMethod] = React.useState<'github' | 'google' | 'email' | null>(
     null,
   );
   const { signInWithMagicLink, signInWithOAuth } = authService();
   const [turnstileToken, setTurnstileToken] = useState('');
 
-  const handleAppleSignIn = useCallback(async (): Promise<void> => {
-    setLoadingMethod('apple');
+  const handleGitHubSignIn = useCallback(async (): Promise<void> => {
+    setLoadingMethod('github');
     try {
-      console.info('Apple sign in');
-      await signInWithOAuth('apple', `/dashboard`);
+      console.info('GitHub sign in');
+      await signInWithOAuth('github', `/dashboard`);
     }
-    catch (error: unknown) {
-      toast.error('Failed to sign in with Apple - please try again.');
+    catch {
+      toast.error('Failed to sign in with GitHub - please try again.');
     }
     finally {
       setLoadingMethod(null);
@@ -66,7 +66,7 @@ export const SignInModal = ({
       console.info('Google sign in');
       await signInWithOAuth('google', `/dashboard`);
     }
-    catch (error: unknown) {
+    catch {
       toast.error('Failed to sign in with Google - please try again');
     }
     finally {
@@ -106,20 +106,20 @@ export const SignInModal = ({
       <DialogContent className="component-width-card justify-center gap-6">
         <DialogHeader className="sm:text-center">
           <DialogTitle className="flex justify-center">
-            <Logo interactive={false} />
+            <Logo interactive={false} variant="icon" />
           </DialogTitle>
           <DialogDescription className="mt-4">
-            Get started instantly - no signup required
+            Sign in via OAuth
           </DialogDescription>
         </DialogHeader>
         <OAuthButtons
-          onAppleSignIn={handleAppleSignIn}
+          onGitHubSignIn={handleGitHubSignIn}
           onGoogleSignIn={handleGoogleSignIn}
           loadingProvider={
-            loadingMethod === 'apple' || loadingMethod === 'google' ? loadingMethod : undefined
+            loadingMethod === 'github' || loadingMethod === 'google' ? loadingMethod : undefined
           }
         />
-        <Divider text="Or get a sign-in link by email" />
+        <Divider text="Sign in via email" />
         <SignInForm onSubmit={handleEmailSubmit} isLoading={loadingMethod === 'email'} />
         <small className="text-muted-foreground text-center">
           By signing in, you agree to our

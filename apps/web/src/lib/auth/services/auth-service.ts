@@ -62,7 +62,7 @@ export const authService = () => {
    * @param provider OAuth provider ('google' | 'apple')
    * @param redirectTo Optional URL to redirect to after authentication
    */
-  const signInWithOAuth = async (provider: 'google' | 'apple', redirectTo?: string) => {
+  const signInWithOAuth = async (provider: 'google' | 'github', redirectTo?: string) => {
     try {
       console.info(`Attempting to sign in with OAuth: ${provider}`);
 

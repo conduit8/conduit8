@@ -24,7 +24,8 @@
         "ENV": "preview",
         "POSTHOG_HOST": "https://us.i.posthog.com",
         "BETTER_AUTH_URL": "https://preview.conduit8.dev/auth",
-        "SENTRY_RELEASE": ""
+        "SENTRY_RELEASE": "",
+        "R2_PUBLIC_URL": "https://assets-preview.conduit8.dev"
       },
       "version_metadata": {
         "binding": "CF_VERSION_METADATA"
@@ -32,18 +33,18 @@
       "kv_namespaces": [
         {
           "binding": "KV",
-          "id": "900abf55802f457ba28b66c87ea81638"
+          "id": "d95a3ad38bd54805bd9dc679c15b7dff"
         },
         {
           "binding": "AUTH_KV",
-          "id": "694f193b42c14072bee86ced7ce5ced2"
+          "id": "9e5460520e044080b2b85d6decce37d4"
         }
       ],
       "d1_databases": [
         {
           "binding": "D1",
           "database_name": "conduit8-d1-preview",
-          "database_id": "07e8c544-7d9c-40d0-8cc6-f82c3e3eb13b",
+          "database_id": "84208ec0-dbdc-4c2a-bc1d-46f9070aab8e",
           "migrations_dir": "src/infrastructure/persistence/database/migrations"
         }
       ],
@@ -59,6 +60,11 @@
         {
           "bucket_name": "conduit8-r2-preview",
           "binding": "R2"
+        },
+        {
+          "bucket_name": "conduit8-public-preview",
+          "binding": "R2_PUBLIC",
+          "remote": true
         }
       ],
       "queues": {
@@ -94,11 +100,11 @@
       "routes": [
         {
           "pattern": "preview.conduit8.dev/api/*",
-          "zone_id": "9872bcde1d4edb481370c350695a9175"
+          "zone_id": "df9bffde8a9f3fbf6e6868ceaf70b594"
         },
         {
           "pattern": "preview.conduit8.dev/auth/*",
-          "zone_id": "9872bcde1d4edb481370c350695a9175"
+          "zone_id": "df9bffde8a9f3fbf6e6868ceaf70b594"
         }
       ]
     },
@@ -108,7 +114,8 @@
         "ENV": "production",
         "POSTHOG_HOST": "https://us.i.posthog.com",
         "BETTER_AUTH_URL": "https://conduit8.dev/auth",
-        "SENTRY_RELEASE": ""
+        "SENTRY_RELEASE": "",
+        "R2_PUBLIC_URL": "https://assets.conduit8.dev"
       },
       "ai": {
         "binding": "AI"
@@ -119,18 +126,18 @@
       "kv_namespaces": [
         {
           "binding": "KV",
-          "id": "c765b5c1eb8c40589e9ea4c0f9b0a9da"
+          "id": "f3601d1bdce944f9afcbbc7b84a3f1bd"
         },
         {
           "binding": "AUTH_KV",
-          "id": "91bd0a1166d94eda83f08aaac3361544"
+          "id": "35e160d43fc7455aa00888e1972fb47f"
         }
       ],
       "d1_databases": [
         {
           "binding": "D1",
           "database_name": "conduit8-d1",
-          "database_id": "774c7cb4-ce10-4934-be6c-e90e452209cc",
+          "database_id": "57507497-a4e4-46fb-8a59-18b994a3d211",
           "migrations_dir": "src/infrastructure/persistence/database/migrations"
         }
       ],
@@ -146,6 +153,10 @@
         {
           "bucket_name": "conduit8-r2",
           "binding": "R2"
+        },
+        {
+          "bucket_name": "conduit8-public",
+          "binding": "R2_PUBLIC"
         }
       ],
       "queues": {
@@ -181,11 +192,11 @@
       "routes": [
         {
           "pattern": "conduit8.dev/api/*",
-          "zone_id": "9872bcde1d4edb481370c350695a9175"
+          "zone_id": "df9bffde8a9f3fbf6e6868ceaf70b594"
         },
         {
           "pattern": "conduit8.dev/auth/*",
-          "zone_id": "9872bcde1d4edb481370c350695a9175"
+          "zone_id": "df9bffde8a9f3fbf6e6868ceaf70b594"
         }
       ]
     }

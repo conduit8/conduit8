@@ -67,8 +67,8 @@ export const OAuthResultPage = ({ status, platform, workspaceName, teamId, botUs
                   <Button asChild className="hover:no-underline" variant="accent">
                     <a href={teamId && botUserId
                       ? `slack://user?team=${teamId}&id=${botUserId}`
-                      : "slack://open"
-                    }>
+                      : 'slack://open'}
+                    >
                       Open DM with Conduit8
                     </a>
                   </Button>

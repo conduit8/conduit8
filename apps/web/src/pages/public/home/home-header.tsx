@@ -1,4 +1,4 @@
-import { List } from '@phosphor-icons/react';
+import { ListIcon, PlusIcon } from '@phosphor-icons/react';
 import { useAuth } from '@web/lib/auth/hooks';
 import { useIsMobile } from '@web/lib/hooks';
 import { useGitHubStars, useScrollDetection } from '@web/pages/public/home/hooks';
@@ -59,14 +59,14 @@ export function LandingHeader({
       <div
         className={`flex items-center justify-between px-2 md:px-6 ${isMobile ? 'py-2' : 'py-4'} `}
       >
-        <Logo />
+        <Logo variant="text" />
 
         {isMobile
           ? (
         // Mobile content: Logo + Burger Menu
               <>
                 <Button variant="ghost" onClick={() => setMobileMenuOpen(true)}>
-                  <List size={20} />
+                  <ListIcon size={20} />
                 </Button>
 
                 {/* Mobile Menu Sheet */}
@@ -78,38 +78,50 @@ export function LandingHeader({
                     </SheetHeader>
 
                     {/* Bottom CTA */}
-                    <div className="px-4 py-4">
+                    <div className="flex flex-col gap-3 px-4 py-4">
                       {isLoading
                         ? (
                             <Skeleton className="h-10 w-full" />
                           )
                         : user
                           ? (
-                              <Button
-                                variant="accent"
-                                asChild
-                                className="w-full justify-start"
-                                onClick={() => setMobileMenuOpen(false)}
-                              >
-                                <UnstyledLink to={'/dashboard' as any}>
-                                  Dashboard
-                                </UnstyledLink>
-                              </Button>
+                              <>
+                                <Button
+                                  variant="accent"
+                                  asChild
+                                  className="w-full justify-start"
+                                  onClick={() => setMobileMenuOpen(false)}
+                                >
+                                  <UnstyledLink to={'/dashboard' as any}>
+                                    Dashboard
+                                  </UnstyledLink>
+                                </Button>
+                                <Button
+                                  variant="outline"
+                                  className="w-full justify-start"
+                                  onClick={() => {
+                                    setMobileMenuOpen(false);
+                                    if (onSubmitClick) {
+                                      onSubmitClick();
+                                    }
+                                  }}
+                                >
+                                  <PlusIcon size={16} weight="fill" />
+                                  Submit
+                                </Button>
+                              </>
                             )
                           : (
                               <Button
-                                asChild
-                                className="w-full"
                                 variant="accent"
-                                onClick={() => setMobileMenuOpen(false)}
+                                className="w-full"
+                                onClick={() => {
+                                  setMobileMenuOpen(false);
+                                  handleSubmitClick();
+                                }}
                               >
-                                <a
-                                  href="https://slack.com/oauth/v2/authorize?client_id=6959503069491.9140053645266&scope=assistant:write,chat:write,commands,im:history,im:write,incoming-webhook,users.profile:read,users:write,channels:history&user_scope="
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                >
-                                  Get started
-                                </a>
+                                <PlusIcon size={16} weight="fill" />
+                                Submit
                               </Button>
                             )}
                     </div>
@@ -142,9 +154,10 @@ export function LandingHeader({
                     </a>
                   </Button>
 
-                  {/* Submit Skill Button */}
+                  {/* Submit Button */}
                   <Button variant="accent" size="sm" onClick={handleSubmitClick}>
-                    Submit Skill
+                    <PlusIcon size={16} weight="fill" className="text-accent" />
+                    Submit
                   </Button>
 
                   {isLoading

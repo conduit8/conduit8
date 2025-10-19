@@ -1,24 +1,24 @@
 import { Button } from '@web/ui/components/atoms/buttons';
 import { Loader2 } from 'lucide-react';
-import { FaApple } from 'react-icons/fa';
+import { FaGithub } from 'react-icons/fa6';
 import { FcGoogle } from 'react-icons/fc';
 
 import { cn } from '@web/lib/utils/tailwind-utils';
 
 interface OAuthButtonsProps {
   className?: string;
-  onAppleSignIn?: () => void;
+  onGitHubSignIn?: () => void;
   onGoogleSignIn?: () => void;
-  loadingProvider?: 'apple' | 'google';
+  loadingProvider?: 'github' | 'google';
 }
 
 export function OAuthButtons({
   className,
-  onAppleSignIn,
+  onGitHubSignIn,
   onGoogleSignIn,
   loadingProvider,
 }: OAuthButtonsProps) {
-  const isAppleLoading = loadingProvider === 'apple';
+  const isGitHubLoading = loadingProvider === 'github';
   const isGoogleLoading = loadingProvider === 'google';
   const isAnyLoading = !!loadingProvider;
 
@@ -27,11 +27,11 @@ export function OAuthButtons({
       <Button
         variant="outline"
         className="justify-left flex w-full items-center"
-        onClick={onAppleSignIn}
+        onClick={onGitHubSignIn}
         disabled={isAnyLoading}
       >
-        {isAppleLoading ? <Loader2 className="size-4 animate-spin" /> : <FaApple className="size-6" />}
-        Continue with Apple
+        {isGitHubLoading ? <Loader2 className="size-4 animate-spin" /> : <FaGithub className="size-5" />}
+        Continue with GitHub
       </Button>
       <Button
         variant="outline"
@@ -39,7 +39,7 @@ export function OAuthButtons({
         onClick={onGoogleSignIn}
         disabled={isAnyLoading}
       >
-        {isGoogleLoading ? <Loader2 className="size-4 animate-spin" /> : <FcGoogle className="size-6" />}
+        {isGoogleLoading ? <Loader2 className="size-4 animate-spin" /> : <FcGoogle className="size-5" />}
         Continue with Google
       </Button>
     </div>

@@ -1,11 +1,11 @@
 {
   "name": "@conduit8/cli",
   "type": "module",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Claude Code Skills Manager",
   "author": "Alexander",
-  "license": "MIT",
-  "homepage": "https://github.com/alexander-zuev/conduit8/tree/main/packages/cli",
+  "license": "AGPL-3.0",
+  "homepage": "https://conduit8.dev",
   "repository": {
     "type": "git",
     "url": "https://github.com/alexander-zuev/conduit8.git",

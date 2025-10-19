@@ -1,11 +1,18 @@
-# @conduit8/cli
+# conduit8 CLI
 
-Claude Code Skills Manager - Install and manage skills from the Conduit8 registry.
+> **⚠️ WIP - DO NOT USE YET**
+>
+> Backend is still being built. CLI is published but will not work until backend is ready.
 
-## Installation
+Install and manage Claude Code skills from the conduit8 registry. One command to discover, install, and manage skills.
+
+## Quick Start
+
+No installation needed - use `npx`:
 
 ```bash
-npx @conduit8/cli [command]
+npx @conduit8/cli search skills
+npx @conduit8/cli install skill pdf
 ```
 
 ## Commands
@@ -44,37 +51,25 @@ npx @conduit8/cli search skills table
 npx @conduit8/cli search skills pdf
 ```
 
-## Development
+## Available Skills
 
-This is currently a stub implementation for testing. It:
+Currently includes official Anthropic skills:
+- **pdf** - PDF manipulation toolkit
+- **algorithmic-art** - Create algorithmic art with p5.js
+- **webapp-testing** - Web testing with Playwright
+- **xlsx** - Spreadsheet toolkit
 
-- Uses dummy skill data instead of real API calls
-- Creates minimal SKILL.md files in `~/.claude/skills/`
-- Simulates download progress
-- Tests all CLI flows end-to-end
+More skills coming soon.
 
-### Build
+## How It Works
 
-```bash
-pnpm build
-```
+Skills are installed to `~/.claude/skills/` and work with Claude Code automatically. No restart needed.
 
-### Test Locally
+## License
 
-```bash
-pnpm build
-node dist/index.js search skills
-node dist/index.js install skill pdf
-node dist/index.js list skills
-node dist/index.js remove skill pdf
-```
+AGPL-3.0
 
-## Future
+## Links
 
-When the backend is ready:
-
-- Replace stubbed API in `src/utils/api.ts`
-- Implement real ZIP download and extraction in `src/utils/fs.ts`
-- Add real download tracking
-
-The CLI interface is complete and will not change.
+- [conduit8.dev](https://conduit8.dev) - Web interface
+- [GitHub](https://github.com/alexander-zuev/conduit8) - Source code

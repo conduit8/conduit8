@@ -57,7 +57,7 @@ interface LogoTextProps {
 }
 
 const LogoText = memo(({ textSize }: LogoTextProps) => (
-  <span className={cn('font-brand font-bold tracking-wide', textSize)}>
+  <span className={cn('font-brand font-bold tracking-wide leading-none', textSize)}>
     conduit8
   </span>
 ));
@@ -84,7 +84,7 @@ export const Logo = ({
 
   return (
     <Link to={href} className="hover:no-underline">
-      <div className={cn('inline-flex items-center', config.gap, className)}>
+      <div className={cn('inline-flex items-baseline', config.gap, className)}>
         {showIcon && <LogoIcon size={config.icon} interactive={interactive} />}
         {showText && <LogoText textSize={config.text} />}
       </div>

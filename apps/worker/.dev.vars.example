@@ -19,6 +19,8 @@ BETTER_AUTH_URL=http://localhost:5173
 # OAuth Providers - Required for social login
 GOOGLE_CLIENT_ID=your-google-client-id.apps.googleusercontent.com
 GOOGLE_CLIENT_SECRET=GOCSPX-your-google-secret
+GITHUB_CLIENT_ID=Ov23li-your-github-client-id
+GITHUB_CLIENT_SECRET=your-github-client-secret
 
 # Cloudflare Turnstile - Required for captcha
 # Test secret key for localhost (works with site key 1x00000000000000000000AA)

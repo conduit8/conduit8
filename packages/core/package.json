@@ -2,6 +2,7 @@
   "name": "@conduit8/core",
   "type": "module",
   "version": "1.0.0",
+  "license": "AGPL-3.0",
   "description": "Core package with shared domain models, contracts, API schemas, and HTTP client utilities",
   "exports": {
     ".": {

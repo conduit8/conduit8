@@ -18,6 +18,7 @@
     "test:web": "pnpm --filter @conduit8/web test",
     "lint": "pnpm run -r --stream --parallel lint",
     "lint:fix": "pnpm run -r --stream --parallel lint:fix",
+    "import:skills": "cd scripts && pnpm exec tsx import-local-skills.ts",
     "deploy": "pnpm --filter @conduit8/worker run deploy",
     "deploy:prod": "echo '⚠️  WARNING: Deploying to PRODUCTION! Use CI/CD instead.' && pnpm --filter @conduit8/worker run deploy:prod"
   },

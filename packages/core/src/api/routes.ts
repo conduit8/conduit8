@@ -23,6 +23,9 @@ export const APP_ROUTES = {
       imageProxy: '/image-proxy',
       auth: '/auth',
       githubStats: '/github/stats',
+      skills: '/skills',
+      skill_by_id: '/skills/:id',
+      skill_download: '/skills/:id/downloaded',
     },
     slack: {
       events: '/slack/events',
