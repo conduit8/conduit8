@@ -3,10 +3,10 @@ import { settings } from '@web/lib/settings';
 import React, { useCallback, useState } from 'react';
 import { toast } from 'sonner';
 
-import type { EmailFormValues } from '@web/pages/public/landing/components/sign-in-modal/sign-in-form';
+import type { EmailFormValues } from '@web/pages/public/home/components/sign-in-modal/sign-in-form';
 
 import { authService } from '@web/lib/auth/services/auth-service';
-import { SignInForm } from '@web/pages/public/landing/components/sign-in-modal/sign-in-form';
+import { SignInForm } from '@web/pages/public/home/components/sign-in-modal/sign-in-form';
 import { Logo } from '@web/ui/components/atoms/brand/logo';
 import { Divider } from '@web/ui/components/layout/dividers/divider';
 import {

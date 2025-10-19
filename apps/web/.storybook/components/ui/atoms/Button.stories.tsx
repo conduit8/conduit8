@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
-import { Button } from '@web/components/ui/atoms';
+import { Button } from '@web/ui/components/atoms';
 
 const meta: Meta<typeof Button> = {
   title: 'Components/Atoms/Buttons',

@@ -20,7 +20,7 @@ const buttonVariants = cva(
           'border border-border-non-interactive bg-background  '
           + 'hover:bg-background-hover hover:border-border-interactive'
           + ' active:border-border-interactive-strong'
-          + ' dark:bg-input/30 dark:border-input dark:hover:bg-surface-hover',
+          + ' dark:bg-surface dark:border-border-interactive dark:hover:bg-surface-hover',
         destructive:
           'bg-destructive text-destructive-foreground  hover:bg-destructive-hover'
           + ' focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 ',

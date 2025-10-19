@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { Label } from '@web/components/ui/atoms/typography/label';
+import { Label } from '@web/ui/components/atoms/typography/label';
 
-import { RadioGroup, RadioGroupItem } from './radio-group';
+import { RadioGroup, RadioGroupItem } from '@web/ui/components/atoms/inputs/radio-group';
 
 const meta = {
   title: 'Components/Atoms/Inputs/RadioGroup',

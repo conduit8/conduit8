@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { Label } from '@web/components/ui/atoms/typography/label';
+import { Label } from '@web/ui/components/atoms/typography/label';
 import { useRef } from 'react';
 
-import { Switch } from '@web/components/ui/atoms/inputs/switch';
+import { Switch } from '@web/ui/components/atoms/inputs/switch';
 
 const meta = {
   title: 'Components/Atoms/Inputs/Switch',

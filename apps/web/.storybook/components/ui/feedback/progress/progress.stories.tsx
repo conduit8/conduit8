@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { Progress } from './progress';
+import { Progress } from '@web/ui/components/feedback/progress/progress';
 
 const meta = {
   title: 'Components/Feedback/Progress',

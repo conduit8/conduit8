@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
-import { Badge } from '@web/components/ui/atoms/indicators';
+import { Badge } from '@web/ui/components/atoms/indicators';
 import {
   Sidebar,
   SidebarContent,
@@ -14,7 +14,7 @@ import {
   SidebarMenuItem,
   SidebarProvider,
   SidebarSeparator,
-} from '@web/components/ui/layout/base/sidebar.tsx';
+} from '@web/ui/components/layout/sidebar/sidebar';
 import { cn } from '@web/shared/utils/utils.ts';
 import { BookOpen, Home, LifeBuoy, MessageSquare, Settings, User } from 'lucide-react';
 import React, { useRef } from 'react';

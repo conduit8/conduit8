@@ -1,13 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
-import { Button } from '@web/components/ui/atoms/buttons/button';
+import { Button } from '@web/ui/components/atoms/buttons/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@web/components/ui/overlays/dropdown-menu';
+} from '@web/ui/components/overlays/dropdown-menu';
 import { Heart, LogOut, Settings, Star, User } from 'lucide-react';
 
 const meta: Meta = {

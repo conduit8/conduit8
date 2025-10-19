@@ -222,7 +222,7 @@
   --color-surface: var(--surface);
   --color-card: var(--surface);
   --color-card-foreground: var(--card-foreground);
-  --color-popover: var(--background);
+  --color-popover: var(--popover);
   --color-popover-foreground: var(--popover-foreground);
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
@@ -301,11 +301,6 @@
   --color-destructive-muted-hover: var(--destructive-muted-hover);
   --color-warning-muted-hover: var(--warning-muted-hover);
   --color-info-muted-hover: var(--info-muted-hover);
-
-  /*    Keycap colors */
-  --color-keycap-edge: var(--keycap-edge);
-  --color-keycap-top: var(--keycap-top);
-  --color-keycap-shadow: var(--keycap-shadow);
 
   /*    Badge backgrounds (translucent) */
   --color-gray-a6: var(--gray-a6);

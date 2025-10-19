@@ -1,0 +1,73 @@
+{
+  "name": "@conduit8/cli",
+  "type": "module",
+  "version": "0.1.0",
+  "description": "Claude Code Skills Manager",
+  "author": "Alexander",
+  "license": "MIT",
+  "homepage": "https://github.com/alexander-zuev/conduit8/tree/main/packages/cli",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alexander-zuev/conduit8.git",
+    "directory": "packages/cli"
+  },
+  "bugs": "https://github.com/alexander-zuev/conduit8/issues",
+  "keywords": [
+    "claude",
+    "claude-code",
+    "skills",
+    "cli",
+    "ai"
+  ],
+  "bin": {
+    "conduit8": "./dist/index.js"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "README.md",
+    "dist"
+  ],
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "scripts": {
+    "dev": "tsdown --watch",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint . --quiet",
+    "lint:fix": "eslint . --fix --quiet",
+    "build": "tsdown",
+    "test": "vitest run --reporter=dot --silent",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "validate": "pnpm publint && pnpm attw",
+    "publint": "publint",
+    "attw": "attw --pack",
+    "prepublishOnly": "pnpm build && pnpm test && pnpm validate"
+  },
+  "dependencies": {
+    "chalk": "^5.3.0",
+    "commander": "^12.1.0",
+    "js-yaml": "^4.1.0",
+    "ora": "^8.1.1",
+    "tar": "^7.4.3"
+  },
+  "devDependencies": {
+    "@arethetypeswrong/cli": "^0.17.4",
+    "@conduit8/eslint-config": "workspace:*",
+    "@types/js-yaml": "^4.0.9",
+    "@types/node": "catalog:",
+    "@types/tar": "^6.1.13",
+    "@vitest/coverage-istanbul": "catalog:",
+    "eslint": "catalog:",
+    "publint": "^0.2.14",
+    "tsdown": "^0.15.3",
+    "typescript": "catalog:",
+    "vite-tsconfig-paths": "catalog:",
+    "vitest": "catalog:"
+  }
+}

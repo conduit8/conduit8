@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
-import { ContentGrid } from './ContentGrid';
+import { ContentGrid } from '@web/ui/components/layout/content/content-grid';
 
 const meta = {
   title: 'Components/Layout/Grids',

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
-import { DotBackground } from './DotBackground';
+import { DotBackground } from '@web/ui/components/atoms/backgrounds/dot-background';
 
 const meta = {
   title: 'Components/Atoms/Backgrounds',

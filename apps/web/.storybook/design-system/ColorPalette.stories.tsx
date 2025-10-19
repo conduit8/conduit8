@@ -1,21 +1,21 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
-import { Button } from '@web/components/ui/atoms/buttons';
-import { Input } from '@web/components/ui/atoms/inputs';
+import { Button } from '@web/ui/components/atoms/buttons';
+import { Input } from '@web/ui/components/atoms/inputs';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@web/components/ui/atoms/inputs/select';
+} from '@web/ui/components/atoms/inputs/select';
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@web/components/ui/layout/containers/card';
+} from '@web/ui/components/layout/containers/card';
 import {
   Dialog,
   DialogContent,
@@ -23,14 +23,14 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@web/components/ui/overlays/dialog';
+} from '@web/ui/components/overlays/dialog';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@web/components/ui/overlays/dropdown-menu';
-import { Popover, PopoverContent, PopoverTrigger } from '@web/components/ui/overlays/popover';
+} from '@web/ui/components/overlays/dropdown-menu';
+import { Popover, PopoverContent, PopoverTrigger } from '@web/ui/components/overlays/popover';
 
 const meta: Meta = {
   title: 'Design System/Colors & Components',

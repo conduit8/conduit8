@@ -1,23 +1,23 @@
 import type { AuthUser } from '@web/lib/auth/models';
 
-import * as sections from '@web/pages/public/landing/components';
-import { SignInModal } from '@web/pages/public/landing/components/sign-in-modal';
+import * as sections from '@web/pages/public/home/components';
+import { SignInModal } from '@web/pages/public/home/components/sign-in-modal';
 
 import { PageLayout } from '@web/ui/components/layout/page/page-layout';
 
+import { LandingHeader } from './home-header';
 import { LandingFooter } from './landing-footer';
-import { LandingHeader } from './landing-header';
 
 interface LandingPageProps {
   user: AuthUser | null;
   loginModal: any;
 }
 
-export const LandingPage = ({ user, loginModal }: LandingPageProps) => {
+export const HomePage = ({ user, loginModal }: LandingPageProps) => {
   return (
     <>
       <PageLayout
-        header={<LandingHeader />}
+        header={<LandingHeader user={user} loginModal={loginModal} />}
         footer={<LandingFooter />}
         variant="full-width"
         contentPadding={false}

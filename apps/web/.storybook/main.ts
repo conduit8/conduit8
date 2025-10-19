@@ -11,12 +11,7 @@ const config: StorybookConfig = {
   staticDirs: ['./public'],
   core: {
     disableTelemetry: true,
-    builder: {
-      name: '@storybook/builder-vite',
-      options: {
-        viteConfigPath: './vite.config.ts',
-      },
-    },
+    builder: '@storybook/builder-vite',
   },
   async viteFinal(viteConfig) {
     // Only add our custom aliases

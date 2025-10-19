@@ -1,17 +1,17 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { Button } from '@web/components/ui/atoms/buttons/button';
-import { Label } from '@web/components/ui/atoms/typography/label';
+import { Button } from '@web/ui/components/atoms/buttons/button';
+import { Label } from '@web/ui/components/atoms/typography/label';
 import {
   Card,
   CardContent,
   CardHeader,
   CardTitle,
-} from '@web/components/ui/layout/containers/card';
+} from '@web/ui/components/layout/containers/card';
 import { useRef } from 'react';
 
-import { Checkbox } from './checkbox';
-import { RadioGroup, RadioGroupItem } from './radio-group';
+import { Checkbox } from '@web/ui/components/atoms/inputs/checkbox';
+import { RadioGroup, RadioGroupItem } from '@web/ui/components/atoms/inputs/radio-group';
 import {
   Select,
   SelectContent,
@@ -21,8 +21,8 @@ import {
   SelectSeparator,
   SelectTrigger,
   SelectValue,
-} from './select';
-import { Switch } from './switch';
+} from '@web/ui/components/atoms/inputs/select';
+import { Switch } from '@web/ui/components/atoms/inputs/switch';
 
 const meta = {
   title: 'Components/Atoms/Inputs/Form Showcase',

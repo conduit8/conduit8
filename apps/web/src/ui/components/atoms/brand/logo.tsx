@@ -28,14 +28,10 @@ interface LogoIconProps {
 
 const LogoIcon = memo(({ size, interactive = true }: LogoIconProps) => {
   return (
-    <svg
-      viewBox="-1 0 10 10"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      shapeRendering="crispEdges"
+    <div
       className={cn(
         size,
-        'rounded',
+        'relative flex items-center justify-center rounded',
         interactive && [
           'cursor-pointer',
           'transition-opacity duration-200',
@@ -43,48 +39,12 @@ const LogoIcon = memo(({ size, interactive = true }: LogoIconProps) => {
         ],
       )}
     >
-      <rect x="-1" y="0" width="10" height="10" rx="0.8" fill="currentColor" className="text-foreground" />
-      <rect x="-0.01" y="-0.01" width="1.02" height="1.02" fill="currentColor" className="text-background" />
-      <rect x="0.99" y="-0.01" width="1.02" height="1.02" fill="currentColor" className="text-background" />
-      <rect x="5.99" y="-0.01" width="1.02" height="1.02" fill="currentColor" className="text-background" />
-      <rect x="6.99" y="-0.01" width="1.02" height="1.02" fill="currentColor" className="text-background" />
-      <rect x="-0.01" y="0.99" width="1.02" height="1.02" fill="currentColor" className="text-background" />
-      <rect x="0.99" y="0.99" width="1.02" height="1.02" fill="currentColor" className="text-background" />
-      <rect x="5.99" y="0.99" width="1.02" height="1.02" fill="currentColor" className="text-background" />
-      <rect x="6.99" y="0.99" width="1.02" height="1.02" fill="currentColor" className="text-background" />
-      <rect x="-0.01" y="1.99" width="1.02" height="1.02" fill="currentColor" className="text-background" />
-      <rect x="0.99" y="1.99" width="1.02" height="1.02" fill="currentColor" className="text-background" />
-      <rect x="3.99" y="1.99" width="1.02" height="1.02" fill="currentColor" className="text-background" />
-      <rect x="4.99" y="1.99" width="1.02" height="1.02" fill="currentColor" className="text-background" />
-      <rect x="-0.01" y="2.99" width="1.02" height="1.02" fill="currentColor" className="text-background" />
-      <rect x="0.99" y="2.99" width="1.02" height="1.02" fill="currentColor" className="text-background" />
-      <rect x="3.99" y="2.99" width="1.02" height="1.02" fill="currentColor" className="text-background" />
-      <rect x="4.99" y="2.99" width="1.02" height="1.02" fill="currentColor" className="text-background" />
-      <rect x="-0.01" y="3.99" width="1.02" height="1.02" fill="currentColor" className="text-background" />
-      <rect x="0.99" y="3.99" width="1.02" height="1.02" fill="currentColor" className="text-background" />
-      <rect x="1.99" y="3.99" width="1.02" height="1.02" fill="currentColor" className="text-background" />
-      <rect x="2.99" y="3.99" width="1.02" height="1.02" fill="currentColor" className="text-background" />
-      <rect x="-0.01" y="4.99" width="1.02" height="1.02" fill="currentColor" className="text-background" />
-      <rect x="0.99" y="4.99" width="1.02" height="1.02" fill="currentColor" className="text-background" />
-      <rect x="1.99" y="4.99" width="1.02" height="1.02" fill="currentColor" className="text-background" />
-      <rect x="2.99" y="4.99" width="1.02" height="1.02" fill="currentColor" className="text-background" />
-      <rect x="-0.01" y="5.99" width="1.02" height="1.02" fill="currentColor" className="text-background" />
-      <rect x="0.99" y="5.99" width="1.02" height="1.02" fill="currentColor" className="text-background" />
-      <rect x="3.99" y="5.99" width="1.02" height="1.02" fill="currentColor" className="text-background" />
-      <rect x="4.99" y="5.99" width="1.02" height="1.02" fill="currentColor" className="text-background" />
-      <rect x="-0.01" y="6.99" width="1.02" height="1.02" fill="currentColor" className="text-background" />
-      <rect x="0.99" y="6.99" width="1.02" height="1.02" fill="currentColor" className="text-background" />
-      <rect x="3.99" y="6.99" width="1.02" height="1.02" fill="currentColor" className="text-background" />
-      <rect x="4.99" y="6.99" width="1.02" height="1.02" fill="currentColor" className="text-background" />
-      <rect x="-0.01" y="7.99" width="1.02" height="1.02" fill="currentColor" className="text-background" />
-      <rect x="0.99" y="7.99" width="1.02" height="1.02" fill="currentColor" className="text-background" />
-      <rect x="5.99" y="7.99" width="1.02" height="1.02" fill="currentColor" className="text-background" />
-      <rect x="6.99" y="7.99" width="1.02" height="1.02" fill="currentColor" className="text-background" />
-      <rect x="-0.01" y="8.99" width="1.02" height="1.02" fill="currentColor" className="text-background" />
-      <rect x="0.99" y="8.99" width="1.02" height="1.02" fill="currentColor" className="text-background" />
-      <rect x="5.99" y="8.99" width="1.02" height="1.02" fill="currentColor" className="text-background" />
-      <rect x="6.99" y="8.99" width="1.02" height="1.02" fill="currentColor" className="text-background" />
-    </svg>
+      <span className="font-brand font-bold text-2xl tracking-tighter leading-none">
+        <span className="text-accent">[</span>
+        <span className="text-foreground">C8</span>
+        <span className="text-accent">]</span>
+      </span>
+    </div>
   );
 });
 LogoIcon.displayName = 'LogoIcon';
@@ -95,7 +55,7 @@ interface LogoTextProps {
 
 const LogoText = memo(({ textSize }: LogoTextProps) => (
   <span className={cn('font-brand font-bold tracking-wide', textSize)}>
-    Conduit8
+    conduit8
   </span>
 ));
 LogoText.displayName = 'LogoText';

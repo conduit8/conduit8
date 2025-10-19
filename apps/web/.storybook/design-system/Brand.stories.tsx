@@ -1,13 +1,22 @@
 import type { Meta } from '@storybook/react-vite';
 
-// Logo Alternative Components
+// Logo Alternative Components for Conduit8
 
-// 1. Current Pixelated K
-const Logo1Current = ({ size = 32 }) => (
+// 1. C Pixelated (User Request)
+const Logo1PixelatedC = ({ size = 32 }) => (
   <div className="inline-flex items-center gap-2">
     <div className={`relative flex items-center justify-center bg-foreground rounded`} style={{ width: size, height: size }}>
-      <svg width="100%" height="100%" viewBox="0 0 8 10" fill="none" shapeRendering="crispEdges">
-        {[1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,1,1,0,0,1,1,0,0,1,1,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,0,0,1,1,0,0,1,1,0,0,1,1,0,0,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1].map((pixel, i) => {
+      <svg width="100%" height="100%" viewBox="0 0 8 8" fill="none" shapeRendering="crispEdges">
+        {[
+          0, 1, 1, 1, 1, 1, 0, 0,
+          1, 1, 0, 0, 0, 0, 1, 0,
+          1, 0, 0, 0, 0, 0, 0, 0,
+          1, 0, 0, 0, 0, 0, 0, 0,
+          1, 0, 0, 0, 0, 0, 0, 0,
+          1, 0, 0, 0, 0, 0, 0, 0,
+          1, 1, 0, 0, 0, 0, 1, 0,
+          0, 1, 1, 1, 1, 1, 0, 0,
+        ].map((pixel, i) => {
           if (!pixel) return null;
           const x = i % 8;
           const y = Math.floor(i / 8);
@@ -19,127 +28,159 @@ const Logo1Current = ({ size = 32 }) => (
   </div>
 );
 
-// 2. Chromatic Offset (Print Misalignment)
-const Logo2Chromatic = ({ size = 32 }) => (
+// 2. C8 Combined (User Request - C morphs into 8)
+const Logo2C8Combined = ({ size = 32 }) => (
   <div className="inline-flex items-center gap-2">
-    <div className="relative" style={{ width: size, height: size }}>
-      <svg width="100%" height="100%" viewBox="0 0 24 32" fill="none" className="absolute">
-        <text x="12" y="24" fontFamily="Space Mono, monospace" fontSize="28" fontWeight="700" fill="rgb(251, 146, 60)" textAnchor="middle">K</text>
-      </svg>
-      <svg width="100%" height="100%" viewBox="0 0 24 32" fill="none" className="absolute" style={{ transform: 'translate(2px, 2px)' }}>
-        <text x="12" y="24" fontFamily="Space Mono, monospace" fontSize="28" fontWeight="700" fill="white" textAnchor="middle">K</text>
-      </svg>
-      <svg width="100%" height="100%" viewBox="0 0 24 32" fill="none" className="absolute" style={{ transform: 'translate(4px, 4px)' }}>
-        <text x="12" y="24" fontFamily="Space Mono, monospace" fontSize="28" fontWeight="700" fill="black" textAnchor="middle">K</text>
+    <div className="relative flex items-center justify-center bg-foreground rounded" style={{ width: size * 1.2, height: size }}>
+      <svg width="100%" height="100%" viewBox="0 0 24 20" fill="none">
+        {/* C shape on left */}
+        <path d="M2 10 Q2 2 10 2 L12 2 L12 5 L10 5 Q5 5 5 10 Q5 15 10 15 L12 15 L12 18 L10 18 Q2 18 2 10" fill="white" stroke="rgb(251, 146, 60)" strokeWidth="1" />
+        {/* 8 shape on right */}
+        <circle cx="18" cy="7" r="3.5" fill="transparent" stroke="white" strokeWidth="2" />
+        <circle cx="18" cy="13" r="3.5" fill="transparent" stroke="white" strokeWidth="2" />
       </svg>
     </div>
     <span className="font-brand font-bold text-foreground" style={{ fontSize: size * 0.6 }}>Conduit8</span>
   </div>
 );
 
-// 3. Terminal Block K with Orange Cursor
-const Logo3Terminal = ({ size = 32 }) => (
+// 3. Pixelated C with Vertical 8 (User Request - Pure SVG)
+const Logo3PixelatedCWith8 = ({ size = 32 }) => (
   <div className="inline-flex items-center gap-2">
-    <div className="relative bg-foreground rounded flex items-center justify-center" style={{ width: size, height: size * 1.2 }}>
-      <span className="font-mono font-bold text-background" style={{ fontSize: size * 0.8 }}>K</span>
-      <div className="absolute bottom-1 right-1 bg-[rgb(251,146,60)]" style={{ width: size * 0.15, height: size * 0.15 }}></div>
-    </div>
-    <span className="font-brand font-bold text-foreground" style={{ fontSize: size * 0.6 }}>Conduit8</span>
-  </div>
-);
-
-// 4. Bold Outlined K with Hard Shadow
-const Logo4Outlined = ({ size = 32 }) => (
-  <div className="inline-flex items-center gap-2">
-    <div className="relative" style={{ width: size, height: size }}>
-      {/* Hard shadow */}
-      <svg width="100%" height="100%" viewBox="0 0 24 32" fill="none" className="absolute" style={{ transform: 'translate(4px, 4px)' }}>
-        <text x="12" y="24" fontFamily="Space Mono, monospace" fontSize="28" fontWeight="700" fill="black" stroke="black" strokeWidth="2" textAnchor="middle">K</text>
-      </svg>
-      {/* Main letter */}
-      <svg width="100%" height="100%" viewBox="0 0 24 32" fill="none" className="absolute">
-        <text x="12" y="24" fontFamily="Space Mono, monospace" fontSize="28" fontWeight="700" fill="white" stroke="black" strokeWidth="3" textAnchor="middle">K</text>
-      </svg>
-    </div>
-    <span className="font-brand font-bold text-foreground" style={{ fontSize: size * 0.6 }}>Conduit8</span>
-  </div>
-);
-
-// 5. Geometric K with Orange Bar
-const Logo5Geometric = ({ size = 32 }) => (
-  <div className="inline-flex items-center gap-2">
-    <div className="relative bg-foreground rounded flex items-center justify-center" style={{ width: size, height: size }}>
-      <svg width="80%" height="80%" viewBox="0 0 20 20" fill="none">
-        <path d="M2 0 L2 20 L6 20 L6 12 L10 16 L10 20 L14 20 L14 14 L10 10 L14 6 L14 0 L10 0 L10 4 L6 8 L6 0 Z" fill="white"/>
-        <rect x="0" y="18" width="20" height="2" fill="rgb(251, 146, 60)"/>
-      </svg>
-    </div>
-    <span className="font-brand font-bold text-foreground" style={{ fontSize: size * 0.6 }}>Conduit8</span>
-  </div>
-);
-
-// 6. Connected Nodes K (AI/Network)
-const Logo6Network = ({ size = 32 }) => (
-  <div className="inline-flex items-center gap-2">
-    <div className="relative" style={{ width: size, height: size }}>
-      <svg width="100%" height="100%" viewBox="0 0 24 32" fill="none">
-        <circle cx="4" cy="4" r="2" fill="black"/>
-        <circle cx="4" cy="28" r="2" fill="black"/>
-        <circle cx="20" cy="4" r="2" fill="black"/>
-        <circle cx="20" cy="28" r="2" fill="black"/>
-        <circle cx="12" cy="16" r="2" fill="rgb(251, 146, 60)"/>
-        <line x1="4" y1="4" x2="4" y2="28" stroke="black" strokeWidth="2"/>
-        <line x1="4" y1="4" x2="20" y2="4" stroke="black" strokeWidth="2"/>
-        <line x1="4" y1="28" x2="20" y2="28" stroke="black" strokeWidth="2"/>
-        <line x1="4" y1="4" x2="12" y2="16" stroke="black" strokeWidth="2"/>
-        <line x1="12" y1="16" x2="20" y2="4" stroke="black" strokeWidth="2"/>
-        <line x1="4" y1="28" x2="12" y2="16" stroke="black" strokeWidth="2"/>
-        <line x1="12" y1="16" x2="20" y2="28" stroke="black" strokeWidth="2"/>
+    <div className={`relative flex items-center justify-center bg-foreground rounded`} style={{ width: size, height: size }}>
+      <svg width="100%" height="100%" viewBox="0 0 8 8" fill="none">
+        {/* Pixelated C background */}
+        {[
+          0, 1, 1, 1, 1, 1, 0, 0,
+          1, 1, 0, 0, 0, 0, 1, 0,
+          1, 0, 0, 0, 0, 0, 0, 0,
+          1, 0, 0, 0, 0, 0, 0, 0,
+          1, 0, 0, 0, 0, 0, 0, 0,
+          1, 0, 0, 0, 0, 0, 0, 0,
+          1, 1, 0, 0, 0, 0, 1, 0,
+          0, 1, 1, 1, 1, 1, 0, 0,
+        ].map((pixel, i) => {
+          if (!pixel) return null;
+          const x = i % 8;
+          const y = Math.floor(i / 8);
+          return <rect key={i} x={x} y={y} width="1" height="1" fill="white" shapeRendering="crispEdges" />;
+        })}
+        {/* Text 8 as SVG text element */}
+        <text
+          x="4"
+          y="4"
+          fontFamily="Space Mono, monospace"
+          fontSize="4"
+          fontWeight="700"
+          fill="rgb(251, 146, 60)"
+          textAnchor="middle"
+          dominantBaseline="central"
+        >
+          8
+        </text>
       </svg>
     </div>
     <span className="font-brand font-bold text-foreground" style={{ fontSize: size * 0.6 }}>Conduit8</span>
   </div>
 );
 
-// 7. Slash K (Code/Terminal)
-const Logo7Slash = ({ size = 32 }) => (
-  <div className="inline-flex items-center gap-1">
-    <div className="relative bg-foreground rounded flex items-center justify-center px-1" style={{ height: size }}>
-      <span className="font-mono font-bold text-background" style={{ fontSize: size * 0.6 }}>K/</span>
-    </div>
-    <span className="font-brand font-bold text-foreground" style={{ fontSize: size * 0.6 }}>Conduit8</span>
-  </div>
-);
-
-// 8. K in Frame with Orange Corner
-const Logo8Framed = ({ size = 32 }) => (
+// 4. Simple Text [C8] (User Request - Square with accent font)
+const Logo4TextBracketC8 = ({ size = 32 }) => (
   <div className="inline-flex items-center gap-2">
-    <div className="relative border-2 border-foreground rounded flex items-center justify-center" style={{ width: size, height: size }}>
-      <span className="font-mono font-bold text-foreground" style={{ fontSize: size * 0.6 }}>K</span>
-      <div className="absolute top-0 right-0 bg-[rgb(251,146,60)]" style={{ width: size * 0.25, height: size * 0.25 }}></div>
+    <div className={`relative flex items-center justify-center rounded`} style={{ width: size, height: size }}>
+      <span className="font-brand font-bold text-2xl tracking-tighter">
+        <span className="text-accent">[</span>
+        <span className="text-foreground">C8</span>
+        <span className="text-accent">]</span>
+      </span>
+    </div>
+    <span className="font-brand font-bold text-foreground text-2xl">conduit8</span>
+  </div>
+);
+
+// 5. Circuit Board C8
+const Logo5CircuitC8 = ({ size = 32 }) => (
+  <div className="inline-flex items-center gap-2">
+    <div className="relative flex items-center justify-center bg-foreground rounded" style={{ width: size * 1.3, height: size }}>
+      <svg width="90%" height="90%" viewBox="0 0 26 20" fill="none">
+        {/* Circuit traces forming C */}
+        <path d="M8 2 L2 2 L2 18 L8 18" stroke="white" strokeWidth="2" fill="none" />
+        <path d="M8 2 L14 2" stroke="white" strokeWidth="2" />
+        <path d="M8 18 L14 18" stroke="white" strokeWidth="2" />
+        {/* Number 8 with circuit nodes */}
+        <circle cx="20" cy="7" r="3" stroke="white" strokeWidth="1.5" fill="transparent" />
+        <circle cx="20" cy="13" r="3" stroke="white" strokeWidth="1.5" fill="transparent" />
+        <circle cx="20" cy="7" r="1" fill="rgb(251, 146, 60)" />
+        <circle cx="20" cy="13" r="1" fill="rgb(251, 146, 60)" />
+      </svg>
     </div>
     <span className="font-brand font-bold text-foreground" style={{ fontSize: size * 0.6 }}>Conduit8</span>
   </div>
 );
 
-// 9. Minimalist K with Orange Notification
-const Logo9Minimal = ({ size = 32 }) => (
+// 6. Hexagonal C8 Badge
+const Logo6HexC8 = ({ size = 32 }) => (
+  <div className="inline-flex items-center gap-2">
+    <div className="relative flex items-center justify-center" style={{ width: size, height: size }}>
+      <svg width="100%" height="100%" viewBox="0 0 24 28" fill="none">
+        {/* Hexagon */}
+        <path d="M12 2 L22 8 L22 20 L12 26 L2 20 L2 8 Z" fill="black" stroke="black" strokeWidth="2" />
+        {/* C8 inside */}
+        <text x="7" y="18" fontFamily="Space Mono, monospace" fontSize="14" fontWeight="700" fill="white">C</text>
+        <text x="14" y="18" fontFamily="Space Mono, monospace" fontSize="12" fontWeight="700" fill="rgb(251, 146, 60)">8</text>
+      </svg>
+    </div>
+    <span className="font-brand font-bold text-foreground" style={{ fontSize: size * 0.6 }}>Conduit8</span>
+  </div>
+);
+
+// 7. Bracket Code Style <C8>
+const Logo7BracketC8 = ({ size = 32 }) => (
+  <div className="inline-flex items-center gap-2">
+    <div className="relative flex items-center justify-center bg-foreground rounded px-1" style={{ height: size }}>
+      <span className="font-mono font-bold text-background" style={{ fontSize: size * 0.5 }}>&lt;C8&gt;</span>
+    </div>
+    <span className="font-brand font-bold text-foreground" style={{ fontSize: size * 0.6 }}>Conduit8</span>
+  </div>
+);
+
+// 8. Stacked C/8 (vertically)
+const Logo8StackedC8 = ({ size = 32 }) => (
+  <div className="inline-flex items-center gap-2">
+    <div className="relative flex items-center justify-center bg-foreground rounded" style={{ width: size * 0.9, height: size }}>
+      <div className="flex flex-col items-center justify-center leading-none">
+        <span className="font-mono font-bold text-background leading-none" style={{ fontSize: size * 0.45 }}>C</span>
+        <div className="bg-[rgb(251,146,60)]" style={{ width: size * 0.6, height: 2, margin: '1px 0' }}></div>
+        <span className="font-mono font-bold text-background leading-none" style={{ fontSize: size * 0.45 }}>8</span>
+      </div>
+    </div>
+    <span className="font-brand font-bold text-foreground" style={{ fontSize: size * 0.6 }}>Conduit8</span>
+  </div>
+);
+
+// 9. Overlapping Monogram C8
+const Logo9MonogramC8 = ({ size = 32 }) => (
+  <div className="inline-flex items-center gap-2">
+    <div className="relative flex items-center justify-center" style={{ width: size, height: size }}>
+      <svg width="100%" height="100%" viewBox="0 0 28 32" fill="none">
+        {/* Large C */}
+        <path d="M24 8 Q24 2 16 2 Q8 2 8 8 L8 24 Q8 30 16 30 Q24 30 24 24" stroke="black" strokeWidth="4" fill="none" />
+        {/* Overlapping 8 in orange */}
+        <circle cx="16" cy="11" r="4" stroke="rgb(251, 146, 60)" strokeWidth="2.5" fill="white" />
+        <circle cx="16" cy="21" r="4" stroke="rgb(251, 146, 60)" strokeWidth="2.5" fill="white" />
+      </svg>
+    </div>
+    <span className="font-brand font-bold text-foreground" style={{ fontSize: size * 0.6 }}>Conduit8</span>
+  </div>
+);
+
+// 10. Minimal C with 8 Badge
+const Logo10MinimalC8 = ({ size = 32 }) => (
   <div className="inline-flex items-center gap-2">
     <div className="relative">
-      <span className="font-mono font-bold text-foreground" style={{ fontSize: size }}>K</span>
-      <div className="absolute -top-1 -right-1 bg-[rgb(251,146,60)] rounded-full" style={{ width: size * 0.3, height: size * 0.3 }}></div>
-    </div>
-    <span className="font-brand font-bold text-foreground" style={{ fontSize: size * 0.6 }}>Conduit8</span>
-  </div>
-);
-
-// 10. Stacked K with Orange Underline
-const Logo10Stacked = ({ size = 32 }) => (
-  <div className="inline-flex items-center gap-2">
-    <div className="relative">
-      <div className="flex flex-col items-center">
-        <span className="font-mono font-bold text-foreground leading-none" style={{ fontSize: size }}>K</span>
-        <div className="bg-[rgb(251,146,60)]" style={{ width: size * 0.8, height: size * 0.15, marginTop: 2 }}></div>
+      <span className="font-mono font-bold text-foreground" style={{ fontSize: size * 1.1 }}>C</span>
+      <div className="absolute -top-1 -right-2 bg-[rgb(251,146,60)] rounded flex items-center justify-center" style={{ width: size * 0.5, height: size * 0.5 }}>
+        <span className="font-mono font-bold text-background" style={{ fontSize: size * 0.3 }}>8</span>
       </div>
     </div>
     <span className="font-brand font-bold text-foreground" style={{ fontSize: size * 0.6 }}>Conduit8</span>
@@ -185,16 +226,14 @@ const LogoWrapper = ({ size = 'md', variant = 'default', className = '', interac
             <div className="absolute inset-1 border border-white rounded-sm opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
             <div className="grid grid-cols-8 gap-0 relative z-10">
               {[
-                1,1, 0,0, 0,0, 1,1,
-                1,1, 0,0, 0,0, 1,1,
-                1,1, 0,0, 1,1, 0,0,
-                1,1, 0,0, 1,1, 0,0,
-                1,1, 1,1, 0,0, 0,0,
-                1,1, 1,1, 0,0, 0,0,
-                1,1, 0,0, 1,1, 0,0,
-                1,1, 0,0, 1,1, 0,0,
-                1,1, 0,0, 0,0, 1,1,
-                1,1, 0,0, 0,0, 1,1,
+                0, 1, 1, 1, 1, 1, 0, 0,
+                1, 1, 0, 0, 0, 0, 1, 0,
+                1, 0, 0, 0, 0, 0, 0, 0,
+                1, 0, 0, 0, 0, 0, 0, 0,
+                1, 0, 0, 0, 0, 0, 0, 0,
+                1, 0, 0, 0, 0, 0, 0, 0,
+                1, 1, 0, 0, 0, 0, 1, 0,
+                0, 1, 1, 1, 1, 1, 0, 0,
               ].map((pixel, i) => (
                 <div
                   key={i}
@@ -232,23 +271,23 @@ export default meta;
 // Logo Alternatives Showcase
 export const LogoAlternatives = () => {
   const logos = [
-    { component: Logo1Current, name: '1. Current Pixelated K', description: 'Existing pixel art logo' },
-    { component: Logo2Chromatic, name: '2. Chromatic Offset', description: 'Print misalignment effect - dynamic & vintage' },
-    { component: Logo3Terminal, name: '3. Terminal with Cursor', description: 'Code terminal aesthetic with orange cursor' },
-    { component: Logo4Outlined, name: '4. Outlined with Shadow', description: 'Comic book lettering with hard shadow' },
-    { component: Logo5Geometric, name: '5. Geometric K + Bar', description: 'Clean geometric form with orange accent' },
-    { component: Logo6Network, name: '6. Connected Nodes', description: 'AI/network visualization' },
-    { component: Logo7Slash, name: '7. Slash K (K/)', description: 'Terminal/code syntax' },
-    { component: Logo8Framed, name: '8. Framed K', description: 'Bordered with orange corner accent' },
-    { component: Logo9Minimal, name: '9. Minimal + Notification', description: 'Simple K with orange badge' },
-    { component: Logo10Stacked, name: '10. Stacked with Underline', description: 'K with orange underline emphasis' },
+    { component: Logo1PixelatedC, name: '1. Pixelated C', description: 'Retro pixel art C - easy to remember, simple grid' },
+    { component: Logo2C8Combined, name: '2. C8 Combined', description: 'C morphing into 8 - unified letterform' },
+    { component: Logo3PixelatedCWith8, name: '3. Pixelated C + Vertical 8', description: 'Pixel C with smooth vertical 8 inside' },
+    { component: Logo4TextBracketC8, name: '4. Text [C8]', description: 'Simple monospace bracket style - clean, minimal' },
+    { component: Logo5CircuitC8, name: '5. Circuit Board C8', description: 'Tech/electronic aesthetic with traces' },
+    { component: Logo6HexC8, name: '6. Hexagonal Badge', description: 'C8 in hex container - geometric, solid' },
+    { component: Logo7BracketC8, name: '7. Code Bracket <C8>', description: 'Terminal/code syntax - developer-friendly' },
+    { component: Logo8StackedC8, name: '8. Stacked C/8', description: 'Vertical stack with orange divider' },
+    { component: Logo9MonogramC8, name: '9. Overlapping Monogram', description: 'C and 8 intersecting - sophisticated' },
+    { component: Logo10MinimalC8, name: '10. C with 8 Badge', description: 'Simple C with orange numbered badge' },
   ];
 
   return (
     <div className="space-y-16 p-8">
       <div>
-        <h1 className="text-3xl font-bold mb-2">Logo Alternatives</h1>
-        <p className="text-muted-foreground mb-8">10 variations exploring different directions for Conduit8's brand identity</p>
+        <h1 className="text-3xl font-bold mb-2">Conduit8 Logo Alternatives</h1>
+        <p className="text-muted-foreground mb-8">10 variations exploring C and C8 combinations - all simple and memorable</p>
       </div>
 
       {/* Full Logos (Icon + Text) */}
@@ -274,7 +313,7 @@ export const LogoAlternatives = () => {
 
       {/* Icon Only Variations */}
       <div>
-        <h2 className="text-2xl font-bold mb-6">Icon Only (for small spaces, favicons, avatars)</h2>
+        <h2 className="text-2xl font-bold mb-6">Icon Only (for favicons, avatars, small spaces)</h2>
         <div className="border-border bg-card rounded-lg border p-8">
           <div className="grid grid-cols-5 gap-8">
             {logos.map((logo, i) => {
@@ -282,21 +321,11 @@ export const LogoAlternatives = () => {
               return (
                 <div key={i} className="flex flex-col items-center gap-3">
                   <div className="flex items-center justify-center h-16">
-                    {/* Render just the icon part */}
                     <div className="inline-flex">
-                      {i === 0 && <div className="relative flex items-center justify-center bg-foreground rounded" style={{ width: 40, height: 40 }}><svg width="100%" height="100%" viewBox="0 0 8 10" fill="none" shapeRendering="crispEdges">{[1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,1,1,0,0,1,1,0,0,1,1,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,0,0,1,1,0,0,1,1,0,0,1,1,0,0,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1].map((pixel, idx) => {if (!pixel) return null; const x = idx % 8; const y = Math.floor(idx / 8); return <rect key={idx} x={x} y={y} width="1" height="1" fill="currentColor" className="fill-background" />;})}</svg></div>}
-                      {i === 1 && <div className="relative" style={{ width: 40, height: 40 }}><svg width="100%" height="100%" viewBox="0 0 24 32" fill="none" className="absolute"><text x="12" y="24" fontFamily="Space Mono, monospace" fontSize="28" fontWeight="700" fill="rgb(251, 146, 60)" textAnchor="middle">K</text></svg><svg width="100%" height="100%" viewBox="0 0 24 32" fill="none" className="absolute" style={{ transform: 'translate(2px, 2px)' }}><text x="12" y="24" fontFamily="Space Mono, monospace" fontSize="28" fontWeight="700" fill="white" textAnchor="middle">K</text></svg><svg width="100%" height="100%" viewBox="0 0 24 32" fill="none" className="absolute" style={{ transform: 'translate(4px, 4px)' }}><text x="12" y="24" fontFamily="Space Mono, monospace" fontSize="28" fontWeight="700" fill="black" textAnchor="middle">K</text></svg></div>}
-                      {i === 2 && <div className="relative bg-foreground rounded flex items-center justify-center" style={{ width: 40, height: 48 }}><span className="font-mono font-bold text-background" style={{ fontSize: 32 }}>K</span><div className="absolute bottom-1 right-1 bg-[rgb(251,146,60)]" style={{ width: 6, height: 6 }}></div></div>}
-                      {i === 3 && <div className="relative" style={{ width: 40, height: 40 }}><svg width="100%" height="100%" viewBox="0 0 24 32" fill="none" className="absolute" style={{ transform: 'translate(4px, 4px)' }}><text x="12" y="24" fontFamily="Space Mono, monospace" fontSize="28" fontWeight="700" fill="black" stroke="black" strokeWidth="2" textAnchor="middle">K</text></svg><svg width="100%" height="100%" viewBox="0 0 24 32" fill="none" className="absolute"><text x="12" y="24" fontFamily="Space Mono, monospace" fontSize="28" fontWeight="700" fill="white" stroke="black" strokeWidth="3" textAnchor="middle">K</text></svg></div>}
-                      {i === 4 && <div className="relative bg-foreground rounded flex items-center justify-center" style={{ width: 40, height: 40 }}><svg width="80%" height="80%" viewBox="0 0 20 20" fill="none"><path d="M2 0 L2 20 L6 20 L6 12 L10 16 L10 20 L14 20 L14 14 L10 10 L14 6 L14 0 L10 0 L10 4 L6 8 L6 0 Z" fill="white"/><rect x="0" y="18" width="20" height="2" fill="rgb(251, 146, 60)"/></svg></div>}
-                      {i === 5 && <div className="relative" style={{ width: 40, height: 40 }}><svg width="100%" height="100%" viewBox="0 0 24 32" fill="none"><circle cx="4" cy="4" r="2" fill="black"/><circle cx="4" cy="28" r="2" fill="black"/><circle cx="20" cy="4" r="2" fill="black"/><circle cx="20" cy="28" r="2" fill="black"/><circle cx="12" cy="16" r="2" fill="rgb(251, 146, 60)"/><line x1="4" y1="4" x2="4" y2="28" stroke="black" strokeWidth="2"/><line x1="4" y1="4" x2="20" y2="4" stroke="black" strokeWidth="2"/><line x1="4" y1="28" x2="20" y2="28" stroke="black" strokeWidth="2"/><line x1="4" y1="4" x2="12" y2="16" stroke="black" strokeWidth="2"/><line x1="12" y1="16" x2="20" y2="4" stroke="black" strokeWidth="2"/><line x1="4" y1="28" x2="12" y2="16" stroke="black" strokeWidth="2"/><line x1="12" y1="16" x2="20" y2="28" stroke="black" strokeWidth="2"/></svg></div>}
-                      {i === 6 && <div className="relative bg-foreground rounded flex items-center justify-center px-1" style={{ height: 40 }}><span className="font-mono font-bold text-background" style={{ fontSize: 24 }}>K/</span></div>}
-                      {i === 7 && <div className="relative border-2 border-foreground rounded flex items-center justify-center" style={{ width: 40, height: 40 }}><span className="font-mono font-bold text-foreground" style={{ fontSize: 24 }}>K</span><div className="absolute top-0 right-0 bg-[rgb(251,146,60)]" style={{ width: 10, height: 10 }}></div></div>}
-                      {i === 8 && <div className="relative"><span className="font-mono font-bold text-foreground" style={{ fontSize: 40 }}>K</span><div className="absolute -top-1 -right-1 bg-[rgb(251,146,60)] rounded-full" style={{ width: 12, height: 12 }}></div></div>}
-                      {i === 9 && <div className="relative"><div className="flex flex-col items-center"><span className="font-mono font-bold text-foreground leading-none" style={{ fontSize: 40 }}>K</span><div className="bg-[rgb(251,146,60)]" style={{ width: 32, height: 6, marginTop: 2 }}></div></div></div>}
+                      <LogoComponent size={40} />
                     </div>
                   </div>
-                  <span className="text-xs text-muted-foreground">#{i + 1}</span>
+                  <span className="text-xs text-muted-foreground text-center">{logo.name.split('.')[0]}</span>
                 </div>
               );
             })}
@@ -306,7 +335,7 @@ export const LogoAlternatives = () => {
 
       {/* Text Only Variations */}
       <div>
-        <h2 className="text-2xl font-bold mb-6">Text Only (wordmark variations)</h2>
+        <h2 className="text-2xl font-bold mb-6">Wordmark Variations</h2>
         <div className="border-border bg-card rounded-lg border p-8">
           <div className="grid grid-cols-2 gap-12">
             <div className="flex flex-col items-center gap-4">
@@ -314,15 +343,15 @@ export const LogoAlternatives = () => {
               <p className="text-sm text-muted-foreground">Standard (Space Mono)</p>
             </div>
             <div className="flex flex-col items-center gap-4">
-              <span className="font-brand font-bold text-foreground text-3xl uppercase">KOLLEKTIV</span>
+              <span className="font-brand font-bold text-foreground text-3xl uppercase">CONDUIT8</span>
               <p className="text-sm text-muted-foreground">All Caps</p>
             </div>
             <div className="flex flex-col items-center gap-4">
               <div className="flex items-center gap-1">
-                <span className="font-brand font-bold text-foreground text-3xl">Conduit8</span>
-                <div className="w-2 h-2 bg-[rgb(251,146,60)] rounded-full"></div>
+                <span className="font-brand font-bold text-foreground text-3xl">Conduit</span>
+                <span className="font-brand font-bold text-[rgb(251,146,60)] text-3xl">8</span>
               </div>
-              <p className="text-sm text-muted-foreground">With Orange Dot</p>
+              <p className="text-sm text-muted-foreground">Orange 8 Accent</p>
             </div>
             <div className="flex flex-col items-center gap-4">
               <div className="flex flex-col">
@@ -337,27 +366,31 @@ export const LogoAlternatives = () => {
 
       {/* Recommendations */}
       <div className="border-border bg-accent-muted rounded-lg border p-8">
-        <h2 className="text-2xl font-bold mb-4">Recommendations</h2>
+        <h2 className="text-2xl font-bold mb-4">Analysis & Recommendations</h2>
         <div className="space-y-4 text-sm">
           <div>
-            <strong className="text-accent">Best for Modern/Tech Feel:</strong>
-            <p className="text-muted-foreground">#3 Terminal, #7 Slash K, #9 Minimal - Clean, direct, developer-friendly</p>
+            <strong className="text-accent">Easiest to Replicate (SVG/Code):</strong>
+            <p className="text-muted-foreground">#1 Pixelated C (8x8 grid), #7 Bracket (text only), #10 Minimal (simple shapes)</p>
           </div>
           <div>
-            <strong className="text-accent">Best for Graphic Novel Aesthetic:</strong>
-            <p className="text-muted-foreground">#2 Chromatic, #4 Outlined - Most aligned with black/white/orange comic book vibe</p>
+            <strong className="text-accent">Most Memorable/Distinctive:</strong>
+            <p className="text-muted-foreground">#2 C8 Combined (unique fusion), #4 Figure-8 (clever visual), #9 Monogram (sophisticated overlap)</p>
           </div>
           <div>
-            <strong className="text-accent">Most Distinctive/Memorable:</strong>
-            <p className="text-muted-foreground">#2 Chromatic, #5 Geometric - Stand out in crowded spaces, unique visual identity</p>
+            <strong className="text-accent">Best for Developer Tools:</strong>
+            <p className="text-muted-foreground">#5 Circuit Board (tech aesthetic), #7 Bracket (code syntax), #3 Pipe (literal "conduit")</p>
           </div>
           <div>
-            <strong className="text-accent">Easiest to Reproduce as SVG:</strong>
-            <p className="text-muted-foreground">#5 Geometric, #8 Framed, #9 Minimal, #10 Stacked - Simple paths, no complex effects</p>
+            <strong className="text-accent">Works at All Sizes:</strong>
+            <p className="text-muted-foreground">#1 Pixelated (scalable grid), #6 Hexagonal (strong shape), #10 Minimal (clear hierarchy)</p>
           </div>
           <div>
-            <strong className="text-accent">My Top Pick:</strong>
-            <p className="text-muted-foreground"><strong>#2 Chromatic Offset</strong> - Perfect balance of graphic novel aesthetic, uses orange naturally, memorable, and can be simplified to clean SVG paths for assets</p>
+            <strong className="text-accent">Top 3 Picks:</strong>
+            <p className="text-muted-foreground">
+              <strong>1. #1 Pixelated C</strong> - Your request, retro/memorable, 8x8 grid trivial to replicate<br />
+              <strong>2. #7 Bracket &lt;C8&gt;</strong> - Perfect for dev tool, instantly conveys "code", ultra-simple<br />
+              <strong>3. #3 Pipe/Conduit</strong> - Literally visualizes "conduit", unique, orange accent as connection nodes
+            </p>
           </div>
         </div>
       </div>

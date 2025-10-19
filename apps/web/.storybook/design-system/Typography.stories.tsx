@@ -1,15 +1,15 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
-import { Button } from '@web/components/ui/atoms/buttons/button';
-import { Badge } from '@web/components/ui/atoms/indicators/badge';
-import { Alert, AlertDescription, AlertTitle } from '@web/components/ui/feedback/alerts/alert';
+import { Button } from '@web/ui/components/atoms/buttons/button';
+import { Badge } from '@web/ui/components/atoms/indicators/badge';
+import { Alert, AlertDescription, AlertTitle } from '@web/ui/components/feedback/alerts/alert';
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@web/components/ui/layout/containers/card';
+} from '@web/ui/components/layout/containers/card';
 import {
   Dialog,
   DialogContent,
@@ -17,7 +17,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@web/components/ui/overlays/dialog';
+} from '@web/ui/components/overlays/dialog';
 
 const meta: Meta = {
   title: 'Design System/Typography',

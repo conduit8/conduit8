@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { Label } from '@web/components/ui/atoms/typography/label';
+import { Label } from '@web/ui/components/atoms/typography/label';
 
 import {
   Select,
@@ -11,7 +11,7 @@ import {
   SelectSeparator,
   SelectTrigger,
   SelectValue,
-} from './select';
+} from '@web/ui/components/atoms/inputs/select';
 
 const meta = {
   title: 'Components/Atoms/Inputs/Select',

@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
 
 import { cn } from '@web/lib/utils';
+
 import { AnimatedGridPattern } from '@web/ui/components/atoms/effects/animated-grid-pattern';
 
 interface LandingBackgroundProps {

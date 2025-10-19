@@ -118,10 +118,10 @@ export const STORY_PATHS = {
 // Type helper to get all story paths as a union type
 export type StoryPath = (typeof STORY_PATHS)[keyof typeof STORY_PATHS] extends infer T
   ? T extends Record<string, any>
-    ? T[keyof T] extends string
-      ? T[keyof T]
-      : T[keyof T] extends Record<string, any>
-        ? T[keyof T][keyof T[keyof T]]
-        : never
-    : never
+  ? T[keyof T] extends string
+  ? T[keyof T]
+  : T[keyof T] extends Record<string, any>
+  ? T[keyof T][keyof T[keyof T]]
+  : never
+  : never
   : never;

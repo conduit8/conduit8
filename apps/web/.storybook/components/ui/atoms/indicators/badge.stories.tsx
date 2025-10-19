@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
-import { Badge } from '@web/components/ui/atoms/indicators/badge';
+import { Badge } from '@web/ui/components/atoms/indicators/badge';
 
 const meta: Meta<typeof Badge> = {
   title: 'Components/Atoms/Indicators/Badge',

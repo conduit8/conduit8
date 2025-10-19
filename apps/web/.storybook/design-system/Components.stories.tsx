@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
-import { Button } from '@web/components/ui/atoms/buttons/button';
-import { Checkbox } from '@web/components/ui/atoms/inputs/checkbox';
-import { Input } from '@web/components/ui/atoms/inputs/input';
-import { Switch } from '@web/components/ui/atoms/inputs/switch';
-import { Textarea } from '@web/components/ui/atoms/inputs/textarea';
+import { Button } from '@web/ui/components/atoms/buttons/button';
+import { Checkbox } from '@web/ui/components/atoms/inputs/checkbox';
+import { Input } from '@web/ui/components/atoms/inputs/input';
+import { Switch } from '@web/ui/components/atoms/inputs/switch';
+import { Textarea } from '@web/ui/components/atoms/inputs/textarea';
 import React from 'react';
 
 const meta: Meta = {

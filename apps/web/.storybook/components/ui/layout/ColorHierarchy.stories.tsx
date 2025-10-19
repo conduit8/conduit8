@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import { ChevronDownIcon, LayersIcon, MousePointerClickIcon } from 'lucide-react';
 
-import { Button } from '../atoms/buttons/button';
+import { Button } from '@web/ui/components/atoms/buttons/button';
 import {
   Dialog,
   DialogContent,
@@ -10,13 +10,13 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '../overlays/dialog';
+} from '@web/ui/components/overlays/dialog';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '../overlays/dropdown-menu';
+} from '@web/ui/components/overlays/dropdown-menu';
 import {
   Sidebar,
   SidebarContent,
@@ -25,8 +25,8 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarProvider,
-} from './base/sidebar';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './containers/card';
+} from '@web/ui/components/layout/sidebar/sidebar';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@web/ui/components/layout/containers/card';
 
 const meta: Meta<typeof ColorHierarchyShowcase> = {
   title: 'Design System/Color Hierarchy',

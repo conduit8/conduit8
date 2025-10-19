@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
-import { Button } from '@web/components/ui/atoms';
+import { Button } from '@web/ui/components/atoms';
 import {
   Card,
   CardAction,
@@ -9,7 +9,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from '@web/components/ui/layout/containers/card.tsx';
+} from '@web/ui/components/layout/containers/card';
 import { MoreVertical } from 'lucide-react';
 
 const meta: Meta<typeof Card> = {
