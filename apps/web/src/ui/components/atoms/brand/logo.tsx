@@ -6,18 +6,21 @@ import { memo } from 'react';
 const sizeConfig = {
   sm: {
     icon: 'h-5 w-5',
+    iconText: 'text-xl',
     text: 'text-xl',
-    gap: 'gap-1.5',
+    gap: 'gap-2',
   },
   md: {
     icon: 'h-7 w-7',
+    iconText: 'text-2xl',
     text: 'text-3xl',
-    gap: 'gap-2',
+    gap: 'gap-3',
   },
   lg: {
     icon: 'h-9 w-9',
+    iconText: 'text-3xl',
     text: 'text-4xl',
-    gap: 'gap-2.5',
+    gap: 'gap-4',
   },
 };
 

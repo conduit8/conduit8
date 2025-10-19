@@ -37,9 +37,6 @@ export default defineConfig({
     'js-yaml',
   ],
 
-  // Enable tree shaking for smaller bundle
-  treeshake: true,
-
   // Generate sourcemaps for debugging
   sourcemap: false,
 });

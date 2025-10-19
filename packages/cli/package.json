@@ -22,12 +22,6 @@
   "bin": {
     "conduit8": "./dist/index.js"
   },
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "default": "./dist/index.js"
-    }
-  },
   "files": [
     "README.md",
     "dist"
@@ -44,27 +38,23 @@
     "test": "vitest run --reporter=dot --silent",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
-    "validate": "pnpm publint && pnpm attw",
-    "publint": "publint",
-    "attw": "attw --pack",
-    "prepublishOnly": "pnpm build && pnpm test && pnpm validate"
+    "test:cli": "pnpm build && node dist/index.js search skills && node dist/index.js list skills",
+    "prepublishOnly": "pnpm build && pnpm test"
   },
   "dependencies": {
     "chalk": "^5.3.0",
-    "commander": "^12.1.0",
+    "commander": "^14.0.1",
     "js-yaml": "^4.1.0",
-    "ora": "^8.1.1",
+    "ora": "^9.0.0",
     "tar": "^7.4.3"
   },
   "devDependencies": {
-    "@arethetypeswrong/cli": "^0.17.4",
     "@conduit8/eslint-config": "workspace:*",
     "@types/js-yaml": "^4.0.9",
     "@types/node": "catalog:",
     "@types/tar": "^6.1.13",
     "@vitest/coverage-istanbul": "catalog:",
     "eslint": "catalog:",
-    "publint": "^0.2.14",
     "tsdown": "^0.15.3",
     "typescript": "catalog:",
     "vite-tsconfig-paths": "catalog:",
