@@ -9,6 +9,19 @@
  * Queries return DTOs/plain data, not domain models
  */
 
-// import type { TranscriptionDetail, TranscriptionListItem } from '@conduit8/core';
+import { BaseQuery } from './base';
 
-// import { BaseQuery } from './base';
+/**
+ * Get GitHub repository star count
+ * Returns cached value from KV, refreshed periodically
+ */
+export class GetGitHubStars extends BaseQuery<number, 'GetGitHubStars'> {
+  readonly name = 'GetGitHubStars';
+
+  constructor(
+    public readonly owner: string,
+    public readonly repo: string,
+  ) {
+    super();
+  }
+}

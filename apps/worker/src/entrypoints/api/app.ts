@@ -1,6 +1,7 @@
 import {
   authRoutes,
   avatarRoutes,
+  githubRoutes,
   healthRoutes,
 } from '@worker/entrypoints/api/routes';
 import { Hono } from 'hono';
@@ -21,6 +22,7 @@ app.use('*', extractAuth);
 app.route('', authRoutes);
 
 // Mount api routes (handles /api/v1/*)
+app.route('', githubRoutes);
 app.route('', healthRoutes);
 app.route('', avatarRoutes);
 

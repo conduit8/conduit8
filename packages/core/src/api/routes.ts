@@ -22,6 +22,7 @@ export const APP_ROUTES = {
       health: '/health',
       imageProxy: '/image-proxy',
       auth: '/auth',
+      githubStats: '/github/stats',
     },
     slack: {
       events: '/slack/events',

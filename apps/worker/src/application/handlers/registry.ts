@@ -1,4 +1,5 @@
 import { handleUserSignedUp, sendMagicLink } from '@worker/application/handlers/auth';
+import { getGitHubStars } from '@worker/application/handlers/github';
 
 import type { CommandName, EventName, QueryName } from '@worker/domain/messages/types';
 
@@ -24,5 +25,5 @@ export const EVENT_HANDLERS = {
 // Query handlers registry - one handler per query
 // TypeScript will ensure all QueryNames have handlers
 export const QUERY_HANDLERS = {
-
+  GetGitHubStars: getGitHubStars,
 } satisfies Partial<Record<QueryName, any>>;
