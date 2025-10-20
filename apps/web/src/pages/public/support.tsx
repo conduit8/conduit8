@@ -1,7 +1,7 @@
 import {
   LandingFooter,
   LandingHeader,
-} from '@web/pages/public/landing';
+} from '@web/pages/public/home';
 
 import {
   Accordion,
@@ -34,7 +34,7 @@ const faqItems = [
   },
 ];
 
-export const SupportPage = () => {
+export function SupportPage() {
   return (
     <PageLayout
       header={<LandingHeader />}
@@ -80,4 +80,4 @@ export const SupportPage = () => {
       </div>
     </PageLayout>
   );
-};
+}

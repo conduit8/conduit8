@@ -185,3 +185,21 @@ export class SubmitFeedbackModal extends BaseCommand {
     super();
   }
 }
+
+// ============================================
+// Skill Commands
+// ============================================
+
+/**
+ * Command to track when a skill is downloaded
+ * Increments download count for analytics
+ */
+export class TrackSkillDownload extends BaseCommand {
+  readonly name = 'TrackSkillDownload';
+
+  constructor(
+    public readonly slug: string,
+  ) {
+    super();
+  }
+}

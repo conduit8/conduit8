@@ -1,6 +1,6 @@
 import chalk from 'chalk';
 
-import { removeSkill } from '../utils/fs.js';
+import { removeSkill } from '../utils/fs';
 
 interface RemoveOptions {
   force?: boolean;
@@ -16,7 +16,7 @@ export async function remove(name: string, options: RemoveOptions): Promise<void
       console.error(chalk.red('✗ ') + error.message);
 
       if (error.message.includes('not installed')) {
-        console.log(chalk.dim('Run: npx @conduit8/cli list skills'));
+        console.log(chalk.dim('Run: npx conduit8 list skills'));
       }
     }
     else {

@@ -19,7 +19,8 @@ interface SkillCardProps {
   description: string;
   imageUrl: string;
   downloadCount: number;
-  author: 'anthropic' | 'community';
+  author: string;
+  authorKind: 'verified' | 'community';
   onClick: () => void;
 }
 
@@ -30,6 +31,7 @@ export function SkillCard({
   imageUrl,
   downloadCount,
   author,
+  authorKind,
   onClick,
 }: SkillCardProps) {
   const [isCopied, setIsCopied] = useState(false);
@@ -77,7 +79,9 @@ export function SkillCard({
                   </Badge>
                 </TooltipTrigger>
                 <TooltipContent>
-                  Created by <strong>Anthropic</strong>
+                  Created by
+                  {' '}
+                  <strong>Anthropic</strong>
                 </TooltipContent>
               </Tooltip>
             )}

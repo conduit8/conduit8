@@ -154,21 +154,20 @@ export function LandingHeader({
                     </a>
                   </Button>
 
-                  {/* Submit Button */}
-                  <Button variant="accent" size="sm" onClick={handleSubmitClick}>
-                    <PlusIcon size={16} weight="fill" className="text-accent" />
-                    Submit
-                  </Button>
-
                   {isLoading
                     ? (
-                        <Skeleton className="h-10 w-32" />
+                        // Match Button size="sm" height (h-8) to prevent layout shift
+                        <Skeleton className="h-8 w-32" />
                       )
-                    : user
-                      ? (
-                          <UserDropdownMenu user={user} imageOnly />
-                        )
-                      : null}
+                    : (
+                        <>
+                          <Button variant="accent" size="sm" onClick={handleSubmitClick}>
+                            <PlusIcon size={16} weight="fill" className="text-accent" />
+                            Submit
+                          </Button>
+                          {user && <UserDropdownMenu user={user} imageOnly />}
+                        </>
+                      )}
                 </div>
               </>
             )}

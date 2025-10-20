@@ -1,18 +1,18 @@
+import type { Skill } from '@conduit8/core';
+
 import yaml from 'js-yaml';
 import { existsSync, mkdirSync } from 'node:fs';
 import { mkdir, readdir, readFile, rm, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 
-import type { Skill } from './api.js';
-
-import { SKILLS_DIR } from './config.js';
+import { SKILLS_DIR } from './config';
 
 /**
  * Download and install a skill
  * STUB: Creates a dummy SKILL.md file instead of downloading ZIP
  */
 export async function installSkill(skill: Skill): Promise<void> {
-  const targetDir = join(SKILLS_DIR, skill.id);
+  const targetDir = join(SKILLS_DIR, skill.slug);
 
   // Ensure skills directory exists
   if (!existsSync(SKILLS_DIR)) {
@@ -32,7 +32,7 @@ export async function installSkill(skill: Skill): Promise<void> {
   await mkdir(join(targetDir, 'scripts'), { recursive: true });
   await writeFile(
     join(targetDir, 'scripts', 'example.py'),
-    `# Example script for ${skill.name}\nprint("Hello from ${skill.id}")\n`,
+    `# Example script for ${skill.name}\nprint("Hello from ${skill.slug}")\n`,
     'utf-8'
   );
 }
@@ -121,7 +121,7 @@ function extractFrontmatter(content: string): Record<string, any> {
  */
 function createSkillMarkdown(skill: Skill): string {
   const frontmatter = yaml.dump({
-    name: skill.id,
+    name: skill.slug,
     description: skill.description,
     license: 'MIT'
   });
@@ -147,6 +147,6 @@ ${skill.examples.map(ex => `- ${ex}`).join('\n')}
 
 ---
 
-*This is a stub skill created by @conduit8/cli for testing purposes.*
+*This is a stub skill created by conduit8 CLI for testing purposes.*
 `;
 }

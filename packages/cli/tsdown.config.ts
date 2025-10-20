@@ -1,8 +1,16 @@
+import { readFileSync } from 'node:fs';
 import { defineConfig } from 'tsdown';
+
+const packageJson = JSON.parse(readFileSync('./package.json', 'utf-8'));
 
 export default defineConfig({
   // Single entry point - CLI executable
   entry: 'src/index.ts',
+
+  // Inject version at build time
+  define: {
+    __VERSION__: JSON.stringify(packageJson.version),
+  },
 
   // ESM format for modern Node.js
   format: 'esm',

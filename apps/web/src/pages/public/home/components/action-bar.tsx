@@ -1,7 +1,8 @@
 import { MagnifyingGlass, PlusIcon } from '@phosphor-icons/react';
 import { Button } from '@web/ui/components/atoms/buttons';
 import { Input } from '@web/ui/components/atoms/inputs';
-import { FilterPopover } from '@web/ui/components/overlays/filter-popover';
+
+import { FilterDropdown } from '@web/ui/components/overlays/filter-dropdown';
 
 import { LandingSectionWrapper } from './landing-section-wrapper';
 
@@ -50,52 +51,56 @@ export function ActionBar({
 }: ActionBarProps) {
   return (
     <LandingSectionWrapper variant="default" className="py-0 md:py-0 pb-6">
-      <div className="w-full flex items-center gap-4">
-        {/* Submit button */}
-        <Button variant="accent" onClick={onSubmitClick}>
-          <PlusIcon size={16} weight="fill" />
-          Submit
-        </Button>
+      <div className="w-full flex flex-col md:flex-row gap-4">
+        {/* Row 1: Submit + Search */}
+        <div className="flex items-center gap-4 w-full md:flex-1">
+          <Button variant="accent" onClick={onSubmitClick}>
+            <PlusIcon size={16} weight="fill" />
+            Submit
+          </Button>
 
-        {/* Search input - takes remaining width */}
-        <div className="relative flex-1">
-          <MagnifyingGlass
-            className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground"
-            size={16}
-          />
-          <Input
-            type="text"
-            placeholder="Search skills..."
-            className="pl-10"
-            onChange={e => onSearchChange(e.target.value)}
-          />
+          <div className="relative flex-1">
+            <MagnifyingGlass
+              className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground"
+              size={16}
+            />
+            <Input
+              type="text"
+              placeholder="Search skills..."
+              className="pl-10"
+              onChange={e => onSearchChange(e.target.value)}
+            />
+          </div>
         </div>
 
-        {/* Category filter - multi-select */}
-        <FilterPopover
-          value={selectedCategories}
-          onChange={onCategoryChange as (value: string | string[]) => void}
-          options={CATEGORY_OPTIONS}
-          multi
-          width="w-[140px]"
-        />
+        {/* Row 2: Filters */}
+        <div className="flex items-center gap-4">
+          <FilterDropdown
+            label="Category"
+            value={selectedCategories}
+            onChange={onCategoryChange as (value: string | string[]) => void}
+            options={CATEGORY_OPTIONS}
+            multi
+            width="w-[140px]"
+          />
 
-        {/* Sort filter - single select */}
-        <FilterPopover
-          value={sortBy}
-          onChange={onSortChange as (value: string | string[]) => void}
-          options={SORT_OPTIONS}
-          width="w-[160px]"
-        />
+          <FilterDropdown
+            label="Sort"
+            value={sortBy}
+            onChange={onSortChange as (value: string | string[]) => void}
+            options={SORT_OPTIONS}
+            width="w-[160px]"
+          />
 
-        {/* Source filter - multi-select */}
-        <FilterPopover
-          value={selectedSources}
-          onChange={onSourceChange as (value: string | string[]) => void}
-          options={SOURCE_OPTIONS}
-          multi
-          width="w-[120px]"
-        />
+          <FilterDropdown
+            label="Source"
+            value={selectedSources}
+            onChange={onSourceChange as (value: string | string[]) => void}
+            options={SOURCE_OPTIONS}
+            multi
+            width="w-[120px]"
+          />
+        </div>
       </div>
     </LandingSectionWrapper>
   );

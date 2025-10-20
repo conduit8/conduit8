@@ -11,8 +11,8 @@ Install and manage Claude Code skills from the conduit8 registry. One command to
 No installation needed - use `npx`:
 
 ```bash
-npx @conduit8/cli search skills
-npx @conduit8/cli install skill pdf
+npx conduit8 search skills
+npx conduit8 install skill pdf
 ```
 
 ## Commands
@@ -20,8 +20,8 @@ npx @conduit8/cli install skill pdf
 ### Install a Skill
 
 ```bash
-npx @conduit8/cli install skill pdf
-npx @conduit8/cli install skill algorithmic-art
+npx conduit8 install skill pdf
+npx conduit8 install skill algorithmic-art
 ```
 
 Options:
@@ -31,29 +31,30 @@ Options:
 ### Remove a Skill
 
 ```bash
-npx @conduit8/cli remove skill pdf
+npx conduit8 remove skill pdf
 ```
 
 ### List Installed Skills
 
 ```bash
-npx @conduit8/cli list skills
+npx conduit8 list skills
 ```
 
 ### Search Registry
 
 ```bash
 # Search all skills
-npx @conduit8/cli search skills
+npx conduit8 search skills
 
 # Search by keyword
-npx @conduit8/cli search skills table
-npx @conduit8/cli search skills pdf
+npx conduit8 search skills table
+npx conduit8 search skills pdf
 ```
 
 ## Available Skills
 
 Currently includes official Anthropic skills:
+
 - **pdf** - PDF manipulation toolkit
 - **algorithmic-art** - Create algorithmic art with p5.js
 - **webapp-testing** - Web testing with Playwright

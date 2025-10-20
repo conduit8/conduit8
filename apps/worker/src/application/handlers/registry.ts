@@ -1,5 +1,6 @@
 import { handleUserSignedUp, sendMagicLink } from '@worker/application/handlers/auth';
 import { getGitHubStars } from '@worker/application/handlers/github';
+import { trackSkillDownload } from '@worker/application/handlers/skills';
 
 import type { CommandName, EventName, QueryName } from '@worker/domain/messages/types';
 
@@ -8,6 +9,9 @@ export const COMMAND_HANDLERS = {
   // Auth
   SendMagicLink: sendMagicLink,
   TrackUserSignup: handleUserSignedUp,
+
+  // Skills
+  TrackSkillDownload: trackSkillDownload,
 } satisfies Partial<Record<CommandName, any>>;
 
 // Event handlers registry - multiple handlers per event

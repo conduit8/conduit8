@@ -33,13 +33,13 @@ import { OAuthButtons } from './oauth-buttons';
  * 2. Handles form submissions and OAuth requests
  * 3. Composes the UI components (AuthCard, OAuthButtons, EmailForm)
  */
-export const SignInModal = ({
+export function SignInModal({
   open,
   onOpenChange,
 }: {
   open: boolean;
   onOpenChange: (v: boolean) => void;
-}) => {
+}) {
   const [loadingMethod, setLoadingMethod] = React.useState<'github' | 'google' | 'email' | null>(
     null,
   );
@@ -50,7 +50,7 @@ export const SignInModal = ({
     setLoadingMethod('github');
     try {
       console.info('GitHub sign in');
-      await signInWithOAuth('github', `/dashboard`);
+      await signInWithOAuth('github', `/`);
     }
     catch {
       toast.error('Failed to sign in with GitHub - please try again.');
@@ -64,7 +64,7 @@ export const SignInModal = ({
     setLoadingMethod('google');
     try {
       console.info('Google sign in');
-      await signInWithOAuth('google', `/dashboard`);
+      await signInWithOAuth('google', `/`);
     }
     catch {
       toast.error('Failed to sign in with Google - please try again');
@@ -141,4 +141,4 @@ export const SignInModal = ({
       </DialogContent>
     </Dialog>
   );
-};
+}

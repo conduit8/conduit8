@@ -74,3 +74,10 @@ export class SlackOAuthTokenExchangeError extends DomainError {
     super(message);
   }
 }
+
+// Skill domain errors
+export class SkillNotFoundError extends DomainError {
+  constructor(slug: string) {
+    super(`Skill '${slug}' not found`);
+  }
+}

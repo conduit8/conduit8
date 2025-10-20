@@ -1,5 +1,5 @@
-import { displayInstalledSkills } from '../utils/display.js';
-import { listInstalledSkills } from '../utils/fs.js';
+import { displayInstalledSkills } from '../utils/display';
+import { listInstalledSkills } from '../utils/fs';
 
 export async function list(): Promise<void> {
   try {

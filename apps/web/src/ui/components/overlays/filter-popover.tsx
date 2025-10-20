@@ -40,7 +40,8 @@ export function FilterPopover({
         ? current.filter(v => v !== optionValue)
         : [...current, optionValue];
       onChange(updated);
-    } else {
+    }
+    else {
       onChange(optionValue);
       setOpen(false);
     }
@@ -49,7 +50,8 @@ export function FilterPopover({
   const getLabel = () => {
     if (multi) {
       const selected = value as string[];
-      if (selected.length === 0) return 'All';
+      if (selected.length === 0)
+        return 'All';
       if (selected.length === 1) {
         return options.find(o => o.value === selected[0])?.label || 'All';
       }
@@ -85,29 +87,31 @@ export function FilterPopover({
           )}
           {options.map(option => (
             <div key={option.value} className="flex items-center gap-2">
-              {multi ? (
-                <>
-                  <Checkbox
-                    id={option.value}
-                    checked={isSelected(option.value)}
-                    onCheckedChange={() => handleSelect(option.value)}
-                  />
-                  <label htmlFor={option.value} className="text-sm cursor-pointer">
-                    {option.label}
-                  </label>
-                </>
-              ) : (
-                <button
-                  onClick={() => handleSelect(option.value)}
-                  className={
-                    isSelected(option.value)
-                      ? 'w-full text-left px-2 py-1.5 text-sm rounded bg-accent text-accent-foreground hover:bg-accent/90'
-                      : 'w-full text-left px-2 py-1.5 text-sm rounded hover:bg-muted'
-                  }
-                >
-                  {option.label}
-                </button>
-              )}
+              {multi
+                ? (
+                    <>
+                      <Checkbox
+                        id={option.value}
+                        checked={isSelected(option.value)}
+                        onCheckedChange={() => handleSelect(option.value)}
+                      />
+                      <label htmlFor={option.value} className="text-sm cursor-pointer">
+                        {option.label}
+                      </label>
+                    </>
+                  )
+                : (
+                    <button
+                      onClick={() => handleSelect(option.value)}
+                      className={`w-full text-left px-2 py-1.5 text-sm rounded ${
+                        isSelected(option.value)
+                          ? 'bg-accent text-accent-foreground hover:bg-accent/90'
+                          : 'hover:bg-muted'
+                      }`}
+                    >
+                      {option.label}
+                    </button>
+                  )}
             </div>
           ))}
         </div>

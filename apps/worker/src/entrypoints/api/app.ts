@@ -3,6 +3,7 @@ import {
   avatarRoutes,
   githubRoutes,
   healthRoutes,
+  skillsRoutes,
 } from '@worker/entrypoints/api/routes';
 import { Hono } from 'hono';
 
@@ -25,6 +26,7 @@ app.route('', authRoutes);
 app.route('', githubRoutes);
 app.route('', healthRoutes);
 app.route('', avatarRoutes);
+app.route('', skillsRoutes);
 
 // Temporary test route for email diagnostics
 app.get('/test-email', async (c) => {

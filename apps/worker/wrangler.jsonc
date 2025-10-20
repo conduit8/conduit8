@@ -25,7 +25,7 @@
         "POSTHOG_HOST": "https://us.i.posthog.com",
         "BETTER_AUTH_URL": "https://preview.conduit8.dev/auth",
         "SENTRY_RELEASE": "",
-        "R2_PUBLIC_URL": "https://assets-preview.conduit8.dev"
+        "R2_PUBLIC_URL": "https://public-preview.conduit8.dev"
       },
       "version_metadata": {
         "binding": "CF_VERSION_METADATA"
@@ -115,7 +115,7 @@
         "POSTHOG_HOST": "https://us.i.posthog.com",
         "BETTER_AUTH_URL": "https://conduit8.dev/auth",
         "SENTRY_RELEASE": "",
-        "R2_PUBLIC_URL": "https://assets.conduit8.dev"
+        "R2_PUBLIC_URL": "https://public.conduit8.dev"
       },
       "ai": {
         "binding": "AI"

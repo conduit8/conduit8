@@ -1,21 +1,23 @@
-import type { GetSkillResponse } from '@conduit8/core/contracts/http/skills.schemas';
+import type { GetSkillResponse } from '@conduit8/core';
+
 import type { ISkillRepository } from '@worker/infrastructure/persistence/skill.repository.interface';
 
+import { SkillNotFoundError } from '@worker/infrastructure/errors/domain.errors';
 import { SkillRepository } from '@worker/infrastructure/persistence/repositories/skill.repository';
 
 export async function getSkillQuery(
-  skillId: string,
+  slug: string,
   env: Cloudflare.Env,
 ): Promise<GetSkillResponse['data']> {
   const repo: ISkillRepository = new SkillRepository(env.D1);
 
-  const skill = await repo.findById(skillId);
+  const skill = await repo.findBySlug(slug);
 
   if (!skill) {
-    throw new Error('Skill not found');
+    throw new SkillNotFoundError(slug);
   }
 
-  const downloadCount = await repo.getDownloadCount(skillId);
+  const downloadCount = await repo.getDownloadCount(skill.id);
 
   // Generate R2 public URL
   const zipUrl = `${env.R2_PUBLIC_URL}/${skill.zipKey}`;

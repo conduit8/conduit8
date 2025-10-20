@@ -11,7 +11,7 @@ import posthog from 'posthog-js';
  * - Does NOT manage auth state (that's handled by Better Auth hooks)
  * - Does NOT manage loading state (that's handled by the component using this service)
  */
-export const authService = () => {
+export function authService() {
   /**
    * Helper to build fetchOptions with captcha token
    */
@@ -33,7 +33,7 @@ export const authService = () => {
    */
   const signInWithMagicLink = async (
     email: string,
-    redirectTo: string = '/dashboard',
+    redirectTo: string = '/',
     captchaToken?: string,
   ) => {
     try {
@@ -68,7 +68,7 @@ export const authService = () => {
 
       await authClient.signIn.social({
         provider,
-        callbackURL: redirectTo || '/dashboard',
+        callbackURL: redirectTo,
       });
 
       console.info(`OAuth sign-in with ${provider} initiated`);
@@ -113,4 +113,4 @@ export const authService = () => {
     signInWithOAuth,
     signOut,
   };
-};
+}

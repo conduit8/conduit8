@@ -1,7 +1,7 @@
 import ora from 'ora';
 
-import { searchSkills } from '../utils/api.js';
-import { displaySearchResults } from '../utils/display.js';
+import { searchSkills } from '../utils/api';
+import { displaySearchResults } from '../utils/display';
 
 export async function search(query?: string): Promise<void> {
   try {

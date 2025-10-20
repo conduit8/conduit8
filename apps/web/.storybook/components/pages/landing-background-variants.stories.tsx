@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { HeroSection } from '@web/pages/public/landing/components/hero-section';
-import { LandingBackground } from '@web/pages/public/landing/components/landing-background-variants';
+import { HeroSection } from '@web/pages/public/home/components/hero-section';
+import { LandingBackground } from '@web/pages/public/home/components/landing-background-variants';
 
 const meta = {
   title: 'Pages/Landing/Background',
@@ -16,11 +16,13 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 // Sample content
-const SampleContent = () => (
-  <div className="min-h-screen p-8">
-    <HeroSection user={null} />
-  </div>
-);
+function SampleContent() {
+  return (
+    <div className="min-h-screen p-8">
+      <HeroSection user={null} />
+    </div>
+  );
+}
 
 export const AnimatedGrid: Story = {
   args: {

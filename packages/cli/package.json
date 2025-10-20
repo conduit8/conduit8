@@ -1,9 +1,9 @@
 {
-  "name": "@conduit8/cli",
+  "name": "conduit8",
   "type": "module",
-  "version": "0.1.1",
-  "description": "Claude Code Skills Manager",
-  "author": "Alexander",
+  "version": "0.4.0-alpha.0",
+  "description": "Lightweight Claude Code Skills manager. Install skills directly, without plugins / marketplaces.",
+  "author": "Alexander Zuev",
   "license": "AGPL-3.0",
   "homepage": "https://conduit8.dev",
   "repository": {
@@ -39,14 +39,22 @@
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
     "test:cli": "pnpm build && node dist/index.js search skills && node dist/index.js list skills",
-    "prepublishOnly": "pnpm build && pnpm test"
+    "prepublishOnly": "pnpm build && pnpm test",
+    "version:alpha": "pnpm version preminor --preid=alpha",
+    "version:patch": "pnpm version patch",
+    "version:minor": "pnpm version minor",
+    "version:major": "pnpm version major",
+    "publish:alpha": "pnpm publish --tag alpha --access public",
+    "publish:prod": "pnpm publish --access public"
   },
   "dependencies": {
+    "@conduit8/core": "workspace:*",
     "chalk": "^5.3.0",
     "commander": "^14.0.1",
     "js-yaml": "^4.1.0",
     "ora": "^9.0.0",
     "tar": "^7.4.3"
+
   },
   "devDependencies": {
     "@conduit8/eslint-config": "workspace:*",

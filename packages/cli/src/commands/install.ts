@@ -1,9 +1,9 @@
 import chalk from 'chalk';
 import ora from 'ora';
 
-import { getSkill, trackDownload } from '../utils/api.js';
-import { displayInstallSuccess, formatSize } from '../utils/display.js';
-import { installSkill, isSkillInstalled } from '../utils/fs.js';
+import { getSkill, trackDownload } from '../utils/api';
+import { displayInstallSuccess } from '../utils/display';
+import { installSkill, isSkillInstalled } from '../utils/fs';
 
 interface InstallOptions {
   force?: boolean;
@@ -21,7 +21,7 @@ export async function install(name: string, options: InstallOptions): Promise<vo
     // Fetch skill metadata
     const spinner = ora('Fetching skill...').start();
     const skill = await getSkill(name);
-    spinner.succeed(`Found ${skill.name} (${formatSize(skill.zipSize)})`);
+    spinner.succeed(`Found ${skill.name}`);
 
     // Simulate download with progress
     const downloadSpinner = ora('Downloading...').start();
@@ -35,12 +35,12 @@ export async function install(name: string, options: InstallOptions): Promise<vo
     downloadSpinner.succeed('Downloaded');
 
     // Install skill
-    const installSpinner = ora(`Installing to ~/.claude/skills/${name}...`).start();
+    const installSpinner = ora(`Installing to ~/.claude/skills/${skill.slug}...`).start();
     await installSkill(skill);
     installSpinner.succeed('Installed');
 
     // Track download (fire and forget)
-    trackDownload(name).catch(() => {});
+    trackDownload(skill.slug).catch(() => {});
 
     // Display success message
     displayInstallSuccess(skill);
@@ -50,7 +50,7 @@ export async function install(name: string, options: InstallOptions): Promise<vo
       console.error(chalk.red('✗ ') + error.message);
 
       if (error.message.includes('not found')) {
-        console.log(chalk.dim('Try: npx @conduit8/cli search skills'));
+        console.log(chalk.dim('Try: npx conduit8 search skills'));
       }
     }
     else {
