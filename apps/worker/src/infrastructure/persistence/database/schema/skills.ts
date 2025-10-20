@@ -5,7 +5,7 @@ export const skills = sqliteTable('skills', {
   slug: text('slug').notNull().unique(),
   name: text('name').notNull(),
   description: text('description').notNull(),
-  category: text('category'),
+  category: text('category').notNull(),
 
   // Storage pointers
   zipKey: text('zip_key').notNull(),

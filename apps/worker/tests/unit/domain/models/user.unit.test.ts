@@ -1,8 +1,8 @@
+import { ClaudeInstanceConfig } from '@worker/domain/models/user/claude-instance-config';
+import { User } from '@worker/domain/models/user/user';
 import { describe, expect, it } from 'vitest';
 
 import { UserConfigurationUpdated, UserConfigured } from '@worker/domain/messages/events';
-import { ClaudeInstanceConfig } from '@worker/domain/models/user/claude-instance-config';
-import { User } from '@worker/domain/models/user/user';
 
 describe('user Entity', () => {
   const validConfig = ClaudeInstanceConfig.create({

@@ -1,7 +1,6 @@
 import { WebClient } from '@slack/web-api';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
-
 import { SlackMessagingService } from '@worker/domain/services/messaging/slack-messaging-service';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 /**
  * SlackMessagingService Unit Tests

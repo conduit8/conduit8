@@ -2,8 +2,8 @@ import { skills, skillStats } from '@worker/infrastructure/persistence/database/
 import { desc, eq, like, or, sql } from 'drizzle-orm';
 import { drizzle } from 'drizzle-orm/d1';
 
+import type { ISkillRepository, SkillWithStats } from '@worker/domain/repositories/interfaces';
 import type { Skill } from '@worker/infrastructure/persistence/database/schema/skills';
-import type { ISkillRepository, SkillWithStats } from '@worker/infrastructure/persistence/skill.repository.interface';
 
 import { DatabaseError } from '@worker/infrastructure/errors/infrastructure.errors';
 

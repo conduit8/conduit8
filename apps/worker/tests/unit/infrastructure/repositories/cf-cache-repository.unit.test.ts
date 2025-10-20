@@ -1,6 +1,6 @@
+import { CfCacheRepository } from '@worker/infrastructure/persistence/repositories/cf-cache-repository';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-import { CfCacheRepository } from '@worker/infrastructure/persistence/repositories/cf-cache-repository';
 import { StorageError } from '@worker/infrastructure/errors/infrastructure.errors';
 
 // Test entity

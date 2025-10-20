@@ -1,8 +1,7 @@
-import { describe, expect, it, vi } from 'vitest';
-
 import { ClaudeInstanceConfig } from '@worker/domain/models/user/claude-instance-config';
 import { User } from '@worker/domain/models/user/user';
 import { UserRepository } from '@worker/infrastructure/persistence/repositories/user-repository';
+import { describe, expect, it, vi } from 'vitest';
 
 describe('userRepository', () => {
   const mockKv = {} as KVNamespace;

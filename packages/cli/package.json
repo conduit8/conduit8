@@ -1,7 +1,7 @@
 {
   "name": "conduit8",
   "type": "module",
-  "version": "0.5.3-alpha.0",
+  "version": "0.7.0",
   "description": "Lightweight Claude Code Skills manager. Install skills directly, without plugins / marketplaces.",
   "author": "Alexander Zuev",
   "license": "AGPL-3.0",
@@ -15,9 +15,16 @@
   "keywords": [
     "claude",
     "claude-code",
+    "claude code",
+    "claude-code-skills",
+    "claude code skills",
     "skills",
+    "skill-manager",
     "cli",
-    "ai"
+    "ai",
+    "anthropic",
+    "developer-tools",
+    "productivity"
   ],
   "bin": {
     "conduit8": "./dist/index.js"
@@ -45,7 +52,8 @@
     "version:minor": "pnpm version minor",
     "version:major": "pnpm version major",
     "publish:alpha": "pnpm publish --tag alpha --access public",
-    "publish:prod": "pnpm publish --access public"
+    "publish:prod": "pnpm publish --access public",
+    "publish:prod:no-git": "pnpm publish --access public --no-git-checks"
   },
   "dependencies": {
     "adm-zip": "^0.5.16",

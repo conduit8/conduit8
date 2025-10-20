@@ -1,6 +1,6 @@
-import { ContentGrid } from '@web/ui/components/layout/content/content-grid';
+import type { Skill } from '@conduit8/core';
 
-import type { Skill } from '../data/mock-skills';
+import { ContentGrid } from '@web/ui/components/layout/content/content-grid';
 
 import { LandingSectionWrapper } from './landing-section-wrapper';
 import { SkillCard } from './skill-card';
@@ -24,6 +24,11 @@ export function SkillsGrid({ skills, onSkillClick, isPending = false }: SkillsGr
 
   return (
     <LandingSectionWrapper variant="default" className="pt-0">
+      <div className="w-full text-left text-sm text-muted-foreground mb-6">
+        <span className="font-medium text-foreground">{skills.length}</span>
+        {' '}
+        {skills.length === 1 ? 'skill' : 'skills'}
+      </div>
       <ContentGrid
         columns={3}
         className={`w-full transition-opacity ${isPending ? 'opacity-60' : 'opacity-100'}`}

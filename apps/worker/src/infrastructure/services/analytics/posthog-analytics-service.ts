@@ -28,18 +28,8 @@ import type { IAnalyticsService } from '@worker/infrastructure/services/interfac
    */
 export class PostHogAnalyticsService implements IAnalyticsService {
   private client: PostHog | null;
-  private enabled: boolean;
 
   constructor(env: Env) {
-    // Enable in preview/production, disable in dev
-    // this.enabled = env.ENV !== 'development';
-
-    // if (!this.enabled) {
-    //   console.log(`[PostHog] Analytics disabled in ${env.ENV} environment`);
-    //   this.client = null;
-    //   return;
-    // }
-
     this.client = new PostHog(env.POSTHOG_API_KEY, {
       host: env.POSTHOG_HOST,
       flushAt: 1, // Send events immediately (low batching threshold)
@@ -60,9 +50,6 @@ export class PostHogAnalyticsService implements IAnalyticsService {
     distinctId: string,
     properties?: Record<string, any>,
   ): void {
-    if (!this.enabled)
-      return;
-
     this.client!.capture({
       distinctId,
       event,
@@ -80,9 +67,6 @@ export class PostHogAnalyticsService implements IAnalyticsService {
      * - In queue handlers: Use with await for blocking flush
      */
   async shutdown(): Promise<void> {
-    if (!this.enabled)
-      return;
-
     try {
       await this.client!.shutdown();
     }

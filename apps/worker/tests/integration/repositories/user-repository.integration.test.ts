@@ -1,9 +1,8 @@
-import { env } from 'cloudflare:test';
-import { describe, expect, it } from 'vitest';
-
 import { ClaudeInstanceConfig } from '@worker/domain/models/user/claude-instance-config';
 import { User } from '@worker/domain/models/user/user';
 import { UserRepository } from '@worker/infrastructure/persistence/repositories/user-repository';
+import { env } from 'cloudflare:test';
+import { describe, expect, it } from 'vitest';
 
 describe('userRepository Integration', () => {
   it('should save and retrieve a user', async () => {

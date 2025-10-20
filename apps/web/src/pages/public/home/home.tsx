@@ -5,11 +5,11 @@ import * as sections from '@web/pages/public/home/components';
 import { SignInModal } from '@web/pages/public/home/components/sign-in-modal';
 import { useDeferredValue, useMemo, useState } from 'react';
 
-import { mockSkills } from '@web/pages/public/home/data/mock-skills';
 import { PageLayout } from '@web/ui/components/layout/page/page-layout';
 
 import { HomeFooter } from './home-footer';
 import { HomeHeader } from './home-header';
+import { useSkillsList } from './hooks/use-skills-list';
 
 interface LandingPageProps {
   user: AuthUser | null;
@@ -27,22 +27,24 @@ export function HomePage({ user, loginModal }: LandingPageProps) {
   const deferredSearchQuery = useDeferredValue(searchQuery);
   const isSearchPending = searchQuery !== deferredSearchQuery;
 
-  // Combined filter and sort logic
-  const filteredSkills = useMemo(() => {
-    let result = [...mockSkills];
+  // Fetch skills from API with search query
+  const { data, isLoading } = useSkillsList({
+    q: deferredSearchQuery.trim() || undefined,
+    limit: 100,
+    offset: 0,
+  });
 
-    // Search filter
-    if (deferredSearchQuery.trim()) {
-      const query = deferredSearchQuery.toLowerCase();
-      result = result.filter(skill =>
-        skill.name.toLowerCase().includes(query)
-        || skill.description.toLowerCase().includes(query),
-      );
-    }
+  // Client-side filter and sort (category, source, sort not supported by API yet)
+  const filteredSkills = useMemo(() => {
+    // Return empty during loading - SkillsBrowseSection handles loading state
+    if (!data?.data)
+      return [];
+
+    let result = [...data.data];
 
     // Category filter
     if (selectedCategories.length > 0) {
-      result = result.filter(skill => selectedCategories.includes(skill.category));
+      result = result.filter(skill => skill.category && selectedCategories.includes(skill.category));
     }
 
     // Source filter
@@ -67,7 +69,7 @@ export function HomePage({ user, loginModal }: LandingPageProps) {
     });
 
     return result;
-  }, [deferredSearchQuery, selectedCategories, selectedSources, sortBy]);
+  }, [data?.data, selectedCategories, selectedSources, sortBy]);
 
   const handleSkillClick = (skillId: string) => {
     // TODO: Navigate to skill detail page when implemented
@@ -93,7 +95,10 @@ export function HomePage({ user, loginModal }: LandingPageProps) {
         contentPadding={false}
       >
         <sections.HeroSection />
-        <sections.ActionBar
+        <sections.SkillsBrowseSection
+          skills={filteredSkills}
+          onSkillClick={handleSkillClick}
+          isPending={isLoading || isSearchPending}
           onSubmitClick={handleSubmitClick}
           onSearchChange={setSearchQuery}
           selectedCategories={selectedCategories}
@@ -102,11 +107,6 @@ export function HomePage({ user, loginModal }: LandingPageProps) {
           onSortChange={setSortBy}
           selectedSources={selectedSources}
           onSourceChange={setSelectedSources}
-        />
-        <sections.SkillsGrid
-          skills={filteredSkills}
-          onSkillClick={handleSkillClick}
-          isPending={isSearchPending}
         />
       </PageLayout>
 

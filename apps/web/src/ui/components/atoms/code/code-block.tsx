@@ -1,4 +1,5 @@
 import { CheckIcon, CopyIcon } from '@phosphor-icons/react';
+import { Button } from '@web/ui/components/atoms/buttons';
 import { Highlight, themes } from 'prism-react-renderer';
 import { useState } from 'react';
 
@@ -20,7 +21,7 @@ export function CodeBlock({
   language = 'bash',
   showCopyButton = true,
   className,
-}: CodeBlockProps): JSX.Element {
+}: CodeBlockProps) {
   const [copied, setCopied] = useState(false);
 
   const copyToClipboard = (): void => {
@@ -39,29 +40,57 @@ export function CodeBlock({
 
           return (
             <pre
-              className={cn('bg-gray-12 border border-border overflow-x-auto rounded-lg p-6 font-mono text-base')}
+              className={cn(
+                'bg-gray-12 border border-border overflow-x-auto rounded-lg p-6 pr-14 font-mono text-base',
+              )}
               style={customStyle}
             >
-              {tokens.map((line, i) => (
-                <div key={i} {...getLineProps({ line })}>
-                  {line.map((token, key) => (
-                    <span key={key} {...getTokenProps({ token })} />
-                  ))}
-                </div>
-              ))}
+              {tokens.map((line) => {
+                const lineContent = line.map(t => t.content).join('');
+                const lineHash = lineContent
+                  .split('')
+                  .reduce((acc, char) => acc + char.charCodeAt(0), 0);
+                return (
+                  <div
+                    key={`line-${lineHash}-${lineContent.slice(0, 30)}`}
+                    {...getLineProps({ line })}
+                  >
+                    {line.map((token) => {
+                      const tokenHash = token.content
+                        .split('')
+                        .reduce((acc, char) => acc + char.charCodeAt(0), 0);
+                      return (
+                        <span
+                          key={`token-${tokenHash}-${token.content.slice(0, 20)}`}
+                          {...getTokenProps({ token })}
+                        />
+                      );
+                    })}
+                  </div>
+                );
+              })}
             </pre>
           );
         }}
       </Highlight>
 
       {showCopyButton && (
-        <button
+        <Button
+          type="button"
           onClick={copyToClipboard}
-          className="bg-background/80 hover:bg-background text-muted-foreground hover:text-foreground absolute right-3 top-3 rounded-md p-1.5 transition-colors"
+          variant="ghost"
+          size="icon"
+          className="bg-gray-11 hover:bg-gray-10 text-gray-1 hover:text-white absolute right-4 top-1/2 -translate-y-1/2 border border-gray-9"
           aria-label="Copy code"
         >
-          {copied ? <CheckIcon size={16} weight="bold" className="text-accent" /> : <CopyIcon size={16} />}
-        </button>
+          {copied
+            ? (
+                <CheckIcon size={16} weight="bold" className="text-accent" />
+              )
+            : (
+                <CopyIcon size={16} />
+              )}
+        </Button>
       )}
     </div>
   );

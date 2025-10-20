@@ -1,27 +1,25 @@
 # Conduit8
 
-> **⚠️ WIP - DO NOT USE YET**
->
-> Currently building the backend and curating skills. The CLI is published but not functional yet.
-
 **Curated registry of Claude Code skills**. Kind of like context7 but for Claude Code Skills.
 
 Discover, install, and share Claude Code skills in one command. Better than digging through GitHub.
+
+**Now Available**: 20+ curated skills ready to install. Web registry coming soon.
 
 ## Quick Start
 
 ```bash
 # Search available skills
-npx @conduit8/cli search skills
+npx conduit8 search skills
 
 # Install a skill
-npx @conduit8/cli install skill pdf
+npx conduit8 install skill pdf
 
 # List installed skills
-npx @conduit8/cli list skills
+npx conduit8 list skills
 
 # Remove a skill
-npx @conduit8/cli remove skill pdf
+npx conduit8 remove skill pdf
 ```
 
 ## What is conduit8?
@@ -30,21 +28,36 @@ conduit8 solves the pain of finding quality Claude Code skills:
 
 - **Better Discovery**: Search by keyword, category, usage stats instead of browsing GitHub repos
 - **One-Command Install**: Install skills directly to `~/.claude/skills/` via CLI
-- **Quality Signals**: Ratings, verification, and usage metrics instead of guessing what works
-- **Curated Registry**: Hand-picked, tested skills instead of 10,000+ untested repos
 
 ## How It Works
 
-1. **Browse**: Search the registry via CLI or web interface at [conduit8.dev](https://conduit8.dev)
-2. **Install**: Run `npx @conduit8/cli install skill <name>` to download and install to Claude Code
+1. **Search**: Browse 20+ curated skills via CLI: `npx conduit8 search skills`
+2. **Install**: Download and install to Claude Code: `npx conduit8 install skill <name>`
 3. **Use**: Skills appear in Claude Code immediately - no restart needed
-4. **Manage**: List installed skills or remove them anytime
+4. **Manage**: List or remove installed skills anytime
 
 Skills are installed to `~/.claude/skills/` and work with Claude Code automatically.
 
+## Available Skills
+
+The registry includes 20+ curated skills across multiple categories:
+
+- **Content**: Brand voice enforcement, email conversion, viral content creation
+- **Data**: CSV analysis, research synthesis
+- **Development**: Zero-to-production deployment, security auditing
+- **Marketing**: SEO optimization, landing page optimization
+- **Business**: Pitch deck psychology
+- **And more**: Algorithmic art, canvas design, web app testing
+
+All skills are production-ready and tested.
+
 ## Contributing
 
-**Coming Soon**: Currently, the registry includes only official Anthropic skills. Community contributions will be enabled soon.
+**Coming Soon**: Community contributions will be enabled in a future release.
+
+The registry currently includes:
+- Official Anthropic skills (algorithmic art, canvas design, web app testing, MCP builder)
+- Conduit8 curated skills (brand voice, CSV analysis, SEO, security, and more)
 
 Stay tuned for the ability to:
 - Submit your own skills to the registry

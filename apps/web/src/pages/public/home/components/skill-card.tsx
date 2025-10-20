@@ -1,7 +1,9 @@
-import { ArrowCircleDownIcon, CheckIcon, DownloadSimpleIcon, SealCheckIcon, UsersIcon } from '@phosphor-icons/react';
+import { CheckIcon, SealCheckIcon, UsersIcon } from '@phosphor-icons/react';
 import { useState } from 'react';
 import { toast } from 'sonner';
 
+import { ArrowDownIcon } from '@web/ui/components/animate-ui/icons/arrow-down';
+import { DownloadIcon } from '@web/ui/components/animate-ui/icons/download';
 import { Button } from '@web/ui/components/atoms/buttons/button';
 import { Badge } from '@web/ui/components/atoms/indicators/badge';
 import {
@@ -34,6 +36,8 @@ export function SkillCard({
   onClick,
 }: SkillCardProps) {
   const [isCopied, setIsCopied] = useState(false);
+  const [downloadBadgeHovered, setDownloadBadgeHovered] = useState(false);
+  const [installButtonHovered, setInstallButtonHovered] = useState(false);
   const installCommand = `npx conduit8 install skill ${slug}`;
 
   const handleInstallClick = (e: React.MouseEvent) => {
@@ -52,7 +56,7 @@ export function SkillCard({
 
   return (
     <Card
-      className="cursor-pointer transition-all outline outline-1 outline-border hover:outline-2 hover:outline-accent overflow-hidden p-0 flex flex-col h-full border-0"
+      className="cursor-pointer transition-all duration-200 outline outline-1 outline-border hover:outline-2 hover:outline-accent hover:-translate-y-1 hover:shadow-lg overflow-hidden p-0 flex flex-col h-full border-0"
       onClick={onClick}
     >
       {/* Image */}
@@ -94,8 +98,13 @@ export function SkillCard({
 
           <Tooltip>
             <TooltipTrigger asChild>
-              <Badge variant="neutral" className="gap-1.5">
-                <DownloadSimpleIcon size={12} />
+              <Badge
+                variant="neutral"
+                className="gap-1.5"
+                onMouseEnter={() => setDownloadBadgeHovered(true)}
+                onMouseLeave={() => setDownloadBadgeHovered(false)}
+              >
+                <ArrowDownIcon size={12} animate={downloadBadgeHovered} />
                 {downloadCount.toLocaleString()}
               </Badge>
             </TooltipTrigger>
@@ -111,6 +120,8 @@ export function SkillCard({
           size="sm"
           onClick={handleInstallClick}
           className="w-full justify-center gap-2"
+          onMouseEnter={() => setInstallButtonHovered(true)}
+          onMouseLeave={() => setInstallButtonHovered(false)}
         >
           {isCopied
             ? (
@@ -121,7 +132,7 @@ export function SkillCard({
               )
             : (
                 <>
-                  <ArrowCircleDownIcon size={16} />
+                  <DownloadIcon size={16} animate={installButtonHovered} />
                   Install
                 </>
               )}

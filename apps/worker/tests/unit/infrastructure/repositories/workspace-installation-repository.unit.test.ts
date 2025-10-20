@@ -1,8 +1,7 @@
-import { eq } from 'drizzle-orm';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
-
 import { WorkspaceInstallation } from '@worker/domain/models/installation/workspace-installation';
 import { WorkspaceRepository } from '@worker/infrastructure/persistence/repositories/workspace-installation-repository';
+import { eq } from 'drizzle-orm';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 // Test helper - moved to top to avoid ESLint error
 function createTestWorkspaceInstallation(): WorkspaceInstallation {

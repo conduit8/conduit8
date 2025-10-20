@@ -11,7 +11,7 @@
     },
     "resolveJsonModule": true,
     "types": ["@cloudflare/workers-types"],
-    "allowImportingTsExtensions": false,
+    "allowImportingTsExtensions": false
 
   },
   "include": ["src"]

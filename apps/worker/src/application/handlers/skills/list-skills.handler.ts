@@ -14,6 +14,7 @@ export async function listSkills(
 
   return skills.map((skill) => {
     const zipUrl = `${env.R2_PUBLIC_URL}/${skill.zipKey}`;
+    const imageUrl = `${env.R2_PUBLIC_URL}/${skill.imageKey}`;
 
     return {
       id: skill.id,
@@ -22,6 +23,10 @@ export async function listSkills(
       description: skill.description,
       category: skill.category,
       zipUrl,
+      imageUrl,
+      // TODO: Remove type assertions - create shared enum constants in core package
+      sourceType: skill.sourceType as 'import' | 'pr' | 'submission',
+      sourceUrl: skill.sourceUrl,
       examples: skill.examples as string[],
       downloadCount: skill.downloadCount,
       author: skill.author,

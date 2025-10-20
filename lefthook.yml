@@ -1,4 +1,13 @@
 pre-commit:
+  parallel: true
   commands:
-    lint-and-format:
-      run: npx -y lint-staged
+    lint-check:
+      run: pnpm run lint
+    typecheck:
+      run: pnpm run typecheck
+    build-core:
+      run: pnpm --filter @conduit8/core build
+    build-cli:
+      run: pnpm --filter conduit8 build
+    build-web:
+      run: pnpm --filter @conduit8/web build

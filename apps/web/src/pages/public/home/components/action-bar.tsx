@@ -15,6 +15,7 @@ interface ActionBarProps {
   onSortChange: (value: string) => void;
   selectedSources: string[];
   onSourceChange: (sources: string[]) => void;
+  skillCount: number;
 }
 
 const CATEGORY_OPTIONS = [
@@ -48,6 +49,7 @@ export function ActionBar({
   onSortChange,
   selectedSources,
   onSourceChange,
+  skillCount,
 }: ActionBarProps) {
   return (
     <LandingSectionWrapper variant="default" className="py-0 md:py-0 pb-6">

@@ -34,10 +34,15 @@ const faqItems = [
   },
 ];
 
-export function SupportPage() {
+interface SupportPageProps {
+  user: any;
+  loginModal: any;
+}
+
+export function SupportPage({ user, loginModal }: SupportPageProps) {
   return (
     <PageLayout
-      header={<HomeHeader />}
+      header={<HomeHeader user={user} loginModal={loginModal} />}
       footer={<HomeFooter />}
       variant="default"
       contentPadding={true}
