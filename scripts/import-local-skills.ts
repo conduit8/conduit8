@@ -1,17 +1,18 @@
 #!/usr/bin/env node
 /**
- * Import Anthropic skills from local /skills directory
- *
- * IMPORTANT: This script imports ANTHROPIC-AUTHORED skills only.
- * For other sources (Notion, etc), create separate import script.
+ * Import skills from local directories
  *
  * Usage:
- *   npx tsx import-local-skills.ts [env] [flags]
+ *   npx tsx import-local-skills.ts [env] [source] [flags]
  *
  * Environments:
  *   local    - Local D1 + Remote R2 preview (for development)
  *   preview  - Remote D1 preview + Remote R2 preview
  *   prod     - Remote D1 prod + Remote R2 prod
+ *
+ * Source:
+ *   anthropic - Import Anthropic-authored skills (author: 'anthropic')
+ *   conduit   - Import Conduit8-curated skills (author: 'conduit8')
  *
  * Flags:
  *   --dry-run      - Preview SQL without executing
@@ -19,11 +20,10 @@
  *   --skip-images  - Skip placeholder image generation
  *
  * Examples:
- *   npx tsx import-local-skills.ts local          # Dev: local D1, remote preview R2
- *   npx tsx import-local-skills.ts preview        # Seed preview D1 (R2 exists)
- *   npx tsx import-local-skills.ts preview --skip-r2  # Just D1 seeding
- *   npx tsx import-local-skills.ts prod           # Seed production
- *   npx tsx import-local-skills.ts preview --dry-run  # Preview changes
+ *   npx tsx import-local-skills.ts preview anthropic          # Import Anthropic skills to preview
+ *   npx tsx import-local-skills.ts preview conduit            # Import Conduit skills to preview
+ *   npx tsx import-local-skills.ts prod anthropic --skip-r2   # Just D1 seeding for prod
+ *   npx tsx import-local-skills.ts preview conduit --dry-run  # Preview conduit changes
  *
  * What it does:
  * 1. Scans /skills directory for folders with SKILL.md
@@ -45,7 +45,9 @@ import { parse as parseYaml } from 'yaml';
 
 // Parse command line arguments
 const args = process.argv.slice(2);
-const ENV = args.find(arg => !arg.startsWith('--')) || 'local';
+const positionalArgs = args.filter(arg => !arg.startsWith('--'));
+const ENV = positionalArgs[0] || 'local';
+const SOURCE = positionalArgs[1] || 'anthropic';
 const DRY_RUN = args.includes('--dry-run');
 const SKIP_R2 = args.includes('--skip-r2');
 const SKIP_IMAGES = args.includes('--skip-images');
@@ -57,11 +59,18 @@ if (!['local', 'preview', 'prod'].includes(ENV)) {
   process.exit(1);
 }
 
+// Validate source
+if (!['anthropic', 'conduit'].includes(SOURCE)) {
+  console.error(`❌ Invalid source: ${SOURCE}`);
+  console.error('Valid sources: anthropic, conduit');
+  process.exit(1);
+}
+
 // Resolve paths relative to scripts dir
 const WORKER_DIR = join(process.cwd(), '..', 'apps', 'worker');
-const SKILLS_DIR = join(process.cwd(), 'local-skills', 'anthropic-skills');
+const SKILLS_DIR = join(process.cwd(), 'local-skills', `${SOURCE}-skills`);
 const TEMP_DIR = join(process.cwd(), '.temp-zips');
-const METADATA_FILE = join(process.cwd(), 'skill-metadata.json');
+const METADATA_FILE = join(process.cwd(), `skill-metadata-${SOURCE}.json`);
 
 // Environment configuration
 const R2_BUCKET = ENV === 'prod' ? 'conduit8-public' : 'conduit8-public-preview';
@@ -267,10 +276,12 @@ async function importSkill(
     imageKey,
     examples: enhanced?.examples ?? [],
     curatorNote: null,
-    author: 'anthropic', // This script is ONLY for Anthropic skills
+    author: SOURCE === 'anthropic' ? 'anthropic' : 'conduit8',
     authorKind: 'verified',
     sourceType: 'import',
-    sourceUrl: `https://github.com/anthropics/skills/tree/main/${skillId}`,
+    sourceUrl: SOURCE === 'anthropic'
+      ? `https://github.com/anthropics/skills/tree/main/${skillId}`
+      : `https://github.com/conduit8/skills/tree/main/${skillId}`,
     createdAt: now,
     updatedAt: now,
   };
@@ -372,7 +383,7 @@ function insertToD1(record: SkillRecord): void {
   const localFlag = USE_LOCAL_D1 ? '--local' : '--remote';
 
   // 1. Insert skill
-  const skillSql = `INSERT OR IGNORE INTO skills (id, slug, name, description, category, zip_key, image_key, examples, curator_note, author, author_kind, source_type, source_url, created_at, updated_at) VALUES ('${record.id}', '${record.slug}', '${escapeSql(record.name)}', '${escapeSql(record.description)}', ${record.category ? `'${record.category}'` : 'NULL'}, '${record.zipKey}', '${record.imageKey}', '${JSON.stringify(record.examples)}', ${record.curatorNote ? `'${escapeSql(record.curatorNote)}'` : 'NULL'}, '${record.author}', '${record.authorKind}', '${record.sourceType}', ${record.sourceUrl ? `'${escapeSql(record.sourceUrl)}'` : 'NULL'}, ${record.createdAt}, ${record.updatedAt});`;
+  const skillSql = `INSERT OR IGNORE INTO skills (id, slug, name, description, category, zip_key, image_key, examples, curator_note, author, author_kind, source_type, source_url, created_at, updated_at) VALUES ('${record.id}', '${record.slug}', '${escapeSql(record.name)}', '${escapeSql(record.description)}', ${record.category ? `'${record.category}'` : 'NULL'}, '${record.zipKey}', '${record.imageKey}', '${escapeSql(JSON.stringify(record.examples))}', ${record.curatorNote ? `'${escapeSql(record.curatorNote)}'` : 'NULL'}, '${record.author}', '${record.authorKind}', '${record.sourceType}', ${record.sourceUrl ? `'${escapeSql(record.sourceUrl)}'` : 'NULL'}, ${record.createdAt}, ${record.updatedAt});`;
 
   const skillPath = join(TEMP_DIR, `${record.id}-skill.sql`);
   writeFileSync(skillPath, skillSql);
@@ -386,9 +397,8 @@ function insertToD1(record: SkillRecord): void {
 }
 
 function escapeSql(str: string): string {
-  // Escape single quotes (SQL standard)
-  // Escape double quotes as two single quotes
-  return str.replace(/'/g, '\'\'').replace(/"/g, '\'\'');
+  // SQL standard: escape single quotes by doubling them
+  return str.replace(/'/g, '\'\'');
 }
 
 main().catch((error) => {

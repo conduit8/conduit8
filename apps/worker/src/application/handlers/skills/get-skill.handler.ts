@@ -1,7 +1,7 @@
 import type { GetSkillResponse } from '@conduit8/core';
 
 import type { GetSkill } from '@worker/domain/messages/queries';
-import type { ISkillRepository } from '@worker/infrastructure/persistence/skill.repository.interface';
+import type { ISkillRepository } from '@worker/domain/repositories/interfaces';
 
 import { SkillNotFoundError } from '@worker/infrastructure/errors/domain.errors';
 import { SkillRepository } from '@worker/infrastructure/persistence/repositories/skill.repository';

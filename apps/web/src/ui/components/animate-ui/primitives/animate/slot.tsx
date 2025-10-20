@@ -18,7 +18,6 @@ type WithAsChild<Base extends object>
     | (Base & { asChild?: false | undefined });
 
 type SlotProps<T extends HTMLElement = HTMLElement> = {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- React element required for cloning
   children?: any;
 } & DOMMotionProps<T>;
 

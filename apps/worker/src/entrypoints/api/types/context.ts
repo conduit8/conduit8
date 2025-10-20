@@ -1,9 +1,5 @@
 import type { PostHog } from 'posthog-node';
 
-import type {
-  IUserRepository,
-  IWorkspaceInstallationRepository,
-} from '@worker/domain/repositories/interfaces';
 import type { User } from '@worker/infrastructure/auth/types';
 import type { DrizzleDb } from '@worker/infrastructure/persistence/database/types';
 
@@ -18,10 +14,10 @@ export interface AppContext {
     db?: DrizzleDb;
     d1Database?: D1Database;
 
-    // Repository context
-    workspaceInstallationRepository?: IWorkspaceInstallationRepository;
-    userClaudeConfigRepository?: IUserRepository;
-    userSessionRepository?: IUserRepository;
+    // Repository context - commented out until implemented
+    // workspaceInstallationRepository?: IWorkspaceInstallationRepository;
+    // userClaudeConfigRepository?: IUserRepository;
+    // userSessionRepository?: IUserRepository;
 
     // Analytics & Observability
     posthog?: PostHog;

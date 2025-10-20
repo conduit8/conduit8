@@ -123,7 +123,6 @@ function composeEventHandlers<E extends React.SyntheticEvent<unknown>>(
   };
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any -- needed for generic prop spreading
 type AnyProps = Record<string, any>;
 
 function AnimateIcon({

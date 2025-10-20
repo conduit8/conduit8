@@ -1,4 +1,5 @@
 import type { Skill } from '@conduit8/core';
+
 import { describe, expect, it } from 'vitest';
 
 // Import private functions by reading the module
