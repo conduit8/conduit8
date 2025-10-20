@@ -1,9 +1,5 @@
 # conduit8 CLI
 
-> **⚠️ WIP - DO NOT USE YET**
->
-> Backend is still being built. CLI is published but will not work until backend is ready.
-
 Install and manage Claude Code skills from the conduit8 registry. One command to discover, install, and manage skills.
 
 ## Quick Start
@@ -66,6 +62,10 @@ More skills coming soon.
 
 Skills are installed to `~/.claude/skills/` and work with Claude Code automatically. No restart needed.
 
+## Issues & Contributing
+
+Found a bug or have a feature request? Please [open an issue](https://github.com/alexander-zuev/conduit8/issues) on the main repository.
+
 ## License
 
 AGPL-3.0
@@ -73,4 +73,4 @@ AGPL-3.0
 ## Links
 
 - [conduit8.dev](https://conduit8.dev) - Web interface
-- [GitHub](https://github.com/alexander-zuev/conduit8) - Source code
+- [GitHub](https://github.com/alexander-zuev/conduit8) - Source code & issues

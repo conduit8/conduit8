@@ -4,11 +4,11 @@ import { join } from 'node:path';
 
 /**
  * API base URL
- * Production: https://conduit8.com/api/v1
+ * Production: https://conduit8.dev/api/v1
  * Override: CONDUIT8_API_URL=http://localhost:8787/api/v1
  * .env file supported for local dev
  */
-export const API_BASE_URL = process.env.CONDUIT8_API_URL ?? 'https://conduit8.com/api/v1';
+export const API_BASE_URL = process.env.CONDUIT8_API_URL ?? 'https://conduit8.dev/api/v1';
 
 /**
  * Personal skills directory (user-level, cross-project)
