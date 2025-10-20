@@ -79,16 +79,16 @@ export function CodeBlock({
           type="button"
           onClick={copyToClipboard}
           variant="ghost"
-          size="icon"
-          className="bg-gray-11 hover:bg-gray-10 text-gray-1 hover:text-white absolute right-4 top-1/2 -translate-y-1/2 border border-gray-9"
+          size="sm"
+          className="absolute right-4 top-1/2 -translate-y-1/2 size-7 p-0 text-muted-foreground hover:text-foreground hover:bg-muted"
           aria-label="Copy code"
         >
           {copied
             ? (
-                <CheckIcon size={16} weight="bold" className="text-accent" />
+                <CheckIcon size={14} weight="bold" className="text-accent" />
               )
             : (
-                <CopyIcon size={16} />
+                <CopyIcon size={14} />
               )}
         </Button>
       )}
