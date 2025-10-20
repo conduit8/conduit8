@@ -126,7 +126,7 @@ export function SkillsBrowseSection({
           ? (
               <ContentGrid columns={3} className="w-full">
                 {Array.from({ length: 6 }).map((_, i) => (
-                  <SkillCardSkeleton key={i} />
+                  <SkillCardSkeleton key={`skeleton-${i}`} />
                 ))}
               </ContentGrid>
             )

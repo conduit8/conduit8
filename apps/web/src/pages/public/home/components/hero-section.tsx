@@ -12,7 +12,7 @@ export function HeroSection() {
     <LandingSectionWrapper className="relative overflow-hidden">
       <AnimatedGridPattern className="opacity-10" />
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-10">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center relative z-10">
         {/* Left: Title + Features */}
         <div className="flex flex-col gap-8 text-center lg:text-left">
           <div className="flex flex-col gap-2">

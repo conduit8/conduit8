@@ -1,4 +1,5 @@
 import { CheckIcon, CopyIcon } from '@phosphor-icons/react';
+import { Button } from '@web/ui/components/atoms/buttons';
 import { Highlight, themes } from 'prism-react-renderer';
 import { useState } from 'react';
 
@@ -40,7 +41,7 @@ export function CodeBlock({
           return (
             <pre
               className={cn(
-                'bg-gray-12 border border-border overflow-x-auto rounded-lg p-6 font-mono text-base',
+                'bg-gray-12 border border-border overflow-x-auto rounded-lg p-6 pr-14 font-mono text-base',
               )}
               style={customStyle}
             >
@@ -74,10 +75,12 @@ export function CodeBlock({
       </Highlight>
 
       {showCopyButton && (
-        <button
+        <Button
           type="button"
           onClick={copyToClipboard}
-          className="bg-background/80 hover:bg-background text-muted-foreground hover:text-foreground absolute right-3 top-3 rounded-md p-1.5 transition-colors"
+          variant="ghost"
+          size="icon"
+          className="bg-gray-11 hover:bg-gray-10 text-gray-1 hover:text-white absolute right-4 top-1/2 -translate-y-1/2 border border-gray-9"
           aria-label="Copy code"
         >
           {copied
@@ -87,7 +90,7 @@ export function CodeBlock({
             : (
                 <CopyIcon size={16} />
               )}
-        </button>
+        </Button>
       )}
     </div>
   );
