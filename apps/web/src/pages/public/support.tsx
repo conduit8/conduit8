@@ -1,6 +1,6 @@
 import {
-  LandingFooter,
-  LandingHeader,
+  HomeFooter,
+  HomeHeader,
 } from '@web/pages/public/home';
 
 import {
@@ -37,8 +37,8 @@ const faqItems = [
 export function SupportPage() {
   return (
     <PageLayout
-      header={<LandingHeader />}
-      footer={<LandingFooter />}
+      header={<HomeHeader />}
+      footer={<HomeFooter />}
       variant="default"
       contentPadding={true}
     >

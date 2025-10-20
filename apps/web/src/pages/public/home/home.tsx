@@ -8,15 +8,15 @@ import { useDeferredValue, useMemo, useState } from 'react';
 import { mockSkills } from '@web/pages/public/home/data/mock-skills';
 import { PageLayout } from '@web/ui/components/layout/page/page-layout';
 
-import { LandingHeader } from './home-header';
-import { LandingFooter } from './landing-footer';
+import { HomeFooter } from './home-footer';
+import { HomeHeader } from './home-header';
 
 interface LandingPageProps {
   user: AuthUser | null;
   loginModal: any;
 }
 
-export const HomePage = ({ user, loginModal }: LandingPageProps) => {
+export function HomePage({ user, loginModal }: LandingPageProps) {
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
@@ -87,8 +87,8 @@ export const HomePage = ({ user, loginModal }: LandingPageProps) => {
   return (
     <>
       <PageLayout
-        header={<LandingHeader user={user} loginModal={loginModal} onSubmitClick={handleSubmitClick} />}
-        footer={<LandingFooter />}
+        header={<HomeHeader user={user} loginModal={loginModal} onSubmitClick={handleSubmitClick} />}
+        footer={<HomeFooter />}
         variant="full-width"
         contentPadding={false}
       >
@@ -116,4 +116,4 @@ export const HomePage = ({ user, loginModal }: LandingPageProps) => {
       />
     </>
   );
-};
+}

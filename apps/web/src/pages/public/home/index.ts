@@ -1,3 +1,3 @@
 export * from './home';
+export * from './home-footer';
 export * from './home-header';
-export * from './landing-footer';

@@ -1,10 +1,12 @@
+import 'dotenv/config';
 import { homedir } from 'node:os';
 import { join } from 'node:path';
 
 /**
  * API base URL
  * Production: https://conduit8.com/api/v1
- * Override for dev: CONDUIT8_API_URL=http://localhost:8787/api/v1
+ * Override: CONDUIT8_API_URL=http://localhost:8787/api/v1
+ * .env file supported for local dev
  */
 export const API_BASE_URL = process.env.CONDUIT8_API_URL ?? 'https://conduit8.com/api/v1';
 

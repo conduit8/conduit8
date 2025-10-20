@@ -16,17 +16,17 @@ import {
   SheetHeader,
 } from '@web/ui/components/overlays/sheet';
 
-interface LandingHeaderProps {
+interface HomeHeaderProps {
   user: any;
   loginModal: any;
   onSubmitClick?: () => void;
 }
 
-export function LandingHeader({
+export function HomeHeader({
   user,
   loginModal,
   onSubmitClick,
-}: LandingHeaderProps) {
+}: HomeHeaderProps) {
   const { isLoading } = useAuth();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const isMobile = useIsMobile();

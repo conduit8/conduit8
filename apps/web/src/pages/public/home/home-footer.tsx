@@ -2,9 +2,9 @@ import { Link } from '@tanstack/react-router';
 
 import { Logo } from '@web/ui/components/atoms/brand/logo';
 
-export const LandingFooter = () => {
+export function HomeFooter() {
   return (
-    <footer className="bg-surface border-t border-border relative overflow-hidden">
+    <footer className="bg-foreground border-t border-border relative overflow-hidden">
       <div className="px-4 py-12 container-max-w-6xl">
         <div className="px-4">
           <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-8">
@@ -32,8 +32,17 @@ export const LandingFooter = () => {
               </Link>
             </div>
           </div>
+
+          {/* Watermark */}
+          <div className="mt-8 pt-8 border-t border-border/50 text-center">
+            <p className="text-xs text-muted-foreground">
+              Built with conduit8 &middot;
+              {' '}
+              {new Date().getFullYear()}
+            </p>
+          </div>
         </div>
       </div>
     </footer>
   );
-};
+}

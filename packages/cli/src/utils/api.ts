@@ -18,7 +18,7 @@ const api = createApiClient({
  */
 export async function getSkill(slug: string): Promise<Skill> {
   try {
-    const response = await api.get<GetSkillResponse>('/v1/skills/:slug', {
+    const response = await api.get<GetSkillResponse>('/skills/:slug', {
       pathParams: { slug },
     });
     return response.data;
@@ -36,7 +36,7 @@ export async function getSkill(slug: string): Promise<Skill> {
  * TODO: Implement when search endpoint is available
  */
 export async function searchSkills(query?: string): Promise<Skill[]> {
-  // TODO: Implement GET /api/v1/skills?q=query when endpoint is ready
+  // TODO: Implement GET /skills?q=query when endpoint is ready
   throw new Error('Search endpoint not yet implemented');
 }
 
@@ -47,7 +47,7 @@ export async function searchSkills(query?: string): Promise<Skill[]> {
 export async function trackDownload(slug: string): Promise<void> {
   try {
     await api.post<TrackSkillDownloadResponse>(
-      '/v1/skills/:slug/downloaded',
+      '/skills/:slug/downloaded',
       {},
       { pathParams: { slug } },
     );

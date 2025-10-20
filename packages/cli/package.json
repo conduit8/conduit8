@@ -54,7 +54,6 @@
     "js-yaml": "^4.1.0",
     "ora": "^9.0.0",
     "tar": "^7.4.3"
-
   },
   "devDependencies": {
     "@conduit8/eslint-config": "workspace:*",
@@ -62,6 +61,7 @@
     "@types/node": "catalog:",
     "@types/tar": "^6.1.13",
     "@vitest/coverage-istanbul": "catalog:",
+    "dotenv": "^17.2.3",
     "eslint": "catalog:",
     "tsdown": "^0.15.3",
     "typescript": "catalog:",
