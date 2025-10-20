@@ -1,4 +1,4 @@
-import { ArrowCircleDownIcon, CheckIcon, DownloadSimpleIcon } from '@phosphor-icons/react';
+import { ArrowCircleDownIcon, CheckIcon, DownloadSimpleIcon, SealCheckIcon, UsersIcon } from '@phosphor-icons/react';
 import { useState } from 'react';
 import { toast } from 'sonner';
 
@@ -6,7 +6,6 @@ import { Button } from '@web/ui/components/atoms/buttons/button';
 import { Badge } from '@web/ui/components/atoms/indicators/badge';
 import {
   Card,
-  CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
@@ -65,68 +64,68 @@ export function SkillCard({
         />
       </div>
 
-      {/* Content - fixed structure */}
-      <div className="p-6 flex flex-col gap-4 text-left flex-1">
+      {/* Content */}
+      <div className="p-4 flex flex-col gap-3 text-left flex-1">
         {/* Title + Description */}
-        <CardHeader className="p-0 flex-1">
-          <div className="flex items-center justify-between gap-2 mb-2">
-            <CardTitle className="font-semibold">{name}</CardTitle>
-            {author === 'anthropic' && (
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Badge variant="info" className="text-xs shrink-0">
-                    Official
-                  </Badge>
-                </TooltipTrigger>
-                <TooltipContent>
-                  Created by
-                  {' '}
-                  <strong>Anthropic</strong>
-                </TooltipContent>
-              </Tooltip>
-            )}
-          </div>
-          <CardDescription className="line-clamp-3">
+        <CardHeader className="p-0 space-y-1.5">
+          <CardTitle className="text-base font-semibold">{name}</CardTitle>
+          <CardDescription className="line-clamp-2 text-sm">
             {description}
           </CardDescription>
         </CardHeader>
 
-        {/* Footer: Stats + Actions */}
-        <CardContent className="p-0 flex items-center justify-between gap-3 mt-auto">
-          {/* Stats/Badges */}
+        {/* Metadata Row */}
+        <div className="flex items-center gap-2 flex-wrap">
           <Tooltip>
             <TooltipTrigger asChild>
-              <div>
-                <Badge variant="neutral" className="gap-1.5">
-                  <DownloadSimpleIcon size={12} />
-                  {downloadCount.toLocaleString()}
-                </Badge>
-              </div>
+              <Badge variant="neutral" className="gap-1.5">
+                {authorKind === 'verified'
+                  ? <SealCheckIcon size={12} />
+                  : <UsersIcon size={12} />}
+                {authorKind === 'verified' ? 'Verified' : 'Community'}
+              </Badge>
+            </TooltipTrigger>
+            <TooltipContent>
+              Created by
+              {' '}
+              {author}
+            </TooltipContent>
+          </Tooltip>
+
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Badge variant="neutral" className="gap-1.5">
+                <DownloadSimpleIcon size={12} />
+                {downloadCount.toLocaleString()}
+              </Badge>
             </TooltipTrigger>
             <TooltipContent>
               Total installs
             </TooltipContent>
           </Tooltip>
+        </div>
 
-          {/* Actions */}
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={handleInstallClick}
-                className="shrink-0"
-              >
-                {isCopied
-                  ? <CheckIcon size={16} weight="bold" className="text-accent" />
-                  : <ArrowCircleDownIcon size={16} weight="duotone" className="text-accent" />}
-              </Button>
-            </TooltipTrigger>
-            <TooltipContent>
-              <code className="bg-muted px-1.5 py-0.5 rounded">{installCommand}</code>
-            </TooltipContent>
-          </Tooltip>
-        </CardContent>
+        {/* Action Row */}
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={handleInstallClick}
+          className="w-full justify-center gap-2"
+        >
+          {isCopied
+            ? (
+                <>
+                  <CheckIcon size={16} weight="bold" />
+                  Copied!
+                </>
+              )
+            : (
+                <>
+                  <ArrowCircleDownIcon size={16} />
+                  Install
+                </>
+              )}
+        </Button>
       </div>
     </Card>
   );

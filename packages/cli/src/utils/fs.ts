@@ -5,18 +5,18 @@ import { existsSync, mkdirSync } from 'node:fs';
 import { mkdir, readdir, readFile, rm, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 
-import { SKILLS_DIR } from './config';
+import { DEFAULT_SKILLS_DIR } from './config';
 
 /**
  * Download and install a skill
  * STUB: Creates a dummy SKILL.md file instead of downloading ZIP
  */
-export async function installSkill(skill: Skill): Promise<void> {
-  const targetDir = join(SKILLS_DIR, skill.slug);
+export async function installSkill(skill: Skill, skillsDir: string = DEFAULT_SKILLS_DIR): Promise<void> {
+  const targetDir = join(skillsDir, skill.slug);
 
   // Ensure skills directory exists
-  if (!existsSync(SKILLS_DIR)) {
-    mkdirSync(SKILLS_DIR, { recursive: true });
+  if (!existsSync(skillsDir)) {
+    mkdirSync(skillsDir, { recursive: true });
   }
 
   // Create skill directory
@@ -40,8 +40,8 @@ export async function installSkill(skill: Skill): Promise<void> {
 /**
  * Remove an installed skill
  */
-export async function removeSkill(skillId: string): Promise<void> {
-  const skillPath = join(SKILLS_DIR, skillId);
+export async function removeSkill(skillId: string, skillsDir: string = DEFAULT_SKILLS_DIR): Promise<void> {
+  const skillPath = join(skillsDir, skillId);
 
   if (!existsSync(skillPath)) {
     throw new Error(`Skill '${skillId}' is not installed`);
