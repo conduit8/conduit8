@@ -1,11 +1,11 @@
+import type { Skill } from '@conduit8/core';
+
 import { MagnifyingGlassIcon, PlusIcon } from '@phosphor-icons/react';
 import { Button } from '@web/ui/components/atoms/buttons';
 import { Input } from '@web/ui/components/atoms/inputs';
 
 import { ContentGrid } from '@web/ui/components/layout/content/content-grid';
 import { FilterDropdown } from '@web/ui/components/overlays/filter-dropdown';
-
-import type { Skill } from '../data/mock-skills';
 
 import { EmptyState } from './empty-state';
 import { LandingSectionWrapper } from './landing-section-wrapper';

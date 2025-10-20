@@ -20,8 +20,9 @@ export async function getSkill(
 
   const downloadCount = await repo.getDownloadCount(skill.id);
 
-  // Generate R2 public URL
+  // Generate R2 public URLs
   const zipUrl = `${env.R2_PUBLIC_URL}/${skill.zipKey}`;
+  const imageUrl = `${env.R2_PUBLIC_URL}/${skill.imageKey}`;
 
   return {
     id: skill.id,
@@ -30,6 +31,10 @@ export async function getSkill(
     description: skill.description,
     category: skill.category,
     zipUrl,
+    imageUrl,
+    // TODO: Remove type assertions - create shared enum constants in core package
+    sourceType: skill.sourceType as 'import' | 'pr' | 'submission',
+    sourceUrl: skill.sourceUrl,
     examples: skill.examples as string[],
     downloadCount,
     author: skill.author,

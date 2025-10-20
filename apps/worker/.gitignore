@@ -1,1 +1,4 @@
 .sentryclirc
+.dev.vars
+.env
+.env.local

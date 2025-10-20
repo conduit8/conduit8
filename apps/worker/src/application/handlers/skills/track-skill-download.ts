@@ -14,6 +14,7 @@ export const trackSkillDownload: CommandHandler<TrackSkillDownload, void> = asyn
   const skill = await repo.findBySlug(command.slug);
 
   if (!skill) {
+    console.error(`[TrackSkillDownload] Skill not found: ${command.slug}`);
     throw new SkillNotFoundError(command.slug);
   }
 
