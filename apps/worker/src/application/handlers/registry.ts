@@ -1,6 +1,6 @@
 import { handleUserSignedUp, sendMagicLink } from '@worker/application/handlers/auth';
 import { getGitHubStars } from '@worker/application/handlers/github';
-import { trackSkillDownload } from '@worker/application/handlers/skills';
+import { getSkill, listSkills, trackSkillDownload } from '@worker/application/handlers/skills';
 
 import type { CommandName, EventName, QueryName } from '@worker/domain/messages/types';
 
@@ -30,4 +30,6 @@ export const EVENT_HANDLERS = {
 // TypeScript will ensure all QueryNames have handlers
 export const QUERY_HANDLERS = {
   GetGitHubStars: getGitHubStars,
+  GetSkill: getSkill,
+  ListSkills: listSkills,
 } satisfies Partial<Record<QueryName, any>>;

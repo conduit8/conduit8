@@ -20,7 +20,7 @@ export function CodeBlock({
   language = 'bash',
   showCopyButton = true,
   className,
-}: CodeBlockProps): JSX.Element {
+}: CodeBlockProps) {
   const [copied, setCopied] = useState(false);
 
   const copyToClipboard = (): void => {
@@ -42,13 +42,20 @@ export function CodeBlock({
               className={cn('bg-gray-12 border border-border overflow-x-auto rounded-lg p-6 font-mono text-base')}
               style={customStyle}
             >
-              {tokens.map((line, i) => (
-                <div key={i} {...getLineProps({ line })}>
-                  {line.map((token, key) => (
-                    <span key={key} {...getTokenProps({ token })} />
-                  ))}
-                </div>
-              ))}
+              {tokens.map((line) => {
+                const lineContent = line.map(t => t.content).join('');
+                const lineHash = lineContent.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
+                return (
+                  <div key={`line-${lineHash}-${lineContent.slice(0, 30)}`} {...getLineProps({ line })}>
+                    {line.map((token) => {
+                      const tokenHash = token.content.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
+                      return (
+                        <span key={`token-${tokenHash}-${token.content.slice(0, 20)}`} {...getTokenProps({ token })} />
+                      );
+                    })}
+                  </div>
+                );
+              })}
             </pre>
           );
         }}
@@ -56,6 +63,7 @@ export function CodeBlock({
 
       {showCopyButton && (
         <button
+          type="button"
           onClick={copyToClipboard}
           className="bg-background/80 hover:bg-background text-muted-foreground hover:text-foreground absolute right-3 top-3 rounded-md p-1.5 transition-colors"
           aria-label="Copy code"

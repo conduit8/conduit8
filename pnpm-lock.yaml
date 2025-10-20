@@ -534,9 +534,6 @@ importers:
 
   packages/cli:
     dependencies:
-      '@conduit8/core':
-        specifier: workspace:*
-        version: link:../core
       adm-zip:
         specifier: ^0.5.16
         version: 0.5.16
@@ -556,6 +553,9 @@ importers:
         specifier: ^7.4.3
         version: 7.5.1
     devDependencies:
+      '@conduit8/core':
+        specifier: workspace:*
+        version: link:../core
       '@conduit8/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config

@@ -1,4 +1,4 @@
-import type { GetSkillResponse, Skill, TrackSkillDownloadResponse } from '@conduit8/core';
+import type { GetSkillResponse, ListSkillsResponse, Skill, TrackSkillDownloadResponse } from '@conduit8/core';
 
 import { ApiError, createApiClient } from '@conduit8/core';
 
@@ -33,11 +33,20 @@ export async function getSkill(slug: string): Promise<Skill> {
 
 /**
  * Search skills by query
- * TODO: Implement when search endpoint is available
  */
 export async function searchSkills(query?: string): Promise<Skill[]> {
-  // TODO: Implement GET /skills?q=query when endpoint is ready
-  throw new Error('Search endpoint not yet implemented');
+  try {
+    const response = await api.get<ListSkillsResponse>('/skills', {
+      queryParams: query ? { q: query } : undefined,
+    });
+    return response.data;
+  }
+  catch (error) {
+    if (error instanceof ApiError) {
+      throw new Error(`Failed to search skills: ${error.message}`);
+    }
+    throw error;
+  }
 }
 
 /**

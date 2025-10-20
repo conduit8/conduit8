@@ -163,25 +163,6 @@ export function createApiClient<TRoutes = string>(options: ApiClientConfig): Api
   }
 
   /**
-   * Checks if the user has an internet connection
-   *
-   * @throws ApiError if no internet connection is detected
-   */
-  function checkInternetConnection(): void {
-    // Check in browser environment or Workers with navigator compatibility flag
-    // @ts-expect-error - navigator may exist in Workers with compatibility flags
-    if (typeof navigator !== 'undefined' && !navigator.onLine) {
-      console.error('[API Error]', 'network', 0, 'No network connection');
-      throw new ApiError(
-        'No network connection - check your connection and try again.',
-        0,
-        'No network connection',
-        'network',
-      );
-    }
-  }
-
-  /**
    * Handles errors raised by fetch API
    *
    * @param error The error object
@@ -258,9 +239,6 @@ export function createApiClient<TRoutes = string>(options: ApiClientConfig): Api
     let response: Response;
 
     try {
-      checkInternetConnection();
-      console.log('Sending request to:', url);
-
       response = await fetch(url, fetchOptions);
 
       /* ---------- !response.ok branch ---------- */

@@ -1,20 +1,21 @@
 import type { GetSkillResponse } from '@conduit8/core';
 
+import type { GetSkill } from '@worker/domain/messages/queries';
 import type { ISkillRepository } from '@worker/infrastructure/persistence/skill.repository.interface';
 
 import { SkillNotFoundError } from '@worker/infrastructure/errors/domain.errors';
 import { SkillRepository } from '@worker/infrastructure/persistence/repositories/skill.repository';
 
-export async function getSkillQuery(
-  slug: string,
+export async function getSkill(
+  query: GetSkill,
   env: Cloudflare.Env,
 ): Promise<GetSkillResponse['data']> {
   const repo: ISkillRepository = new SkillRepository(env.D1);
 
-  const skill = await repo.findBySlug(slug);
+  const skill = await repo.findBySlug(query.slug);
 
   if (!skill) {
-    throw new SkillNotFoundError(slug);
+    throw new SkillNotFoundError(query.slug);
   }
 
   const downloadCount = await repo.getDownloadCount(skill.id);

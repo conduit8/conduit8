@@ -1,10 +1,11 @@
+import type { GitHubStatsResponse } from '@conduit8/core';
 import type { AppContext } from '@worker/entrypoints/api/types';
 
 import { APP_ROUTES } from '@conduit8/core';
-import type { GitHubStatsResponse } from '@conduit8/core';
+import { Hono } from 'hono';
+
 import { MessageBus } from '@worker/application/message-bus';
 import { GetGitHubStars } from '@worker/domain/messages/queries';
-import { Hono } from 'hono';
 
 const app = new Hono<AppContext>().basePath(APP_ROUTES.api.prefix);
 

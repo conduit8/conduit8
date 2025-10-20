@@ -3,23 +3,69 @@ import type { Skill } from '@conduit8/core';
 import chalk from 'chalk';
 
 /**
+ * Wrap text to fit within a specific width
+ */
+function wrapText(text: string, maxWidth: number): string[] {
+  const words = text.split(' ');
+  const lines: string[] = [];
+  let currentLine = '';
+
+  for (const word of words) {
+    const testLine = currentLine ? `${currentLine} ${word}` : word;
+    if (testLine.length <= maxWidth) {
+      currentLine = testLine;
+    }
+    else {
+      if (currentLine)
+        lines.push(currentLine);
+      currentLine = word;
+    }
+  }
+
+  if (currentLine)
+    lines.push(currentLine);
+
+  return lines;
+}
+
+/**
  * Display skill installation success message
  */
 export function displayInstallSuccess(skill: Skill): void {
+  const boxWidth = 60;
+  const contentWidth = boxWidth - 2; // Account for leading space and padding
+
+  // Wrap description to fit within box
+  const descLines = wrapText(skill.description, contentWidth);
+  const maxDescLines = 3;
+  const displayLines = descLines.slice(0, maxDescLines);
+
   console.log();
   console.log(chalk.green('✓ Installed successfully!'));
   console.log();
-  console.log(chalk.bold('━'.repeat(60)));
+  console.log(chalk.bold('━'.repeat(boxWidth)));
   console.log(chalk.bold(` ${skill.name}`));
-  console.log(` ${chalk.dim(skill.description.slice(0, 60))}${skill.description.length > 60 ? '...' : ''}`);
-  console.log(chalk.bold('━'.repeat(60)));
-  console.log();
-  console.log(chalk.bold(' Try it:'));
-  skill.examples.slice(0, 3).forEach((example) => {
-    console.log(chalk.cyan(` • ${example}`));
+  displayLines.forEach((line, i) => {
+    const suffix = (i === maxDescLines - 1 && descLines.length > maxDescLines) ? '...' : '';
+    console.log(` ${chalk.dim(line + suffix)}`);
   });
+  console.log(chalk.bold('━'.repeat(boxWidth)));
   console.log();
-  console.log(chalk.dim(` ${skill.downloadCount} downloads · ${skill.authorKind === 'verified' ? 'Verified' : 'Community'} by ${skill.author}`));
+
+  // Only show examples if they exist
+  if (skill.examples.length > 0) {
+    console.log(chalk.bold(' Try it:'));
+    skill.examples.slice(0, 3).forEach((example) => {
+      console.log(chalk.cyan(` • ${example}`));
+    });
+    console.log();
+  }
+
+  // Show author and verification status
+  const authorInfo = skill.authorKind === 'verified'
+    ? `By ${skill.author} · Verified`
+    : `By ${skill.author}`;
+  console.log(chalk.dim(` ${skill.downloadCount} downloads · ${authorInfo}`));
   console.log();
 }
 
@@ -69,7 +115,7 @@ export function displayInstalledSkills(skills: Array<{ id: string; name: string;
   console.log();
 
   skills.forEach((skill) => {
-    console.log(chalk.cyan(skill.slug.padEnd(20)) + skill.name);
+    console.log(chalk.cyan(skill.id.padEnd(20)) + skill.name);
     console.log(' '.repeat(20) + chalk.dim(skill.description.slice(0, 60) + (skill.description.length > 60 ? '...' : '')));
     console.log();
   });

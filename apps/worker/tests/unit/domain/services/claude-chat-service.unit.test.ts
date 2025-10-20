@@ -1,8 +1,7 @@
-import { beforeEach, describe, expect, it, vi } from 'vitest';
-
 import { ClaudeInstanceConfig } from '@worker/domain/models/user/claude-instance-config';
 import { User } from '@worker/domain/models/user/user';
 import { ClaudeChatService } from '@worker/domain/services/chat-service/claude-chat-service';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 describe('claudeChatService', () => {
   let service: ClaudeChatService;

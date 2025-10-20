@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import chalk from 'chalk';
 import { Command } from 'commander';
 
@@ -65,6 +66,7 @@ removeCmd
   .command('skill <name>')
   .description('Remove a skill')
   .option('-f, --force', 'Skip existence check')
+  .option('-p, --project', 'Remove from project directory (.claude/skills)')
   .action(remove);
 
 // List command

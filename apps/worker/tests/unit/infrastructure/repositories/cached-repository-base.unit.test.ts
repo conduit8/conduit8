@@ -1,6 +1,6 @@
+import { CachedRepositoryBase } from '@worker/infrastructure/persistence/repositories/cached-repository-base';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-import { CachedRepositoryBase } from '@worker/infrastructure/persistence/repositories/cached-repository-base';
 import { StorageError } from '@worker/infrastructure/errors/infrastructure.errors';
 
 // Test entity

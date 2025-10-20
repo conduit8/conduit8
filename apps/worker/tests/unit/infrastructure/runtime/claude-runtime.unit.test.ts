@@ -1,6 +1,5 @@
-import { describe, expect, it, vi } from 'vitest';
-
 import { ClaudeRuntime } from '@worker/infrastructure/runtime/claude-runtime';
+import { describe, expect, it, vi } from 'vitest';
 
 /**
  * Unit tests for ClaudeRuntime configuration and methods

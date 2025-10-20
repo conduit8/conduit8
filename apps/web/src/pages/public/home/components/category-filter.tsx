@@ -1,8 +1,9 @@
-import { Checkbox } from '@web/ui/components/atoms/inputs/checkbox';
-import { Button } from '@web/ui/components/atoms/buttons';
-import { Popover, PopoverContent, PopoverTrigger } from '@web/ui/components/overlays/popover';
 import { CaretDownIcon } from '@phosphor-icons/react';
+import { Button } from '@web/ui/components/atoms/buttons';
 import { useState } from 'react';
+
+import { Checkbox } from '@web/ui/components/atoms/inputs/checkbox';
+import { Popover, PopoverContent, PopoverTrigger } from '@web/ui/components/overlays/popover';
 
 interface CategoryFilterProps {
   selectedCategories: string[];
@@ -25,7 +26,8 @@ export function CategoryFilter({ selectedCategories, onCategoryChange }: Categor
   const handleToggle = (categoryId: string) => {
     if (selectedCategories.includes(categoryId)) {
       onCategoryChange(selectedCategories.filter(id => id !== categoryId));
-    } else {
+    }
+    else {
       onCategoryChange([...selectedCategories, categoryId]);
     }
   };

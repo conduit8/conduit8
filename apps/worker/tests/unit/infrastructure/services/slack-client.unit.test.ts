@@ -1,6 +1,6 @@
+import { SlackClient } from '@worker/infrastructure/services/slack/slack-client';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-import { SlackClient } from '@worker/infrastructure/services/slack/slack-client';
 import { SlackClientError } from '@worker/infrastructure/errors/infrastructure.errors';
 
 // Create the mock access function that we'll control per test
