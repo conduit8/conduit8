@@ -238,11 +238,11 @@ function createPlaceholderImage(skillId: string, key: string): void {
   const placeholderPath = join(TEMP_DIR, `${skillId}-placeholder.png`);
 
   if (DRY_RUN) {
-    console.log(`    [DRY RUN] Would create placeholder: ${key} (REMOTE ${ENV})`);
+    console.log(`    [DRY RUN] Would create placeholder: ${key} (REMOTE ${R2_BUCKET})`);
   }
   else {
     writeFileSync(placeholderPath, `Placeholder for ${skillId}`);
-    const cmd = `npx wrangler r2 object put ${R2_BUCKET}/${key} --file "${placeholderPath}" --remote --env ${ENV}`;
+    const cmd = `npx wrangler r2 object put ${R2_BUCKET}/${key} --file "${placeholderPath}" --remote`;
     execSync(cmd, { stdio: 'inherit', cwd: WORKER_DIR });
   }
 }

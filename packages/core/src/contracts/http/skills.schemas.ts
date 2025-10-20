@@ -32,11 +32,26 @@ export const TrackSkillDownloadResponseSchema = z.object({
   success: z.literal(true),
 });
 
+// GET /api/v1/skills - Query params
+export const ListSkillsQuerySchema = z.object({
+  q: z.string().optional(),
+  limit: z.coerce.number().min(1).max(100).default(50),
+  offset: z.coerce.number().min(0).default(0),
+});
+
+// GET /api/v1/skills - Response
+export const ListSkillsResponseSchema = z.object({
+  success: z.literal(true),
+  data: z.array(GetSkillResponseSchema.shape.data),
+});
+
 // Type exports
 export type GetSkillParams = z.infer<typeof GetSkillParamsSchema>;
 export type GetSkillResponse = z.infer<typeof GetSkillResponseSchema>;
 export type TrackSkillDownloadParams = z.infer<typeof TrackSkillDownloadParamsSchema>;
 export type TrackSkillDownloadResponse = z.infer<typeof TrackSkillDownloadResponseSchema>;
+export type ListSkillsQuery = z.infer<typeof ListSkillsQuerySchema>;
+export type ListSkillsResponse = z.infer<typeof ListSkillsResponseSchema>;
 
 // Convenience type for Skill data
 export type Skill = GetSkillResponse['data'];

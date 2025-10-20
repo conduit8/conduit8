@@ -4,7 +4,7 @@
       examples, curator_note, author, author_kind,
       source_type, source_url, created_at, updated_at
     ) VALUES (
-      '52cd8ac6-7250-4e8b-92ee-358ddb3143fe',
+      '27bce717-0944-451f-9ab0-485b06e87b31',
       'skill-creator',
       'skill-creator',
       'Guide for creating effective skills. This skill should be used when users want to create a new skill (or update an existing skill) that extends Claude''s capabilities with specialized knowledge, workflows, or tool integrations.',
@@ -17,10 +17,10 @@
       'verified',
       'import',
       'https://github.com/anthropics/skills/tree/main/skill-creator',
-      1760902632,
-      1760902632
+      1760955357,
+      1760955357
     );
 
     INSERT INTO skill_stats (skill_id, download_count)
-    VALUES ('52cd8ac6-7250-4e8b-92ee-358ddb3143fe', 0);
+    VALUES ('27bce717-0944-451f-9ab0-485b06e87b31', 0);
   
