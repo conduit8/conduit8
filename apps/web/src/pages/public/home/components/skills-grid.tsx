@@ -1,6 +1,6 @@
-import { ContentGrid } from '@web/ui/components/layout/content/content-grid';
+import type { Skill } from '@conduit8/core';
 
-import type { Skill } from '../data/mock-skills';
+import { ContentGrid } from '@web/ui/components/layout/content/content-grid';
 
 import { LandingSectionWrapper } from './landing-section-wrapper';
 import { SkillCard } from './skill-card';

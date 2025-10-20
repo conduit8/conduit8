@@ -224,5 +224,6 @@ MANIFEST
 .sentryclirc
 
 ./test-files
-#/docs/internal
+/docs/internal
 /scripts/local-skills
+/scripts/.temp-zips

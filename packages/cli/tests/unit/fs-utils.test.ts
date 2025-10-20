@@ -49,6 +49,8 @@ describe('skill markdown generation', () => {
       author: 'tester',
       authorKind: 'community',
       zipUrl: 'https://example.com/test-skill.zip',
+      imageUrl: 'https://example.com/test-skill.png',
+      sourceType: 'import',
       downloadCount: 42,
       examples: ['Example 1', 'Example 2']
     };

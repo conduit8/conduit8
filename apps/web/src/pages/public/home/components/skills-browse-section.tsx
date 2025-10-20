@@ -10,6 +10,7 @@ import { FilterDropdown } from '@web/ui/components/overlays/filter-dropdown';
 import { EmptyState } from './empty-state';
 import { LandingSectionWrapper } from './landing-section-wrapper';
 import { SkillCard } from './skill-card';
+import { SkillCardSkeleton } from './skill-card-skeleton';
 
 interface SkillsBrowseSectionProps {
   skills: Skill[];
@@ -120,25 +121,30 @@ export function SkillsBrowseSection({
           </div>
         </div>
 
-        {/* Skills grid or empty state */}
-        {skills.length === 0
+        {/* Loading, empty, or grid */}
+        {isPending
           ? (
-              <EmptyState />
-            )
-          : (
-              <ContentGrid
-                columns={3}
-                className={`w-full transition-opacity ${isPending ? 'opacity-60' : 'opacity-100'}`}
-              >
-                {skills.map(skill => (
-                  <SkillCard
-                    key={skill.slug}
-                    {...skill}
-                    onClick={() => onSkillClick(skill.slug)}
-                  />
+              <ContentGrid columns={3} className="w-full">
+                {Array.from({ length: 6 }).map((_, i) => (
+                  <SkillCardSkeleton key={i} />
                 ))}
               </ContentGrid>
-            )}
+            )
+          : skills.length === 0
+            ? (
+                <EmptyState />
+              )
+            : (
+                <ContentGrid columns={3} className="w-full">
+                  {skills.map(skill => (
+                    <SkillCard
+                      key={skill.slug}
+                      {...skill}
+                      onClick={() => onSkillClick(skill.slug)}
+                    />
+                  ))}
+                </ContentGrid>
+              )}
       </div>
     </LandingSectionWrapper>
   );
