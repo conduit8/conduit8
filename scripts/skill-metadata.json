@@ -1,0 +1,82 @@
+{
+  "algorithmic-art": {
+    "category": "Generative Art",
+    "examples": [
+      "Create algorithmic art exploring organic turbulence",
+      "Generate a flow field visualization with particle systems",
+      "Make generative art using recursive patterns"
+    ]
+  },
+  "canvas-design": {
+    "category": "Design",
+    "examples": [
+      "Create a poster for a tech conference",
+      "Design a minimalist artwork in PDF format",
+      "Make a visual design for a product launch"
+    ]
+  },
+  "mcp-builder": {
+    "category": "Development",
+    "examples": [
+      "Build an MCP server for GitHub API integration",
+      "Create a Python MCP server for Notion",
+      "Develop a TypeScript MCP server with comprehensive evaluations"
+    ]
+  },
+  "slack-gif-creator": {
+    "category": "Media",
+    "examples": [
+      "Create an animated GIF for Slack showing a loading spinner",
+      "Make a celebration GIF optimized for Slack's size constraints",
+      "Generate an emoji animation for Slack reactions"
+    ]
+  },
+  "theme-factory": {
+    "category": "Design",
+    "examples": [
+      "Create a VSCode theme with dark mode aesthetics",
+      "Generate a color scheme for a code editor",
+      "Design a theme inspired by nature"
+    ]
+  },
+  "skill-creator": {
+    "category": "Development",
+    "examples": [
+      "Create a new Claude Code skill for API documentation",
+      "Build a skill for automated testing workflows",
+      "Design a skill template for data analysis"
+    ]
+  },
+  "internal-comms": {
+    "category": "Content",
+    "examples": [
+      "Draft an internal company announcement",
+      "Create a team update email",
+      "Write an all-hands meeting summary"
+    ]
+  },
+  "brand-guidelines": {
+    "category": "Content",
+    "examples": [
+      "Create comprehensive brand guidelines for a startup",
+      "Document visual identity standards",
+      "Write brand voice and tone guidelines"
+    ]
+  },
+  "artifacts-builder": {
+    "category": "Development",
+    "examples": [
+      "Create an interactive data visualization artifact",
+      "Build a React component sandbox",
+      "Generate a self-contained HTML demo"
+    ]
+  },
+  "webapp-testing": {
+    "category": "Development",
+    "examples": [
+      "Test a local web application with Playwright",
+      "Verify frontend functionality and capture screenshots",
+      "Debug UI behavior and check browser logs"
+    ]
+  }
+}

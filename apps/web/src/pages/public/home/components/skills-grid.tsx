@@ -24,6 +24,11 @@ export function SkillsGrid({ skills, onSkillClick, isPending = false }: SkillsGr
 
   return (
     <LandingSectionWrapper variant="default" className="pt-0">
+      <div className="w-full text-left text-sm text-muted-foreground mb-6">
+        <span className="font-medium text-foreground">{skills.length}</span>
+        {' '}
+        {skills.length === 1 ? 'skill' : 'skills'}
+      </div>
       <ContentGrid
         columns={3}
         className={`w-full transition-opacity ${isPending ? 'opacity-60' : 'opacity-100'}`}

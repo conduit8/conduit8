@@ -1,6 +1,5 @@
+import type { Skill } from '@conduit8/core';
 import { describe, expect, it } from 'vitest';
-
-import type { Skill } from '../../src/utils/api.js';
 
 // Import private functions by reading the module
 // We'll test through exposed behavior since extractFrontmatter and createSkillMarkdown are private
@@ -42,12 +41,13 @@ describe('skill markdown generation', () => {
   it('generates correct markdown structure', () => {
     const skill: Skill = {
       id: 'test-skill',
+      slug: 'test-skill',
       name: 'Test Skill',
       description: 'A test skill for unit testing',
       category: 'testing',
       author: 'tester',
       authorKind: 'community',
-      zipSize: 1024,
+      zipUrl: 'https://example.com/test-skill.zip',
       downloadCount: 42,
       examples: ['Example 1', 'Example 2']
     };

@@ -1,7 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router';
 
-import { SupportPage } from '@web/pages/public/support';
+import { TermsPage } from '@web/pages/public/terms';
 
 export const Route = createFileRoute('/_public/terms')({
-  component: SupportPage,
+  component: TermsPage,
 });

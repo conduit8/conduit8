@@ -93,7 +93,10 @@ export function HomePage({ user, loginModal }: LandingPageProps) {
         contentPadding={false}
       >
         <sections.HeroSection />
-        <sections.ActionBar
+        <sections.SkillsBrowseSection
+          skills={filteredSkills}
+          onSkillClick={handleSkillClick}
+          isPending={isSearchPending}
           onSubmitClick={handleSubmitClick}
           onSearchChange={setSearchQuery}
           selectedCategories={selectedCategories}
@@ -102,11 +105,6 @@ export function HomePage({ user, loginModal }: LandingPageProps) {
           onSortChange={setSortBy}
           selectedSources={selectedSources}
           onSourceChange={setSelectedSources}
-        />
-        <sections.SkillsGrid
-          skills={filteredSkills}
-          onSkillClick={handleSkillClick}
-          isPending={isSearchPending}
         />
       </PageLayout>
 

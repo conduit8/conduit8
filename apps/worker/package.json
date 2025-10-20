@@ -26,7 +26,7 @@
     "db:generate:prod": "cross-env DRIZZLE_ENV=production drizzle-kit generate",
     "db:migrate:dev": "wrangler d1 migrations apply D1 --local --env preview",
     "db:migrate:preview": "wrangler d1 migrations apply D1 --remote --env preview",
-    "db:migrate:prod": "wrangler d1 migrations apply D1 --remote --env production",
+    "db:migrate:prod": "wrangler d1 migrations apply D1 --remote --env prod",
     "logs": "wrangler tail --env preview --format pretty",
     "logs:prod": "wrangler tail --env production --format pretty",
     "db:studio": "drizzle-kit studio",

@@ -1,0 +1,1 @@
+INSERT OR IGNORE INTO skill_stats (skill_id, download_count) VALUES ('656856d7-6584-57ed-8f03-6e46253c2c76', 0);

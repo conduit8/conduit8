@@ -40,9 +40,9 @@ export function SignInModal({
   open: boolean;
   onOpenChange: (v: boolean) => void;
 }) {
-  const [loadingMethod, setLoadingMethod] = React.useState<'github' | 'google' | 'email' | null>(
-    null,
-  );
+  const [loadingMethod, setLoadingMethod] = React.useState<
+    'github' | 'google' | 'email' | null
+  >(null);
   const { signInWithMagicLink, signInWithOAuth } = authService();
   const [turnstileToken, setTurnstileToken] = useState('');
 
@@ -84,7 +84,9 @@ export function SignInModal({
           turnstileToken,
         );
         if (result.success) {
-          toast.info(`Check your email - we've sent a sign in link to ${data.email}`);
+          toast.info(
+            `Check your email - we've sent a sign in link to ${data.email}`,
+          );
         }
         else {
           toast.error('Failed to send a sign in link - please try again');
@@ -116,11 +118,16 @@ export function SignInModal({
           onGitHubSignIn={handleGitHubSignIn}
           onGoogleSignIn={handleGoogleSignIn}
           loadingProvider={
-            loadingMethod === 'github' || loadingMethod === 'google' ? loadingMethod : undefined
+            loadingMethod === 'github' || loadingMethod === 'google'
+              ? loadingMethod
+              : undefined
           }
         />
         <Divider text="Sign in via email" />
-        <SignInForm onSubmit={handleEmailSubmit} isLoading={loadingMethod === 'email'} />
+        <SignInForm
+          onSubmit={handleEmailSubmit}
+          isLoading={loadingMethod === 'email'}
+        />
         <small className="text-muted-foreground text-center">
           By signing in, you agree to our
           {' '}
