@@ -6,7 +6,7 @@ import { AnimatedGridPattern } from '@web/ui/components/atoms/effects/animated-g
 import { LandingSectionWrapper } from './landing-section-wrapper';
 
 export function HeroSection() {
-  const installCommand = 'npx @conduit8/cli install pdf';
+  const installCommand = 'npx conduit8 install skill pdf';
 
   return (
     <LandingSectionWrapper className="relative overflow-hidden">

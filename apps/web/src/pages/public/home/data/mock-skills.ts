@@ -1,5 +1,5 @@
 export interface Skill {
-  id: string;
+  slug: string;
   name: string;
   description: string;
   imageUrl: string;
@@ -14,7 +14,7 @@ export interface Skill {
 // Real skills from https://github.com/anthropics/skills
 export const mockSkills: Skill[] = [
   {
-    id: 'pdf',
+    slug: 'pdf',
     name: 'PDF Toolkit',
     description: 'Extract text, merge files, fill forms, and handle complex PDF documents.',
     imageUrl: 'https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=800&q=80',
@@ -26,7 +26,7 @@ export const mockSkills: Skill[] = [
     sourceUrl: 'https://github.com/anthropics/anthropic-quickstarts/tree/main/claude-code-skill-library/skills/pdf',
   },
   {
-    id: 'algorithmic-art',
+    slug: 'algorithmic-art',
     name: 'Algorithmic Art',
     description: 'Create generative art using p5.js with seeded randomness and interactive parameters.',
     imageUrl: 'https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?w=800&q=80',
@@ -38,7 +38,7 @@ export const mockSkills: Skill[] = [
     sourceUrl: 'https://github.com/anthropics/anthropic-quickstarts/tree/main/claude-code-skill-library/skills/algorithmic-art',
   },
   {
-    id: 'canvas-design',
+    slug: 'canvas-design',
     name: 'Canvas Design',
     description: 'Design beautiful posters and visual art in PNG/PDF formats.',
     imageUrl: 'https://images.unsplash.com/photo-1561998338-13ad7883b20f?w=800&q=80',
@@ -50,7 +50,7 @@ export const mockSkills: Skill[] = [
     sourceUrl: 'https://github.com/anthropics/anthropic-quickstarts/tree/main/claude-code-skill-library/skills/canvas-design',
   },
   {
-    id: 'webapp-testing',
+    slug: 'webapp-testing',
     name: 'Web App Testing',
     description: 'Test web apps with Playwright - verify functionality, screenshots, browser logs.',
     imageUrl: 'https://images.unsplash.com/photo-1516116216624-53e697fedbea?w=800&q=80',
@@ -62,7 +62,7 @@ export const mockSkills: Skill[] = [
     sourceUrl: 'https://github.com/anthropics/anthropic-quickstarts/tree/main/claude-code-skill-library/skills/webapp-testing',
   },
   {
-    id: 'excel',
+    slug: 'excel',
     name: 'Excel Toolkit',
     description: 'Analyze spreadsheets, create reports, and manipulate data with formulas.',
     imageUrl: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80',
@@ -74,7 +74,7 @@ export const mockSkills: Skill[] = [
     sourceUrl: 'https://github.com/excel-tools/claude-skill',
   },
   {
-    id: 'word',
+    slug: 'word',
     name: 'Word Document',
     description: 'Create and edit Word documents with formatting, images, and styles.',
     imageUrl: 'https://images.unsplash.com/photo-1586281380117-5a60ae2050cc?w=800&q=80',
@@ -85,7 +85,7 @@ export const mockSkills: Skill[] = [
     sourceType: 'submission',
   },
   {
-    id: 'powerpoint',
+    slug: 'powerpoint',
     name: 'PowerPoint',
     description: 'Generate presentations with slides, charts, and professional templates.',
     imageUrl: 'https://images.unsplash.com/photo-1557804506-669a67965ba0?w=800&q=80',
@@ -97,7 +97,7 @@ export const mockSkills: Skill[] = [
     sourceUrl: 'https://github.com/ppt-creator/claude-ppt',
   },
   {
-    id: 'image-processing',
+    slug: 'image-processing',
     name: 'Image Processing',
     description: 'Resize, crop, apply filters, and optimize images for web.',
     imageUrl: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&q=80',
@@ -108,7 +108,7 @@ export const mockSkills: Skill[] = [
     sourceType: 'submission',
   },
   {
-    id: 'video-editor',
+    slug: 'video-editor',
     name: 'Video Editor',
     description: 'Trim, merge, add subtitles, and apply effects to videos programmatically.',
     imageUrl: 'https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=800&q=80',
@@ -120,7 +120,7 @@ export const mockSkills: Skill[] = [
     sourceUrl: 'https://github.com/vid-tools/video-skill',
   },
   {
-    id: 'api-testing',
+    slug: 'api-testing',
     name: 'API Testing',
     description: 'Send requests, validate responses, and automate API workflows.',
     imageUrl: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&q=80',
@@ -131,7 +131,7 @@ export const mockSkills: Skill[] = [
     sourceType: 'submission',
   },
   {
-    id: 'database-tools',
+    slug: 'database-tools',
     name: 'Database Tools',
     description: 'Run SQL queries, export data, and generate database reports.',
     imageUrl: 'https://images.unsplash.com/photo-1544383835-bda2bc66a55d?w=800&q=80',
@@ -143,7 +143,7 @@ export const mockSkills: Skill[] = [
     sourceUrl: 'https://github.com/db-dev/sql-skill',
   },
   {
-    id: 'markdown-generator',
+    slug: 'markdown-generator',
     name: 'Markdown Generator',
     description: 'Create formatted markdown with tables, lists, and code blocks.',
     imageUrl: 'https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=800&q=80',
@@ -154,7 +154,7 @@ export const mockSkills: Skill[] = [
     sourceType: 'submission',
   },
   {
-    id: 'json-tools',
+    slug: 'json-tools',
     name: 'JSON Tools',
     description: 'Parse, validate, transform, and format JSON data.',
     imageUrl: 'https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=800&q=80',
@@ -166,7 +166,7 @@ export const mockSkills: Skill[] = [
     sourceUrl: 'https://github.com/json-master/json-skill',
   },
   {
-    id: 'csv-processor',
+    slug: 'csv-processor',
     name: 'CSV Processor',
     description: 'Parse, filter, aggregate, and export CSV data for analysis.',
     imageUrl: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80',
@@ -177,7 +177,7 @@ export const mockSkills: Skill[] = [
     sourceType: 'submission',
   },
   {
-    id: 'chart-generator',
+    slug: 'chart-generator',
     name: 'Chart Generator',
     description: 'Create bar, line, and pie charts from your data.',
     imageUrl: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80',
@@ -189,7 +189,7 @@ export const mockSkills: Skill[] = [
     sourceUrl: 'https://github.com/dataviz/chart-skill',
   },
   {
-    id: 'code-reviewer',
+    slug: 'code-reviewer',
     name: 'Code Reviewer',
     description: 'Identify issues, suggest improvements, and enforce coding standards.',
     imageUrl: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800&q=80',
@@ -200,7 +200,7 @@ export const mockSkills: Skill[] = [
     sourceType: 'submission',
   },
   {
-    id: 'git-helper',
+    slug: 'git-helper',
     name: 'Git Helper',
     description: 'Streamline git workflows with commit messages and branch management.',
     imageUrl: 'https://images.unsplash.com/photo-1556075798-4825dfaaf498?w=800&q=80',
@@ -212,7 +212,7 @@ export const mockSkills: Skill[] = [
     sourceUrl: 'https://github.com/git-tools/git-skill',
   },
   {
-    id: 'docker-tools',
+    slug: 'docker-tools',
     name: 'Docker Tools',
     description: 'Create Dockerfiles, optimize images, and troubleshoot containers.',
     imageUrl: 'https://images.unsplash.com/photo-1605745341112-85968b19335b?w=800&q=80',
@@ -223,7 +223,7 @@ export const mockSkills: Skill[] = [
     sourceType: 'submission',
   },
   {
-    id: 'terraform',
+    slug: 'terraform',
     name: 'Terraform Helper',
     description: 'Generate modules, plan deployments, and manage cloud infrastructure.',
     imageUrl: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&q=80',
@@ -235,7 +235,7 @@ export const mockSkills: Skill[] = [
     sourceUrl: 'https://github.com/terraform-dev/tf-skill',
   },
   {
-    id: 'aws-tools',
+    slug: 'aws-tools',
     name: 'AWS Tools',
     description: 'Deploy services, configure security, and monitor AWS infrastructure.',
     imageUrl: 'https://images.unsplash.com/photo-1523474253046-8cd2748b5fd2?w=800&q=80',

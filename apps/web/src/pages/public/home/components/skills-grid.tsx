@@ -7,7 +7,7 @@ import { SkillCard } from './skill-card';
 
 interface SkillsGridProps {
   skills: Skill[];
-  onSkillClick: (id: string) => void;
+  onSkillClick: (slug: string) => void;
   isPending?: boolean;
 }
 
@@ -30,9 +30,9 @@ export function SkillsGrid({ skills, onSkillClick, isPending = false }: SkillsGr
       >
         {skills.map(skill => (
           <SkillCard
-            key={skill.id}
+            key={skill.slug}
             {...skill}
-            onClick={() => onSkillClick(skill.id)}
+            onClick={() => onSkillClick(skill.slug)}
           />
         ))}
       </ContentGrid>

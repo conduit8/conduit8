@@ -27,12 +27,14 @@ ${chalk.bold('COMMANDS')}
 
 ${chalk.bold('OPTIONS')}
   ${chalk.cyan('-f, --force')}                       Overwrite existing skill (install)
+  ${chalk.cyan('-p, --project')}                     Install to project .claude/skills (team-shared)
   ${chalk.cyan('-h, --help')}                        Show help
   ${chalk.cyan('-v, --version')}                     Show version
 
 ${chalk.bold('EXAMPLES')}
   ${chalk.dim('$ npx conduit8 search skills pdf')}
-  ${chalk.dim('$ npx conduit8 install skill pdf')}
+  ${chalk.dim('$ npx conduit8 install skill pdf')}            ${chalk.dim('# Personal (~/.claude/skills)')}
+  ${chalk.dim('$ npx conduit8 install skill pdf --project')}  ${chalk.dim('# Project (./.claude/skills)')}
   ${chalk.dim('$ npx conduit8 list skills')}
 
 Report an issue: ${chalk.hex('#7c9ff5')('https://github.com/alexander-zuev/conduit8/issues')}
@@ -51,6 +53,7 @@ installCmd
   .command('skill <name>')
   .description('Install a skill')
   .option('-f, --force', 'Overwrite if exists')
+  .option('-p, --project', 'Install to project directory (.claude/skills)')
   .action(install);
 
 // Remove command

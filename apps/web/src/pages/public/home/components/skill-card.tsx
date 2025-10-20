@@ -13,7 +13,7 @@ import {
 import { Tooltip, TooltipContent, TooltipTrigger } from '@web/ui/components/overlays/tooltip';
 
 interface SkillCardProps {
-  id: string;
+  slug: string;
   name: string;
   description: string;
   imageUrl: string;
@@ -24,7 +24,7 @@ interface SkillCardProps {
 }
 
 export function SkillCard({
-  id,
+  slug,
   name,
   description,
   imageUrl,
@@ -34,7 +34,7 @@ export function SkillCard({
   onClick,
 }: SkillCardProps) {
   const [isCopied, setIsCopied] = useState(false);
-  const installCommand = `npx @conduit8/cli install ${id}`;
+  const installCommand = `npx conduit8 install skill ${slug}`;
 
   const handleInstallClick = (e: React.MouseEvent) => {
     e.stopPropagation(); // Prevent card click
@@ -52,7 +52,7 @@ export function SkillCard({
 
   return (
     <Card
-      className="cursor-pointer transition-all hover:border-border-interactive overflow-hidden p-0 flex flex-col h-full"
+      className="cursor-pointer transition-all outline outline-1 outline-border hover:outline-2 hover:outline-accent overflow-hidden p-0 flex flex-col h-full border-0"
       onClick={onClick}
     >
       {/* Image */}

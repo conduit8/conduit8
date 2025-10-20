@@ -53,14 +53,14 @@ export async function removeSkill(skillId: string, skillsDir: string = DEFAULT_S
 /**
  * List all installed skills
  */
-export async function listInstalledSkills(): Promise<Array<{ id: string; name: string; description: string }>> {
+export async function listInstalledSkills(skillsDir: string = DEFAULT_SKILLS_DIR): Promise<Array<{ id: string; name: string; description: string }>> {
   // Ensure directory exists
-  if (!existsSync(SKILLS_DIR)) {
-    mkdirSync(SKILLS_DIR, { recursive: true });
+  if (!existsSync(skillsDir)) {
+    mkdirSync(skillsDir, { recursive: true });
     return [];
   }
 
-  const entries = await readdir(SKILLS_DIR, { withFileTypes: true });
+  const entries = await readdir(skillsDir, { withFileTypes: true });
   const skills = [];
 
   for (const entry of entries) {
@@ -68,7 +68,7 @@ export async function listInstalledSkills(): Promise<Array<{ id: string; name: s
       continue;
 
     try {
-      const skillPath = join(SKILLS_DIR, entry.name, 'SKILL.md');
+      const skillPath = join(skillsDir, entry.name, 'SKILL.md');
       if (!existsSync(skillPath))
         continue;
 
@@ -93,8 +93,8 @@ export async function listInstalledSkills(): Promise<Array<{ id: string; name: s
 /**
  * Check if skill is installed
  */
-export function isSkillInstalled(skillId: string): boolean {
-  return existsSync(join(SKILLS_DIR, skillId, 'SKILL.md'));
+export function isSkillInstalled(skillId: string, skillsDir: string = DEFAULT_SKILLS_DIR): boolean {
+  return existsSync(join(skillsDir, skillId, 'SKILL.md'));
 }
 
 /**
