@@ -6,32 +6,35 @@
  * For other sources (Notion, etc), create separate import script.
  *
  * Usage:
- *   pnpm import:skills
+ *   cd scripts && npx tsx import-local-skills.ts
+ *
+ * Environment: PREVIEW ONLY (NEVER prod)
+ * - R2: REMOTE preview bucket (conduit8-public-preview)
+ * - D1: LOCAL preview database
  *
  * What it does:
  * 1. Scans /skills directory for folders with SKILL.md
  * 2. Parses SKILL.md frontmatter for metadata
  * 3. Creates ZIP of each skill folder
- * 4. Uploads ZIP to R2: skills/{id}.zip
- * 5. Creates placeholder image in R2: images/{id}.png
- * 6. Inserts metadata to local D1 database
+ * 4. Uploads ZIP to REMOTE R2 preview: skills/{slug}.zip
+ * 5. Creates placeholder image in REMOTE R2: images/{slug}.png
+ * 6. Inserts metadata to LOCAL D1 database
  */
 
-import { randomUUID } from 'node:crypto';
-import { readdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
-import { join } from 'node:path';
-import { execSync } from 'node:child_process';
 import archiver from 'archiver';
+import { execSync } from 'node:child_process';
+import { randomUUID } from 'node:crypto';
+import { createWriteStream, mkdirSync, readdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
+import { join } from 'node:path';
 import { parse as parseYaml } from 'yaml';
-import { createWriteStream } from 'node:fs';
-import { mkdirSync } from 'node:fs';
 
 // Resolve paths relative to project root (parent of scripts dir)
 const PROJECT_ROOT = join(process.cwd(), '..');
 const WORKER_DIR = join(PROJECT_ROOT, 'apps', 'worker');
 const SKILLS_DIR = join(PROJECT_ROOT, 'skills');
-const TEMP_DIR = join(PROJECT_ROOT, '.temp-zips');
+const TEMP_DIR = join(PROJECT_ROOT, 'scripts', '.temp-zips');
 const R2_BUCKET = 'conduit8-public-preview'; // Public bucket for skills
+const ENV = 'preview'; // ALWAYS use preview, NEVER prod
 const DRY_RUN = false; // Set to false to actually execute wrangler commands
 
 interface SkillMetadata {
@@ -79,7 +82,8 @@ async function main() {
       await importSkill(skillId);
       imported.push(skillId);
       console.log(`✅ Success: ${skillId}`);
-    } catch (error) {
+    }
+    catch (error) {
       const errorMsg = error instanceof Error ? error.message : String(error);
       failed.push({ id: skillId, error: errorMsg });
       console.error(`❌ Failed: ${skillId} - ${errorMsg}`);
@@ -87,7 +91,7 @@ async function main() {
   }
 
   // Summary
-  console.log('\n' + '='.repeat(50));
+  console.log(`\n${'='.repeat(50)}`);
   console.log('📊 Import Summary:');
   console.log(`  ✅ Imported: ${imported.length}`);
   console.log(`  ❌ Failed: ${failed.length}`);
@@ -118,7 +122,8 @@ function findSkillFolders(dir: string): string[] {
     try {
       statSync(skillMdPath);
       skills.push(item);
-    } catch {
+    }
+    catch {
       console.warn(`⚠️  Skipping ${item}: No SKILL.md found`);
     }
   }
@@ -218,11 +223,13 @@ async function createSkillZip(skillId: string, skillPath: string): Promise<strin
 }
 
 function uploadToR2(zipPath: string, key: string): void {
-  const cmd = `npx wrangler r2 object put ${R2_BUCKET}/${key} --file "${zipPath}"`;
+  // Use REMOTE preview R2 (bucket name defines env, no --env flag needed)
+  const cmd = `npx wrangler r2 object put ${R2_BUCKET}/${key} --file "${zipPath}" --remote`;
 
   if (DRY_RUN) {
-    console.log(`    [DRY RUN] Would upload: ${zipPath} → ${key}`);
-  } else {
+    console.log(`    [DRY RUN] Would upload: ${zipPath} → ${key} (REMOTE ${R2_BUCKET})`);
+  }
+  else {
     execSync(cmd, { stdio: 'inherit', cwd: WORKER_DIR });
   }
 }
@@ -231,10 +238,11 @@ function createPlaceholderImage(skillId: string, key: string): void {
   const placeholderPath = join(TEMP_DIR, `${skillId}-placeholder.png`);
 
   if (DRY_RUN) {
-    console.log(`    [DRY RUN] Would create placeholder: ${key}`);
-  } else {
+    console.log(`    [DRY RUN] Would create placeholder: ${key} (REMOTE ${ENV})`);
+  }
+  else {
     writeFileSync(placeholderPath, `Placeholder for ${skillId}`);
-    const cmd = `npx wrangler r2 object put ${R2_BUCKET}/${key} --file "${placeholderPath}"`;
+    const cmd = `npx wrangler r2 object put ${R2_BUCKET}/${key} --file "${placeholderPath}" --remote --env ${ENV}`;
     execSync(cmd, { stdio: 'inherit', cwd: WORKER_DIR });
   }
 }
@@ -282,13 +290,13 @@ function insertToD1(record: SkillRecord): void {
   const sqlPath = join(TEMP_DIR, `${record.id}.sql`);
   writeFileSync(sqlPath, sql);
 
-  // Execute via wrangler
-  const cmd = `npx wrangler d1 execute D1 --local --file "${sqlPath}" --env preview`;
+  // Execute via wrangler (LOCAL D1, but preview env for config)
+  const cmd = `npx wrangler d1 execute D1 --local --file "${sqlPath}" --env ${ENV}`;
   execSync(cmd, { stdio: 'inherit', cwd: WORKER_DIR });
 }
 
 function escapeSql(str: string): string {
-  return str.replace(/'/g, "''");
+  return str.replace(/'/g, '\'\'');
 }
 
 main().catch((error) => {

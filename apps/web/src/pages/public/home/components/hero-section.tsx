@@ -1,6 +1,6 @@
 import { CheckCircleIcon, CloudArrowDownIcon, UsersThreeIcon } from '@phosphor-icons/react';
-import { CodeShowcase } from '@web/ui/components/atoms/code';
 
+import { CodeBlock } from '@web/ui/components/atoms/code/code-block';
 import { AnimatedGridPattern } from '@web/ui/components/atoms/effects/animated-grid-pattern';
 
 import { LandingSectionWrapper } from './landing-section-wrapper';
@@ -22,34 +22,34 @@ export function HeroSection() {
 
           <div className="flex flex-col gap-4">
             <div className="flex items-start gap-3">
-              <CloudArrowDownIcon size={24} weight="duotone" className="shrink-0 mt-0.5" />
+              <CloudArrowDownIcon size={20} weight="duotone" className="shrink-0 mt-0.5 text-muted-foreground" />
               <div className="flex flex-col gap-1 text-left">
-                <h3 className="font-medium">One-click install</h3>
-                <p className="text-sm text-muted-foreground">CLI command, no manual setup</p>
+                <p className="text-sm font-medium">One-click install</p>
+                <p className="text-xs text-muted-foreground">CLI command, no manual setup</p>
               </div>
             </div>
 
             <div className="flex items-start gap-3">
-              <CheckCircleIcon size={24} weight="duotone" className="shrink-0 mt-0.5" />
+              <CheckCircleIcon size={20} weight="duotone" className="shrink-0 mt-0.5 text-muted-foreground" />
               <div className="flex flex-col gap-1 text-left">
-                <h3 className="font-medium">Actually works</h3>
-                <p className="text-sm text-muted-foreground">Hand-tested, not broken repos</p>
+                <p className="text-sm font-medium">Actually works</p>
+                <p className="text-xs text-muted-foreground">Hand-tested, not broken repos</p>
               </div>
             </div>
 
             <div className="flex items-start gap-3">
-              <UsersThreeIcon size={24} weight="duotone" className="shrink-0 mt-0.5" />
+              <UsersThreeIcon size={20} weight="duotone" className="shrink-0 mt-0.5 text-muted-foreground" />
               <div className="flex flex-col gap-1 text-left">
-                <h3 className="font-medium">Official + Community</h3>
-                <p className="text-sm text-muted-foreground">Anthropic skills + curated contributions</p>
+                <p className="text-sm font-medium">Verified + Community</p>
+                <p className="text-xs text-muted-foreground">Curated from trusted sources</p>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Right: Code Screenshot */}
+        {/* Right: Code Block */}
         <div className="flex flex-col gap-3">
-          <CodeShowcase code={installCommand} />
+          <CodeBlock code={installCommand} language="bash" />
           <p className="text-xs text-muted-foreground text-center lg:text-left">
             Install any skill with a single command
           </p>

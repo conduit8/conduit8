@@ -28,21 +28,10 @@ export async function install(name: string, options: InstallOptions): Promise<vo
     const skill = await getSkill(name);
     spinner.succeed(`Found ${skill.name}`);
 
-    // Simulate download with progress
-    const downloadSpinner = ora('Downloading...').start();
-
-    // Simulate download progress
-    for (let i = 0; i <= 100; i += 20) {
-      await new Promise(resolve => setTimeout(resolve, 100));
-      downloadSpinner.text = `Downloading... ${i}%`;
-    }
-
-    downloadSpinner.succeed('Downloaded');
-
-    // Install skill
-    const installSpinner = ora(`Installing to ${skillsDir}/${skill.slug}...`).start();
+    // Download and install
+    const installSpinner = ora('Downloading and installing...').start();
     await installSkill(skill, skillsDir);
-    installSpinner.succeed('Installed');
+    installSpinner.succeed(`Installed to ${skillsDir}/${skill.slug}`);
 
     // Track download (fire and forget)
     trackDownload(skill.slug).catch(() => {});

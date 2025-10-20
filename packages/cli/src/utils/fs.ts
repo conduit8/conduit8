@@ -1,15 +1,77 @@
 import type { Skill } from '@conduit8/core';
 
+import AdmZip from 'adm-zip';
 import yaml from 'js-yaml';
+import { Buffer } from 'node:buffer';
 import { existsSync, mkdirSync } from 'node:fs';
-import { mkdir, readdir, readFile, rm, writeFile } from 'node:fs/promises';
+import { readdir, readFile, rm } from 'node:fs/promises';
 import { join } from 'node:path';
 
 import { DEFAULT_SKILLS_DIR } from './config';
 
 /**
+ * Download ZIP file from URL with retry logic
+ * @param url - URL to download from
+ * @param retries - Number of retry attempts (default: 3)
+ * @returns Buffer containing ZIP data
+ */
+export async function downloadZip(url: string, retries = 3): Promise<Buffer> {
+  let lastError: Error | null = null;
+
+  for (let attempt = 0; attempt < retries; attempt++) {
+    try {
+      const response = await fetch(url);
+
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
+
+      const arrayBuffer = await response.arrayBuffer();
+      return Buffer.from(arrayBuffer);
+    }
+    catch (error) {
+      lastError = error instanceof Error ? error : new Error(String(error));
+
+      // Don't retry on 4xx errors (client errors)
+      if (lastError.message.includes('HTTP 4')) {
+        throw lastError;
+      }
+
+      // Exponential backoff: 1s, 2s, 4s
+      if (attempt < retries - 1) {
+        await new Promise(resolve => setTimeout(resolve, 1000 * 2 ** attempt));
+      }
+    }
+  }
+
+  throw new Error(`Failed to download after ${retries} attempts: ${lastError?.message}`);
+}
+
+/**
+ * Extract ZIP buffer to target directory
+ * @param zipBuffer - Buffer containing ZIP data
+ * @param targetDir - Directory to extract to
+ */
+export function extractZip(zipBuffer: Buffer, targetDir: string): void {
+  const zip = new AdmZip(zipBuffer);
+  zip.extractAllTo(targetDir, true); // true = overwrite existing files
+}
+
+/**
+ * Validate skill directory has required SKILL.md file
+ * @param skillDir - Directory to validate
+ * @throws Error if SKILL.md is missing
+ */
+export function validateSkill(skillDir: string): void {
+  const skillMdPath = join(skillDir, 'SKILL.md');
+
+  if (!existsSync(skillMdPath)) {
+    throw new Error('Invalid skill package - missing SKILL.md');
+  }
+}
+
+/**
  * Download and install a skill
- * STUB: Creates a dummy SKILL.md file instead of downloading ZIP
  */
 export async function installSkill(skill: Skill, skillsDir: string = DEFAULT_SKILLS_DIR): Promise<void> {
   const targetDir = join(skillsDir, skill.slug);
@@ -19,22 +81,23 @@ export async function installSkill(skill: Skill, skillsDir: string = DEFAULT_SKI
     mkdirSync(skillsDir, { recursive: true });
   }
 
-  // Create skill directory
-  if (!existsSync(targetDir)) {
-    await mkdir(targetDir, { recursive: true });
+  try {
+    // Download ZIP from R2
+    const zipBuffer = await downloadZip(skill.zipUrl);
+
+    // Extract to target directory
+    extractZip(zipBuffer, targetDir);
+
+    // Validate installation
+    validateSkill(targetDir);
   }
-
-  // Create SKILL.md with frontmatter
-  const skillMd = createSkillMarkdown(skill);
-  await writeFile(join(targetDir, 'SKILL.md'), skillMd, 'utf-8');
-
-  // Create a dummy script file to make it feel real
-  await mkdir(join(targetDir, 'scripts'), { recursive: true });
-  await writeFile(
-    join(targetDir, 'scripts', 'example.py'),
-    `# Example script for ${skill.name}\nprint("Hello from ${skill.slug}")\n`,
-    'utf-8'
-  );
+  catch (error) {
+    // Cleanup on failure
+    if (existsSync(targetDir)) {
+      await rm(targetDir, { recursive: true, force: true });
+    }
+    throw error;
+  }
 }
 
 /**
@@ -114,39 +177,4 @@ function extractFrontmatter(content: string): Record<string, any> {
   catch {
     return {};
   }
-}
-
-/**
- * Create SKILL.md content with frontmatter
- */
-function createSkillMarkdown(skill: Skill): string {
-  const frontmatter = yaml.dump({
-    name: skill.slug,
-    description: skill.description,
-    license: 'MIT'
-  });
-
-  return `---
-${frontmatter}---
-
-# ${skill.name}
-
-## Overview
-
-${skill.description}
-
-## Examples
-
-${skill.examples.map(ex => `- ${ex}`).join('\n')}
-
-## Author
-
-- **${skill.author}** (${skill.authorKind})
-- Downloads: ${skill.downloadCount}
-- Category: ${skill.category}
-
----
-
-*This is a stub skill created by conduit8 CLI for testing purposes.*
-`;
 }

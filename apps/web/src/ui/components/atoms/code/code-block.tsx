@@ -1,13 +1,8 @@
-// TODO: This component is not currently used but kept for future implementation
-// Requires prism-react-renderer package to be installed
-// Uncomment when code highlighting is needed
-
-/*
-import { Check, Copy } from '@phosphor-icons/react';
+import { CheckIcon, CopyIcon } from '@phosphor-icons/react';
 import { Highlight, themes } from 'prism-react-renderer';
 import { useState } from 'react';
 
-import { cn } from '@web/shared/utils/tailwind-utils.ts';
+import { cn } from '@web/lib/utils/tailwind-utils';
 
 export interface CodeBlockProps {
   code: string;
@@ -20,13 +15,12 @@ export interface CodeBlockProps {
  * CodeBlock component for displaying formatted code with syntax highlighting
  * and copy functionality.
  */
-/*
-export const CodeBlock = ({
+export function CodeBlock({
   code,
   language = 'bash',
   showCopyButton = true,
   className,
-}: CodeBlockProps): JSX.Element => {
+}: CodeBlockProps): JSX.Element {
   const [copied, setCopied] = useState(false);
 
   const copyToClipboard = (): void => {
@@ -45,7 +39,7 @@ export const CodeBlock = ({
 
           return (
             <pre
-              className={cn('bg-muted overflow-x-auto rounded-md p-3 font-mono text-sm')}
+              className={cn('bg-gray-12 border border-border overflow-x-auto rounded-lg p-6 font-mono text-base')}
               style={customStyle}
             >
               {tokens.map((line, i) => (
@@ -63,16 +57,12 @@ export const CodeBlock = ({
       {showCopyButton && (
         <button
           onClick={copyToClipboard}
-          className="bg-background/80 hover:bg-background text-muted-foreground hover:text-foreground absolute right-2 top-2 rounded-md p-1.5 transition-colors"
+          className="bg-background/80 hover:bg-background text-muted-foreground hover:text-foreground absolute right-3 top-3 rounded-md p-1.5 transition-colors"
           aria-label="Copy code"
         >
-          {copied ? <Check size={16} /> : <Copy size={16} />}
+          {copied ? <CheckIcon size={16} weight="bold" className="text-accent" /> : <CopyIcon size={16} />}
         </button>
       )}
     </div>
   );
-};
-*/
-
-// Temporary export to prevent import errors
-export const CodeBlock = () => null;
+}
