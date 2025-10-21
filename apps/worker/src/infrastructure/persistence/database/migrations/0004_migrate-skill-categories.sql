@@ -26,3 +26,9 @@ UPDATE skills SET category = CASE
   -- Fallback: Default to development for any unexpected values
   ELSE 'development'
 END;
+
+-- Verification: Display category distribution after migration
+SELECT category, COUNT(*) as count
+FROM skills
+GROUP BY category
+ORDER BY category;
