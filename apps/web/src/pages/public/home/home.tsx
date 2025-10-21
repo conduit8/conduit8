@@ -3,13 +3,13 @@ import type { AuthUser } from '@web/lib/auth/models';
 import { useNavigate } from '@tanstack/react-router';
 import * as sections from '@web/pages/public/home/components';
 import { SignInModal } from '@web/pages/public/home/components/sign-in-modal';
-import { useDeferredValue, useMemo, useState } from 'react';
+import { useDeferredValue, useState } from 'react';
 
 import { PageLayout } from '@web/ui/components/layout/page/page-layout';
 
 import { HomeFooter } from './home-footer';
 import { HomeHeader } from './home-header';
-import { useSkillsList } from './hooks/use-skills-list';
+import { useSkillsFilter, useSkillsList } from './hooks';
 
 interface LandingPageProps {
   user: AuthUser | null;
@@ -35,41 +35,11 @@ export function HomePage({ user, loginModal }: LandingPageProps) {
   });
 
   // Client-side filter and sort (category, source, sort not supported by API yet)
-  const filteredSkills = useMemo(() => {
-    // Return empty during loading - SkillsBrowseSection handles loading state
-    if (!data?.data)
-      return [];
-
-    let result = [...data.data];
-
-    // Category filter
-    if (selectedCategories.length > 0) {
-      result = result.filter(skill => skill.category && selectedCategories.includes(skill.category));
-    }
-
-    // Source filter
-    if (selectedSources.length > 0) {
-      result = result.filter(skill => selectedSources.includes(skill.authorKind));
-    }
-
-    // Sort
-    result.sort((a, b) => {
-      switch (sortBy) {
-        case 'downloads':
-          return b.downloadCount - a.downloadCount;
-        case 'recent':
-          return 0; // TODO: Need createdAt timestamp
-        case 'az':
-          return a.name.localeCompare(b.name);
-        case 'za':
-          return b.name.localeCompare(a.name);
-        default:
-          return 0;
-      }
-    });
-
-    return result;
-  }, [data?.data, selectedCategories, selectedSources, sortBy]);
+  const filteredSkills = useSkillsFilter(data?.data, {
+    categories: selectedCategories,
+    sources: selectedSources,
+    sortBy,
+  });
 
   const handleSkillClick = (skillId: string) => {
     // TODO: Navigate to skill detail page when implemented
