@@ -29,15 +29,14 @@ export async function getSkill(
     slug: skill.slug,
     name: skill.name,
     description: skill.description,
-    category: skill.category,
+    category: skill.category as GetSkillResponse['data']['category'],
     zipUrl,
     imageUrl,
-    // TODO: Remove type assertions - create shared enum constants in core package
-    sourceType: skill.sourceType as 'import' | 'pr' | 'submission',
+    sourceType: skill.sourceType as GetSkillResponse['data']['sourceType'],
     sourceUrl: skill.sourceUrl,
     examples: skill.examples as string[],
     downloadCount,
     author: skill.author,
-    authorKind: skill.authorKind as 'verified' | 'community',
+    authorKind: skill.authorKind as GetSkillResponse['data']['authorKind'],
   };
 }

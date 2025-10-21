@@ -1,5 +1,11 @@
 import { z } from 'zod';
 
+import {
+  SKILL_AUTHOR_KINDS,
+  SKILL_CATEGORIES,
+  SKILL_SOURCE_TYPES,
+} from '../../domain/skill';
+
 // GET /api/v1/skills/:slug - Path params
 export const GetSkillParamsSchema = z.object({
   slug: z.string().min(1).max(100),
@@ -13,15 +19,15 @@ export const GetSkillResponseSchema = z.object({
     slug: z.string(),
     name: z.string(),
     description: z.string(),
-    category: z.string(),
+    category: z.enum(SKILL_CATEGORIES),
     zipUrl: z.url(),
     imageUrl: z.url(),
-    sourceType: z.enum(['import', 'pr', 'submission']),
+    sourceType: z.enum(SKILL_SOURCE_TYPES),
     sourceUrl: z.url().nullish(),
     examples: z.array(z.string()),
     downloadCount: z.number(),
     author: z.string(),
-    authorKind: z.enum(['verified', 'community']),
+    authorKind: z.enum(SKILL_AUTHOR_KINDS),
   }),
 });
 

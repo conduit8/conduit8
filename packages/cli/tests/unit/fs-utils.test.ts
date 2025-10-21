@@ -45,7 +45,7 @@ describe('skill markdown generation', () => {
       slug: 'test-skill',
       name: 'Test Skill',
       description: 'A test skill for unit testing',
-      category: 'testing',
+      category: 'development',
       author: 'tester',
       authorKind: 'community',
       zipUrl: 'https://example.com/test-skill.zip',
