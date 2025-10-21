@@ -1,10 +1,12 @@
 import type { Skill } from '@conduit8/core';
+
 import { useMemo } from 'react';
+
 import type { CategoryValue, SortValue, SourceValue } from '../constants/filter-options';
 
 export interface SkillsFilterOptions {
-  categories: string[];
-  sources: string[];
+  categories: CategoryValue[];
+  sources: SourceValue[];
   sortBy: SortValue;
 }
 

@@ -1,16 +1,25 @@
+import type { SkillAuthorKind, SkillCategory } from '@conduit8/core';
+
+import { SKILL_AUTHOR_KINDS, SKILL_CATEGORIES } from '@conduit8/core';
+
 /**
  * Shared filter and sort options for skills browsing
+ *
+ * Categories and sources import from Core domain model (single source of truth)
+ * This ensures filters work with pagination and always show all available options
  */
 
-export const CATEGORY_OPTIONS = [
-  { value: 'documents', label: 'Documents' },
-  { value: 'creative', label: 'Creative' },
-  { value: 'development', label: 'Development' },
-  { value: 'testing', label: 'Testing' },
-  { value: 'data', label: 'Data' },
-  { value: 'media', label: 'Media' },
-  { value: 'devops', label: 'DevOps' },
-] as const;
+// Map domain categories to UI labels
+export const CATEGORY_OPTIONS = SKILL_CATEGORIES.map(category => ({
+  value: category,
+  label: category.charAt(0).toUpperCase() + category.slice(1),
+}));
+
+// Map domain author kinds to UI labels
+export const SOURCE_OPTIONS = SKILL_AUTHOR_KINDS.map(kind => ({
+  value: kind,
+  label: kind.charAt(0).toUpperCase() + kind.slice(1),
+}));
 
 export const SORT_OPTIONS = [
   { value: 'downloads', label: 'Most Downloaded' },
@@ -19,11 +28,7 @@ export const SORT_OPTIONS = [
   { value: 'za', label: 'Z-A' },
 ] as const;
 
-export const SOURCE_OPTIONS = [
-  { value: 'verified', label: 'Verified' },
-  { value: 'community', label: 'Community' },
-] as const;
-
-export type CategoryValue = typeof CATEGORY_OPTIONS[number]['value'];
+// Type exports
+export type CategoryValue = SkillCategory;
 export type SortValue = typeof SORT_OPTIONS[number]['value'];
-export type SourceValue = typeof SOURCE_OPTIONS[number]['value'];
+export type SourceValue = SkillAuthorKind;

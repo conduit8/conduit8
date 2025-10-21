@@ -3,13 +3,12 @@ import type { AuthUser } from '@web/lib/auth/models';
 import { useNavigate } from '@tanstack/react-router';
 import * as sections from '@web/pages/public/home/components';
 import { SignInModal } from '@web/pages/public/home/components/sign-in-modal';
-import { useDeferredValue, useState } from 'react';
 
 import { PageLayout } from '@web/ui/components/layout/page/page-layout';
 
 import { HomeFooter } from './home-footer';
 import { HomeHeader } from './home-header';
-import { useSkillsFilter, useSkillsList } from './hooks';
+import { useSkillsBrowse, useSkillsFilter, useSkillsList } from './hooks';
 
 interface LandingPageProps {
   user: AuthUser | null;
@@ -18,27 +17,22 @@ interface LandingPageProps {
 
 export function HomePage({ user, loginModal }: LandingPageProps) {
   const navigate = useNavigate();
-  const [searchQuery, setSearchQuery] = useState('');
-  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
-  const [sortBy, setSortBy] = useState('downloads');
-  const [selectedSources, setSelectedSources] = useState<string[]>([]);
 
-  // Defer search query for better input responsiveness
-  const deferredSearchQuery = useDeferredValue(searchQuery);
-  const isSearchPending = searchQuery !== deferredSearchQuery;
+  // Browse state
+  const browse = useSkillsBrowse();
 
-  // Fetch skills from API with search query
+  // Fetch skills from API with deferred search query for performance
   const { data, isLoading } = useSkillsList({
-    q: deferredSearchQuery.trim() || undefined,
+    q: browse.deferredSearchQuery.trim() || undefined,
     limit: 100,
     offset: 0,
   });
 
   // Client-side filter and sort (category, source, sort not supported by API yet)
   const filteredSkills = useSkillsFilter(data?.data, {
-    categories: selectedCategories,
-    sources: selectedSources,
-    sortBy,
+    categories: browse.selectedCategories,
+    sources: browse.selectedSources,
+    sortBy: browse.sortBy,
   });
 
   const handleSkillClick = (skillId: string) => {
@@ -68,15 +62,16 @@ export function HomePage({ user, loginModal }: LandingPageProps) {
         <sections.SkillsBrowseSection
           skills={filteredSkills}
           onSkillClick={handleSkillClick}
-          isPending={isLoading || isSearchPending}
+          isPending={isLoading || browse.isSearchPending}
           onSubmitClick={handleSubmitClick}
-          onSearchChange={setSearchQuery}
-          selectedCategories={selectedCategories}
-          onCategoryChange={setSelectedCategories}
-          sortBy={sortBy}
-          onSortChange={setSortBy}
-          selectedSources={selectedSources}
-          onSourceChange={setSelectedSources}
+          onSearchChange={browse.setSearchQuery}
+          selectedCategories={browse.selectedCategories}
+          onCategoryChange={browse.setCategories}
+          sortBy={browse.sortBy}
+          onSortChange={browse.setSortBy}
+          selectedSources={browse.selectedSources}
+          onSourceChange={browse.setSources}
+          onResetFilters={browse.resetFilters}
         />
       </PageLayout>
 

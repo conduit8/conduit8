@@ -13,15 +13,15 @@ import {
 } from './dropdown-menu';
 
 interface FilterOption {
-  value: string;
-  label: string;
+  readonly value: string;
+  readonly label: string;
 }
 
 interface FilterDropdownProps {
   label: string;
   value: string | string[];
   onChange: (value: string | string[]) => void;
-  options: FilterOption[];
+  options: readonly FilterOption[];
   multi?: boolean;
   width?: string;
 }
