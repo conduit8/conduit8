@@ -1,3 +1,4 @@
+import { SKILL_AUTHOR_KINDS, SKILL_CATEGORIES, SKILL_SOURCE_TYPES } from '@conduit8/core';
 import { integer, sqliteTable, text } from 'drizzle-orm/sqlite-core';
 
 export const skills = sqliteTable('skills', {
@@ -5,7 +6,7 @@ export const skills = sqliteTable('skills', {
   slug: text('slug').notNull().unique(),
   name: text('name').notNull(),
   description: text('description').notNull(),
-  category: text('category').notNull(),
+  category: text('category', { enum: [...SKILL_CATEGORIES] as [string, ...string[]] }).notNull(),
 
   // Storage pointers
   zipKey: text('zip_key').notNull(),
@@ -17,10 +18,10 @@ export const skills = sqliteTable('skills', {
 
   // Attribution
   author: text('author').notNull(),
-  authorKind: text('author_kind', { enum: ['verified', 'community'] }).notNull(),
+  authorKind: text('author_kind', { enum: [...SKILL_AUTHOR_KINDS] as [string, ...string[]] }).notNull(),
 
   // Source
-  sourceType: text('source_type', { enum: ['import', 'pr', 'submission'] }).notNull(),
+  sourceType: text('source_type', { enum: [...SKILL_SOURCE_TYPES] as [string, ...string[]] }).notNull(),
   sourceUrl: text('source_url'),
 
   // Timestamps

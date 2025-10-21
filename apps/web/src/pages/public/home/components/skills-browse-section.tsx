@@ -7,6 +7,9 @@ import { Input } from '@web/ui/components/atoms/inputs';
 import { ContentGrid } from '@web/ui/components/layout/content/content-grid';
 import { FilterDropdown } from '@web/ui/components/overlays/filter-dropdown';
 
+import type { CategoryValue, SortValue, SourceValue } from '../constants/filter-options';
+
+import { CATEGORY_OPTIONS, SORT_OPTIONS, SOURCE_OPTIONS } from '../constants/filter-options';
 import { EmptyState } from './empty-state';
 import { LandingSectionWrapper } from './landing-section-wrapper';
 import { SkillCard } from './skill-card';
@@ -18,35 +21,14 @@ interface SkillsBrowseSectionProps {
   isPending?: boolean;
   onSubmitClick: () => void;
   onSearchChange: (value: string) => void;
-  selectedCategories: string[];
-  onCategoryChange: (categories: string[]) => void;
-  sortBy: string;
-  onSortChange: (value: string) => void;
-  selectedSources: string[];
-  onSourceChange: (sources: string[]) => void;
+  selectedCategories: CategoryValue[];
+  onCategoryChange: (categories: CategoryValue[]) => void;
+  sortBy: SortValue;
+  onSortChange: (value: SortValue) => void;
+  selectedSources: SourceValue[];
+  onSourceChange: (sources: SourceValue[]) => void;
+  onResetFilters: () => void;
 }
-
-const CATEGORY_OPTIONS = [
-  { value: 'documents', label: 'Documents' },
-  { value: 'creative', label: 'Creative' },
-  { value: 'development', label: 'Development' },
-  { value: 'testing', label: 'Testing' },
-  { value: 'data', label: 'Data' },
-  { value: 'media', label: 'Media' },
-  { value: 'devops', label: 'DevOps' },
-];
-
-const SORT_OPTIONS = [
-  { value: 'downloads', label: 'Most Downloaded' },
-  { value: 'recent', label: 'Recently Added' },
-  { value: 'az', label: 'A-Z' },
-  { value: 'za', label: 'Z-A' },
-];
-
-const SOURCE_OPTIONS = [
-  { value: 'verified', label: 'Verified' },
-  { value: 'community', label: 'Community' },
-];
 
 export function SkillsBrowseSection({
   skills,
@@ -60,6 +42,7 @@ export function SkillsBrowseSection({
   onSortChange,
   selectedSources,
   onSourceChange,
+  onResetFilters,
 }: SkillsBrowseSectionProps) {
   return (
     <LandingSectionWrapper variant="default">
@@ -132,7 +115,7 @@ export function SkillsBrowseSection({
             )
           : skills.length === 0
             ? (
-                <EmptyState />
+                <EmptyState onResetFilters={onResetFilters} />
               )
             : (
                 <ContentGrid columns={3} className="w-full">
