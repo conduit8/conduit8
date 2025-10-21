@@ -21,9 +21,9 @@ export function HomePage({ user, loginModal }: LandingPageProps) {
   // Browse state
   const browse = useSkillsBrowse();
 
-  // Fetch skills from API with deferred search query for performance
+  // Fetch skills from API
   const { data, isLoading } = useSkillsList({
-    q: browse.deferredSearchQuery.trim() || undefined,
+    q: browse.searchQuery.trim() || undefined,
     limit: 100,
     offset: 0,
   });
@@ -62,7 +62,7 @@ export function HomePage({ user, loginModal }: LandingPageProps) {
         <sections.SkillsBrowseSection
           skills={filteredSkills}
           onSkillClick={handleSkillClick}
-          isPending={isLoading || browse.isSearchPending}
+          isPending={isLoading && !data}
           onSubmitClick={handleSubmitClick}
           onSearchChange={browse.setSearchQuery}
           selectedCategories={browse.selectedCategories}

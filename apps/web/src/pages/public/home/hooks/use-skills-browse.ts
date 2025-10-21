@@ -1,4 +1,4 @@
-import { useCallback, useDeferredValue, useReducer } from 'react';
+import { useCallback, useReducer } from 'react';
 
 import type { CategoryValue, SortValue, SourceValue } from '../constants/filter-options';
 
@@ -66,18 +66,13 @@ function browseReducer(state: SkillsBrowseState, action: SkillsBrowseAction): Sk
  * Custom hook encapsulating all browse state management
  *
  * Performance optimizations:
- * - useDeferredValue: Keeps input responsive while deferring expensive operations (API calls, filtering)
  * - useCallback: Stable setter functions prevent unnecessary re-renders
  * - useReducer: Centralized state updates, easier to optimize than multiple useState
  *
- * @returns Browse state, stable setters, and performance-optimized values
+ * @returns Browse state and stable setters
  */
 export function useSkillsBrowse() {
   const [state, dispatch] = useReducer(browseReducer, initialState);
-
-  // Performance: Defer expensive operations (API calls, filtering) while keeping input responsive
-  const deferredSearchQuery = useDeferredValue(state.searchQuery);
-  const isSearchPending = state.searchQuery !== deferredSearchQuery;
 
   // Stable callbacks - useCallback ensures these don't change identity between renders
   // Prevents unnecessary re-renders in child components that depend on these
@@ -119,9 +114,5 @@ export function useSkillsBrowse() {
     setSortBy,
     setSources,
     resetFilters,
-
-    // Performance-optimized values
-    deferredSearchQuery,
-    isSearchPending,
   };
 }
