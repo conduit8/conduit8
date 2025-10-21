@@ -55,7 +55,9 @@ export function SkillsBrowseSection({
           </Button>
 
           <div className="flex items-center gap-1 text-sm text-muted-foreground">
-            <span className="font-medium text-foreground">{skills.length}</span>
+            <span className="font-medium text-foreground">
+              {isPending ? '...' : skills.length}
+            </span>
             <span>{skills.length === 1 ? 'skill' : 'skills'}</span>
           </div>
         </div>
