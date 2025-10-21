@@ -23,7 +23,7 @@ export function HomePage({ user, loginModal }: LandingPageProps) {
 
   // Fetch skills from API
   const { data, isLoading } = useSkillsList({
-    q: browse.searchQuery.trim() || undefined,
+    q: browse.searchQuery.trim().slice(0, 100) || undefined,
     limit: 100,
     offset: 0,
   });

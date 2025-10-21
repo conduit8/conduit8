@@ -9,16 +9,27 @@ import { SKILL_AUTHOR_KINDS, SKILL_CATEGORIES } from '@conduit8/core';
  * This ensures filters work with pagination and always show all available options
  */
 
+/**
+ * Format domain string to human-readable label
+ * Handles kebab-case, snake_case, and multi-word strings
+ */
+function formatLabel(str: string): string {
+  return str
+    .split(/[-_]/)
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+}
+
 // Map domain categories to UI labels
 export const CATEGORY_OPTIONS = SKILL_CATEGORIES.map(category => ({
   value: category,
-  label: category.charAt(0).toUpperCase() + category.slice(1),
+  label: formatLabel(category),
 }));
 
 // Map domain author kinds to UI labels
 export const SOURCE_OPTIONS = SKILL_AUTHOR_KINDS.map(kind => ({
   value: kind,
-  label: kind.charAt(0).toUpperCase() + kind.slice(1),
+  label: formatLabel(kind),
 }));
 
 export const SORT_OPTIONS = [

@@ -57,8 +57,12 @@ function browseReducer(state: SkillsBrowseState, action: SkillsBrowseAction): Sk
         sortBy: 'downloads',
       };
 
-    default:
+    default: {
+      // TypeScript exhaustiveness check - ensures all action types are handled
+      const _exhaustive: never = action;
+      console.error('Unknown action type:', _exhaustive);
       return state;
+    }
   }
 }
 
