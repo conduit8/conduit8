@@ -1,8 +1,7 @@
 import { Skill } from '@worker/domain/models';
 import { SkillCategorizationService } from '@worker/domain/services';
-import AdmZip from 'adm-zip';
+import { unzipSync } from 'fflate';
 import matter from 'gray-matter';
-import { Buffer } from 'node:buffer';
 
 import type { CommandHandler } from '@worker/application/handlers/types';
 import type { IngestSkill } from '@worker/domain/messages/commands';
@@ -29,11 +28,11 @@ export const ingestSkill: CommandHandler<IngestSkill, void> = async (
     }
 
     // 2. Parse ZIP (SKILL.md + metadata.json)
-    let zip: AdmZip;
+    let unzipped: Record<string, Uint8Array>;
     let zipBuffer: ArrayBuffer;
     try {
       zipBuffer = await zipObject.arrayBuffer();
-      zip = new AdmZip(Buffer.from(zipBuffer));
+      unzipped = unzipSync(new Uint8Array(zipBuffer));
     }
     catch (error) {
       console.error('[IngestSkill] Failed to parse ZIP', { fileKey, error });
@@ -41,21 +40,21 @@ export const ingestSkill: CommandHandler<IngestSkill, void> = async (
     }
 
     // Extract SKILL.md
-    const skillMdEntry = zip.getEntry('SKILL.md');
-    if (!skillMdEntry) {
+    const skillMdFile = unzipped['SKILL.md'];
+    if (!skillMdFile) {
       throw new InvalidSkillMetadataError('SKILL.md not found in ZIP');
     }
 
-    const skillMdContent = skillMdEntry.getData().toString('utf-8');
+    const skillMdContent = new TextDecoder().decode(skillMdFile);
     const { data: frontmatter } = matter(skillMdContent);
 
     // Extract metadata.json
-    const metadataEntry = zip.getEntry('metadata.json');
-    if (!metadataEntry) {
+    const metadataFile = unzipped['metadata.json'];
+    if (!metadataFile) {
       throw new InvalidSkillMetadataError('metadata.json not found in ZIP');
     }
 
-    const metadataContent = metadataEntry.getData().toString('utf-8');
+    const metadataContent = new TextDecoder().decode(metadataFile);
     const metadata = JSON.parse(metadataContent);
 
     // 3. Categorize with AI
