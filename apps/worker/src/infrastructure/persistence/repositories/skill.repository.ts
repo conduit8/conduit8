@@ -3,7 +3,6 @@ import type { Skill as DomainSkill } from '@worker/domain/models';
 import { skills, skillStats } from '@worker/infrastructure/persistence/database/schema';
 import { desc, eq, like, or, sql } from 'drizzle-orm';
 import { drizzle } from 'drizzle-orm/d1';
-import { Buffer } from 'node:buffer';
 
 import type { ISkillRepository, SkillWithStats } from '@worker/domain/repositories/interfaces';
 import type { Skill } from '@worker/infrastructure/persistence/database/schema/skills';
@@ -155,25 +154,21 @@ export class SkillRepository implements ISkillRepository {
   }
 
   /**
-   * Upload placeholder 1x1 PNG image for skill
+   * Check if video exists in R2 for given skill slug
    */
-  async uploadPlaceholderImage(slug: string): Promise<void> {
+  async videoExists(slug: string): Promise<boolean> {
     try {
-      // Minimal 1x1 PNG (base64 decoded)
-      const minimalPng = Buffer.from(
-        'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==',
-        'base64',
-      );
-
-      await this.r2.put(`images/${slug}.png`, minimalPng);
+      const videoKey = `videos/${slug}.webm`;
+      const object = await this.r2.head(videoKey);
+      return object !== null;
     }
-    catch (error) {
-      throw new DatabaseError('Failed to upload placeholder image', error);
+    catch {
+      return false;
     }
   }
 
   /**
-   * Atomic insert: Upload ZIP + image to R2, then insert to D1
+   * Atomic insert: Upload ZIP to R2, then insert to D1
    * Rolls back R2 uploads if D1 insert fails
    */
   async insert(skill: DomainSkill, zipBuffer: ArrayBuffer): Promise<void> {
@@ -181,10 +176,7 @@ export class SkillRepository implements ISkillRepository {
       // 1. Upload ZIP to R2
       await this.r2.put(skill.zipKey, zipBuffer);
 
-      // 2. Upload placeholder image to R2
-      await this.uploadPlaceholderImage(skill.slug);
-
-      // 3. Insert to D1 (if this fails, rollback R2)
+      // 2. Insert to D1 (if this fails, rollback R2)
       try {
         const db = drizzle(this.d1);
 
@@ -221,7 +213,6 @@ export class SkillRepository implements ISkillRepository {
         // Rollback R2 uploads on D1 failure
         console.error('[SkillRepository] D1 insert failed, rolling back R2', { skill: skill.slug, dbError });
         await this.r2.delete(skill.zipKey);
-        await this.r2.delete(skill.imageKey);
         throw dbError;
       }
     }

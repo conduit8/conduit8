@@ -13,17 +13,18 @@ function hashCode(str: string): number {
 interface UseVideoPlaybackOptions {
   slug: string;
   videoLoaded: boolean;
+  hasVideo: boolean;
 }
 
-export function useVideoPlayback({ slug, videoLoaded }: UseVideoPlaybackOptions) {
+export function useVideoPlayback({ slug, videoLoaded, hasVideo }: UseVideoPlaybackOptions) {
   const [isHovered, setIsHovered] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
   // 50% of cards autoplay, deterministic based on slug
   const shouldAutoplay = hashCode(slug) % 2 === 0;
 
-  // Video should show when: autoplay OR hover
-  const shouldShowVideo = videoLoaded && (shouldAutoplay || isHovered);
+  // Video should show when: video exists AND loaded AND (autoplay OR hover)
+  const shouldShowVideo = hasVideo && videoLoaded && (shouldAutoplay || isHovered);
 
   const handleCardMouseEnter = () => {
     setIsHovered(true);

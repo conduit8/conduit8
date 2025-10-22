@@ -20,10 +20,13 @@ export async function getSkill(
 
   const downloadCount = await repo.getDownloadCount(skill.id);
 
+  // Check if video exists in R2
+  const hasVideo = await repo.videoExists(skill.slug);
+
   // Generate R2 public URLs
   const zipUrl = `${env.R2_PUBLIC_URL}/${skill.zipKey}`;
   const imageUrl = `${env.R2_PUBLIC_URL}/${skill.imageKey}`;
-  const videoUrl = `${env.R2_PUBLIC_URL}/videos/${skill.slug}.mp4`;
+  const videoUrl = hasVideo ? `${env.R2_PUBLIC_URL}/videos/${skill.slug}.webm` : undefined;
 
   return {
     id: skill.id,

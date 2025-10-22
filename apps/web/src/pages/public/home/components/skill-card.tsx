@@ -45,14 +45,22 @@ export function SkillCard({
   const [installButtonHovered, setInstallButtonHovered] = useState(false);
 
   // Custom hooks
-  const { imageLoaded, videoLoaded, handleImageLoad, handleVideoLoad } = useMediaLoading();
+  const {
+    imageLoaded,
+    imageError,
+    videoLoaded,
+    handleImageLoad,
+    handleImageError,
+    handleVideoLoad,
+    handleVideoError,
+  } = useMediaLoading();
   const {
     videoRef,
     shouldAutoplay,
     shouldShowVideo,
     handleCardMouseEnter,
     handleCardMouseLeave,
-  } = useVideoPlayback({ slug, videoLoaded });
+  } = useVideoPlayback({ slug, videoLoaded, hasVideo: !!videoUrl });
   const { isCopied, handleInstallClick } = useInstallCommand(slug);
 
   return (
@@ -64,32 +72,45 @@ export function SkillCard({
     >
       {/* Image/Video */}
       <div className="aspect-video w-full overflow-hidden shrink-0 relative">
-        {/* Skeleton: show while image loading */}
-        {!imageLoaded && (
+        {/* Skeleton: show while image loading and no error */}
+        {!imageLoaded && !imageError && (
           <Skeleton className="absolute inset-0 h-full w-full" />
         )}
 
-        {/* Image: always render for poster/fallback */}
-        <img
-          src={imageUrl}
-          alt={name}
-          onLoad={handleImageLoad}
-          className={`h-full w-full object-cover ${shouldShowVideo ? 'hidden' : ''
-          }`}
-        />
+        {/* Image: render if not errored */}
+        {!imageError && (
+          <img
+            src={imageUrl}
+            alt={name}
+            onLoad={handleImageLoad}
+            onError={handleImageError}
+            className={`h-full w-full object-cover ${shouldShowVideo ? 'hidden' : ''
+            }`}
+          />
+        )}
 
-        {/* Video: render if exists, show when autoplay OR hover */}
-        <video
-          ref={videoRef}
-          src={videoUrl}
-          onLoadedData={handleVideoLoad}
-          autoPlay={shouldAutoplay}
-          loop
-          muted
-          playsInline
-          className={`h-full w-full object-cover ${shouldShowVideo ? '' : 'hidden'
-          }`}
-        />
+        {/* Fallback: show skill name if image fails */}
+        {imageError && !shouldShowVideo && (
+          <div className="absolute inset-0 flex items-center justify-center bg-surface text-text">
+            <span className="font-mono text-sm px-4 text-center">{name}</span>
+          </div>
+        )}
+
+        {/* Video: only render if videoUrl exists */}
+        {videoUrl && (
+          <video
+            ref={videoRef}
+            src={videoUrl}
+            onLoadedData={handleVideoLoad}
+            onError={handleVideoError}
+            autoPlay={shouldAutoplay}
+            loop
+            muted
+            playsInline
+            className={`h-full w-full object-cover ${shouldShowVideo ? '' : 'hidden'
+            }`}
+          />
+        )}
       </div>
 
       {/* Content */}

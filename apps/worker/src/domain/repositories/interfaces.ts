@@ -8,4 +8,5 @@ export interface ISkillRepository {
   findAll: (query?: string, limit?: number, offset?: number) => Promise<SkillWithStats[]>;
   getDownloadCount: (skillId: string) => Promise<number>;
   incrementDownloadCount: (skillId: string) => Promise<void>;
+  videoExists: (slug: string) => Promise<boolean>;
 }

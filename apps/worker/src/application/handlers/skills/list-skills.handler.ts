@@ -14,10 +14,16 @@ export async function listSkills(
 
   const skills = await repo.findAll(query.query, query.limit, query.offset);
 
-  return skills.map((skill) => {
+  // Check video existence for all skills in parallel
+  const videoExistenceChecks = await Promise.all(
+    skills.map(skill => repo.videoExists(skill.slug)),
+  );
+
+  return skills.map((skill, index) => {
     const zipUrl = `${env.R2_PUBLIC_URL}/${skill.zipKey}`;
     const imageUrl = `${env.R2_PUBLIC_URL}/${skill.imageKey}`;
-    const videoUrl = `${env.R2_PUBLIC_URL}/videos/${skill.slug}.mp4`;
+    const hasVideo = videoExistenceChecks[index];
+    const videoUrl = hasVideo ? `${env.R2_PUBLIC_URL}/videos/${skill.slug}.webm` : undefined;
 
     return {
       id: skill.id,

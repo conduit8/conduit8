@@ -1,76 +1,77 @@
 # conduit8 CLI
 
-Install and manage Claude Code skills from the conduit8 registry. One command to discover, install, and manage skills.
+Install and manage Claude Code skills from the conduit8 registry. Discover, install, and manage skills in one command.
 
-## Quick Start
+## 🚀 Quick Start
 
 No installation needed - use `npx`:
 
 ```bash
-npx conduit8 search skills
-npx conduit8 install skill pdf
+npx conduit8 search skills      # Browse registry
+npx conduit8 install skill pdf  # Install a skill
 ```
 
 ## Commands
 
-### Install a Skill
+### Install Skills
 
 ```bash
-npx conduit8 install skill pdf
-npx conduit8 install skill algorithmic-art
+npx conduit8 install skill pdf                  # Personal install
+npx conduit8 install skill pdf --project        # Project install
+npx conduit8 install skill pdf --force          # Overwrite existing
 ```
 
-Options:
+**Options:**
 
-- `-f, --force` - Overwrite if skill already exists
+- `-f, --force` - Overwrite existing skill
+- `-p, --project` - Install to project `.claude/skills` (team-shared)
 
-### Remove a Skill
+### Remove Skills
 
 ```bash
-npx conduit8 remove skill pdf
+npx conduit8 remove skill pdf             # Remove from personal
+npx conduit8 remove skill pdf --project   # Remove from project
 ```
 
 ### List Installed Skills
 
 ```bash
-npx conduit8 list skills
+npx conduit8 list skills   # Show installed skills
 ```
 
 ### Search Registry
 
 ```bash
-# Search all skills
-npx conduit8 search skills
-
-# Search by keyword
-npx conduit8 search skills table
-npx conduit8 search skills pdf
+npx conduit8 search skills        # Browse all skills
+npx conduit8 search skills pdf    # Search by keyword
 ```
 
-## Available Skills
+## 📦 Available Skills
 
-Currently includes official Anthropic skills:
+20+ skills across multiple categories:
 
-- **pdf** - PDF manipulation toolkit
-- **algorithmic-art** - Create algorithmic art with p5.js
-- **webapp-testing** - Web testing with Playwright
-- **xlsx** - Spreadsheet toolkit
+- **Content** - Brand voice, email conversion, viral content
+- **Data** - CSV/XLSX analysis, research synthesis
+- **Development** - Zero-to-prod deployment, security audits
+- **Creative** - Algorithmic art, canvas design, web testing
+- **Marketing** - SEO optimization, landing pages
+- **Business** - Pitch deck psychology
 
-More skills coming soon.
+Browse all: `npx conduit8 search skills`
 
-## How It Works
+## Installation Directories
 
-Skills are installed to `~/.claude/skills/` and work with Claude Code automatically. No restart needed.
+- **Personal**: `~/.claude/skills/` (default)
+- **Project**: `./.claude/skills/` (use `--project` flag)
 
-## Issues & Contributing
+Skills work immediately, no restart needed.
 
-Found a bug or have a feature request? Please [open an issue](https://github.com/alexander-zuev/conduit8/issues) on the main repository.
+## 🔗 Links
+
+- [conduit8.dev](https://conduit8.dev) - Web registry
+- [Issues](https://github.com/alexander-zuev/conduit8/issues) - Bug reports & feature requests
+- [npm](https://www.npmjs.com/package/conduit8) - Package page
 
 ## License
 
 AGPL-3.0
-
-## Links
-
-- [conduit8.dev](https://conduit8.dev) - Web interface
-- [GitHub](https://github.com/alexander-zuev/conduit8) - Source code & issues

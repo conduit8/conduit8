@@ -22,6 +22,7 @@
     "lint": "eslint . --quiet",
     "lint:fix": "eslint . --fix --quiet",
     "db:generate": "drizzle-kit generate",
+    "db:generate:custom": "drizzle-kit generate --custom",
     "db:auth-secret": "openssl rand -base64 32",
     "db:generate:prod": "cross-env DRIZZLE_ENV=production drizzle-kit generate",
     "db:migrate:dev": "wrangler d1 migrations apply D1 --local --env preview",
