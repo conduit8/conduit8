@@ -1,12 +1,18 @@
 # Conduit8
 
-**Curated registry of Claude Code skills**. Kind of like context7 but for Claude Code Skills.
+[![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![npm downloads](https://img.shields.io/npm/dm/conduit8)](https://www.npmjs.com/package/conduit8)
+[![License](https://img.shields.io/badge/license-AGPL--3.0-blue.svg)](LICENSE)
+[![Built on Cloudflare](https://img.shields.io/badge/Built%20on-Cloudflare-F38020?logo=cloudflare&logoColor=white)](https://www.cloudflare.com/)
+[![CI](https://github.com/alexander-zuev/conduit8/actions/workflows/ci.yml/badge.svg)](https://github.com/alexander-zuev/conduit8/actions/workflows/ci.yml)
 
-Discover, install, and share Claude Code skills in one command. Better than digging through GitHub.
+Curated registry of Claude Code skills. Install, manage, and discover in one command.
 
-**Now Available**: 20+ curated skills ready to install. Web registry coming soon.
+**20+ curated skills ready to install** 🚀
 
-## Quick Start
+Web registry coming soon.
+
+## 🚀 Quick Start
 
 ```bash
 # Search available skills
@@ -24,44 +30,45 @@ npx conduit8 remove skill pdf
 
 ## What is conduit8?
 
-conduit8 solves the pain of finding quality Claude Code skills:
+Find and install quality Claude Code skills without the GitHub hunt:
 
-- **Better Discovery**: Search by keyword, category, usage stats instead of browsing GitHub repos
-- **One-Command Install**: Install skills directly to `~/.claude/skills/` via CLI
+- **Better Discovery** - Search by keyword, category, and usage stats
+- **One-Command Install** - Skills install directly to `~/.claude/skills/`
+- **Zero Config** - Works immediately, no restart needed
 
 ## How It Works
 
-1. **Search**: Browse 20+ curated skills via CLI: `npx conduit8 search skills`
-2. **Install**: Download and install to Claude Code: `npx conduit8 install skill <name>`
-3. **Use**: Skills appear in Claude Code immediately - no restart needed
-4. **Manage**: List or remove installed skills anytime
+1. **Search** - Browse 20+ curated skills: `npx conduit8 search skills`
+2. **Install** - Download to Claude Code: `npx conduit8 install skill <name>`
+3. **Use** - Skills appear immediately, no restart needed
+4. **Manage** - List or remove anytime
 
-Skills are installed to `~/.claude/skills/` and work with Claude Code automatically.
+Skills install to `~/.claude/skills/` and work automatically.
 
-## Available Skills
+## 📦 Available Skills
 
-The registry includes 20+ curated skills across multiple categories:
+20+ curated skills across multiple categories:
 
-- **Content**: Brand voice enforcement, email conversion, viral content creation
-- **Data**: CSV analysis, research synthesis
-- **Development**: Zero-to-production deployment, security auditing
-- **Marketing**: SEO optimization, landing page optimization
-- **Business**: Pitch deck psychology
-- **And more**: Algorithmic art, canvas design, web app testing
+- **Content** - Brand voice enforcement, email conversion, viral content
+- **Data** - CSV analysis, research synthesis
+- **Development** - Zero-to-production deployment, security auditing
+- **Marketing** - SEO optimization, landing pages
+- **Business** - Pitch deck psychology
+- **Creative** - Algorithmic art, canvas design, web app testing
 
-All skills are production-ready and tested.
+All production-ready and tested.
 
-## Contributing
+## 🤝 Contributing
 
-**Coming Soon**: Community contributions will be enabled in a future release.
+**Coming Soon** - Community contributions enabled in a future release.
 
-The registry currently includes:
-- Official Anthropic skills (algorithmic art, canvas design, web app testing, MCP builder)
-- Conduit8 curated skills (brand voice, CSV analysis, SEO, security, and more)
+**Current registry:**
+- Official Anthropic skills (algorithmic art, canvas design, web testing, MCP builder)
+- Conduit8 curated skills (brand voice, CSV analysis, SEO, security, more)
 
-Stay tuned for the ability to:
-- Submit your own skills to the registry
-- Get your skills verified and featured
+**Future:**
+- Submit your own skills
+- Get verified and featured
 - Help others discover your work
 
 ## License

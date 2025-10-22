@@ -81,3 +81,15 @@ export class SkillNotFoundError extends DomainError {
     super(`Skill '${slug}' not found`);
   }
 }
+
+export class InvalidSkillMetadataError extends DomainError {
+  constructor(message: string) {
+    super(`Invalid skill metadata: ${message}`);
+  }
+}
+
+export class SkillZipTooLargeError extends DomainError {
+  constructor(size?: number) {
+    super(size ? `Skill ZIP too large: ${(size / 1024 / 1024).toFixed(2)}MB` : 'Skill ZIP too large');
+  }
+}

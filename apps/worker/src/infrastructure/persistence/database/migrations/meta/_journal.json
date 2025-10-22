@@ -36,6 +36,13 @@
       "when": 1761035039817,
       "tag": "0004_migrate-skill-categories",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "6",
+      "when": 1761157083741,
+      "tag": "0005_update-image-keys-to-webp",
+      "breakpoints": true
     }
   ]
 }

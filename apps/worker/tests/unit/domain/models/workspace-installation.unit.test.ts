@@ -22,7 +22,7 @@ describe('workspaceInstallation', () => {
       const response = SlackOAuthFactory.invalidResponse('team.id');
 
       expect(() => WorkspaceInstallation.create(response)).toThrow(
-        WorkspaceValidationError
+        WorkspaceValidationError,
       );
     });
 
@@ -30,7 +30,7 @@ describe('workspaceInstallation', () => {
       const response = SlackOAuthFactory.invalidResponse('team.name');
 
       expect(() => WorkspaceInstallation.create(response)).toThrow(
-        WorkspaceValidationError
+        WorkspaceValidationError,
       );
     });
 
@@ -38,7 +38,7 @@ describe('workspaceInstallation', () => {
       const response = SlackOAuthFactory.invalidResponse('access_token');
 
       expect(() => WorkspaceInstallation.create(response)).toThrow(
-        WorkspaceValidationError
+        WorkspaceValidationError,
       );
     });
   });

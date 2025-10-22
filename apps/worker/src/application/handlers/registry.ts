@@ -1,6 +1,7 @@
 import { handleUserSignedUp, sendMagicLink } from '@worker/application/handlers/auth';
 import { getGitHubStars } from '@worker/application/handlers/github';
-import { getSkill, listSkills, trackSkillDownload } from '@worker/application/handlers/skills';
+import { handleR2UploadComplete } from '@worker/application/handlers/r2';
+import { getSkill, ingestSkill, listSkills, trackSkillDownload } from '@worker/application/handlers/skills';
 
 import type { CommandName, EventName, QueryName } from '@worker/domain/messages/types';
 
@@ -11,6 +12,7 @@ export const COMMAND_HANDLERS = {
   TrackUserSignup: handleUserSignedUp,
 
   // Skills
+  IngestSkill: ingestSkill,
   TrackSkillDownload: trackSkillDownload,
 } satisfies Partial<Record<CommandName, any>>;
 
@@ -21,8 +23,8 @@ export const EVENT_HANDLERS = {
   SubscriptionPurchased: [],
   SubscriptionCancelled: [],
 
-  // File operations
-  R2UploadCompleteNotification: [],
+  // R2 Events
+  R2ObjectCreated: [handleR2UploadComplete],
 
 } satisfies Partial<Record<EventName, any[]>>;
 

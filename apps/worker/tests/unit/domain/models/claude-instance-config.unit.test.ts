@@ -95,7 +95,7 @@ describe('claudeInstanceConfig', () => {
         ClaudeInstanceConfig.create({
           ...config.toPlainObject(),
           githubToken: 'invalid',
-        })
+        }),
       ).toThrow(ValidationError);
     });
   });

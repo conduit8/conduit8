@@ -1,3 +1,5 @@
+import type { Skill as DomainSkill } from '@worker/domain/models';
+
 import { skills, skillStats } from '@worker/infrastructure/persistence/database/schema';
 import { desc, eq, like, or, sql } from 'drizzle-orm';
 import { drizzle } from 'drizzle-orm/d1';
@@ -8,7 +10,10 @@ import type { Skill } from '@worker/infrastructure/persistence/database/schema/s
 import { DatabaseError } from '@worker/infrastructure/errors/infrastructure.errors';
 
 export class SkillRepository implements ISkillRepository {
-  constructor(private d1: D1Database) {}
+  constructor(
+    private d1: D1Database,
+    private r2: R2Bucket,
+  ) { }
 
   async findById(skillId: string): Promise<Skill | null> {
     try {
@@ -145,6 +150,74 @@ export class SkillRepository implements ISkillRepository {
     }
     catch (error) {
       throw new DatabaseError('Failed to increment download count', error);
+    }
+  }
+
+  /**
+   * Check if video exists in R2 for given skill slug
+   */
+  async videoExists(slug: string): Promise<boolean> {
+    try {
+      const videoKey = `videos/${slug}.webm`;
+      const object = await this.r2.head(videoKey);
+      return object !== null;
+    }
+    catch {
+      return false;
+    }
+  }
+
+  /**
+   * Atomic insert: Upload ZIP to R2, then insert to D1
+   * Rolls back R2 uploads if D1 insert fails
+   */
+  async insert(skill: DomainSkill, zipBuffer: ArrayBuffer): Promise<void> {
+    try {
+      // 1. Upload ZIP to R2
+      await this.r2.put(skill.zipKey, zipBuffer);
+
+      // 2. Insert to D1 (if this fails, rollback R2)
+      try {
+        const db = drizzle(this.d1);
+
+        // Insert skill
+        await db
+          .insert(skills)
+          .values({
+            id: skill.id,
+            slug: skill.slug,
+            name: skill.displayName,
+            description: skill.description,
+            category: skill.category,
+            zipKey: skill.zipKey,
+            imageKey: skill.imageKey,
+            examples: skill.examples,
+            curatorNote: skill.curatorNote,
+            author: skill.author,
+            authorKind: skill.authorKind,
+            sourceType: skill.sourceType,
+            sourceUrl: skill.sourceUrl,
+          })
+          .run();
+
+        // Insert initial stats
+        await db
+          .insert(skillStats)
+          .values({
+            skillId: skill.id,
+            downloadCount: 0,
+          })
+          .run();
+      }
+      catch (dbError) {
+        // Rollback R2 uploads on D1 failure
+        console.error('[SkillRepository] D1 insert failed, rolling back R2', { skill: skill.slug, dbError });
+        await this.r2.delete(skill.zipKey);
+        throw dbError;
+      }
+    }
+    catch (error) {
+      throw new DatabaseError('Failed to insert skill', error);
     }
   }
 }

@@ -1,11 +1,11 @@
 import { CheckIcon, SealCheckIcon, UsersIcon } from '@phosphor-icons/react';
 import { useState } from 'react';
-import { toast } from 'sonner';
 
 import { ArrowDownIcon } from '@web/ui/components/animate-ui/icons/arrow-down';
 import { DownloadIcon } from '@web/ui/components/animate-ui/icons/download';
 import { Button } from '@web/ui/components/atoms/buttons/button';
 import { Badge } from '@web/ui/components/atoms/indicators/badge';
+import { Skeleton } from '@web/ui/components/feedback/progress/skeleton';
 import {
   Card,
   CardDescription,
@@ -14,11 +14,16 @@ import {
 } from '@web/ui/components/layout/containers/card';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@web/ui/components/overlays/tooltip';
 
+import { useInstallCommand } from '../hooks/use-install-command';
+import { useMediaLoading } from '../hooks/use-media-loading';
+import { useVideoPlayback } from '../hooks/use-video-playback';
+
 interface SkillCardProps {
   slug: string;
   name: string;
   description: string;
   imageUrl: string;
+  videoUrl?: string;
   downloadCount: number;
   author: string;
   authorKind: 'verified' | 'community';
@@ -30,42 +35,82 @@ export function SkillCard({
   name,
   description,
   imageUrl,
+  videoUrl,
   downloadCount,
   author,
   authorKind,
   onClick,
 }: SkillCardProps) {
-  const [isCopied, setIsCopied] = useState(false);
   const [downloadBadgeHovered, setDownloadBadgeHovered] = useState(false);
   const [installButtonHovered, setInstallButtonHovered] = useState(false);
-  const installCommand = `npx conduit8 install skill ${slug}`;
 
-  const handleInstallClick = (e: React.MouseEvent) => {
-    e.stopPropagation(); // Prevent card click
-    navigator.clipboard.writeText(installCommand);
-    setIsCopied(true);
-    toast.success('Install command copied', {
-      description: (
-        <span className="font-semibold font-mono">{installCommand}</span>
-      ),
-    });
-
-    // Reset copied state after 2 seconds
-    setTimeout(() => setIsCopied(false), 2000);
-  };
+  // Custom hooks
+  const {
+    imageLoaded,
+    imageError,
+    videoLoaded,
+    handleImageLoad,
+    handleImageError,
+    handleVideoLoad,
+    handleVideoError,
+  } = useMediaLoading();
+  const {
+    videoRef,
+    shouldAutoplay,
+    shouldShowVideo,
+    handleCardMouseEnter,
+    handleCardMouseLeave,
+  } = useVideoPlayback({ slug, videoLoaded, hasVideo: !!videoUrl });
+  const { isCopied, handleInstallClick } = useInstallCommand(slug);
 
   return (
     <Card
-      className="cursor-pointer transition-all duration-200 outline outline-1 outline-border hover:outline-2 hover:outline-accent hover:-translate-y-1 hover:shadow-lg overflow-hidden p-0 flex flex-col h-full border-0"
+      className="cursor-pointer transition-all duration-200 outline-1 outline-border hover:outline-2 hover:outline-accent hover:-translate-y-1 hover:shadow-lg overflow-hidden p-0 flex flex-col h-full border-0"
       onClick={onClick}
+      onMouseEnter={handleCardMouseEnter}
+      onMouseLeave={handleCardMouseLeave}
     >
-      {/* Image */}
-      <div className="aspect-video w-full overflow-hidden shrink-0">
-        <img
-          src={imageUrl}
-          alt={name}
-          className="h-full w-full object-cover"
-        />
+      {/* Image/Video */}
+      <div className="aspect-video w-full overflow-hidden shrink-0 relative">
+        {/* Skeleton: show while image loading and no error */}
+        {!imageLoaded && !imageError && (
+          <Skeleton className="absolute inset-0 h-full w-full" />
+        )}
+
+        {/* Image: render if not errored */}
+        {!imageError && (
+          <img
+            src={imageUrl}
+            alt={name}
+            onLoad={handleImageLoad}
+            onError={handleImageError}
+            className={`h-full w-full object-cover ${shouldShowVideo ? 'hidden' : ''
+            }`}
+          />
+        )}
+
+        {/* Fallback: show skill name if image fails */}
+        {imageError && !shouldShowVideo && (
+          <div className="absolute inset-0 flex items-center justify-center bg-surface text-text">
+            <span className="font-mono text-sm px-4 text-center">{name}</span>
+          </div>
+        )}
+
+        {/* Video: only render if videoUrl exists */}
+        {videoUrl && (
+          <video
+            ref={videoRef}
+            src={videoUrl}
+            onLoadedData={handleVideoLoad}
+            onError={handleVideoError}
+            autoPlay={shouldAutoplay}
+            loop
+            muted
+            playsInline
+            className={`h-full w-full object-cover ${shouldShowVideo ? '' : 'hidden'
+            }`}
+          />
+        )}
       </div>
 
       {/* Content */}

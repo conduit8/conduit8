@@ -22,7 +22,7 @@ describe('claudeChatService', () => {
       'slack',
       config,
       new Date(),
-      new Date()
+      new Date(),
     );
 
     // Create mock runtime stub (Durable Object)
@@ -106,9 +106,9 @@ describe('claudeChatService', () => {
           start(controller) {
             controller.enqueue(new TextEncoder().encode('data: {"type":"assistant","content":"Hello"}\n\n'));
             controller.close();
-          }
+          },
         }),
-        { headers: { 'content-type': 'text/event-stream' } }
+        { headers: { 'content-type': 'text/event-stream' } },
       );
       mockRuntime.fetch.mockResolvedValue(mockResponse);
 
@@ -142,9 +142,9 @@ describe('claudeChatService', () => {
           start(controller) {
             controller.enqueue(new TextEncoder().encode('data: {"type":"assistant","content":"Hi"}\n\n'));
             controller.close();
-          }
+          },
         }),
-        { headers: { 'content-type': 'text/event-stream' } }
+        { headers: { 'content-type': 'text/event-stream' } },
       );
       mockRuntime.fetch.mockResolvedValue(mockResponse);
 
@@ -170,9 +170,9 @@ describe('claudeChatService', () => {
             controller.enqueue(new TextEncoder().encode('data: {"type":"assistant","content":"Line 1"}\n\n'));
             controller.enqueue(new TextEncoder().encode('data: {"type":"assistant","content":"Line 2","is_final":true,"session_id":"new-session","cost":0.123}\n\n'));
             controller.close();
-          }
+          },
         }),
-        { headers: { 'content-type': 'text/event-stream' } }
+        { headers: { 'content-type': 'text/event-stream' } },
       );
       mockRuntime.fetch.mockResolvedValue(mockResponse);
 
@@ -204,9 +204,9 @@ describe('claudeChatService', () => {
           start(controller) {
             controller.enqueue(new TextEncoder().encode('data: {"type":"assistant","content":"Start"}\n\n'));
             controller.close(); // Close instead of error to avoid throwing
-          }
+          },
         }),
-        { headers: { 'content-type': 'text/event-stream' } }
+        { headers: { 'content-type': 'text/event-stream' } },
       );
       mockRuntime.fetch.mockResolvedValue(mockResponse);
 
@@ -228,9 +228,9 @@ describe('claudeChatService', () => {
           start(controller) {
             controller.enqueue(new TextEncoder().encode('data: {"type":"assistant","content":"Response"}\n\n'));
             controller.close();
-          }
+          },
         }),
-        { headers: { 'content-type': 'text/event-stream' } }
+        { headers: { 'content-type': 'text/event-stream' } },
       );
       mockRuntime.fetch.mockResolvedValue(mockResponse);
 

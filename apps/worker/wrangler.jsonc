@@ -40,6 +40,9 @@
           "id": "9e5460520e044080b2b85d6decce37d4"
         }
       ],
+      "ai": {
+        "binding": "AI"
+      },
       "d1_databases": [
         {
           "binding": "D1",
