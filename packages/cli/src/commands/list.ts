@@ -1,4 +1,7 @@
+import chalk from 'chalk';
+
 import { displayInstalledSkills } from '../utils/display';
+import { CliError } from '../utils/errors';
 import { listInstalledSkills } from '../utils/fs';
 
 export async function list(): Promise<void> {
@@ -7,11 +10,16 @@ export async function list(): Promise<void> {
     displayInstalledSkills(skills);
   }
   catch (error) {
-    if (error instanceof Error) {
-      console.error('Error listing skills:', error.message);
+    // Handle typed errors
+    if (error instanceof CliError) {
+      console.error(chalk.red('✗ ') + error.message);
+      process.exit(1);
     }
-    else {
-      console.error('Failed to list skills');
+
+    // Unknown error
+    console.error(chalk.red('✗ Failed to list skills'));
+    if (error instanceof Error) {
+      console.error(chalk.dim(error.message));
     }
     process.exit(1);
   }

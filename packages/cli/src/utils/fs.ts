@@ -8,6 +8,7 @@ import { readdir, readFile, rm } from 'node:fs/promises';
 import { join } from 'node:path';
 
 import { DEFAULT_SKILLS_DIR } from './config';
+import { FileSystemError, InvalidSkillError, SkillNotInstalledError } from './errors';
 
 /**
  * Download ZIP file from URL with retry logic
@@ -23,6 +24,13 @@ export async function downloadZip(url: string, retries = 3): Promise<Buffer> {
       const response = await fetch(url);
 
       if (!response.ok) {
+        // Don't retry on 4xx errors (client errors)
+        if (response.status >= 400 && response.status < 500) {
+          throw new FileSystemError(
+            `Failed to download skill package: HTTP ${response.status}`,
+            'download',
+          );
+        }
         throw new Error(`HTTP ${response.status}: ${response.statusText}`);
       }
 
@@ -30,12 +38,12 @@ export async function downloadZip(url: string, retries = 3): Promise<Buffer> {
       return Buffer.from(arrayBuffer);
     }
     catch (error) {
-      lastError = error instanceof Error ? error : new Error(String(error));
-
-      // Don't retry on 4xx errors (client errors)
-      if (lastError.message.includes('HTTP 4')) {
-        throw lastError;
+      // Re-throw FileSystemError immediately (don't retry)
+      if (error instanceof FileSystemError) {
+        throw error;
       }
+
+      lastError = error instanceof Error ? error : new Error(String(error));
 
       // Exponential backoff: 1s, 2s, 4s
       if (attempt < retries - 1) {
@@ -44,7 +52,10 @@ export async function downloadZip(url: string, retries = 3): Promise<Buffer> {
     }
   }
 
-  throw new Error(`Failed to download after ${retries} attempts: ${lastError?.message}`);
+  throw new FileSystemError(
+    `Failed to download after ${retries} attempts: ${lastError?.message}`,
+    'download',
+  );
 }
 
 /**
@@ -53,20 +64,26 @@ export async function downloadZip(url: string, retries = 3): Promise<Buffer> {
  * @param targetDir - Directory to extract to
  */
 export function extractZip(zipBuffer: Buffer, targetDir: string): void {
-  const zip = new AdmZip(zipBuffer);
-  zip.extractAllTo(targetDir, true); // true = overwrite existing files
+  try {
+    const zip = new AdmZip(zipBuffer);
+    zip.extractAllTo(targetDir, true); // true = overwrite existing files
+  }
+  catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    throw new FileSystemError(`Failed to extract skill package: ${message}`, 'extract');
+  }
 }
 
 /**
  * Validate skill directory has required SKILL.md file
  * @param skillDir - Directory to validate
- * @throws Error if SKILL.md is missing
+ * @throws InvalidSkillError if SKILL.md is missing
  */
 export function validateSkill(skillDir: string): void {
   const skillMdPath = join(skillDir, 'SKILL.md');
 
   if (!existsSync(skillMdPath)) {
-    throw new Error('Invalid skill package - missing SKILL.md');
+    throw new InvalidSkillError('Invalid skill package - missing SKILL.md');
   }
 }
 
@@ -107,10 +124,16 @@ export async function removeSkill(skillId: string, skillsDir: string = DEFAULT_S
   const skillPath = join(skillsDir, skillId);
 
   if (!existsSync(skillPath)) {
-    throw new Error(`Skill '${skillId}' is not installed`);
+    throw new SkillNotInstalledError(skillId);
   }
 
-  await rm(skillPath, { recursive: true, force: true });
+  try {
+    await rm(skillPath, { recursive: true, force: true });
+  }
+  catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    throw new FileSystemError(`Failed to remove skill: ${message}`, 'remove');
+  }
 }
 
 /**
