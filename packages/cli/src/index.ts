@@ -6,13 +6,26 @@ import { install } from './commands/install';
 import { list } from './commands/list';
 import { remove } from './commands/remove';
 import { search } from './commands/search';
+import { flushSentry, initSentry } from './utils/sentry';
 
 const program = new Command();
+
+// Parse --no-telemetry flag early (before commander processes it)
+const telemetryEnabled = !process.argv.includes('--no-telemetry');
+
+// Initialize Sentry (skipped if --no-telemetry flag present)
+initSentry(telemetryEnabled);
+
+// Ensure Sentry events are flushed before exit
+process.on('beforeExit', () => {
+  void flushSentry();
+});
 
 program
   .name('conduit8')
   .description('Claude Code Skills Manager')
   .version(__VERSION__)
+  .option('--no-telemetry', 'Disable anonymous error reporting')
   .configureHelp({
     formatHelp: () => {
       const help = `
@@ -29,6 +42,7 @@ ${chalk.bold('COMMANDS')}
 ${chalk.bold('OPTIONS')}
   ${chalk.cyan('-f, --force')}                       Overwrite existing skill (install)
   ${chalk.cyan('-p, --project')}                     Install to project .claude/skills (team-shared)
+  ${chalk.cyan('--no-telemetry')}                    Disable anonymous error reporting
   ${chalk.cyan('-h, --help')}                        Show help
   ${chalk.cyan('-v, --version')}                     Show version
 
@@ -37,6 +51,7 @@ ${chalk.bold('EXAMPLES')}
   ${chalk.dim('$ npx conduit8 install skill pdf')}            ${chalk.dim('# Personal (~/.claude/skills)')}
   ${chalk.dim('$ npx conduit8 install skill pdf --project')}  ${chalk.dim('# Project (./.claude/skills)')}
   ${chalk.dim('$ npx conduit8 list skills')}
+  ${chalk.dim('$ npx conduit8 --no-telemetry search skills')} ${chalk.dim('# Disable error tracking')}
 
 Report an issue: ${chalk.hex('#7c9ff5')('https://github.com/alexander-zuev/conduit8/issues')}
 `;
