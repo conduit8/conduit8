@@ -64,9 +64,13 @@ export const ingestSkill: CommandHandler<IngestSkill, void> = async (
 
     // 4. Create Skill domain model (validates everything)
     const skill = Skill.create({
-      ...frontmatter,
+      'slug': frontmatter.name,
+      'displayName': frontmatter.name,
+      'description': frontmatter.description,
+      'license': frontmatter.license,
+      'allowed-tools': frontmatter['allowed-tools'],
       ...metadata,
-      category,
+      'category': category,
     });
 
     // 5. Atomic insert: Upload ZIP + image to R2, then insert to D1
