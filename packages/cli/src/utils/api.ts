@@ -3,6 +3,7 @@ import type { GetSkillResponse, ListSkillsResponse, Skill, TrackSkillDownloadRes
 import { ApiError, createApiClient } from '@conduit8/core';
 
 import { API_BASE_URL } from './config';
+import { ApiUnavailableError, NetworkError, SkillNotFoundError } from './errors';
 
 /**
  * Shared HTTP client for Conduit8 API
@@ -14,39 +15,91 @@ const api = createApiClient({
 });
 
 /**
- * Get skill by slug
+ * Retry an API call with exponential backoff
+ * @param fn - Function to retry
+ * @param retries - Number of retry attempts (default: 3)
+ * @returns Result of the function
  */
-export async function getSkill(slug: string): Promise<Skill> {
-  try {
-    const response = await api.get<GetSkillResponse>('/skills/:slug', {
-      pathParams: { slug },
-    });
-    return response.data;
-  }
-  catch (error) {
-    if (error instanceof ApiError && error.status === 404) {
-      throw new Error(`Skill '${slug}' not found in registry`);
+async function retryWithBackoff<T>(
+  fn: () => Promise<T>,
+  retries = 3,
+): Promise<T> {
+  let lastError: Error | null = null;
+
+  for (let attempt = 0; attempt < retries; attempt++) {
+    try {
+      return await fn();
     }
-    throw error;
+    catch (error) {
+      lastError = error as Error;
+
+      // Don't retry on client errors (4xx) or ApiUnavailableError
+      if (error instanceof ApiError) {
+        if (error.status >= 400 && error.status < 500) {
+          throw error; // Client error - don't retry
+        }
+      }
+      if (error instanceof ApiUnavailableError || error instanceof SkillNotFoundError) {
+        throw error; // Don't retry these
+      }
+
+      // Exponential backoff: 1s, 2s, 4s
+      if (attempt < retries - 1) {
+        await new Promise(resolve => setTimeout(resolve, 1000 * 2 ** attempt));
+      }
+    }
   }
+
+  throw lastError;
 }
 
 /**
- * Search skills by query
+ * Get skill by slug (with retry)
+ */
+export async function getSkill(slug: string): Promise<Skill> {
+  return retryWithBackoff(async () => {
+    try {
+      const response = await api.get<GetSkillResponse>('/skills/:slug', {
+        pathParams: { slug },
+      });
+      return response.data;
+    }
+    catch (error) {
+      if (error instanceof ApiError) {
+        if (error.status === 404) {
+          throw new SkillNotFoundError(slug);
+        }
+        if (error.status === 0 || error.kind === 'timeout' || error.kind === 'other') {
+          throw new ApiUnavailableError();
+        }
+        throw new NetworkError(`Failed to fetch skill: ${error.message}`, error.status);
+      }
+      throw error;
+    }
+  });
+}
+
+/**
+ * Search skills by query (with retry)
  */
 export async function searchSkills(query?: string): Promise<Skill[]> {
-  try {
-    const response = await api.get<ListSkillsResponse>('/skills', {
-      queryParams: query ? { q: query } : undefined,
-    });
-    return response.data;
-  }
-  catch (error) {
-    if (error instanceof ApiError) {
-      throw new Error(`Failed to search skills: ${error.message}`);
+  return retryWithBackoff(async () => {
+    try {
+      const response = await api.get<ListSkillsResponse>('/skills', {
+        queryParams: query ? { q: query } : undefined,
+      });
+      return response.data;
     }
-    throw error;
-  }
+    catch (error) {
+      if (error instanceof ApiError) {
+        if (error.status === 0 || error.kind === 'timeout' || error.kind === 'other') {
+          throw new ApiUnavailableError();
+        }
+        throw new NetworkError(`Failed to search skills: ${error.message}`, error.status);
+      }
+      throw error;
+    }
+  });
 }
 
 /**

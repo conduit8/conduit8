@@ -4,7 +4,15 @@ import ora from 'ora';
 import { getSkill, trackDownload } from '../utils/api';
 import { PERSONAL_SKILLS_DIR, PROJECT_SKILLS_DIR } from '../utils/config';
 import { displayInstallSuccess } from '../utils/display';
+import {
+  ApiUnavailableError,
+  CliError,
+  NetworkError,
+  SkillAlreadyInstalledError,
+  SkillNotFoundError,
+} from '../utils/errors';
 import { installSkill, isSkillInstalled } from '../utils/fs';
+import { addBreadcrumb } from '../utils/sentry';
 
 interface InstallOptions {
   force?: boolean;
@@ -12,26 +20,32 @@ interface InstallOptions {
 }
 
 export async function install(name: string, options: InstallOptions): Promise<void> {
+  let spinner: ReturnType<typeof ora> | null = null;
+
   try {
+    addBreadcrumb('install command started', { skill: name, project: options.project });
+
     // Determine installation directory
     const skillsDir = options.project ? PROJECT_SKILLS_DIR : PERSONAL_SKILLS_DIR;
 
     // Check if already installed
     if (isSkillInstalled(name, skillsDir) && !options.force) {
-      console.error(chalk.red(`✗ Skill '${name}' is already installed in ${skillsDir}`));
-      console.log(chalk.dim('Use --force to reinstall'));
-      process.exit(1);
+      throw new SkillAlreadyInstalledError(name, skillsDir);
     }
 
     // Fetch skill metadata
-    const spinner = ora('Fetching skill...').start();
+    spinner = ora('Fetching skill...').start();
     const skill = await getSkill(name);
     spinner.succeed(`Found ${skill.name}`);
+    spinner = null;
+
+    addBreadcrumb('skill fetched', { skill: skill.slug });
 
     // Download and install
-    const installSpinner = ora('Downloading and installing...').start();
+    spinner = ora('Downloading and installing...').start();
     await installSkill(skill, skillsDir);
-    installSpinner.succeed(`Installed to ${skillsDir}/${skill.slug}`);
+    spinner.succeed(`Installed to ${skillsDir}/${skill.slug}`);
+    spinner = null;
 
     // Track download (fire and forget)
     trackDownload(skill.slug).catch(() => {});
@@ -40,15 +54,44 @@ export async function install(name: string, options: InstallOptions): Promise<vo
     displayInstallSuccess(skill);
   }
   catch (error) {
-    if (error instanceof Error) {
-      console.error(chalk.red('✗ ') + error.message);
-
-      if (error.message.includes('not found')) {
-        console.log(chalk.dim('Try: npx conduit8 search skills'));
-      }
+    // Stop spinner if still running
+    if (spinner) {
+      spinner.fail();
     }
-    else {
-      console.error(chalk.red('✗ Installation failed'));
+
+    // Handle typed errors
+    if (error instanceof SkillNotFoundError) {
+      console.error(chalk.red('✗ ') + error.message);
+      console.log(chalk.dim('Try: npx conduit8 search skills'));
+      process.exit(1);
+    }
+
+    if (error instanceof SkillAlreadyInstalledError) {
+      console.error(chalk.red('✗ ') + error.message);
+      console.log(chalk.dim('Use --force to reinstall'));
+      process.exit(1);
+    }
+
+    if (error instanceof ApiUnavailableError) {
+      console.error(chalk.red('✗ ') + error.message);
+      console.log(chalk.dim('Check your internet connection and try again'));
+      process.exit(1);
+    }
+
+    if (error instanceof NetworkError) {
+      console.error(chalk.red('✗ ') + error.message);
+      process.exit(1);
+    }
+
+    if (error instanceof CliError) {
+      console.error(chalk.red('✗ ') + error.message);
+      process.exit(1);
+    }
+
+    // Unknown error
+    console.error(chalk.red('✗ Installation failed'));
+    if (error instanceof Error) {
+      console.error(chalk.dim(error.message));
     }
     process.exit(1);
   }
