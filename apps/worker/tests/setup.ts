@@ -5,17 +5,17 @@ vi.mock('@slack/web-api', () => ({
   WebClient: vi.fn().mockImplementation(() => ({
     oauth: {
       v2: {
-        access: vi.fn()
-      }
+        access: vi.fn(),
+      },
     },
     chat: {
       postMessage: vi.fn(),
-      update: vi.fn()
+      update: vi.fn(),
     },
     assistant: {
       threads: {
-        setStatus: vi.fn()
-      }
-    }
-  }))
+        setStatus: vi.fn(),
+      },
+    },
+  })),
 }));

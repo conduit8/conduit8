@@ -45,3 +45,17 @@ export class TrackSkillDownload extends BaseCommand {
     super();
   }
 }
+
+/**
+ * Command to ingest a skill from R2 inbox
+ * Triggered by R2 upload notification for inbox/*.zip files
+ */
+export class IngestSkill extends BaseCommand {
+  readonly name = 'IngestSkill';
+
+  constructor(
+    public readonly fileKey: string,
+  ) {
+    super();
+  }
+}

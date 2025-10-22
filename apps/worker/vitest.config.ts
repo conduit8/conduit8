@@ -102,8 +102,9 @@ export default defineConfig({
                     BETTER_AUTH_SECRET: 'test-secret-for-vitest-with-at-least-32-characters-long',
                     BETTER_AUTH_URL: 'http://localhost:5173',
                   },
-                  // Add test-only binding for migrations
+                  // Add test-only bindings
                   bindings: { TEST_MIGRATIONS: migrations },
+                  r2Buckets: ['R2_PUBLIC'],
                 },
                 wrangler: {
                   configPath: './wrangler.jsonc',

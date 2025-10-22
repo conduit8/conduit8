@@ -3,4 +3,3 @@ export * from './github.schemas';
 export * from './health.schemas';
 export * from './image-proxy.schemas';
 export * from './skills.schemas';
-export * from './slack';

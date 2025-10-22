@@ -26,7 +26,7 @@ export class SlackOAuthFactory {
   }
 
   static invalidResponse(
-    field: 'ok' | 'team.id' | 'team.name' | 'access_token' | 'bot_user_id' | 'app_id'
+    field: 'ok' | 'team.id' | 'team.name' | 'access_token' | 'bot_user_id' | 'app_id',
   ): Partial<OauthV2AccessResponse> {
     const base = this.validResponse();
 

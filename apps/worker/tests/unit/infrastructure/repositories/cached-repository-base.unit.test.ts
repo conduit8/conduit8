@@ -73,7 +73,7 @@ describe('cachedRepositoryBase', () => {
       expect(mockKV.put).toHaveBeenCalledWith(
         'test:key',
         JSON.stringify(testEntity),
-        { expirationTtl: 3600 }
+        { expirationTtl: 3600 },
       );
     });
 
@@ -117,7 +117,7 @@ describe('cachedRepositoryBase', () => {
       expect(mockKV.put).toHaveBeenCalledWith(
         'test:key',
         JSON.stringify(testEntity),
-        { expirationTtl: 3600 }
+        { expirationTtl: 3600 },
       );
     });
 
@@ -130,7 +130,7 @@ describe('cachedRepositoryBase', () => {
       expect(mockKV.put).toHaveBeenCalledWith(
         'test:key',
         JSON.stringify(testEntity),
-        {}
+        {},
       );
     });
 

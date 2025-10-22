@@ -146,7 +146,7 @@ describe('cfCacheRepository', () => {
       // Act & Assert
       await expect(repo.saveWithCache(testEntity, 'test-id')).rejects.toThrow(StorageError);
       await expect(repo.saveWithCache(testEntity, 'test-id')).rejects.toThrow(
-        'Failed to save TestEntity for key test-id'
+        'Failed to save TestEntity for key test-id',
       );
     });
   });

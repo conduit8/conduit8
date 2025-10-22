@@ -18,15 +18,9 @@ import {
 // } from './billing.messages';
 import { r2EventNotificationSchema } from './r2.messages';
 import {
-  processThreadContextChangedSchema,
-  processThreadStartedSchema,
-  processUserMessageSchema,
-  updateAppHomeSchema,
-} from './slack.messages';
-import {
-  feedbackSubmittedSchema,
-  userConfigurationUpdatedSchema,
-} from './user.messages';
+  ingestSkillSchema,
+  trackSkillDownloadSchema,
+} from './skills.messages';
 
 // Discriminated union of all domain messages (by name field)
 export const domainMessageSchema = z.discriminatedUnion('name', [
@@ -34,19 +28,15 @@ export const domainMessageSchema = z.discriminatedUnion('name', [
   sendMagicLinkSchema,
   trackUserSignupSchema,
 
-  // Slack Commands
-  processUserMessageSchema,
-  processThreadStartedSchema,
-  processThreadContextChangedSchema,
-  updateAppHomeSchema,
+  // Skill Commands
+  ingestSkillSchema,
+  trackSkillDownloadSchema,
 
   // Events
   conversationStartedSchema,
   conversationTurnCompletedSchema,
   conversationTurnStartedSchema,
   conversationTurnFailedSchema,
-  feedbackSubmittedSchema,
-  userConfigurationUpdatedSchema,
 
 ]);
 

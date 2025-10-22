@@ -4,7 +4,7 @@ import {
   SKILL_AUTHOR_KINDS,
   SKILL_CATEGORIES,
   SKILL_SOURCE_TYPES,
-} from '../../domain/skill';
+} from '../../domain/skill-schemas';
 
 // GET /api/v1/skills/:slug - Path params
 export const GetSkillParamsSchema = z.object({
@@ -22,6 +22,7 @@ export const GetSkillResponseSchema = z.object({
     category: z.enum(SKILL_CATEGORIES),
     zipUrl: z.url(),
     imageUrl: z.url(),
+    videoUrl: z.url().optional(),
     sourceType: z.enum(SKILL_SOURCE_TYPES),
     sourceUrl: z.url().nullish(),
     examples: z.array(z.string()),

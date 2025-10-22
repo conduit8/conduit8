@@ -33,11 +33,12 @@ export class SubscriptionCancelled extends BaseEvent {
 }
 
 /**
- * Event: R2 upload complete notification
- * Currently not handled
+ * Event: R2 object created
+ * Fired by R2 on PutObject, CopyObject, CompleteMultipartUpload
+ * Triggers IngestSkill command for ZIP files in inbox/
  */
-export class R2UploadCompleteNotification extends BaseEvent {
-  readonly name = 'R2UploadCompleteNotification';
+export class R2ObjectCreated extends BaseEvent {
+  readonly name = 'R2ObjectCreated';
 
   constructor(
     public readonly fileKey: string,

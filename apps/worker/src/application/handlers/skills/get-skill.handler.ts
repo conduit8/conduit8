@@ -10,7 +10,7 @@ export async function getSkill(
   query: GetSkill,
   env: Cloudflare.Env,
 ): Promise<GetSkillResponse['data']> {
-  const repo: ISkillRepository = new SkillRepository(env.D1);
+  const repo: ISkillRepository = new SkillRepository(env.D1, env.R2_PUBLIC);
 
   const skill = await repo.findBySlug(query.slug);
 
@@ -23,6 +23,7 @@ export async function getSkill(
   // Generate R2 public URLs
   const zipUrl = `${env.R2_PUBLIC_URL}/${skill.zipKey}`;
   const imageUrl = `${env.R2_PUBLIC_URL}/${skill.imageKey}`;
+  const videoUrl = `${env.R2_PUBLIC_URL}/videos/${skill.slug}.mp4`;
 
   return {
     id: skill.id,
@@ -32,6 +33,7 @@ export async function getSkill(
     category: skill.category as GetSkillResponse['data']['category'],
     zipUrl,
     imageUrl,
+    videoUrl,
     sourceType: skill.sourceType as GetSkillResponse['data']['sourceType'],
     sourceUrl: skill.sourceUrl,
     examples: skill.examples as string[],

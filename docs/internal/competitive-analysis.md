@@ -52,6 +52,7 @@
 - Apache 2.0 licensed
 - Educational only, NOT production
 - No community submissions
+- **GitHub stats:** 8,950 stars, 637 forks (https://github.com/anthropics/skills)
 
 ### What They All Share
 

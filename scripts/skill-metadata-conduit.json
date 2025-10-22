@@ -1,6 +1,6 @@
 {
   "brand-voice-enforcer": {
-    "category": "Content",
+    "category": "content",
     "examples": [
       "Review marketing copy for brand voice consistency",
       "Enforce tone guidelines across product documentation",
@@ -8,7 +8,7 @@
     ]
   },
   "csv-analyzer": {
-    "category": "Data",
+    "category": "data",
     "examples": [
       "Analyze sales data CSV for revenue trends",
       "Perform data quality checks on customer dataset",
@@ -16,7 +16,7 @@
     ]
   },
   "email-converter": {
-    "category": "Content",
+    "category": "content",
     "examples": [
       "Convert marketing email to plain text format",
       "Transform HTML newsletter to markdown",
@@ -24,7 +24,7 @@
     ]
   },
   "landing-page-optimizer": {
-    "category": "Marketing",
+    "category": "marketing",
     "examples": [
       "Optimize landing page copy for conversions",
       "Improve CTA placement and messaging",
@@ -32,7 +32,7 @@
     ]
   },
   "pitch-deck-psychologist": {
-    "category": "Business",
+    "category": "business",
     "examples": [
       "Review investor pitch deck for psychological impact",
       "Optimize slide flow and narrative arc",
@@ -40,7 +40,7 @@
     ]
   },
   "research-synthesizer": {
-    "category": "Research",
+    "category": "content",
     "examples": [
       "Synthesize multiple research papers into key insights",
       "Create literature review from academic sources",
@@ -48,7 +48,7 @@
     ]
   },
   "security-guardian": {
-    "category": "Security",
+    "category": "development",
     "examples": [
       "Audit codebase for security vulnerabilities",
       "Review API endpoints for authentication issues",
@@ -56,7 +56,7 @@
     ]
   },
   "seo-dominator": {
-    "category": "Marketing",
+    "category": "marketing",
     "examples": [
       "Optimize blog post for target keywords",
       "Improve meta descriptions and title tags",
@@ -64,7 +64,7 @@
     ]
   },
   "viral-content-architect": {
-    "category": "Content",
+    "category": "content",
     "examples": [
       "Craft viral social media post for product launch",
       "Design thread structure for maximum engagement",
@@ -72,11 +72,19 @@
     ]
   },
   "zero-to-production": {
-    "category": "Development",
+    "category": "development",
     "examples": [
       "Set up production-ready backend infrastructure",
       "Configure CI/CD pipeline for new project",
       "Deploy full-stack application to cloud"
+    ]
+  },
+  "yt-context": {
+    "category": "content",
+    "examples": [
+      "Analyze YouTube video and load transcript into context",
+      "Generate structured summary of 2-hour conference talk",
+      "Extract key insights from educational video series"
     ]
   }
 }

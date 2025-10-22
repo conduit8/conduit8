@@ -8,7 +8,7 @@ export const trackSkillDownload: CommandHandler<TrackSkillDownload, void> = asyn
   command: TrackSkillDownload,
   env: Env,
 ) => {
-  const repo = new SkillRepository(env.D1);
+  const repo = new SkillRepository(env.D1, env.R2_PUBLIC);
 
   // Find skill by slug to get ID
   const skill = await repo.findBySlug(command.slug);

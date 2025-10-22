@@ -19,7 +19,7 @@ describe('claudeInstanceConfig', () => {
     it('rejects empty credentials', () => {
       const invalidData = { ...validConfigData, githubToken: '' };
       expect(() => ClaudeInstanceConfig.create(invalidData)).toThrow(
-        ValidationError
+        ValidationError,
       );
     });
   });
@@ -42,7 +42,7 @@ describe('claudeInstanceConfig', () => {
         ...config.toPlainObject(),
         githubToken: 'invalid_token',
       })).toThrow(
-        ValidationError
+        ValidationError,
       );
     });
   });
