@@ -60,6 +60,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Detailed installation success messages with examples
 - YAML frontmatter parsing for skill metadata
 
-[0.8.0]: https://github.com/alexander-zuev/conduit8/compare/cli-v0.7.0...cli-v0.8.0
-[0.7.0]: https://github.com/alexander-zuev/conduit8/compare/cli-v0.6.0...cli-v0.7.0
-[0.6.0]: https://github.com/alexander-zuev/conduit8/releases/tag/cli-v0.6.0
+[0.8.0]: https://github.com/conduit8/conduit8/compare/cli-v0.7.0...cli-v0.8.0
+[0.7.0]: https://github.com/conduit8/conduit8/compare/cli-v0.6.0...cli-v0.7.0
+[0.6.0]: https://github.com/conduit8/conduit8/releases/tag/cli-v0.6.0

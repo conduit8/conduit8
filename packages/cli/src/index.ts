@@ -53,7 +53,7 @@ ${chalk.bold('EXAMPLES')}
   ${chalk.dim('$ npx conduit8 list skills')}
   ${chalk.dim('$ npx conduit8 --no-telemetry search skills')} ${chalk.dim('# Disable error tracking')}
 
-Report an issue: ${chalk.hex('#7c9ff5')('https://github.com/alexander-zuev/conduit8/issues')}
+Report an issue: ${chalk.hex('#7c9ff5')('https://github.com/conduit8/conduit8/issues')}
 `;
       return help;
     }

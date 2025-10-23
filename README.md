@@ -4,7 +4,7 @@
 [![npm downloads](https://img.shields.io/npm/dm/conduit8)](https://www.npmjs.com/package/conduit8)
 [![License](https://img.shields.io/badge/license-AGPL--3.0-blue.svg)](LICENSE)
 [![Built on Cloudflare](https://img.shields.io/badge/Built%20on-Cloudflare-F38020?logo=cloudflare&logoColor=white)](https://www.cloudflare.com/)
-[![CI](https://github.com/alexander-zuev/conduit8/actions/workflows/ci.yml/badge.svg)](https://github.com/alexander-zuev/conduit8/actions/workflows/ci.yml)
+[![CI](https://github.com/conduit8/conduit8/actions/workflows/ci.yml/badge.svg)](https://github.com/conduit8/conduit8/actions/workflows/ci.yml)
 
 Curated registry of agent capabilities for Claude Code. Install, manage, and discover in one command.
 

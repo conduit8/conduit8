@@ -136,7 +136,7 @@ export function HomeHeader({
                   {/* GitHub Link with Stars */}
                   <Button variant="ghost" size="sm" asChild>
                     <a
-                      href="https://github.com/alexander-zuev/conduit8"
+                      href="https://github.com/conduit8/conduit8"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex items-center gap-1.5 hover:no-underline"

@@ -69,7 +69,7 @@ Skills work immediately, no restart needed.
 ## 🔗 Links
 
 - [conduit8.dev](https://conduit8.dev) - Web registry
-- [Issues](https://github.com/alexander-zuev/conduit8/issues) - Bug reports & feature requests
+- [Issues](https://github.com/conduit8/conduit8/issues) - Bug reports & feature requests
 - [npm](https://www.npmjs.com/package/conduit8) - Package page
 
 ## License
