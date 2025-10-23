@@ -20,9 +20,15 @@
     "lint:fix": "pnpm run -r --stream --parallel lint:fix",
     "import:skills": "cd scripts && pnpm exec tsx import-local-skills.ts",
     "deploy": "pnpm --filter @conduit8/worker run deploy",
-    "deploy:prod": "echo '⚠️  WARNING: Deploying to PRODUCTION! Use CI/CD instead.' && pnpm --filter @conduit8/worker run deploy:prod"
+    "deploy:prod": "echo '⚠️  WARNING: Deploying to PRODUCTION! Use CI/CD instead.' && pnpm --filter @conduit8/worker run deploy:prod",
+    "version:patch": "pnpm version patch --tag-version-prefix=platform-v",
+    "version:minor": "pnpm version minor --tag-version-prefix=platform-v",
+    "version:major": "pnpm version major --tag-version-prefix=platform-v"
   },
   "lint-staged": {
     "**": "npx -y eslint --quiet --fix"
+  },
+  "dependencies": {
+    "core": "link:../../Library/pnpm/global/5/node_modules/@conduit8/core"
   }
 }

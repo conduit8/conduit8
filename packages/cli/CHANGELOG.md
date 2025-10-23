@@ -5,6 +5,20 @@ All notable changes to the conduit8 CLI will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.8.0] - 2025-10-22
+
+### Added
+- **Sentry integration** for error tracking and monitoring
+  - Automatic error reporting to help identify and fix issues faster
+  - Performance monitoring for CLI operations
+  - User-friendly error messages with tracking IDs
+
+### Improved
+- **Error handling** with typed error classes
+  - More descriptive error messages for common issues
+  - Better distinction between user errors and system failures
+  - Cleaner error recovery flows
+
 ## [0.7.0] - 2025-10-20
 
 ### Fixed
@@ -46,5 +60,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Detailed installation success messages with examples
 - YAML frontmatter parsing for skill metadata
 
+[0.8.0]: https://github.com/alexander-zuev/conduit8/compare/cli-v0.7.0...cli-v0.8.0
 [0.7.0]: https://github.com/alexander-zuev/conduit8/compare/cli-v0.6.0...cli-v0.7.0
 [0.6.0]: https://github.com/alexander-zuev/conduit8/releases/tag/cli-v0.6.0

@@ -1,6 +1,6 @@
 # conduit8 CLI
 
-Install and manage Claude Code skills from the conduit8 registry. Discover, install, and manage skills in one command.
+Install and manage agent capabilities for Claude Code from the conduit8 registry. Discover, install, and manage in one command.
 
 ## 🚀 Quick Start
 
@@ -42,13 +42,13 @@ npx conduit8 list skills   # Show installed skills
 ### Search Registry
 
 ```bash
-npx conduit8 search skills        # Browse all skills
+npx conduit8 search skills        # Browse all
 npx conduit8 search skills pdf    # Search by keyword
 ```
 
 ## 📦 Available Skills
 
-20+ skills across multiple categories:
+20+ agent capabilities across multiple categories:
 
 - **Content** - Brand voice, email conversion, viral content
 - **Data** - CSV/XLSX analysis, research synthesis

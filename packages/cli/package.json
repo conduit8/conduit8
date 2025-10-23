@@ -47,15 +47,16 @@
     "test:coverage": "vitest run --coverage",
     "test:cli": "pnpm build && node dist/index.js search skills && node dist/index.js list skills",
     "prepublishOnly": "pnpm lint && pnpm build && pnpm test",
-    "version:alpha": "pnpm version prepatch --preid=alpha --loglevel=error",
-    "version:patch": "pnpm version patch",
-    "version:minor": "pnpm version minor",
-    "version:major": "pnpm version major",
+    "version:alpha": "pnpm version prepatch --preid=alpha --loglevel=error --tag-version-prefix=cli-v",
+    "version:patch": "pnpm version patch --tag-version-prefix=cli-v",
+    "version:minor": "pnpm version minor --tag-version-prefix=cli-v",
+    "version:major": "pnpm version major --tag-version-prefix=cli-v",
     "publish:alpha": "pnpm publish --tag alpha --access public",
     "publish:prod": "pnpm publish --access public",
     "publish:prod:no-git": "pnpm publish --access public --no-git-checks"
   },
   "dependencies": {
+    "@conduit8/core": ">=0.0.0",
     "@sentry/node": "^10.20.0",
     "adm-zip": "^0.5.16",
     "chalk": "^5.3.0",
@@ -65,7 +66,6 @@
     "tar": "^7.4.3"
   },
   "devDependencies": {
-    "@conduit8/core": "workspace:*",
     "@conduit8/eslint-config": "workspace:*",
     "@types/adm-zip": "^0.5.7",
     "@types/js-yaml": "^4.0.9",
