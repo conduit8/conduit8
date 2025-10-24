@@ -57,15 +57,19 @@ export function HomeHeader({
       } `}
     >
       <div
-        className={`flex items-center justify-between px-2 md:px-6 ${isMobile ? 'py-2' : 'py-4'} `}
+        className={`flex items-center ${isMobile ? 'justify-center py-2 px-2 relative' : 'justify-between py-4 px-6'} `}
       >
         <Logo variant="text" />
 
         {isMobile
           ? (
-        // Mobile content: Logo + Burger Menu
+        // Mobile content: Centered Logo + Burger Menu (absolute)
               <>
-                <Button variant="ghost" onClick={() => setMobileMenuOpen(true)}>
+                <Button
+                  variant="ghost"
+                  onClick={() => setMobileMenuOpen(true)}
+                  className="absolute right-2"
+                >
                   <ListIcon size={20} />
                 </Button>
 
