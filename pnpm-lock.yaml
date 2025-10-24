@@ -45,9 +45,6 @@ importers:
 
   .:
     dependencies:
-      '@conduit8/core':
-        specifier: link:../../Library/pnpm/global/5/node_modules/@conduit8/core
-        version: link:../../Library/pnpm/global/5/node_modules/@conduit8/core
       core:
         specifier: link:../../Library/pnpm/global/5/node_modules/@conduit8/core
         version: link:../../Library/pnpm/global/5/node_modules/@conduit8/core
