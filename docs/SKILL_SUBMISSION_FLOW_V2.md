@@ -227,9 +227,9 @@ pnpm add -D @types/jszip --filter @conduit8/web
 - Each file max 5MB
 
 **Metadata:**
-- Author: 1-100 chars
-- Source URL: Valid URL or empty
-- Examples: 1-10 items
+- Author: 1-100 chars (alphanumeric + common chars)
+- Source URL: Any valid URL or empty (no domain restrictions)
+- Examples: 1-10 items (max 200 chars each)
 
 ### Backend Validation
 

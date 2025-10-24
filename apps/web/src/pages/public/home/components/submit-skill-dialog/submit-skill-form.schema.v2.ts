@@ -28,23 +28,8 @@ export const ALLOWED_FILE_EXTENSIONS = [
   '.sql', '.graphql', '.proto',
 ] as const;
 
-/**
- * Allowed domains for source URLs
- * Common development platforms - prevents phishing/malicious links
- */
-export const ALLOWED_SOURCE_DOMAINS = [
-  'github.com',
-  'gitlab.com',
-  'bitbucket.org',
-  'codeberg.org',
-  'sr.ht', // SourceHut
-  'gitea.com',
-  'gitee.com',
-  'launchpad.net',
-  'sourceforge.net',
-  'dev.azure.com',
-  'conduit8.com', // Our own platform
-] as const;
+// No domain restrictions on source URLs - they're just metadata/reference links
+// Backend can optionally flag unknown domains for manual review if needed
 
 // SKILL.md frontmatter validation
 export const skillFrontmatterSchema = z.object({
@@ -65,7 +50,7 @@ export const skillFrontmatterSchema = z.object({
     .min(1, 'At least one tool must be specified')
     .refine(
       (val) => val.trim().split(/\s+/).length > 0,
-      'At least one tool must be specified'
+      { message: 'At least one tool must be specified' }
     ),
 });
 
@@ -77,20 +62,23 @@ export const submitSkillFormSchema = z.object({
     .max(200 * 1024, 'SKILL.md content must be less than 200KB') // Prevent DoS
     .refine(
       (content) => content.includes('---') && content.split('---').length >= 3,
-      'SKILL.md must contain valid YAML frontmatter (enclosed in ---)'
+      { message: 'SKILL.md must contain valid YAML frontmatter (enclosed in ---)' }
     ),
 
   // Additional files (scripts, templates, resources)
   additionalFiles: z
     .array(
       z.instanceof(File)
-        .refine((file) => file.size > 0, 'File cannot be empty')
-        .refine((file) => file.size <= 5 * 1024 * 1024, 'Each file must be less than 5MB')
-        .refine((file) => {
-          const ext = file.name.toLowerCase().match(/(\.[^.]+)$/)?.[1];
-          if (!ext) return false;
-          return ALLOWED_FILE_EXTENSIONS.includes(ext as any);
-        }, `File type not allowed. Allowed types: ${ALLOWED_FILE_EXTENSIONS.slice(0, 10).join(', ')}...`)
+        .refine((file) => file.size > 0, { message: 'File cannot be empty' })
+        .refine((file) => file.size <= 5 * 1024 * 1024, { message: 'Each file must be less than 5MB' })
+        .refine(
+          (file) => {
+            const ext = file.name.toLowerCase().match(/(\.[^.]+)$/)?.[1];
+            if (!ext) return false;
+            return ALLOWED_FILE_EXTENSIONS.includes(ext as any);
+          },
+          { message: `File type not allowed. Allowed types: ${ALLOWED_FILE_EXTENSIONS.slice(0, 10).join(', ')}...` }
+        )
     )
     .max(20, 'Maximum 20 additional files allowed')
     .default([]),
@@ -103,23 +91,11 @@ export const submitSkillFormSchema = z.object({
     .regex(/^[a-zA-Z0-9\s\-_.@]+$/, 'Author name contains invalid characters'),
 
   sourceUrl: z
-    .string()
-    .url('Must be a valid URL')
-    .refine((url) => {
-      if (!url) return true; // Empty is OK
-      try {
-        const hostname = new URL(url).hostname.toLowerCase();
-        // Check if hostname matches or is subdomain of allowed domains
-        return ALLOWED_SOURCE_DOMAINS.some(domain =>
-          hostname === domain || hostname.endsWith(`.${domain}`)
-        );
-      }
-      catch {
-        return false;
-      }
-    }, `Source URL must be from a trusted platform (e.g., ${ALLOWED_SOURCE_DOMAINS.slice(0, 5).join(', ')})`)
-    .or(z.literal(''))
-    .transform((val) => val || `https://conduit8.com/user-submission`),
+    .union([
+      z.string().url({ message: 'Must be a valid URL' }),
+      z.literal(''),
+    ])
+    .transform((val) => val || 'https://conduit8.com/user-submission'),
 
   examples: z
     .array(z.string().min(1).max(200, 'Example too long'))
