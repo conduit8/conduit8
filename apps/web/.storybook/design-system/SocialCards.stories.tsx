@@ -91,7 +91,7 @@ const Card3Terminal = () => (
     <div className="flex-1 flex flex-col gap-6 font-mono text-background">
       <div className="flex items-center gap-3">
         <span className="text-[rgb(251,146,60)] text-3xl">$</span>
-        <span className="text-3xl">kollektiv --help</span>
+        <span className="text-3xl">conduit8 --help</span>
       </div>
 
       <div className="flex flex-col gap-4 ml-8 text-2xl">

@@ -12,8 +12,8 @@ Sentry.init({
   tracePropagationTargets: [
     'localhost',
     '127.0.0.1:5173',
-    /^https:\/\/kollektiv\.sh$/,
-    /^https:\/\/.*\.kollektiv\.sh$/,
+    /^https:\/\/conduit8\.dev$/,
+    /^https:\/\/.*\.conduit8\.dev$/,
   ],
   profilesSampleRate: settings.sentry.profilesSampleRate,
   sendDefaultPii: false,
