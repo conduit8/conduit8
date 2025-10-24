@@ -56,7 +56,7 @@
     "publish:prod:no-git": "pnpm publish --access public --no-git-checks"
   },
   "dependencies": {
-    "@conduit8/core": "^0.0.0",
+    "@conduit8/core": "^0.1.0",
     "@sentry/node": "^10.20.0",
     "adm-zip": "^0.5.16",
     "chalk": "^5.3.0",
