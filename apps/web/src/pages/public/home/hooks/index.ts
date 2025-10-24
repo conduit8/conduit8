@@ -4,5 +4,7 @@ export * from './use-scroll-detection';
 export * from './use-skills-browse';
 export * from './use-skills-filter';
 export * from './use-skills-list';
+export * from './use-submit-skill';
+export * from './use-submit-skill-dialog';
 export * from './use-video-intersection';
 export * from './use-video-loader';
