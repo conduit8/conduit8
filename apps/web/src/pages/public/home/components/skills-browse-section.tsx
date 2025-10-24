@@ -28,6 +28,9 @@ interface SkillsBrowseSectionProps {
   selectedSources: SourceValue[];
   onSourceChange: (sources: SourceValue[]) => void;
   onResetFilters: () => void;
+  showPendingSkills?: boolean;
+  onTogglePendingSkills?: (show: boolean) => void;
+  pendingCount?: number;
 }
 
 export function SkillsBrowseSection({
@@ -43,22 +46,57 @@ export function SkillsBrowseSection({
   selectedSources,
   onSourceChange,
   onResetFilters,
+  showPendingSkills = true,
+  onTogglePendingSkills,
+  pendingCount = 0,
 }: SkillsBrowseSectionProps) {
   return (
     <LandingSectionWrapper variant="default">
       <div className="w-full flex flex-col gap-4">
         {/* Row 1: Actions (left) + Stats (right) */}
         <div className="w-full flex items-center justify-between">
-          <Button variant="accent" onClick={onSubmitClick}>
-            <PlusIcon size={16} weight="fill" className="text-accent" />
-            Submit
-          </Button>
+          <div className="flex items-center gap-4">
+            <Button variant="accent" onClick={onSubmitClick}>
+              <PlusIcon size={16} weight="fill" className="text-accent" />
+              Submit
+            </Button>
 
-          <div className="flex items-center gap-1 text-sm text-muted-foreground">
-            <span className="font-medium text-foreground">
-              {isPending ? '...' : skills.length}
-            </span>
-            <span>{skills.length === 1 ? 'skill' : 'skills'}</span>
+            {/* Status Toggle */}
+            {onTogglePendingSkills && (
+              <div className="flex items-center gap-2">
+                <Button
+                  variant={showPendingSkills ? "default" : "outline"}
+                  size="sm"
+                  onClick={() => onTogglePendingSkills(true)}
+                >
+                  All Skills
+                </Button>
+                <Button
+                  variant={!showPendingSkills ? "default" : "outline"}
+                  size="sm"
+                  onClick={() => onTogglePendingSkills(false)}
+                >
+                  Approved Only
+                </Button>
+              </div>
+            )}
+          </div>
+
+          <div className="flex items-center gap-4">
+            {/* Pending Queue Counter */}
+            {pendingCount > 0 && (
+              <div className="text-sm text-muted-foreground">
+                <span className="font-medium text-warning">{pendingCount}</span>
+                <span className="ml-1">pending review</span>
+              </div>
+            )}
+
+            <div className="flex items-center gap-1 text-sm text-muted-foreground">
+              <span className="font-medium text-foreground">
+                {isPending ? '...' : skills.length}
+              </span>
+              <span>{skills.length === 1 ? 'skill' : 'skills'}</span>
+            </div>
           </div>
         </div>
 
