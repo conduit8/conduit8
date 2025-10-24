@@ -58,19 +58,24 @@ jobs:
           fi
           echo "tag=$LAST_TAG" >> $GITHUB_OUTPUT
 
-      - name: Generate release notes from git log
-        id: release_notes
+      - name: Extract changelog for this version
+        id: changelog
         if: steps.tag_check.outputs.exists == 'false'
         run: |
-          # Get commits since last release
-          COMMITS=$(git log ${{ steps.last_release.outputs.tag }}..HEAD --pretty=format:"- %s (%h)" --no-merges -- apps/web/)
+          VERSION="${{ steps.version.outputs.version }}"
+
+          # Extract the section for this version from CHANGELOG.md
+          CHANGELOG=$(awk "/^## \[$VERSION\]/{flag=1; next} /^## \[/{flag=0} flag" apps/web/CHANGELOG.md)
+
+          if [ -z "$CHANGELOG" ]; then
+            echo "ERROR: No changelog entry found for version $VERSION in apps/web/CHANGELOG.md"
+            exit 1
+          fi
 
           # Set output using delimiter
           {
             echo 'notes<<EOF'
-            echo "## Changes"
-            echo ""
-            echo "$COMMITS"
+            echo "$CHANGELOG"
             echo EOF
           } >> $GITHUB_OUTPUT
 
@@ -88,7 +93,7 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           cat > release_notes.md << 'EOF'
-          ${{ steps.release_notes.outputs.notes }}
+          ${{ steps.changelog.outputs.notes }}
           EOF
 
           gh release create "${{ steps.version.outputs.tag }}" \
