@@ -7,11 +7,6 @@ export default defineConfig({
   // Single entry point - CLI executable
   entry: 'src/index.ts',
 
-  // Inject version at build time
-  define: {
-    __VERSION__: JSON.stringify(packageJson.version),
-  },
-
   // ESM format for modern Node.js
   format: 'esm',
 
@@ -47,4 +42,13 @@ export default defineConfig({
 
   // Generate sourcemaps for debugging
   sourcemap: false,
+
+  // Rolldown input options - inject version at build time
+  inputOptions: {
+    transform: {
+      define: {
+        __VERSION__: JSON.stringify(packageJson.version),
+      },
+    },
+  },
 });

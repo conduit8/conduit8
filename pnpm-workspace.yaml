@@ -29,4 +29,3 @@ onlyBuiltDependencies:
 
 overrides:
   '@conduit8/core': link:../../Library/pnpm/global/5/node_modules/@conduit8/core
-  core: link:../../Library/pnpm/global/5/node_modules/@conduit8/core

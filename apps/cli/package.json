@@ -1,7 +1,7 @@
 {
   "name": "conduit8",
   "type": "module",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "description": "Lightweight Claude Code Skills manager. Install skills directly, without plugins / marketplaces.",
   "author": "Alexander Zuev",
   "license": "AGPL-3.0",
@@ -74,7 +74,7 @@
     "@vitest/coverage-istanbul": "catalog:",
     "dotenv": "^17.2.3",
     "eslint": "catalog:",
-    "tsdown": "^0.15.3",
+    "tsdown": "^0.15.9",
     "typescript": "catalog:",
     "vite-tsconfig-paths": "catalog:",
     "vitest": "catalog:"
