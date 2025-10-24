@@ -1,0 +1,127 @@
+name: Release CLI
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'packages/cli/**'
+      - '.github/workflows/release-cli.yml'
+
+permissions:
+  contents: write
+  id-token: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.18.3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Extract version
+        id: version
+        run: |
+          VERSION=$(node -p "require('./packages/cli/package.json').version")
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "tag=cli/v$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Check if tag exists
+        id: tag_check
+        run: |
+          if git rev-parse "${{ steps.version.outputs.tag }}" >/dev/null 2>&1; then
+            echo "exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "exists=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Get last CLI release tag
+        id: last_release
+        if: steps.tag_check.outputs.exists == 'false'
+        run: |
+          LAST_TAG=$(git tag -l "cli/v*" --sort=-v:refname | head -n 1)
+          if [ -z "$LAST_TAG" ]; then
+            # If no previous tag, use first commit
+            LAST_TAG=$(git rev-list --max-parents=0 HEAD)
+          fi
+          echo "tag=$LAST_TAG" >> $GITHUB_OUTPUT
+
+      - name: Get commit log
+        id: commits
+        if: steps.tag_check.outputs.exists == 'false'
+        run: |
+          COMMITS=$(git log ${{ steps.last_release.outputs.tag }}..HEAD --pretty=format:"%h %s" --no-merges -- packages/cli/)
+          echo "list<<EOF" >> $GITHUB_OUTPUT
+          echo "$COMMITS" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Generate release notes
+        id: release_notes
+        if: steps.tag_check.outputs.exists == 'false'
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          model: claude-3-5-haiku-20250110
+          max_output_tokens: 2048
+          track_progress: false
+          prompt: |
+            Generate concise release notes for CLI version ${{ steps.version.outputs.version }}.
+
+            Git commits since last release:
+            ```
+            ${{ steps.commits.outputs.list }}
+            ```
+
+            Requirements:
+            - Use standard release notes format
+            - Group changes into: Features, Bug Fixes, Documentation, Refactoring
+            - Be CONCISE - one line per change
+            - Use present tense
+            - No verbose descriptions
+            - Skip trivial changes (typos, formatting)
+
+            Format:
+            ## Features
+            - Feature description
+
+            ## Bug Fixes
+            - Fix description
+
+            ## Documentation
+            - Doc change
+
+            Output ONLY the release notes, no extra commentary.
+
+      - name: Create tag
+        if: steps.tag_check.outputs.exists == 'false'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git tag -a "${{ steps.version.outputs.tag }}" -m "Release CLI v${{ steps.version.outputs.version }}"
+          git push origin "${{ steps.version.outputs.tag }}"
+
+      - name: Create draft release
+        if: steps.tag_check.outputs.exists == 'false'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          cat > release_notes.md << 'EOF'
+          ${{ steps.release_notes.outputs.result }}
+          EOF
+
+          gh release create "${{ steps.version.outputs.tag }}" \
+            --draft \
+            --title "CLI v${{ steps.version.outputs.version }}" \
+            --notes-file release_notes.md
