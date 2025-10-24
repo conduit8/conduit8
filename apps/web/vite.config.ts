@@ -47,7 +47,7 @@ export default defineConfig({
     sourcemap: true,
   },
   server: {
-    host: 'localhost',
+    host: true, // Expose to local network
     port: 5173,
     open: false, // do not open window
 

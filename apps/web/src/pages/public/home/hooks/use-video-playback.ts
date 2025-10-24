@@ -1,4 +1,6 @@
-import { useRef, useState } from 'react';
+import type { RefObject } from 'react';
+
+import { useState } from 'react';
 
 // Deterministic hash: same slug = same autoplay decision
 function hashCode(str: string): number {
@@ -11,20 +13,28 @@ function hashCode(str: string): number {
 }
 
 interface UseVideoPlaybackOptions {
+  videoRef: RefObject<HTMLVideoElement | null>;
   slug: string;
   videoLoaded: boolean;
   hasVideo: boolean;
+  isInViewport: boolean;
 }
 
-export function useVideoPlayback({ slug, videoLoaded, hasVideo }: UseVideoPlaybackOptions) {
+export function useVideoPlayback({ videoRef, slug, videoLoaded, hasVideo, isInViewport }: UseVideoPlaybackOptions) {
   const [isHovered, setIsHovered] = useState(false);
-  const videoRef = useRef<HTMLVideoElement>(null);
 
   // 50% of cards autoplay, deterministic based on slug
   const shouldAutoplay = hashCode(slug) % 2 === 0;
 
-  // Video should show when: video exists AND loaded AND (autoplay OR hover)
-  const shouldShowVideo = hasVideo && videoLoaded && (shouldAutoplay || isHovered);
+  // Video ready to display?
+  const videoReady = hasVideo && videoLoaded;
+
+  // Should we play it?
+  const canAutoplay = shouldAutoplay && isInViewport;
+  const shouldPlay = canAutoplay || isHovered;
+
+  // Final decision
+  const shouldShowVideo = videoReady && shouldPlay;
 
   const handleCardMouseEnter = () => {
     setIsHovered(true);
@@ -52,7 +62,6 @@ export function useVideoPlayback({ slug, videoLoaded, hasVideo }: UseVideoPlayba
   };
 
   return {
-    videoRef,
     shouldAutoplay,
     shouldShowVideo,
     handleCardMouseEnter,

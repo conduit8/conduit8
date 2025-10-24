@@ -1,5 +1,5 @@
 import { CheckIcon, SealCheckIcon, UsersIcon } from '@phosphor-icons/react';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 
 import { ArrowDownIcon } from '@web/ui/components/animate-ui/icons/arrow-down';
 import { DownloadIcon } from '@web/ui/components/animate-ui/icons/download';
@@ -12,18 +12,20 @@ import {
   CardHeader,
   CardTitle,
 } from '@web/ui/components/layout/containers/card';
+import { LazyVideo } from '@web/ui/components/media/lazy-video';
+import { VideoErrorFallback } from '@web/ui/components/media/video-error-fallback';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@web/ui/components/overlays/tooltip';
 
 import { useInstallCommand } from '../hooks/use-install-command';
 import { useMediaLoading } from '../hooks/use-media-loading';
+import { useVideoIntersection } from '../hooks/use-video-intersection';
 import { useVideoPlayback } from '../hooks/use-video-playback';
 
 interface SkillCardProps {
   slug: string;
   name: string;
   description: string;
-  imageUrl: string;
-  videoUrl?: string;
+  videoUrl: string;
   downloadCount: number;
   author: string;
   authorKind: 'verified' | 'community';
@@ -34,7 +36,6 @@ export function SkillCard({
   slug,
   name,
   description,
-  imageUrl,
   videoUrl,
   downloadCount,
   author,
@@ -44,23 +45,26 @@ export function SkillCard({
   const [downloadBadgeHovered, setDownloadBadgeHovered] = useState(false);
   const [installButtonHovered, setInstallButtonHovered] = useState(false);
 
+  // Video ref owned by SkillCard, shared between hooks
+  const videoRef = useRef<HTMLVideoElement>(null);
+
   // Custom hooks
   const {
-    imageLoaded,
-    imageError,
     videoLoaded,
-    handleImageLoad,
-    handleImageError,
+    hasError,
     handleVideoLoad,
     handleVideoError,
+    handleVideoLoadStart,
+    handleVideoCanPlay,
   } = useMediaLoading();
-  const {
+  const { isInViewport } = useVideoIntersection({ videoRef });
+  const { shouldAutoplay, handleCardMouseEnter, handleCardMouseLeave } = useVideoPlayback({
     videoRef,
-    shouldAutoplay,
-    shouldShowVideo,
-    handleCardMouseEnter,
-    handleCardMouseLeave,
-  } = useVideoPlayback({ slug, videoLoaded, hasVideo: !!videoUrl });
+    slug,
+    videoLoaded,
+    hasVideo: true,
+    isInViewport,
+  });
   const { isCopied, handleInstallClick } = useInstallCommand(slug);
 
   return (
@@ -70,47 +74,28 @@ export function SkillCard({
       onMouseEnter={handleCardMouseEnter}
       onMouseLeave={handleCardMouseLeave}
     >
-      {/* Image/Video */}
+      {/* Video */}
       <div className="aspect-video w-full overflow-hidden shrink-0 relative">
-        {/* Skeleton: show while image loading and no error */}
-        {!imageLoaded && !imageError && (
-          <Skeleton className="absolute inset-0 h-full w-full" />
-        )}
+        <LazyVideo
+          ref={videoRef}
+          src={videoUrl}
+          onLoadStart={handleVideoLoadStart}
+          onLoadedData={handleVideoLoad}
+          onCanPlay={handleVideoCanPlay}
+          onError={handleVideoError}
+          autoPlay={shouldAutoplay}
+          className="h-full w-full object-cover"
+        />
 
-        {/* Image: render if not errored */}
-        {!imageError && (
-          <img
-            src={imageUrl}
-            alt={name}
-            onLoad={handleImageLoad}
-            onError={handleImageError}
-            className={`h-full w-full object-cover ${shouldShowVideo ? 'hidden' : ''
-            }`}
-          />
-        )}
-
-        {/* Fallback: show skill name if image fails */}
-        {imageError && !shouldShowVideo && (
-          <div className="absolute inset-0 flex items-center justify-center bg-surface text-text">
-            <span className="font-mono text-sm px-4 text-center">{name}</span>
+        {/* Skeleton while loading */}
+        {!videoLoaded && !hasError && (
+          <div className="absolute inset-0">
+            <Skeleton className="w-full h-full" />
           </div>
         )}
 
-        {/* Video: only render if videoUrl exists */}
-        {videoUrl && (
-          <video
-            ref={videoRef}
-            src={videoUrl}
-            onLoadedData={handleVideoLoad}
-            onError={handleVideoError}
-            autoPlay={shouldAutoplay}
-            loop
-            muted
-            playsInline
-            className={`h-full w-full object-cover ${shouldShowVideo ? '' : 'hidden'
-            }`}
-          />
-        )}
+        {/* Error fallback */}
+        {hasError && <VideoErrorFallback name={name} />}
       </div>
 
       {/* Content */}

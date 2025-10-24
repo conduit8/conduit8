@@ -1,7 +1,7 @@
 {
   "name": "@conduit8/web",
   "type": "module",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "description": "Conduit8 web application",
   "engines": {
@@ -28,7 +28,7 @@
   },
   "dependencies": {
     "@cloudflare/stream-react": "^1.9.3",
-    "@conduit8/core": "^0.1.0",
+    "@conduit8/core": "^0.1.2",
     "@hookform/resolvers": "^5.2.0",
     "@iconify/react": "^6.0.0",
     "@marsidev/react-turnstile": "^1.3.0",
