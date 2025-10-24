@@ -17,7 +17,7 @@ export function HeroSection() {
         <div className="flex flex-col gap-8 text-center lg:text-left">
           <div className="flex flex-col gap-2">
             <h1>Claude Code Superpowers</h1>
-            <p className="text-muted-foreground">Hand-tested. One command to install.</p>
+            <p className="text-muted-foreground">Hand-tested skills. One command to install.</p>
           </div>
 
           <div className="flex flex-col gap-4">
@@ -32,7 +32,7 @@ export function HeroSection() {
             <div className="flex items-start gap-3">
               <SparkleIcon size={20} weight="duotone" className="shrink-0 mt-0.5 text-muted-foreground" />
               <div className="flex flex-col gap-1 text-left">
-                <p className="text-sm font-medium">Unique skills</p>
+                <p className="text-sm font-medium">Unique capabilities</p>
                 <p className="text-xs text-muted-foreground">Skills you won't find elsewhere</p>
               </div>
             </div>
@@ -41,7 +41,7 @@ export function HeroSection() {
               <HandshakeIcon size={20} weight="duotone" className="shrink-0 mt-0.5 text-muted-foreground" />
               <div className="flex flex-col gap-1 text-left">
                 <p className="text-sm font-medium">Community + official</p>
-                <p className="text-xs text-muted-foreground">Skills from Anthropic and community builders</p>
+                <p className="text-xs text-muted-foreground">From Anthropic and community builders</p>
               </div>
             </div>
           </div>

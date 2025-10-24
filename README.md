@@ -4,13 +4,11 @@
 [![npm downloads](https://img.shields.io/npm/dm/conduit8)](https://www.npmjs.com/package/conduit8)
 [![License](https://img.shields.io/badge/license-AGPL--3.0-blue.svg)](LICENSE)
 [![Built on Cloudflare](https://img.shields.io/badge/Built%20on-Cloudflare-F38020?logo=cloudflare&logoColor=white)](https://www.cloudflare.com/)
-[![CI](https://github.com/alexander-zuev/conduit8/actions/workflows/ci.yml/badge.svg)](https://github.com/alexander-zuev/conduit8/actions/workflows/ci.yml)
+[![CI](https://github.com/conduit8/conduit8/actions/workflows/ci.yml/badge.svg)](https://github.com/conduit8/conduit8/actions/workflows/ci.yml)
 
-Curated registry of Claude Code skills. Install, manage, and discover in one command.
+Curated registry of agent capabilities for Claude Code. Install, manage, and discover in one command.
 
-**20+ curated skills ready to install** 🚀
-
-Web registry coming soon.
+**20+ Claude Skills available** - Delivered as installable skills.
 
 ## 🚀 Quick Start
 
@@ -30,7 +28,7 @@ npx conduit8 remove skill pdf
 
 ## What is conduit8?
 
-Find and install quality Claude Code skills without the GitHub hunt:
+Discover and install agent capabilities for Claude Code without the GitHub hunt:
 
 - **Better Discovery** - Search by keyword, category, and usage stats
 - **One-Command Install** - Skills install directly to `~/.claude/skills/`
@@ -38,16 +36,16 @@ Find and install quality Claude Code skills without the GitHub hunt:
 
 ## How It Works
 
-1. **Search** - Browse 20+ curated skills: `npx conduit8 search skills`
+1. **Search** - Browse 20+ skills: `npx conduit8 search skills`
 2. **Install** - Download to Claude Code: `npx conduit8 install skill <name>`
-3. **Use** - Skills appear immediately, no restart needed
+3. **Use** - Available immediately, no restart needed
 4. **Manage** - List or remove anytime
 
 Skills install to `~/.claude/skills/` and work automatically.
 
 ## 📦 Available Skills
 
-20+ curated skills across multiple categories:
+20+ agent skills across multiple categories:
 
 - **Content** - Brand voice enforcement, email conversion, viral content
 - **Data** - CSV analysis, research synthesis

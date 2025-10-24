@@ -12,7 +12,7 @@ const PopoverContent = ({
   align = 'center',
   sideOffset = 4,
   ...props
-}: React.ComponentPropsWithoutRef<typeof PopoverPrimitive.Content> & {}) => (
+}: React.ComponentPropsWithoutRef<typeof PopoverPrimitive.Content> & { }) => (
   <PopoverPrimitive.Portal>
     <PopoverPrimitive.Content
       align={align}
