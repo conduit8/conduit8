@@ -58,54 +58,21 @@ jobs:
           fi
           echo "tag=$LAST_TAG" >> $GITHUB_OUTPUT
 
-      - name: Get commit log
-        id: commits
-        if: steps.tag_check.outputs.exists == 'false'
-        run: |
-          COMMITS=$(git log ${{ steps.last_release.outputs.tag }}..HEAD --pretty=format:"%h %s" --no-merges -- apps/web/)
-          echo "list<<EOF" >> $GITHUB_OUTPUT
-          echo "$COMMITS" >> $GITHUB_OUTPUT
-          echo "EOF" >> $GITHUB_OUTPUT
-
-      - name: Generate release notes
+      - name: Generate release notes from git log
         id: release_notes
         if: steps.tag_check.outputs.exists == 'false'
-        uses: anthropics/claude-code-action@v1
-        with:
-          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
-          model: claude-4-5-haiku-20250514
-          max_output_tokens: 2048
-          track_progress: false
-          prompt: |
-            Generate concise release notes for Web Platform version ${{ steps.version.outputs.version }}.
+        run: |
+          # Get commits since last release
+          COMMITS=$(git log ${{ steps.last_release.outputs.tag }}..HEAD --pretty=format:"- %s (%h)" --no-merges -- apps/web/)
 
-            Git commits since last release:
-            ```
-            ${{ steps.commits.outputs.list }}
-            ```
-
-            Requirements:
-            - Use standard release notes format
-            - Group changes into: Features, Bug Fixes, UI/UX Improvements, Documentation
-            - Be CONCISE - one line per change
-            - Use present tense
-            - No verbose descriptions
-            - Skip trivial changes (typos, formatting)
-
-            Format:
-            ## Features
-            - Feature description
-
-            ## Bug Fixes
-            - Fix description
-
-            ## UI/UX Improvements
-            - Improvement description
-
-            ## Documentation
-            - Doc change
-
-            Output ONLY the release notes, no extra commentary.
+          # Set output using delimiter
+          {
+            echo 'notes<<EOF'
+            echo "## Changes"
+            echo ""
+            echo "$COMMITS"
+            echo EOF
+          } >> $GITHUB_OUTPUT
 
       - name: Create tag
         if: steps.tag_check.outputs.exists == 'false'
@@ -121,7 +88,7 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           cat > release_notes.md << 'EOF'
-          ${{ steps.release_notes.outputs.result }}
+          ${{ steps.release_notes.outputs.notes }}
           EOF
 
           gh release create "${{ steps.version.outputs.tag }}" \

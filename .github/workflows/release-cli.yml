@@ -58,51 +58,26 @@ jobs:
           fi
           echo "tag=$LAST_TAG" >> $GITHUB_OUTPUT
 
-      - name: Get commit log
-        id: commits
+      - name: Extract changelog for this version
+        id: changelog
         if: steps.tag_check.outputs.exists == 'false'
         run: |
-          COMMITS=$(git log ${{ steps.last_release.outputs.tag }}..HEAD --pretty=format:"%h %s" --no-merges -- packages/cli/)
-          echo "list<<EOF" >> $GITHUB_OUTPUT
-          echo "$COMMITS" >> $GITHUB_OUTPUT
-          echo "EOF" >> $GITHUB_OUTPUT
+          VERSION="${{ steps.version.outputs.version }}"
 
-      - name: Generate release notes
-        id: release_notes
-        if: steps.tag_check.outputs.exists == 'false'
-        uses: anthropics/claude-code-action@v1
-        with:
-          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
-          model: claude-4-5-haiku-20250514
-          max_output_tokens: 2048
-          track_progress: false
-          prompt: |
-            Generate concise release notes for CLI version ${{ steps.version.outputs.version }}.
+          # Extract the section for this version from CHANGELOG.md
+          CHANGELOG=$(awk "/^## \[$VERSION\]/{flag=1; next} /^## \[/{flag=0} flag" packages/cli/CHANGELOG.md)
 
-            Git commits since last release:
-            ```
-            ${{ steps.commits.outputs.list }}
-            ```
+          if [ -z "$CHANGELOG" ]; then
+            echo "ERROR: No changelog entry found for version $VERSION in packages/cli/CHANGELOG.md"
+            exit 1
+          fi
 
-            Requirements:
-            - Use standard release notes format
-            - Group changes into: Features, Bug Fixes, Documentation, Refactoring
-            - Be CONCISE - one line per change
-            - Use present tense
-            - No verbose descriptions
-            - Skip trivial changes (typos, formatting)
-
-            Format:
-            ## Features
-            - Feature description
-
-            ## Bug Fixes
-            - Fix description
-
-            ## Documentation
-            - Doc change
-
-            Output ONLY the release notes, no extra commentary.
+          # Set output using delimiter
+          {
+            echo 'notes<<EOF'
+            echo "$CHANGELOG"
+            echo EOF
+          } >> $GITHUB_OUTPUT
 
       - name: Create tag
         if: steps.tag_check.outputs.exists == 'false'
@@ -118,7 +93,7 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           cat > release_notes.md << 'EOF'
-          ${{ steps.release_notes.outputs.result }}
+          ${{ steps.changelog.outputs.notes }}
           EOF
 
           gh release create "${{ steps.version.outputs.tag }}" \
