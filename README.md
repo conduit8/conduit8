@@ -56,6 +56,53 @@ Skills install to `~/.claude/skills/` and work automatically.
 
 All production-ready and tested.
 
+## 🛠️ Development Setup
+
+**For Conduit8 maintainers only.**
+
+### GitHub Packages Authentication
+
+The monorepo uses `@conduit8/core` private package from GitHub Packages.
+
+**Setup:**
+1. Create GitHub token with `read:packages` scope: https://github.com/settings/tokens/new
+2. Add to `~/.npmrc`:
+   ```bash
+   //npm.pkg.github.com/:_authToken=YOUR_GITHUB_TOKEN
+   ```
+   Or set environment variable:
+   ```bash
+   export GITHUB_TOKEN=your_token_here
+   ```
+
+**Package Access (Admin Only):**
+If granting repo access to the package:
+1. Go to https://github.com/orgs/conduit8/packages/npm/core/settings
+2. Under "Manage Actions access" → Add Repository
+3. Add `conduit8/conduit8` with **Read** permission
+
+**CI/CD Note:**
+- `ci.yml` requires `permissions: packages: read` and `GITHUB_TOKEN` env var
+- Package must grant access to the repository for Actions to install dependencies
+
+### Environment Variables
+
+**CLI:** Copy `apps/cli/.env.example` to `apps/cli/.env`
+- `CONDUIT8_API_URL` - Override API URL for local platform development
+
+**Web:** Copy `apps/web/.env.example` to `apps/web/.env.local`
+- Required: `VITE_BASE_URL`, `VITE_TURNSTILE_SITE_KEY`
+- Optional (for production): `VITE_SENTRY_DSN`, `SENTRY_AUTH_TOKEN`, `VITE_PUBLIC_POSTHOG_KEY`
+
+### Build & Test
+
+```bash
+pnpm install
+pnpm build
+pnpm test
+pnpm lint
+```
+
 ## 🤝 Contributing
 
 **Coming Soon** - Community contributions enabled in a future release.
