@@ -53,6 +53,9 @@ importers:
 
   apps/cli:
     dependencies:
+      '@conduit8/core':
+        specifier: link:../../../../Library/pnpm/global/5/node_modules/@conduit8/core
+        version: link:../../../../Library/pnpm/global/5/node_modules/@conduit8/core
       '@sentry/node':
         specifier: ^10.20.0
         version: 10.20.0
