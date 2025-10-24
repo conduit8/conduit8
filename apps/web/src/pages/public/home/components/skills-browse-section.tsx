@@ -77,14 +77,14 @@ export function SkillsBrowseSection({
             />
           </div>
 
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2 md:gap-4">
             <FilterDropdown
               label="Category"
               value={selectedCategories}
               onChange={onCategoryChange as (value: string | string[]) => void}
               options={CATEGORY_OPTIONS}
               multi
-              width="w-[140px]"
+              width="w-32"
             />
 
             <FilterDropdown
@@ -92,7 +92,7 @@ export function SkillsBrowseSection({
               value={sortBy}
               onChange={onSortChange as (value: string | string[]) => void}
               options={SORT_OPTIONS}
-              width="w-[160px]"
+              width="w-36"
             />
 
             <FilterDropdown
@@ -101,7 +101,7 @@ export function SkillsBrowseSection({
               onChange={onSourceChange as (value: string | string[]) => void}
               options={SOURCE_OPTIONS}
               multi
-              width="w-[120px]"
+              width="w-28"
             />
           </div>
         </div>
