@@ -17,7 +17,7 @@ import { useForm } from 'react-hook-form';
 import { useState } from 'react';
 
 import { TagsInput } from './tags-input';
-import { submitSkillFormSchema } from './submit-skill-form.schema.v2';
+import { submitSkillFormSchema, ALLOWED_FILE_EXTENSIONS } from './submit-skill-form.schema.v2';
 import { validateSkillMd, parseSkillFrontmatter } from '../../utils/create-skill-zip';
 
 import type { SubmitSkillFormValues } from './submit-skill-form.schema.v2';
@@ -235,6 +235,16 @@ export function SubmitSkillFormV2({ onSubmit, isLoading = false, defaultAuthor =
                 }}
               />
             </label>
+          </div>
+
+          {/* Helpful info about allowed file types */}
+          <div className="text-xs text-muted-foreground space-y-1">
+            <p className="font-medium">Allowed file types:</p>
+            <p>
+              Code (.js, .py, .sh, .ts, etc.), Docs (.md, .txt, .pdf),
+              Config (.json, .yaml, .toml), Templates (.mustache, .hbs),
+              Images (.png, .jpg, .svg)
+            </p>
           </div>
 
           {additionalFiles.length > 0 && (

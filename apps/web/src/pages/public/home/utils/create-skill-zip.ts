@@ -24,6 +24,24 @@ export interface SkillMetadata {
   curatorNote?: string | null;
 }
 
+/**
+ * Sanitize file name to prevent path traversal and invalid characters
+ * Removes: ../, ..\, absolute paths, control characters
+ * Preserves: alphanumeric, dots, hyphens, underscores
+ */
+export function sanitizeFileName(fileName: string): string {
+  // Remove any path components (get just the file name)
+  const baseName = fileName.split('/').pop()?.split('\\').pop() || 'unnamed';
+
+  // Remove or replace dangerous characters
+  return baseName
+    .replace(/\.\./g, '_') // Replace .. with _
+    .replace(/[/\\]/g, '_') // Replace slashes with _
+    .replace(/[^\w.-]/g, '_') // Replace non-word chars (except . - _) with _
+    .replace(/^\.+/, '_') // Don't allow files starting with dots
+    .slice(0, 255); // Limit length to filesystem max
+}
+
 export async function createSkillZip(
   skillMdContent: string,
   additionalFiles: File[],
@@ -46,9 +64,11 @@ export async function createSkillZip(
   zip.file('metadata.json', JSON.stringify(metadataJson, null, 2));
 
   // 3. Add additional files (scripts, resources, templates)
+  // Sanitize file names to prevent path traversal attacks
   for (const file of additionalFiles) {
     const fileContent = await file.arrayBuffer();
-    zip.file(file.name, fileContent);
+    const safeName = sanitizeFileName(file.name);
+    zip.file(safeName, fileContent);
   }
 
   // 4. Generate ZIP blob
