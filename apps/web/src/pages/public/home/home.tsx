@@ -3,12 +3,13 @@ import type { AuthUser } from '@web/lib/auth/models';
 import { useNavigate } from '@tanstack/react-router';
 import * as sections from '@web/pages/public/home/components';
 import { SignInModal } from '@web/pages/public/home/components/sign-in-modal';
+import { SubmitSkillDialog } from '@web/pages/public/home/components/submit-skill-dialog';
 
 import { PageLayout } from '@web/ui/components/layout/page/page-layout';
 
 import { HomeFooter } from './home-footer';
 import { HomeHeader } from './home-header';
-import { useSkillsBrowse, useSkillsFilter, useSkillsList } from './hooks';
+import { useSkillsBrowse, useSkillsFilter, useSkillsList, useSubmitSkillDialog } from './hooks';
 
 interface LandingPageProps {
   user: AuthUser | null;
@@ -20,6 +21,9 @@ export function HomePage({ user, loginModal }: LandingPageProps) {
 
   // Browse state
   const browse = useSkillsBrowse();
+
+  // Submit skill dialog state
+  const submitSkillDialog = useSubmitSkillDialog();
 
   // Fetch skills from API
   const { data, isLoading } = useSkillsList({
@@ -42,8 +46,7 @@ export function HomePage({ user, loginModal }: LandingPageProps) {
 
   const handleSubmitClick = () => {
     if (user) {
-      // TODO: Open submit skill dialog when implemented
-      console.log('Open submit dialog');
+      submitSkillDialog.open();
     }
     else {
       loginModal.open();
@@ -78,6 +81,11 @@ export function HomePage({ user, loginModal }: LandingPageProps) {
       <SignInModal
         open={loginModal.isOpen}
         onOpenChange={open => open ? loginModal.open() : loginModal.close()}
+      />
+
+      <SubmitSkillDialog
+        open={submitSkillDialog.isOpen}
+        onOpenChange={open => open ? submitSkillDialog.open() : submitSkillDialog.close()}
       />
     </>
   );
