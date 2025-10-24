@@ -1,9 +1,13 @@
 import type { AuthUser } from '@web/lib/auth/models';
 
+import { useState } from 'react';
 import { useNavigate } from '@tanstack/react-router';
+import { useQuery } from '@tanstack/react-query';
 import * as sections from '@web/pages/public/home/components';
 import { SignInModal } from '@web/pages/public/home/components/sign-in-modal';
 import { SubmitSkillDialog } from '@web/pages/public/home/components/submit-skill-dialog';
+import { skillsApi } from '@web/pages/public/home/services/skills-api.v2';
+import { SKILL_STATUS } from '@web/lib/types/skill-status';
 
 import { PageLayout } from '@web/ui/components/layout/page/page-layout';
 
@@ -25,11 +29,21 @@ export function HomePage({ user, loginModal }: LandingPageProps) {
   // Submit skill dialog state
   const submitSkillDialog = useSubmitSkillDialog();
 
-  // Fetch skills from API
+  // Status filter state (show pending skills or not)
+  const [showPendingSkills, setShowPendingSkills] = useState(true);
+
+  // Fetch pending count
+  const { data: pendingData } = useQuery({
+    queryKey: ['skills-pending-count'],
+    queryFn: () => skillsApi.list({ status: SKILL_STATUS.PENDING, limit: 1, offset: 0 }),
+  });
+
+  // Fetch skills from API (with status filter)
   const { data, isLoading } = useSkillsList({
     q: browse.searchQuery.trim().slice(0, 100) || undefined,
     limit: 100,
     offset: 0,
+    status: showPendingSkills ? undefined : SKILL_STATUS.APPROVED,
   });
 
   // Client-side filter and sort (category, source, sort not supported by API yet)
@@ -38,6 +52,8 @@ export function HomePage({ user, loginModal }: LandingPageProps) {
     sources: browse.selectedSources,
     sortBy: browse.sortBy,
   });
+
+  const pendingCount = pendingData?.pagination?.total || 0;
 
   const handleSkillClick = (skillId: string) => {
     // TODO: Navigate to skill detail page when implemented
@@ -75,6 +91,9 @@ export function HomePage({ user, loginModal }: LandingPageProps) {
           selectedSources={browse.selectedSources}
           onSourceChange={browse.setSources}
           onResetFilters={browse.resetFilters}
+          showPendingSkills={showPendingSkills}
+          onTogglePendingSkills={setShowPendingSkills}
+          pendingCount={pendingCount}
         />
       </PageLayout>
 
