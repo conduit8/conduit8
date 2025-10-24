@@ -37,16 +37,15 @@ catalogs:
       specifier: ^4.1.11
       version: 4.1.12
 
-overrides:
-  '@conduit8/core': link:../../Library/pnpm/global/5/node_modules/@conduit8/core
+pnpmfileChecksum: sha256-RhN9FyGoCRrN/lYiAWo5kg1nZck18LhjaMpDUFiCdPY=
 
 importers:
 
   .:
     dependencies:
       '@conduit8/core':
-        specifier: link:../../Library/pnpm/global/5/node_modules/@conduit8/core
-        version: link:../../Library/pnpm/global/5/node_modules/@conduit8/core
+        specifier: link:/Users/az/projects/conduit8-backend/packages/core
+        version: link:../conduit8-backend/packages/core
       core:
         specifier: link:../../Library/pnpm/global/5/node_modules/@conduit8/core
         version: link:../../Library/pnpm/global/5/node_modules/@conduit8/core
@@ -54,8 +53,8 @@ importers:
   apps/cli:
     dependencies:
       '@conduit8/core':
-        specifier: link:../../../../Library/pnpm/global/5/node_modules/@conduit8/core
-        version: link:../../../../Library/pnpm/global/5/node_modules/@conduit8/core
+        specifier: link:/Users/az/projects/conduit8-backend/packages/core
+        version: link:../../../conduit8-backend/packages/core
       '@sentry/node':
         specifier: ^10.20.0
         version: 10.20.0
@@ -121,8 +120,8 @@ importers:
         specifier: ^1.9.3
         version: 1.9.3(react@19.2.0)
       '@conduit8/core':
-        specifier: link:../../../../Library/pnpm/global/5/node_modules/@conduit8/core
-        version: link:../../../../Library/pnpm/global/5/node_modules/@conduit8/core
+        specifier: link:/Users/az/projects/conduit8-backend/packages/core
+        version: link:../../../conduit8-backend/packages/core
       '@hookform/resolvers':
         specifier: ^5.2.0
         version: 5.2.2(react-hook-form@7.65.0(react@19.2.0))

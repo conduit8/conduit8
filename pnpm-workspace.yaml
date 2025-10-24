@@ -16,6 +16,9 @@ catalog:
 
 minimumReleaseAge: 2880
 
+minimumReleaseAgeExclude:
+  - '@conduit8/core'
+
 onlyBuiltDependencies:
   - '@parcel/watcher'
   - '@sentry/cli'
@@ -26,6 +29,3 @@ onlyBuiltDependencies:
   - msw
   - sharp
   - workerd
-
-overrides:
-  '@conduit8/core': link:../../Library/pnpm/global/5/node_modules/@conduit8/core
