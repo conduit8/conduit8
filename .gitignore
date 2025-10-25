@@ -229,3 +229,8 @@ MANIFEST
 /scripts/.temp-zips
 /images/
 /scripts
+
+# ---------------------------
+# Backend Monorepo (Separate Git Repository)
+# ---------------------------
+backend/
