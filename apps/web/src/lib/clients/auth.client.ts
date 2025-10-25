@@ -1,6 +1,6 @@
 import { APP_ROUTES } from '@conduit8/core';
 import { settings } from '@web/lib/settings';
-import { magicLinkClient } from 'better-auth/client/plugins';
+import { inferAdditionalFields, magicLinkClient } from 'better-auth/client/plugins';
 import { createAuthClient } from 'better-auth/react';
 
 export const authClient = createAuthClient({
@@ -9,6 +9,13 @@ export const authClient = createAuthClient({
   baseURL: `${settings.app.baseUrl}${APP_ROUTES.auth.basePath}`,
   plugins: [
     magicLinkClient(),
+    inferAdditionalFields({
+      user: {
+        role: {
+          type: 'string',
+        },
+      },
+    }),
   ],
 });
 
