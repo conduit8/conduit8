@@ -105,12 +105,20 @@ export function useSkillsBrowse() {
     [],
   );
 
+  // Computed: Check if any filters are active (search query or filter selections)
+  // Note: sortBy is not a filter - it reorders but doesn't exclude results
+  const hasActiveFilters
+    = state.searchQuery.trim() !== ''
+    || state.selectedCategories.length > 0
+    || state.selectedSources.length > 0;
+
   return {
     // Current state
     searchQuery: state.searchQuery,
     selectedCategories: state.selectedCategories,
     sortBy: state.sortBy,
     selectedSources: state.selectedSources,
+    hasActiveFilters,
 
     // Stable setters
     setSearchQuery,
