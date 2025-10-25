@@ -9,7 +9,7 @@ import { AdminReviewPage } from '@web/pages/admin/review';
  */
 
 // TODO: Replace with actual admin email from environment variable
-const ADMIN_EMAIL = 'admin@conduit8.com';
+const ADMIN_EMAIL = 'azuevpersonal@gmail.com';
 
 export const Route = createFileRoute('/_authed/admin/review')({
   beforeLoad: async () => {

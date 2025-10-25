@@ -1,14 +1,15 @@
-import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { PageLayout } from '@web/ui/components/layout/page/page-layout';
-import { Button } from '@web/ui/components/atoms/buttons/button';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@web/ui/components/navigation/tabs';
-import { skillsApi } from '@web/pages/public/home/services/skills-api.v2';
-import { SKILL_STATUS } from '@web/lib/types/skill-status';
-import { SkillReviewCard } from './components/skill-review-card';
-import { SkillDetailDialog } from './components/skill-detail-dialog';
+import { useState } from 'react';
 
 import type { SkillStatus } from '@web/lib/types/skill-status';
+
+import { SKILL_STATUS } from '@web/lib/types/skill-status';
+import { skillsApi } from '@web/pages/public/home/services/skills-api.v2';
+import { PageLayout } from '@web/ui/components/layout/page/page-layout';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@web/ui/components/navigation/tabs';
+
+import { SkillDetailDialog } from './components/skill-detail-dialog';
+import { SkillReviewCard } from './components/skill-review-card';
 
 /**
  * Admin Review Page
@@ -48,10 +49,12 @@ export function AdminReviewPage() {
         </div>
 
         {/* Tabs */}
-        <Tabs value={selectedStatus} onValueChange={(v) => setSelectedStatus(v as SkillStatus)}>
+        <Tabs value={selectedStatus} onValueChange={v => setSelectedStatus(v as SkillStatus)}>
           <TabsList>
             <TabsTrigger value={SKILL_STATUS.PENDING}>
-              Pending {pendingCount > 0 && `(${pendingCount})`}
+              Pending
+              {' '}
+              {pendingCount > 0 && `(${pendingCount})`}
             </TabsTrigger>
             <TabsTrigger value={SKILL_STATUS.APPROVED}>
               Approved
@@ -63,71 +66,83 @@ export function AdminReviewPage() {
 
           {/* Pending Tab */}
           <TabsContent value={SKILL_STATUS.PENDING} className="space-y-4 mt-6">
-            {isLoading ? (
-              <div className="text-center py-12">
-                <p className="text-muted-foreground">Loading...</p>
-              </div>
-            ) : skills.length === 0 ? (
-              <div className="text-center py-12 border rounded-lg">
-                <p className="text-muted-foreground">No pending skills</p>
-              </div>
-            ) : (
-              <div className="grid gap-4">
-                {skills.map((skill) => (
-                  <SkillReviewCard
-                    key={skill.slug}
-                    skill={skill}
-                    onViewDetails={handleViewDetails}
-                  />
-                ))}
-              </div>
-            )}
+            {isLoading
+              ? (
+                  <div className="text-center py-12">
+                    <p className="text-muted-foreground">Loading...</p>
+                  </div>
+                )
+              : skills.length === 0
+                ? (
+                    <div className="text-center py-12 border rounded-lg">
+                      <p className="text-muted-foreground">No pending skills</p>
+                    </div>
+                  )
+                : (
+                    <div className="grid gap-4">
+                      {skills.map(skill => (
+                        <SkillReviewCard
+                          key={skill.slug}
+                          skill={skill}
+                          onViewDetails={handleViewDetails}
+                        />
+                      ))}
+                    </div>
+                  )}
           </TabsContent>
 
           {/* Approved Tab */}
           <TabsContent value={SKILL_STATUS.APPROVED} className="space-y-4 mt-6">
-            {isLoading ? (
-              <div className="text-center py-12">
-                <p className="text-muted-foreground">Loading...</p>
-              </div>
-            ) : skills.length === 0 ? (
-              <div className="text-center py-12 border rounded-lg">
-                <p className="text-muted-foreground">No approved skills</p>
-              </div>
-            ) : (
-              <div className="grid gap-4">
-                {skills.map((skill) => (
-                  <SkillReviewCard
-                    key={skill.slug}
-                    skill={skill}
-                    onViewDetails={handleViewDetails}
-                  />
-                ))}
-              </div>
-            )}
+            {isLoading
+              ? (
+                  <div className="text-center py-12">
+                    <p className="text-muted-foreground">Loading...</p>
+                  </div>
+                )
+              : skills.length === 0
+                ? (
+                    <div className="text-center py-12 border rounded-lg">
+                      <p className="text-muted-foreground">No approved skills</p>
+                    </div>
+                  )
+                : (
+                    <div className="grid gap-4">
+                      {skills.map(skill => (
+                        <SkillReviewCard
+                          key={skill.slug}
+                          skill={skill}
+                          onViewDetails={handleViewDetails}
+                        />
+                      ))}
+                    </div>
+                  )}
           </TabsContent>
 
           {/* Rejected Tab */}
           <TabsContent value={SKILL_STATUS.REJECTED} className="space-y-4 mt-6">
-            {isLoading ? (
-              <div className="text-center py-12">
-                <p className="text-muted-foreground">Loading...</p>
-              </div>
-            ) : skills.length === 0 ? (
-              <div className="text-center py-12 border rounded-lg">
-                <p className="text-muted-foreground">No rejected skills</p>
-              </div>
-            ) : (
-              <div className="grid gap-4">
-                {skills.map((skill) => (
-                  <SkillReviewCard
-                    key={skill.slug}
-                    skill={skill}
-                    onViewDetails={handleViewDetails}
-                  />
-                ))}
-              </div>
-            )}
+            {isLoading
+              ? (
+                  <div className="text-center py-12">
+                    <p className="text-muted-foreground">Loading...</p>
+                  </div>
+                )
+              : skills.length === 0
+                ? (
+                    <div className="text-center py-12 border rounded-lg">
+                      <p className="text-muted-foreground">No rejected skills</p>
+                    </div>
+                  )
+                : (
+                    <div className="grid gap-4">
+                      {skills.map(skill => (
+                        <SkillReviewCard
+                          key={skill.slug}
+                          skill={skill}
+                          onViewDetails={handleViewDetails}
+                        />
+                      ))}
+                    </div>
+                  )}
           </TabsContent>
         </Tabs>
 
