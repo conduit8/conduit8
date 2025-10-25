@@ -25,4 +25,3 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Background job processing with Cloudflare Queues
 - D1 database with Drizzle ORM
 - R2 storage for skill packages and media
-- Sentry error tracking integration

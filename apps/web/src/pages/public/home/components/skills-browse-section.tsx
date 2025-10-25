@@ -64,7 +64,7 @@ export function SkillsBrowseSection({
             {/* Status Toggle */}
             {onTogglePendingSkills && (
               <div className="flex items-center gap-2">
-                <Button
+                {/* <Button
                   variant={showPendingSkills ? "default" : "outline"}
                   size="sm"
                   onClick={() => onTogglePendingSkills(true)}
@@ -77,7 +77,7 @@ export function SkillsBrowseSection({
                   onClick={() => onTogglePendingSkills(false)}
                 >
                   Approved Only
-                </Button>
+                </Button> */}
               </div>
             )}
           </div>
