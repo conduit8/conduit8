@@ -87,9 +87,10 @@ export function HomePage({ user, loginModal }: LandingPageProps) {
           selectedSources={browse.selectedSources}
           onSourceChange={browse.setSources}
           onResetFilters={browse.resetFilters}
-          // showPendingSkills={showPendingSkills}
-          // onTogglePendingSkills={setShowPendingSkills}
-          // pendingCount={pendingCount}
+          hasActiveFilters={browse.hasActiveFilters}
+        // showPendingSkills={showPendingSkills}
+        // onTogglePendingSkills={setShowPendingSkills}
+        // pendingCount={pendingCount}
         />
       </PageLayout>
 
