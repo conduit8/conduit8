@@ -36,7 +36,7 @@ import {
 
 import type { SubmitSkillFormValues } from './submit-skill-form.schema';
 
-import { useZipUpload } from '../../hooks/use-zip-upload';
+import { useSkillPackageParser } from '../../hooks/use-skill-package-parser';
 import { submitSkillFormSchema } from './submit-skill-form.schema';
 
 interface SubmitSkillFormProps {
@@ -44,6 +44,14 @@ interface SubmitSkillFormProps {
   onCancel: () => void;
   isSubmitting?: boolean;
 }
+
+/**
+ * Accepted skill package formats
+ * Business logic: Skill packages must be ZIP files
+ */
+const ACCEPTED_SKILL_PACKAGE_FORMATS = {
+  'application/zip': ['.zip'],
+} as const;
 
 const CATEGORY_LABELS: Record<(typeof SKILL_CATEGORIES)[number], string> = {
   development: 'Development',
@@ -76,7 +84,7 @@ const CATEGORY_ICONS: Record<(typeof SKILL_CATEGORIES)[number], typeof CodeIcon>
 };
 
 export function SubmitSkillForm({ onSubmit, onCancel, isSubmitting = false }: SubmitSkillFormProps) {
-  const { zipFile, parsedZip, isLoading: isParsingZip, error: parseError, handleUpload, reset } = useZipUpload();
+  const { skillPackage, isParsing, error: parseError, parseFile, reset } = useSkillPackageParser();
 
   const form = useForm<SubmitSkillFormValues>({
     resolver: zodResolver(submitSkillFormSchema),
@@ -92,20 +100,23 @@ export function SubmitSkillForm({ onSubmit, onCancel, isSubmitting = false }: Su
       if (!file)
         return;
 
-      await handleUpload(file);
-      form.setValue('zipFile', file);
-      form.clearErrors('zipFile');
+      const result = await parseFile(file);
+      if (result.success) {
+        form.setValue('zipFile', file);
+        form.clearErrors('zipFile');
+      }
+      else {
+        form.setError('zipFile', { message: result.error });
+      }
     },
-    [handleUpload, form],
+    [parseFile, form],
   );
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
-    accept: {
-      'application/zip': ['.zip'],
-    },
+    accept: ACCEPTED_SKILL_PACKAGE_FORMATS,
     maxFiles: 1,
-    disabled: isParsingZip || isSubmitting,
+    disabled: isParsing || isSubmitting,
   });
 
   const handleRemoveZip = () => {
@@ -114,10 +125,6 @@ export function SubmitSkillForm({ onSubmit, onCancel, isSubmitting = false }: Su
   };
 
   const handleFormSubmit = (values: SubmitSkillFormValues) => {
-    if (!parsedZip) {
-      form.setError('zipFile', { message: 'Please upload a valid ZIP file' });
-      return;
-    }
     onSubmit(values);
   };
 
@@ -132,7 +139,7 @@ export function SubmitSkillForm({ onSubmit, onCancel, isSubmitting = false }: Su
             <FormItem>
               <FormLabel className="font-semibold">Skill Package</FormLabel>
               <FormControl>
-                {!zipFile
+                {!skillPackage
                   ? (
                     <div
                       {...getRootProps()}
@@ -140,7 +147,7 @@ export function SubmitSkillForm({ onSubmit, onCancel, isSubmitting = false }: Su
                         border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-colors
                         min-h-36 flex flex-col items-center justify-center
                         ${isDragActive ? 'border-accent bg-accent/5' : 'border-border hover:border-accent/50'}
-                        ${isParsingZip || isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}
+                        ${isParsing || isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}
                       `}
                     >
                       <input {...getInputProps()} />
@@ -168,9 +175,9 @@ export function SubmitSkillForm({ onSubmit, onCancel, isSubmitting = false }: Su
                         <div className="flex items-center gap-3 flex-1 min-w-0">
                           <FileArchiveIcon className="size-5 text-accent shrink-0" />
                           <div className="min-w-0 flex-1">
-                            <p className="text-sm font-medium truncate">{zipFile.name}</p>
+                            <p className="text-sm font-medium truncate">{skillPackage.getFile().name}</p>
                             <p className="text-xs text-muted-foreground">
-                              {(zipFile.size / 1024 / 1024).toFixed(2)}
+                              {(skillPackage.getTotalSize() / 1024 / 1024).toFixed(2)}
                               {' '}
                               MB
                             </p>
@@ -181,14 +188,14 @@ export function SubmitSkillForm({ onSubmit, onCancel, isSubmitting = false }: Su
                           variant="ghost"
                           size="sm"
                           onClick={handleRemoveZip}
-                          disabled={isParsingZip || isSubmitting}
+                          disabled={isParsing || isSubmitting}
                         >
                           <XIcon className="size-4" />
                         </Button>
                       </div>
 
                       {/* Loading state */}
-                      {isParsingZip && (
+                      {isParsing && (
                         <div className="flex items-center gap-2 text-sm text-muted-foreground">
                           <CircleNotchIcon className="size-4 animate-spin" />
                           <span>Parsing ZIP file...</span>
@@ -203,47 +210,47 @@ export function SubmitSkillForm({ onSubmit, onCancel, isSubmitting = false }: Su
                       )}
 
                       {/* Parsed preview */}
-                      {parsedZip && (
+                      {skillPackage && (
                         <div className="space-y-3">
                           {/* Skill info */}
                           <div className="bg-muted/30 rounded-md p-3 space-y-2">
                             <div>
                               <p className="text-xs text-muted-foreground">Name</p>
-                              <p className="text-sm font-medium">{parsedZip.skillMd.frontmatter.name}</p>
+                              <p className="text-sm font-medium">{skillPackage.getFrontmatter().name}</p>
                             </div>
                             <div>
                               <p className="text-xs text-muted-foreground">Description</p>
-                              <p className="text-sm">{parsedZip.skillMd.frontmatter.description}</p>
+                              <p className="text-sm">{skillPackage.getFrontmatter().description}</p>
                             </div>
-                            {parsedZip.skillMd.excerpt && (
+                            {skillPackage.getExcerpt() && (
                               <div>
                                 <p className="text-xs text-muted-foreground">Content Preview</p>
                                 <p className="text-xs text-muted-foreground italic">
-                                  {parsedZip.skillMd.excerpt}
+                                  {skillPackage.getExcerpt()}
                                 </p>
                               </div>
                             )}
                           </div>
 
                           {/* File list */}
-                          {parsedZip.files.length > 0 && (
+                          {skillPackage.getFiles().length > 0 && (
                             <div className="space-y-2">
                               <p className="text-xs font-medium">
                                 Files (
-                                {parsedZip.files.length}
+                                {skillPackage.getFiles().length}
                                 )
                               </p>
                               <div className="bg-muted/30 rounded-md p-2 space-y-1 text-xs font-mono max-h-32 overflow-y-auto">
-                                {parsedZip.files.slice(0, 10).map(file => (
+                                {skillPackage.getFiles().slice(0, 10).map(file => (
                                   <div key={file.name} className="truncate">
                                     {file.name}
                                   </div>
                                 ))}
-                                {parsedZip.files.length > 10 && (
+                                {skillPackage.getFiles().length > 10 && (
                                   <p className="text-muted-foreground italic">
                                     ...and
                                     {' '}
-                                    {parsedZip.files.length - 10}
+                                    {skillPackage.getFiles().length - 10}
                                     {' '}
                                     more
                                   </p>
@@ -262,7 +269,7 @@ export function SubmitSkillForm({ onSubmit, onCancel, isSubmitting = false }: Su
         />
 
         {/* Category - only show after successful ZIP upload */}
-        {parsedZip && (
+        {skillPackage && (
           <FormField
             control={form.control}
             name="category"
@@ -331,7 +338,7 @@ export function SubmitSkillForm({ onSubmit, onCancel, isSubmitting = false }: Su
           <Button
             type="submit"
             variant="accent"
-            disabled={!parsedZip || isSubmitting || isParsingZip}
+            disabled={!skillPackage || isSubmitting || isParsing}
           >
             {isSubmitting && <CircleNotchIcon className="animate-spin" />}
             {isSubmitting ? 'Submitting...' : 'Submit Skill'}

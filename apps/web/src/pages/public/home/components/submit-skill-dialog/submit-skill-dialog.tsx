@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { toast } from 'sonner';
 
 import {
@@ -23,7 +24,11 @@ interface SubmitSkillDialogProps {
  * Backend auto-generates author username and profile link
  */
 export function SubmitSkillDialog({ open, onOpenChange }: SubmitSkillDialogProps) {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const handleSubmit = async (values: SubmitSkillFormValues) => {
+    setIsSubmitting(true);
+
     try {
       // TODO: Replace with actual API call
       console.log('Submitting skill:', values);
@@ -38,14 +43,22 @@ export function SubmitSkillDialog({ open, onOpenChange }: SubmitSkillDialogProps
       toast.error('Failed to submit skill');
       console.error('Submission error:', error);
     }
+    finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleCancel = () => {
     onOpenChange(false);
   };
 
+  const handleOpenChange = (open: boolean) => {
+    if (isSubmitting) return;
+    onOpenChange(open);
+  };
+
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
+    <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogContent variant="responsive" className="sm:max-w-2xl">
         <DialogHeader>
           <DialogTitle>Submit a Skill</DialogTitle>
@@ -58,6 +71,7 @@ export function SubmitSkillDialog({ open, onOpenChange }: SubmitSkillDialogProps
         <SubmitSkillForm
           onSubmit={handleSubmit}
           onCancel={handleCancel}
+          isSubmitting={isSubmitting}
         />
       </DialogContent>
     </Dialog>

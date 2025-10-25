@@ -109,8 +109,8 @@ export function useSkillsBrowse() {
   // Note: sortBy is not a filter - it reorders but doesn't exclude results
   const hasActiveFilters
     = state.searchQuery.trim() !== ''
-    || state.selectedCategories.length > 0
-    || state.selectedSources.length > 0;
+      || state.selectedCategories.length > 0
+      || state.selectedSources.length > 0;
 
   return {
     // Current state

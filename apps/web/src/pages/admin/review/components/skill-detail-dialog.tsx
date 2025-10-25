@@ -1,16 +1,15 @@
-import { useState, useEffect } from 'react';
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { SKILL_CATEGORIES } from '@conduit8/core';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { Check, Copy, Download, Loader2, X } from 'lucide-react';
+import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from '@web/ui/components/overlays/dialog';
+
+import type { UpdateSkillMetadataPayload } from '@web/pages/public/home/services/skills-api.v2';
+
+import { skillsApi } from '@web/pages/public/home/services/skills-api.v2';
 import { Button } from '@web/ui/components/atoms/buttons/button';
+import { Badge } from '@web/ui/components/atoms/indicators/badge';
 import { Input } from '@web/ui/components/atoms/inputs/input';
-import { Textarea } from '@web/ui/components/atoms/inputs/textarea';
 import {
   Select,
   SelectContent,
@@ -18,12 +17,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@web/ui/components/atoms/inputs/select';
-import { Badge } from '@web/ui/components/atoms/indicators/badge';
-import { Loader2, Check, X, Download, Copy } from 'lucide-react';
-import { SKILL_CATEGORIES } from '@conduit8/core';
-import { skillsApi } from '@web/pages/public/home/services/skills-api.v2';
-import { TagsInput } from '@web/pages/public/home/components/submit-skill-dialog/tags-input';
-import type { UpdateSkillMetadataPayload } from '@web/pages/public/home/services/skills-api.v2';
+import { Textarea } from '@web/ui/components/atoms/inputs/textarea';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from '@web/ui/components/overlays/dialog';
 
 interface SkillDetailDialogProps {
   slug: string;
@@ -159,7 +160,7 @@ export function SkillDetailDialog({ slug, open, onClose }: SkillDetailDialogProp
                   <label className="text-sm font-medium">Display Name</label>
                   <Input
                     value={editedData.displayName}
-                    onChange={(e) => setEditedData({ ...editedData, displayName: e.target.value })}
+                    onChange={e => setEditedData({ ...editedData, displayName: e.target.value })}
                     className="mt-1"
                   />
                 </div>
@@ -169,7 +170,7 @@ export function SkillDetailDialog({ slug, open, onClose }: SkillDetailDialogProp
                   <label className="text-sm font-medium">Description</label>
                   <Textarea
                     value={editedData.description}
-                    onChange={(e) => setEditedData({ ...editedData, description: e.target.value })}
+                    onChange={e => setEditedData({ ...editedData, description: e.target.value })}
                     rows={3}
                     className="mt-1"
                   />
@@ -180,13 +181,13 @@ export function SkillDetailDialog({ slug, open, onClose }: SkillDetailDialogProp
                   <label className="text-sm font-medium">Category</label>
                   <Select
                     value={editedData.category}
-                    onValueChange={(v) => setEditedData({ ...editedData, category: v })}
+                    onValueChange={v => setEditedData({ ...editedData, category: v })}
                   >
                     <SelectTrigger className="mt-1">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
-                      {SKILL_CATEGORIES.map((cat) => (
+                      {SKILL_CATEGORIES.map(cat => (
                         <SelectItem key={cat} value={cat}>
                           {cat.charAt(0).toUpperCase() + cat.slice(1)}
                         </SelectItem>
@@ -195,23 +196,12 @@ export function SkillDetailDialog({ slug, open, onClose }: SkillDetailDialogProp
                   </Select>
                 </div>
 
-                {/* Examples */}
-                <div>
-                  <label className="text-sm font-medium">Examples</label>
-                  <TagsInput
-                    value={editedData.examples || []}
-                    onChange={(tags) => setEditedData({ ...editedData, examples: tags })}
-                    placeholder="Add example"
-                    className="mt-1"
-                  />
-                </div>
-
                 {/* Curator Note */}
                 <div>
                   <label className="text-sm font-medium">Curator Note (Optional)</label>
                   <Textarea
                     value={editedData.curatorNote || ''}
-                    onChange={(e) => setEditedData({ ...editedData, curatorNote: e.target.value })}
+                    onChange={e => setEditedData({ ...editedData, curatorNote: e.target.value })}
                     rows={2}
                     placeholder="Internal note about this skill..."
                     className="mt-1"
@@ -248,7 +238,13 @@ export function SkillDetailDialog({ slug, open, onClose }: SkillDetailDialogProp
                 </div>
                 <div>
                   <span className="text-muted-foreground">Source:</span>
-                  <p>{skillData.sourceType} • {skillData.sourceUrl}</p>
+                  <p>
+                    {skillData.sourceType}
+                    {' '}
+                    •
+                    {' '}
+                    {skillData.sourceUrl}
+                  </p>
                 </div>
                 <div>
                   <span className="text-muted-foreground">Examples:</span>
@@ -292,7 +288,12 @@ export function SkillDetailDialog({ slug, open, onClose }: SkillDetailDialogProp
               </Button>
             </div>
             <p className="text-xs text-muted-foreground">
-              Command: <code className="bg-muted px-1 py-0.5 rounded">npx conduit8 install {slug}</code>
+              Command:
+              {' '}
+              <code className="bg-muted px-1 py-0.5 rounded">
+                npx conduit8 install
+                {slug}
+              </code>
             </p>
           </div>
 
