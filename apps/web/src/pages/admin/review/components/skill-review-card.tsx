@@ -1,7 +1,8 @@
-import { Badge } from '@web/ui/components/atoms/indicators/badge';
-import { Button } from '@web/ui/components/atoms/buttons/button';
-import { Card } from '@web/ui/components/layout/containers/card';
 import type { SkillData } from '@conduit8/core';
+
+import { Button } from '@web/ui/components/atoms/buttons/button';
+import { Badge } from '@web/ui/components/atoms/indicators/badge';
+import { Card } from '@web/ui/components/layout/containers/card';
 
 interface SkillReviewCardProps {
   skill: SkillData;
@@ -27,9 +28,15 @@ export function SkillReviewCard({ skill, onViewDetails }: SkillReviewCardProps) 
           </p>
 
           <div className="flex items-center gap-4 text-xs text-muted-foreground">
-            <span>By: {skill.author}</span>
+            <span>
+              By:
+              {skill.author}
+            </span>
             <span>•</span>
-            <span>Source: {skill.sourceType}</span>
+            <span>
+              Source:
+              {skill.sourceType}
+            </span>
           </div>
         </div>
 

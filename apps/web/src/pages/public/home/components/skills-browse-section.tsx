@@ -28,6 +28,7 @@ interface SkillsBrowseSectionProps {
   selectedSources: SourceValue[];
   onSourceChange: (sources: SourceValue[]) => void;
   onResetFilters: () => void;
+  hasActiveFilters: boolean;
   showPendingSkills?: boolean;
   onTogglePendingSkills?: (show: boolean) => void;
   pendingCount?: number;
@@ -46,6 +47,7 @@ export function SkillsBrowseSection({
   selectedSources,
   onSourceChange,
   onResetFilters,
+  hasActiveFilters,
   showPendingSkills = true,
   onTogglePendingSkills,
   pendingCount = 0,
@@ -155,7 +157,7 @@ export function SkillsBrowseSection({
             )
           : skills.length === 0
             ? (
-                <EmptyState onResetFilters={onResetFilters} />
+                <EmptyState onResetFilters={onResetFilters} hasActiveFilters={hasActiveFilters} />
               )
             : (
                 <ContentGrid columns={3} className="w-full">
