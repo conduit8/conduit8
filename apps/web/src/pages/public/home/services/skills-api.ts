@@ -4,12 +4,7 @@ import { getApiRoute } from '@conduit8/core';
 import { api } from '@web/lib/clients';
 
 export interface SubmitSkillPayload {
-  displayName: string;
-  description: string;
-  category: string;
-  allowedTools: string[];
-  examples: string[];
-  zipFile: File;
+  zipFile: File; // Complete ZIP package created by frontend
 }
 
 export interface SubmitSkillResponse {
@@ -24,19 +19,32 @@ export const skillsApi = {
   },
 
   submit: async (payload: SubmitSkillPayload): Promise<SubmitSkillResponse> => {
+    // ============================================================================
+    // STUBBED FOR TESTING - TODO: Implement real backend endpoint
+    // ============================================================================
+    // Real implementation when backend is ready:
+    /*
     const formData = new FormData();
-    formData.append('displayName', payload.displayName);
-    formData.append('description', payload.description);
-    formData.append('category', payload.category);
-    formData.append('allowedTools', JSON.stringify(payload.allowedTools));
-    formData.append('examples', JSON.stringify(payload.examples));
     formData.append('zipFile', payload.zipFile);
 
     return api.post(getApiRoute('skills'), {
       body: formData,
       headers: {
-        // Let the browser set Content-Type with boundary for multipart/form-data
+        // Let browser set Content-Type with boundary for multipart/form-data
       },
     });
+    */
+
+    // STUB: Simulate API call with 1.5s delay
+    console.log('[STUB] Submitting skill ZIP:', payload.zipFile.name, payload.zipFile.size, 'bytes');
+    await new Promise(resolve => setTimeout(resolve, 1500));
+
+    // Mock successful response
+    return {
+      success: true,
+      message: 'Skill submitted successfully! It will be reviewed shortly.',
+      skillSlug: 'mock-skill-' + Date.now(),
+    };
+    // ============================================================================
   },
 };
