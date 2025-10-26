@@ -28,8 +28,8 @@ export function UserDropdownMenu({ user, imageOnly = false }: UserDropdownMenuPr
 
   // Fetch pending submissions count
   const { data: countData } = useQuery({
-    queryKey: ['my-submissions-count'],
-    queryFn: () => skillsApi.getMySubmissionsCount(),
+    queryKey: ['submissions-count'],
+    queryFn: () => skillsApi.getSubmissionsCount(),
   });
 
   const pendingCount = countData?.data.pending || 0;
