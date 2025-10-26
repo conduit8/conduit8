@@ -112,6 +112,13 @@ async function rejectSubmission(
   return api.post<RejectSubmissionResponse>(route, request);
 }
 
+/**
+ * Get submissions count (role-based)
+ */
+async function getSubmissionsCount(): Promise<GetSubmissionsCountResponse> {
+  return api.get<GetSubmissionsCountResponse>(getApiRoute('submissions_count'));
+}
+
 export const skillsApi = {
   checkSkillName,
   listSkills,
@@ -120,4 +127,5 @@ export const skillsApi = {
   listAdminSubmissions,
   approveSubmission,
   rejectSubmission,
+  getSubmissionsCount,
 };
