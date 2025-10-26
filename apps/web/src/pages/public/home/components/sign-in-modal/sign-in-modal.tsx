@@ -80,7 +80,7 @@ export function SignInModal({
       try {
         const result = await signInWithMagicLink(
           data.email,
-          `${settings.site.url}/dashboard`,
+          `${settings.site.url}/`,
           turnstileToken,
         );
         if (result.success) {
