@@ -11,10 +11,10 @@ const badgeVariants = cva(
     variants: {
       variant: {
         neutral: 'bg-muted/40 border-border text-foreground',
-        success: 'bg-success/10 border-success/20 text-success',
-        warning: 'bg-warning/10 border-warning/20 text-warning',
-        destructive: 'bg-destructive/10 border-destructive/20 text-destructive',
-        info: 'bg-info/10 border-info/20 text-info',
+        success: 'bg-success/10 border-success/20 text-success-muted-foreground',
+        warning: 'bg-warning/10 border-warning/20 text-warning-muted-foreground',
+        destructive: 'bg-destructive/10 border-destructive/20 text-destructive-muted-foreground',
+        info: 'bg-info/10 border-info/20 text-info-muted-foreground',
         outline: 'border-border text-muted-foreground',
       },
     },
