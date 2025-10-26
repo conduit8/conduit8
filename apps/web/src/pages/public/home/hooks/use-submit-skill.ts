@@ -21,8 +21,8 @@ export function useSubmitSkill() {
       // Invalidate skills list to refetch with new skill
       queryClient.invalidateQueries({ queryKey: ['skills'] });
 
-      // Invalidate submissions to update pending count in user dropdown
-      queryClient.invalidateQueries({ queryKey: ['submissions'] });
+      // Invalidate submission counts to update badge in user dropdown
+      queryClient.invalidateQueries({ queryKey: ['submissions', 'counts'] });
 
       // Show success toast
       toast.success('Skill submitted successfully');
