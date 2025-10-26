@@ -111,8 +111,8 @@ importers:
         specifier: ^1.9.3
         version: 1.9.3(react@19.2.0)
       '@conduit8/core':
-        specifier: ^0.1.14
-        version: 0.1.14
+        specifier: ^0.1.17
+        version: 0.1.17
       '@hookform/resolvers':
         specifier: ^5.2.0
         version: 5.2.2(react-hook-form@7.65.0(react@19.2.0))
@@ -792,8 +792,8 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@conduit8/core@0.1.14':
-    resolution: {integrity: sha512-hD2ZBQ+CqA8pklzpg86nKJ1Vc+sFg1wopK+ua80Srk7yPxxl2EKz245fCLoPDgabC/6ZaMnPLqhI8+nXRfBKvg==, tarball: https://npm.pkg.github.com/download/@conduit8/core/0.1.14/05e4d3bb582ffb8d66840e6d6a910c7b83a373bb}
+  '@conduit8/core@0.1.17':
+    resolution: {integrity: sha512-+w1/jIpxzCvEBD6APeyJtPTeLH4ctwRY3fTdWvHqLux99bFopb+f7aysLPsYz1glvb2cFXI5Y2grgMWI6yGPVQ==, tarball: https://npm.pkg.github.com/download/@conduit8/core/0.1.17/73b76266ba4d3e233aa1f447339e77c4fcae7bdb}
 
   '@conduit8/core@0.1.2':
     resolution: {integrity: sha512-hXw9JQ5j/hwRKsaWjTEaPlPTrJfpBti4gGlDxnEVtJrEpTsnx2ol8opMoJkCMXq8P93VN0hdUylksuxLKBW4pg==, tarball: https://npm.pkg.github.com/download/@conduit8/core/0.1.2/ccfeeefabb27b3512386c501607aacd7df99819a}
@@ -7708,7 +7708,7 @@ snapshots:
   '@cloudflare/workerd-windows-64@1.20251011.0':
     optional: true
 
-  '@conduit8/core@0.1.14':
+  '@conduit8/core@0.1.17':
     dependencies:
       '@slack/types': 2.18.0
       camelcase-keys: 9.1.3
