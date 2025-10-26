@@ -22,7 +22,8 @@ export function removeSubmissionFromList(
   data: SubmissionsResponse | undefined,
   submissionId: string,
 ): SubmissionsResponse | undefined {
-  if (!data) return data;
+  if (!data)
+    return data;
 
   return {
     ...data,
@@ -44,7 +45,8 @@ export function addSubmissionToList(
   submission: Submission,
   newStatus: SubmissionStatus,
 ): SubmissionsResponse | undefined {
-  if (!data) return data;
+  if (!data)
+    return data;
 
   // Update submission status
   const updatedSubmission = {

@@ -4,12 +4,12 @@ import { SUBMISSION_STATUS } from '@conduit8/core';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
 
-import { skillsApi } from '@web/pages/public/home/services/skills-api';
 import {
   addSubmissionToList,
   buildSubmissionsQueryKey,
   removeSubmissionFromList,
 } from '@web/pages/admin/review/utils/optimistic-updates';
+import { skillsApi } from '@web/pages/public/home/services/skills-api';
 
 type SubmissionsResponse = ListPendingSubmissionsResponse;
 

@@ -11,7 +11,6 @@ import {
   trackSkillCategorySelected,
   trackSkillSubmissionStarted,
 } from '@web/lib/analytics';
-import { SKILL_CATEGORY_ICONS, SKILL_CATEGORY_LABELS } from '@web/pages/shared/models/skill-categories';
 import { Button } from '@web/ui/components/atoms/buttons';
 import {
   Select,
@@ -24,6 +23,7 @@ import { useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { useForm } from 'react-hook-form';
 
+import { SKILL_CATEGORY_ICONS, SKILL_CATEGORY_LABELS } from '@web/pages/shared/models/skill-categories';
 import {
   Form,
   FormControl,
