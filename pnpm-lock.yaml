@@ -44,8 +44,8 @@ importers:
   apps/cli:
     dependencies:
       '@conduit8/core':
-        specifier: ^0.1.2
-        version: 0.1.2
+        specifier: ^0.1.17
+        version: 0.1.17
       '@sentry/node':
         specifier: ^10.20.0
         version: 10.21.0
@@ -794,9 +794,6 @@ packages:
 
   '@conduit8/core@0.1.17':
     resolution: {integrity: sha512-+w1/jIpxzCvEBD6APeyJtPTeLH4ctwRY3fTdWvHqLux99bFopb+f7aysLPsYz1glvb2cFXI5Y2grgMWI6yGPVQ==, tarball: https://npm.pkg.github.com/download/@conduit8/core/0.1.17/73b76266ba4d3e233aa1f447339e77c4fcae7bdb}
-
-  '@conduit8/core@0.1.2':
-    resolution: {integrity: sha512-hXw9JQ5j/hwRKsaWjTEaPlPTrJfpBti4gGlDxnEVtJrEpTsnx2ol8opMoJkCMXq8P93VN0hdUylksuxLKBW4pg==, tarball: https://npm.pkg.github.com/download/@conduit8/core/0.1.2/ccfeeefabb27b3512386c501607aacd7df99819a}
 
   '@cspotcode/source-map-support@0.8.1':
     resolution: {integrity: sha512-IchNf6dN4tHoMFIn/7OE8LWZ19Y6q/67Bmf6vnGREv8RSbBVb9LPJxEcnwrcwX6ixSvaiGoomAUvu4YSxXrVgw==}
@@ -2892,10 +2889,6 @@ packages:
   '@sindresorhus/is@7.1.0':
     resolution: {integrity: sha512-7F/yz2IphV39hiS2zB4QYVkivrptHHh0K8qJJd9HhuWSdvf8AN7NpebW3CcDZDBQsUPMoDKWsY2WWgW7bqOcfA==}
     engines: {node: '>=18'}
-
-  '@slack/types@2.17.0':
-    resolution: {integrity: sha512-30KdPUBGJczlchnV8tKSxFG1yPk6rb8waba6HAoNHOy99zomzovQo6WpH9vQsY0g3RlxgVLojxKMRe0WjEjFWw==}
-    engines: {node: '>= 12.13.0', npm: '>= 6.12.0'}
 
   '@slack/types@2.18.0':
     resolution: {integrity: sha512-ZKrdeoppbM+3l2KKOi4/3oFYKCEwiW3dQfdHZDcecJ9rAmEqWPnARYmac9taZNitb0xnSgu6GOpHgwaKI8se2g==}
@@ -7715,13 +7708,6 @@ snapshots:
       snakecase-keys: 9.0.2
       zod: 4.1.12
 
-  '@conduit8/core@0.1.2':
-    dependencies:
-      '@slack/types': 2.17.0
-      camelcase-keys: 9.1.3
-      snakecase-keys: 9.0.2
-      zod: 4.1.12
-
   '@cspotcode/source-map-support@0.8.1':
     dependencies:
       '@jridgewell/trace-mapping': 0.3.9
@@ -9833,8 +9819,6 @@ snapshots:
       '@peculiar/x509': 1.14.0
 
   '@sindresorhus/is@7.1.0': {}
-
-  '@slack/types@2.17.0': {}
 
   '@slack/types@2.18.0': {}
 

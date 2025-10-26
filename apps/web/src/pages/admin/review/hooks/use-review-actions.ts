@@ -65,6 +65,9 @@ export function useApproveSubmission() {
       // Invalidate all submission queries to refetch
       queryClient.invalidateQueries({ queryKey: ['submissions'] });
 
+      // Invalidate skills queries to refresh home page
+      queryClient.invalidateQueries({ queryKey: ['skills'] });
+
       toast.success('Skill approved successfully');
     },
 
