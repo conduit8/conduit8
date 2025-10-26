@@ -127,15 +127,15 @@ export function SkillsReviewPage() {
           ? (
               <Tabs value={selectedStatus} onValueChange={v => setSelectedStatus(v as SubmissionStatus)}>
                 <TabsList>
-                  <TabsTrigger value={SUBMISSION_STATUS.PENDING_REVIEW}>
+                  <TabsTrigger value={SUBMISSION_STATUS.PENDING_REVIEW} className="w-32">
                     Pending
                     {' '}
                     {pendingCount > 0 && `(${pendingCount})`}
                   </TabsTrigger>
-                  <TabsTrigger value={SUBMISSION_STATUS.APPROVED}>
+                  <TabsTrigger value={SUBMISSION_STATUS.APPROVED} className="w-32">
                     Approved
                   </TabsTrigger>
-                  <TabsTrigger value={SUBMISSION_STATUS.REJECTED}>
+                  <TabsTrigger value={SUBMISSION_STATUS.REJECTED} className="w-32">
                     Rejected
                   </TabsTrigger>
                 </TabsList>
