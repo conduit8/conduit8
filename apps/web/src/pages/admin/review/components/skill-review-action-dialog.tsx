@@ -71,7 +71,8 @@ export function SkillReviewActionDialog({
 
   const handleConfirm = () => {
     const trimmed = value.trim();
-    if (config.required && !trimmed) return;
+    if (config.required && !trimmed)
+      return;
 
     onConfirm(trimmed || undefined);
     setValue('');

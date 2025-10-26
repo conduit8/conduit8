@@ -69,7 +69,8 @@ export function SkillReviewCard({
           },
         },
       );
-    } else if (dialogMode === 'reject' && value) {
+    }
+    else if (dialogMode === 'reject' && value) {
       reject(
         { submissionId: skill.id, request: { reason: value } },
         {

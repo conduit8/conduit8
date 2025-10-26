@@ -1,18 +1,17 @@
-import { describe, expect, it } from 'vitest';
-
 import { SUBMISSION_STATUS } from '@conduit8/core';
-
-import {
-  createSubmission,
-  createSubmissions,
-  createSubmissionsResponse,
-} from '../factories/submission.factory';
+import { describe, expect, it } from 'vitest';
 
 import {
   addSubmissionToList,
   buildSubmissionsQueryKey,
   removeSubmissionFromList,
 } from '@web/pages/admin/review/utils/optimistic-updates';
+
+import {
+  createSubmission,
+  createSubmissions,
+  createSubmissionsResponse,
+} from '../factories/submission.factory';
 
 describe('optimistic-updates', () => {
   describe('removeSubmissionFromList', () => {
