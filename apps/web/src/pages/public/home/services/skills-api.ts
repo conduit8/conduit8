@@ -1,4 +1,6 @@
 import type {
+  ApproveSubmissionRequest,
+  ApproveSubmissionResponse,
   CheckSkillNameResponse,
   GetSubmissionsCountResponse,
   ListPendingSubmissionsQuery,
@@ -7,6 +9,8 @@ import type {
   ListSkillsResponse,
   ListSubmissionsQuery,
   ListSubmissionsResponse,
+  RejectSubmissionRequest,
+  RejectSubmissionResponse,
   SkillCategory,
   SubmitSkillResponse,
 } from '@conduit8/core';
@@ -87,10 +91,25 @@ async function listAdminSubmissions(query: Partial<ListPendingSubmissionsQuery> 
 }
 
 /**
- * Get submissions count
+ * Approve a skill submission (admin only)
  */
-async function getSubmissionsCount(): Promise<GetSubmissionsCountResponse> {
-  return api.get<GetSubmissionsCountResponse>(getApiRoute('submissions_count'));
+async function approveSubmission(
+  submissionId: string,
+  request: ApproveSubmissionRequest = {},
+): Promise<ApproveSubmissionResponse> {
+  const route = getApiRoute('admin_skill_approve').replace(':id', submissionId);
+  return api.post<ApproveSubmissionResponse>(route, request);
+}
+
+/**
+ * Reject a skill submission (admin only)
+ */
+async function rejectSubmission(
+  submissionId: string,
+  request: RejectSubmissionRequest,
+): Promise<RejectSubmissionResponse> {
+  const route = getApiRoute('admin_skill_reject').replace(':id', submissionId);
+  return api.post<RejectSubmissionResponse>(route, request);
 }
 
 export const skillsApi = {
@@ -99,5 +118,6 @@ export const skillsApi = {
   submitSkill,
   listSubmissions,
   listAdminSubmissions,
-  getSubmissionsCount,
+  approveSubmission,
+  rejectSubmission,
 };

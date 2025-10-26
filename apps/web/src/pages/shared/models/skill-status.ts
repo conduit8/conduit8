@@ -11,7 +11,9 @@ export const SKILL_STATUS_LABELS: Record<SubmissionStatus, string> = {
   rejected: 'Rejected',
 };
 
-export const SKILL_STATUS_COLORS: Record<SubmissionStatus, string> = {
+type BadgeVariant = 'success' | 'destructive' | 'outline' | 'neutral' | 'warning' | 'info';
+
+export const SKILL_STATUS_COLORS: Record<SubmissionStatus, BadgeVariant> = {
   pending_review: 'warning',
   approved: 'success',
   rejected: 'destructive',

@@ -283,10 +283,10 @@ export function SubmitSkillForm({ onSubmit, onCancel, isSubmitting = false }: Su
                         {field.value && (
                           <div className="flex items-center gap-2">
                             {(() => {
-                              const Icon = CATEGORY_ICONS[field.value as typeof SKILL_CATEGORIES[number]];
+                              const Icon = SKILL_CATEGORY_ICONS[field.value as typeof SKILL_CATEGORIES[number]];
                               return <Icon className="size-4 text-muted-foreground" />;
                             })()}
-                            <span>{CATEGORY_LABELS[field.value as typeof SKILL_CATEGORIES[number]]}</span>
+                            <span>{SKILL_CATEGORY_LABELS[field.value as typeof SKILL_CATEGORIES[number]]}</span>
                           </div>
                         )}
                       </SelectValue>
@@ -294,7 +294,7 @@ export function SubmitSkillForm({ onSubmit, onCancel, isSubmitting = false }: Su
                   </FormControl>
                   <SelectContent className="w-full">
                     {SKILL_CATEGORIES.map((category) => {
-                      const Icon = CATEGORY_ICONS[category];
+                      const Icon = SKILL_CATEGORY_ICONS[category];
                       return (
                         <SelectItem
                           key={category}
@@ -304,7 +304,7 @@ export function SubmitSkillForm({ onSubmit, onCancel, isSubmitting = false }: Su
                           <div className="flex flex-col gap-1 w-full py-0.5">
                             <div className="flex items-center gap-2">
                               <Icon className="size-4 text-muted-foreground" />
-                              <span>{CATEGORY_LABELS[category]}</span>
+                              <span>{SKILL_CATEGORY_LABELS[category]}</span>
                             </div>
                             <div className="text-xs text-muted-foreground pl-6">
                               {CATEGORY_DESCRIPTIONS[category]}

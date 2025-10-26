@@ -43,14 +43,13 @@ export function SubmitSkillDialog({ open, onOpenChange }: SubmitSkillDialogProps
         category: values.category,
       });
 
-      toast.success('Skill submitted successfully! We\'ll review it soon.');
+      toast.success('Skill submitted successfully', {
+        description: 'We\'ll review it soon',
+      });
       onOpenChange(false);
     }
     catch (error) {
-      const errorMessage = error instanceof Error
-        ? error.message
-        : 'Failed to submit skill. Please try again.';
-      toast.error(errorMessage);
+      toast.error('Failed to submit skill');
       console.error('Submission error:', error);
     }
     finally {

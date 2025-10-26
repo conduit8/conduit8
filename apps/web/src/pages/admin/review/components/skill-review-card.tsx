@@ -2,8 +2,11 @@ import type { ListPendingSubmissionsResponse, ListSubmissionsResponse, Submissio
 
 import { SUBMISSION_STATUS } from '@conduit8/core';
 import { CheckIcon, XIcon } from '@phosphor-icons/react';
+import { useState } from 'react';
 
 import { formatRelativeDate } from '@web/lib/utils/date-utils';
+import { SkillReviewActionDialog } from '@web/pages/admin/review/components/skill-review-action-dialog';
+import { useApproveSubmission, useRejectSubmission } from '@web/pages/admin/review/hooks/use-review-actions';
 import { SKILL_CATEGORY_ICONS, SKILL_CATEGORY_LABELS } from '@web/pages/shared/models/skill-categories';
 import { SKILL_STATUS_COLORS, SKILL_STATUS_LABELS } from '@web/pages/shared/models/skill-status';
 import { Button } from '@web/ui/components/atoms/buttons/button';
@@ -43,17 +46,44 @@ export function SkillReviewCard({
   skill,
   isAdmin = false,
 }: SkillReviewCardProps) {
-  // Placeholder handlers - will wire up to backend in next task
+  const [dialogMode, setDialogMode] = useState<'approve' | 'reject' | null>(null);
+
+  const { mutate: approve, isPending: isApproving } = useApproveSubmission();
+  const { mutate: reject, isPending: isRejecting } = useRejectSubmission();
+
   const handleApprove = () => {
-    console.log('Approve submission:', skill.id);
+    setDialogMode('approve');
   };
 
   const handleReject = () => {
-    console.log('Reject submission:', skill.id);
+    setDialogMode('reject');
+  };
+
+  const handleDialogConfirm = (value: string | undefined) => {
+    if (dialogMode === 'approve') {
+      approve(
+        { submissionId: skill.id, request: value ? { curatorNote: value } : {} },
+        {
+          onSuccess: () => {
+            setDialogMode(null);
+          },
+        },
+      );
+    } else if (dialogMode === 'reject' && value) {
+      reject(
+        { submissionId: skill.id, request: { reason: value } },
+        {
+          onSuccess: () => {
+            setDialogMode(null);
+          },
+        },
+      );
+    }
   };
 
   const showActions = isAdmin && skill.status === SUBMISSION_STATUS.PENDING_REVIEW;
   const showRejectionReason = skill.status === 'rejected' && skill.rejectionReason;
+  const isLoading = isApproving || isRejecting;
 
   return (
     <Card className="p-4">
@@ -122,21 +152,35 @@ export function SkillReviewCard({
               onClick={handleApprove}
               variant="outline"
               className="flex-1 md:w-full"
+              disabled={isLoading}
             >
               <CheckIcon weight="bold" />
-              Approve
+              {isApproving ? 'Approving...' : 'Approve'}
             </Button>
             <Button
               onClick={handleReject}
               variant="destructive"
               className="flex-1 md:w-full"
+              disabled={isLoading}
             >
               <XIcon weight="bold" />
-              Reject
+              {isRejecting ? 'Rejecting...' : 'Reject'}
             </Button>
           </div>
         )}
       </div>
+
+      {/* Unified Dialog */}
+      {dialogMode && (
+        <SkillReviewActionDialog
+          mode={dialogMode}
+          open={true}
+          onOpenChange={open => !open && setDialogMode(null)}
+          onConfirm={handleDialogConfirm}
+          isLoading={isLoading}
+          skillName={skill.name}
+        />
+      )}
     </Card>
   );
 }
