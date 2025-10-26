@@ -13,7 +13,6 @@ import {
 import { toast } from 'sonner';
 
 import { skillsApi } from '@web/pages/public/home/services/skills-api';
-import { SubmissionsCollection } from '@web/pages/shared/models/submissions-collection';
 
 import { UserAvatar } from './user-avatar';
 
@@ -27,14 +26,13 @@ export function UserDropdownMenu({ user, imageOnly = false }: UserDropdownMenuPr
   const router = useRouter();
   const { signOut } = authService();
 
-  // Fetch all submissions (shared cache with My Submissions page)
+  // Fetch submission counts for badge
   const { data } = useQuery({
-    queryKey: ['submissions', false], // false = not admin
-    queryFn: () => skillsApi.listSubmissions({ limit: 100, offset: 0 }),
+    queryKey: ['submissions', 'counts'],
+    queryFn: () => skillsApi.getSubmissionsCount(),
   });
 
-  const collection = new SubmissionsCollection(data?.data ?? []);
-  const pendingCount = collection.pendingCount;
+  const pendingCount = data?.data.pending ?? 0;
 
   const handleSignOut = async () => {
     const result = await signOut();
