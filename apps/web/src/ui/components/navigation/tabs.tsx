@@ -41,6 +41,8 @@ function TabsTrigger({
       data-slot="tabs-trigger"
       className={cn(
         'font-regular inline-flex items-center justify-center whitespace-nowrap rounded-sm border border-transparent px-3 py-1.5 text-xs transition-all disabled:pointer-events-none disabled:opacity-50 md:text-sm md:font-medium',
+        // Hover states
+        'hover:bg-surface-hover hover:text-foreground',
         // Base styles that apply to all tabs
         'focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0',
         // Add cursor pointer

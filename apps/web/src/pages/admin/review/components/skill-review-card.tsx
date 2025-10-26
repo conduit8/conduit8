@@ -107,8 +107,7 @@ export function SkillReviewCard({
           {showRejectionReason && (
             <Alert variant="destructive">
               <p className="text-sm">
-                <strong>Rejection reason:</strong>
-                {' '}
+                <strong>Rejection reason: </strong>
                 {skill.rejectionReason}
               </p>
             </Alert>
