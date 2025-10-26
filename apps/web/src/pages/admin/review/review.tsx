@@ -1,10 +1,13 @@
 import { useQuery } from '@tanstack/react-query';
+import { useAuth } from '@web/lib/auth/hooks';
 import { useState } from 'react';
 
 import type { SkillStatus } from '@web/lib/types/skill-status';
 
 import { SKILL_STATUS } from '@web/lib/types/skill-status';
-import { skillsApi } from '@web/pages/public/home/services/skills-api.v2';
+import { HomeHeader } from '@web/pages/public/home/home-header';
+import { useLoginModal } from '@web/pages/public/home/hooks/use-login-modal';
+import { skillsApi } from '@web/pages/public/home/services/skills-api';
 import { PageLayout } from '@web/ui/components/layout/page/page-layout';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@web/ui/components/navigation/tabs';
 
@@ -16,13 +19,15 @@ import { SkillReviewCard } from './components/skill-review-card';
  * Lists all skills by status for admin review
  */
 export function AdminReviewPage() {
+  const { user } = useAuth();
+  const loginModal = useLoginModal();
   const [selectedStatus, setSelectedStatus] = useState<SkillStatus>(SKILL_STATUS.PENDING);
   const [selectedSkillSlug, setSelectedSkillSlug] = useState<string | null>(null);
 
   // Fetch skills by status
   const { data, isLoading, refetch } = useQuery({
     queryKey: ['admin-skills', selectedStatus],
-    queryFn: () => skillsApi.list({ status: selectedStatus, limit: 100, offset: 0 }),
+    queryFn: () => skillsApi.listAdminSubmissions({ status: selectedStatus, limit: 100, offset: 0 }),
   });
 
   const handleViewDetails = (slug: string) => {
@@ -38,7 +43,7 @@ export function AdminReviewPage() {
   const pendingCount = selectedStatus === SKILL_STATUS.PENDING ? skills.length : 0;
 
   return (
-    <PageLayout variant="full-width" contentPadding={true}>
+    <PageLayout variant="full-width" contentPadding={false} header={<HomeHeader user={user} loginModal={loginModal} />}>
       <div className="container mx-auto max-w-6xl py-8 space-y-6">
         {/* Header */}
         <div>

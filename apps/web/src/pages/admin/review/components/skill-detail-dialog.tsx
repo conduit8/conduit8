@@ -4,9 +4,9 @@ import { Check, Copy, Download, Loader2, X } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 
-import type { UpdateSkillMetadataPayload } from '@web/pages/public/home/services/skills-api.v2';
+import type { UpdateSkillMetadataPayload } from '@web/pages/public/home/services/skills-api';
 
-import { skillsApi } from '@web/pages/public/home/services/skills-api.v2';
+import { skillsApi } from '@web/pages/public/home/services/skills-api';
 import { Button } from '@web/ui/components/atoms/buttons/button';
 import { Badge } from '@web/ui/components/atoms/indicators/badge';
 import { Input } from '@web/ui/components/atoms/inputs/input';
@@ -30,12 +30,14 @@ interface SkillDetailDialogProps {
   slug: string;
   open: boolean;
   onClose: () => void;
+  readOnly?: boolean;
 }
 
 /**
  * Skill detail dialog with edit and approve/reject functionality
+ * When readOnly=true, hides admin actions (edit, approve, reject)
  */
-export function SkillDetailDialog({ slug, open, onClose }: SkillDetailDialogProps) {
+export function SkillDetailDialog({ slug, open, onClose, readOnly = false }: SkillDetailDialogProps) {
   const queryClient = useQueryClient();
 
   // Fetch skill details
@@ -143,14 +145,16 @@ export function SkillDetailDialog({ slug, open, onClose }: SkillDetailDialogProp
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <h3 className="font-semibold">Metadata</h3>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => setIsEditing(!isEditing)}
-                disabled={isPending}
-              >
-                {isEditing ? 'Cancel' : 'Edit'}
-              </Button>
+              {!readOnly && (
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setIsEditing(!isEditing)}
+                  disabled={isPending}
+                >
+                  {isEditing ? 'Cancel' : 'Edit'}
+                </Button>
+              )}
             </div>
 
             {isEditing ? (
@@ -298,28 +302,30 @@ export function SkillDetailDialog({ slug, open, onClose }: SkillDetailDialogProp
           </div>
 
           {/* Actions */}
-          <div className="flex gap-3 pt-4 border-t">
-            <Button
-              onClick={() => rejectMutation.mutate()}
-              disabled={isPending}
-              variant="destructive"
-              className="flex-1"
-            >
-              {rejectMutation.isPending && <Loader2 className="animate-spin" />}
-              <X className="size-4" />
-              Reject
-            </Button>
-            <Button
-              onClick={() => approveMutation.mutate()}
-              disabled={isPending}
-              variant="default"
-              className="flex-1"
-            >
-              {approveMutation.isPending && <Loader2 className="animate-spin" />}
-              <Check className="size-4" />
-              Approve
-            </Button>
-          </div>
+          {!readOnly && (
+            <div className="flex gap-3 pt-4 border-t">
+              <Button
+                onClick={() => rejectMutation.mutate()}
+                disabled={isPending}
+                variant="destructive"
+                className="flex-1"
+              >
+                {rejectMutation.isPending && <Loader2 className="animate-spin" />}
+                <X className="size-4" />
+                Reject
+              </Button>
+              <Button
+                onClick={() => approveMutation.mutate()}
+                disabled={isPending}
+                variant="default"
+                className="flex-1"
+              >
+                {approveMutation.isPending && <Loader2 className="animate-spin" />}
+                <Check className="size-4" />
+                Approve
+              </Button>
+            </div>
+          )}
         </div>
       </DialogContent>
     </Dialog>

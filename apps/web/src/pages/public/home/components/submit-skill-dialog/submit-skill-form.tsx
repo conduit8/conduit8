@@ -14,6 +14,10 @@ import {
   UploadSimpleIcon,
   XIcon,
 } from '@phosphor-icons/react';
+import {
+  trackSkillCategorySelected,
+  trackSkillSubmissionStarted,
+} from '@web/lib/analytics';
 import { Button } from '@web/ui/components/atoms/buttons';
 import {
   Select,
@@ -38,7 +42,9 @@ import {
 import type { SubmitSkillFormValues } from './submit-skill-form.schema';
 
 import { useSkillPackageParser } from '../../hooks/use-skill-package-parser';
+import { useSkillValidation } from '../../hooks/use-skill-validation';
 import { submitSkillFormSchema } from './submit-skill-form.schema';
+import { ValidationChecks } from './validation-checks';
 
 interface SubmitSkillFormProps {
   onSubmit: (values: SubmitSkillFormValues) => void;
@@ -86,6 +92,7 @@ const CATEGORY_ICONS: Record<(typeof SKILL_CATEGORIES)[number], typeof CodeIcon>
 
 export function SubmitSkillForm({ onSubmit, onCancel, isSubmitting = false }: SubmitSkillFormProps) {
   const { skillPackage, isParsing, error: parseError, parseFile, reset } = useSkillPackageParser();
+  const { checks, allChecksPass } = useSkillValidation(skillPackage);
 
   const form = useForm<SubmitSkillFormValues>({
     resolver: zodResolver(submitSkillFormSchema),
@@ -126,6 +133,13 @@ export function SubmitSkillForm({ onSubmit, onCancel, isSubmitting = false }: Su
   };
 
   const handleFormSubmit = (values: SubmitSkillFormValues) => {
+    // Track submission start
+    if (skillPackage) {
+      const fileSizeMB = skillPackage.getTotalSize() / 1024 / 1024;
+      const fileCount = skillPackage.getFiles().length;
+      trackSkillSubmissionStarted(values.category, fileSizeMB, fileCount);
+    }
+
     onSubmit(values);
   };
 
@@ -203,19 +217,22 @@ export function SubmitSkillForm({ onSubmit, onCancel, isSubmitting = false }: Su
                           </div>
                         )}
 
-                        {/* Parse error */}
-                        {parseError && (
-                          <div className="text-sm text-destructive bg-destructive/10 p-3 rounded-md">
-                            {parseError}
+                        {/* Validation checks */}
+                        {skillPackage && (
+                          <div className="flex flex-col gap-2">
+                            <p className="text-xs font-medium">Validation</p>
+                            <div className="bg-muted rounded-md p-3">
+                              <ValidationChecks checks={checks} />
+                            </div>
                           </div>
                         )}
 
-                        {/* Parsed preview */}
-                        {skillPackage && (
-                          <div className="flex flex-col gap-3">
+                        {/* Parsed preview - only show when validation passes */}
+                        {skillPackage && allChecksPass && (
+                          <div className="flex flex-col gap-3 animate-in fade-in slide-in-from-bottom-4 duration-1000">
                             <p className="text-xs font-medium">SKILL.md preview</p>
                             {/* Skill info */}
-                            <div className="bg-muted/30 rounded-md p-3 flex flex-col gap-2">
+                            <div className="bg-muted rounded-md p-3 flex flex-col gap-2">
                               <div>
                                 <p className="text-xs text-muted-foreground">Name</p>
                                 <p className="text-sm font-medium">{skillPackage.getFrontmatter().name}</p>
@@ -242,7 +259,7 @@ export function SubmitSkillForm({ onSubmit, onCancel, isSubmitting = false }: Su
                                   {skillPackage.getFiles().length}
                                   )
                                 </p>
-                                <div className="bg-muted/30 rounded-md p-2 space-y-1 text-xs font-mono max-h-32 overflow-y-auto">
+                                <div className="bg-muted rounded-md p-2 space-y-1 text-xs font-mono max-h-32 overflow-y-auto">
                                   {skillPackage.getFiles().slice(0, 10).map(file => (
                                     <div key={file.name} className="truncate">
                                       {file.name}
@@ -270,8 +287,8 @@ export function SubmitSkillForm({ onSubmit, onCancel, isSubmitting = false }: Su
           )}
         />
 
-        {/* Category - only show after successful ZIP upload */}
-        {skillPackage && (
+        {/* Category - only show after validation passes */}
+        {skillPackage && allChecksPass && (
           <FormField
             control={form.control}
             name="category"
@@ -279,7 +296,10 @@ export function SubmitSkillForm({ onSubmit, onCancel, isSubmitting = false }: Su
               <FormItem>
                 <FormLabel>Category</FormLabel>
                 <Select
-                  onValueChange={field.onChange}
+                  onValueChange={(value) => {
+                    field.onChange(value);
+                    trackSkillCategorySelected(value);
+                  }}
                   defaultValue={field.value}
                   disabled={isSubmitting}
                 >
@@ -340,10 +360,10 @@ export function SubmitSkillForm({ onSubmit, onCancel, isSubmitting = false }: Su
           <Button
             type="submit"
             variant="accent"
-            disabled={!skillPackage || isSubmitting || isParsing}
+            disabled={!allChecksPass || !form.formState.isValid || isSubmitting}
           >
             {isSubmitting ? <CircleNotchIcon className="animate-spin" /> : <PaperPlaneTiltIcon weight="duotone" className="text-accent" />}
-            {isSubmitting ? 'Submitting...' : 'Submit'}
+            {isSubmitting ? 'Submitting' : 'Submit'}
           </Button>
         </div>
       </form>

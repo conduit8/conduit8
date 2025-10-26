@@ -118,6 +118,7 @@ export interface UserAvatarProps {
   size?: 'sm' | 'md' | 'lg';
   className?: string;
   variant?: 'default' | 'image-only';
+  badgeCount?: number;
 }
 
 export const UserAvatar = ({
@@ -126,18 +127,26 @@ export const UserAvatar = ({
   size = 'md',
   className,
   variant = 'default',
+  badgeCount,
   ...buttonProps
 }: UserAvatarProps & { ref?: React.RefObject<HTMLButtonElement | null> }): JSX.Element => {
+  const showBadge = badgeCount !== undefined && badgeCount > 0;
+
   if (variant === 'image-only') {
     return (
       <button
         ref={ref}
         type="button"
         tabIndex={0}
-        className={cn('relative inline-block cursor-pointer', className)}
+        className={cn('relative flex cursor-pointer', className)}
         {...buttonProps}
       >
         <UserAvatarImage user={user} size={size} />
+        {showBadge && (
+          <span className="absolute -top-1.5 -right-1.5 flex h-4 min-w-[1rem] items-center justify-center rounded-full bg-destructive px-1 text-xs font-semibold text-background ring-2 ring-background">
+            {badgeCount}
+          </span>
+        )}
       </button>
     );
   }
@@ -154,7 +163,14 @@ export const UserAvatar = ({
       )}
       {...buttonProps}
     >
-      <UserAvatarImage user={user} size={size} className="flex-shrink-0" />
+      <div className="relative flex-shrink-0">
+        <UserAvatarImage user={user} size={size} />
+        {showBadge && (
+          <span className="absolute -top-1.5 -right-1.5 flex h-4 min-w-[1rem] items-center justify-center rounded-full bg-destructive px-1 text-xs font-semibold text-background ring-2 ring-background">
+            {badgeCount}
+          </span>
+        )}
+      </div>
       <UserName user={user} />
     </button>
   );
