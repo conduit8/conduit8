@@ -116,7 +116,7 @@ export function SkillsReviewPage() {
         <HomeHeader
           user={user}
           loginModal={loginModal}
-          onSubmitClick={!isAdmin ? () => setShowSubmitDialog(true) : undefined}
+          onSubmitClick={() => setShowSubmitDialog(true)}
         />
       )}
     >

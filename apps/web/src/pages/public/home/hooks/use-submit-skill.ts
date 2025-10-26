@@ -21,8 +21,8 @@ export function useSubmitSkill() {
       // Invalidate skills list to refetch with new skill
       queryClient.invalidateQueries({ queryKey: ['skills'] });
 
-      // Invalidate submission counts to update badge in user dropdown
-      queryClient.invalidateQueries({ queryKey: ['submissions', 'counts'] });
+      // Invalidate ALL submissions queries (list + counts)
+      queryClient.invalidateQueries({ queryKey: ['submissions'] });
 
       // Show success toast
       toast.success('Skill submitted successfully', {
@@ -30,11 +30,9 @@ export function useSubmitSkill() {
       });
     },
 
-    onError: (error) => {
+    onError: () => {
       // Show error toast
-      toast.error('Failed to submit skill', {
-        description: error.message,
-      });
+      toast.error('Failed to submit skill');
     },
   });
 }

@@ -1,7 +1,7 @@
 import { trackSkillSubmissionDialogOpened } from '@web/lib/analytics';
-import { useEffect, useState } from 'react';
-import { toast } from 'sonner';
+import { useEffect } from 'react';
 
+import { useSubmitSkill } from '@web/pages/public/home/hooks/use-submit-skill';
 import {
   Dialog,
   DialogContent,
@@ -25,7 +25,7 @@ interface SubmitSkillDialogProps {
  * Backend auto-generates author username and profile link
  */
 export function SubmitSkillDialog({ open, onOpenChange }: SubmitSkillDialogProps) {
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { mutate: submitSkill, isPending } = useSubmitSkill();
 
   useEffect(() => {
     if (open) {
@@ -33,28 +33,18 @@ export function SubmitSkillDialog({ open, onOpenChange }: SubmitSkillDialogProps
     }
   }, [open]);
 
-  const handleSubmit = async (values: SubmitSkillFormValues) => {
-    setIsSubmitting(true);
-
-    try {
-      const { skillsApi } = await import('../../services/skills-api');
-      const result = await skillsApi.submitSkill({
+  const handleSubmit = (values: SubmitSkillFormValues) => {
+    submitSkill(
+      {
         zipFile: values.zipFile,
         category: values.category,
-      });
-
-      toast.success('Skill submitted successfully', {
-        description: 'After review, it will be published to the directory',
-      });
-      onOpenChange(false);
-    }
-    catch (error) {
-      toast.error('Failed to submit skill');
-      console.error('Submission error:', error);
-    }
-    finally {
-      setIsSubmitting(false);
-    }
+      },
+      {
+        onSuccess: () => {
+          onOpenChange(false);
+        },
+      },
+    );
   };
 
   const handleCancel = () => {
@@ -62,7 +52,7 @@ export function SubmitSkillDialog({ open, onOpenChange }: SubmitSkillDialogProps
   };
 
   const handleOpenChange = (open: boolean) => {
-    if (isSubmitting)
+    if (isPending)
       return;
     onOpenChange(open);
   };
@@ -81,7 +71,7 @@ export function SubmitSkillDialog({ open, onOpenChange }: SubmitSkillDialogProps
         <SubmitSkillForm
           onSubmit={handleSubmit}
           onCancel={handleCancel}
-          isSubmitting={isSubmitting}
+          isSubmitting={isPending}
         />
       </DialogContent>
     </Dialog>
