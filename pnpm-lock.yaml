@@ -43,9 +43,6 @@ importers:
 
   apps/cli:
     dependencies:
-      '@conduit8/core':
-        specifier: ^0.1.17
-        version: 0.1.17
       '@sentry/node':
         specifier: ^10.20.0
         version: 10.21.0
@@ -68,6 +65,9 @@ importers:
         specifier: ^7.4.3
         version: 7.5.1
     devDependencies:
+      '@conduit8/core':
+        specifier: ^0.1.17
+        version: 0.1.17
       '@conduit8/eslint-config':
         specifier: workspace:*
         version: link:../../packages/eslint-config
