@@ -1,7 +1,9 @@
+import type { SubmitSkillResponse } from '@conduit8/core';
+
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
 
-import type { SubmitSkillPayload, SubmitSkillResponse } from '../services/skills-api';
+import type { SubmitSkillPayload } from '../services/skills-api';
 
 import { skillsApi } from '../services/skills-api';
 
