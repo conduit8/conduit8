@@ -53,7 +53,8 @@ export function SubmitSkillDialog({ open, onOpenChange }: SubmitSkillDialogProps
   };
 
   const handleOpenChange = (open: boolean) => {
-    if (isSubmitting) return;
+    if (isSubmitting)
+      return;
     onOpenChange(open);
   };
 
@@ -63,7 +64,7 @@ export function SubmitSkillDialog({ open, onOpenChange }: SubmitSkillDialogProps
         <DialogHeader>
           <DialogTitle>Submit a Skill</DialogTitle>
           <DialogDescription>
-            Upload your skill package ZIP.
+            Upload your skill packaged in ZIP.
             After review, it will be approved and published to the directory.
           </DialogDescription>
         </DialogHeader>

@@ -9,6 +9,7 @@ import {
   FileTextIcon,
   MegaphoneIcon,
   PaintBrushIcon,
+  PaperPlaneTiltIcon,
   PencilIcon,
   UploadSimpleIcon,
   XIcon,
@@ -137,131 +138,132 @@ export function SubmitSkillForm({ onSubmit, onCancel, isSubmitting = false }: Su
           name="zipFile"
           render={() => (
             <FormItem>
-              <FormLabel className="font-semibold">Skill Package</FormLabel>
+              <FormLabel>Skill Package</FormLabel>
               <FormControl>
                 {!skillPackage
                   ? (
-                    <div
-                      {...getRootProps()}
-                      className={`
+                      <div
+                        {...getRootProps()}
+                        className={`
                         border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-colors
                         min-h-36 flex flex-col items-center justify-center
                         ${isDragActive ? 'border-accent bg-accent/5' : 'border-border hover:border-accent/50'}
                         ${isParsing || isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}
                       `}
-                    >
-                      <input {...getInputProps()} />
-                      <UploadSimpleIcon className="mx-auto mb-3 text-muted-foreground size-8" />
-                      {isDragActive
-                        ? (
-                          <p className="text-sm">Drop ZIP file here</p>
-                        )
-                        : (
-                          <>
-                            <p className="text-sm font-medium mb-1">
-                              Drag and drop your skill ZIP file
-                            </p>
-                            <p className="text-xs text-muted-foreground">
-                              or click to browse (max 50MB)
-                            </p>
-                          </>
-                        )}
-                    </div>
-                  )
-                  : (
-                    <div className="border rounded-lg p-4 space-y-4">
-                      {/* File info */}
-                      <div className="flex items-start justify-between gap-3">
-                        <div className="flex items-center gap-3 flex-1 min-w-0">
-                          <FileArchiveIcon className="size-5 text-accent shrink-0" />
-                          <div className="min-w-0 flex-1">
-                            <p className="text-sm font-medium truncate">{skillPackage.getFile().name}</p>
-                            <p className="text-xs text-muted-foreground">
-                              {(skillPackage.getTotalSize() / 1024 / 1024).toFixed(2)}
-                              {' '}
-                              MB
-                            </p>
-                          </div>
-                        </div>
-                        <Button
-                          type="button"
-                          variant="ghost"
-                          size="sm"
-                          onClick={handleRemoveZip}
-                          disabled={isParsing || isSubmitting}
-                        >
-                          <XIcon className="size-4" />
-                        </Button>
-                      </div>
-
-                      {/* Loading state */}
-                      {isParsing && (
-                        <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                          <CircleNotchIcon className="size-4 animate-spin" />
-                          <span>Parsing ZIP file...</span>
-                        </div>
-                      )}
-
-                      {/* Parse error */}
-                      {parseError && (
-                        <div className="text-sm text-destructive bg-destructive/10 p-3 rounded-md">
-                          {parseError}
-                        </div>
-                      )}
-
-                      {/* Parsed preview */}
-                      {skillPackage && (
-                        <div className="space-y-3">
-                          {/* Skill info */}
-                          <div className="bg-muted/30 rounded-md p-3 space-y-2">
-                            <div>
-                              <p className="text-xs text-muted-foreground">Name</p>
-                              <p className="text-sm font-medium">{skillPackage.getFrontmatter().name}</p>
-                            </div>
-                            <div>
-                              <p className="text-xs text-muted-foreground">Description</p>
-                              <p className="text-sm">{skillPackage.getFrontmatter().description}</p>
-                            </div>
-                            {skillPackage.getExcerpt() && (
-                              <div>
-                                <p className="text-xs text-muted-foreground">Content Preview</p>
-                                <p className="text-xs text-muted-foreground italic">
-                                  {skillPackage.getExcerpt()}
+                      >
+                        <input {...getInputProps()} />
+                        <UploadSimpleIcon className="mx-auto mb-3 text-muted-foreground size-8" />
+                        {isDragActive
+                          ? (
+                              <p className="text-sm">Drop ZIP file here</p>
+                            )
+                          : (
+                              <>
+                                <p className="text-sm font-medium mb-1">
+                                  Drag and drop your skill ZIP file
                                 </p>
+                                <p className="text-xs text-muted-foreground">
+                                  or click to browse (max 50MB)
+                                </p>
+                              </>
+                            )}
+                      </div>
+                    )
+                  : (
+                      <div className="border rounded-lg p-4 space-y-4">
+                        {/* File info */}
+                        <div className="flex items-start justify-between gap-3">
+                          <div className="flex items-center gap-3 flex-1 min-w-0">
+                            <FileArchiveIcon className="size-5 text-accent shrink-0" />
+                            <div className="min-w-0 flex-1">
+                              <p className="text-sm font-semibold truncate">{skillPackage.getFile().name}</p>
+                              <p className="text-xs text-muted-foreground">
+                                {(skillPackage.getTotalSize() / 1024 / 1024).toFixed(2)}
+                                {' '}
+                                MB
+                              </p>
+                            </div>
+                          </div>
+                          <Button
+                            type="button"
+                            variant="ghost"
+                            size="sm"
+                            onClick={handleRemoveZip}
+                            disabled={isParsing || isSubmitting}
+                          >
+                            <XIcon className="size-4" />
+                          </Button>
+                        </div>
+
+                        {/* Loading state */}
+                        {isParsing && (
+                          <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                            <CircleNotchIcon className="size-4 animate-spin" />
+                            <span>Parsing ZIP file...</span>
+                          </div>
+                        )}
+
+                        {/* Parse error */}
+                        {parseError && (
+                          <div className="text-sm text-destructive bg-destructive/10 p-3 rounded-md">
+                            {parseError}
+                          </div>
+                        )}
+
+                        {/* Parsed preview */}
+                        {skillPackage && (
+                          <div className="flex flex-col gap-3">
+                            <p className="text-xs font-medium">SKILL.md preview</p>
+                            {/* Skill info */}
+                            <div className="bg-muted/30 rounded-md p-3 flex flex-col gap-2">
+                              <div>
+                                <p className="text-xs text-muted-foreground">Name</p>
+                                <p className="text-sm font-medium">{skillPackage.getFrontmatter().name}</p>
+                              </div>
+                              <div>
+                                <p className="text-xs text-muted-foreground">Description</p>
+                                <p className="text-sm">{skillPackage.getFrontmatter().description}</p>
+                              </div>
+                              {skillPackage.getExcerpt() && (
+                                <div>
+                                  <p className="text-xs text-muted-foreground">Content Preview</p>
+                                  <p className="text-sm text-foreground italic">
+                                    {skillPackage.getExcerpt()}
+                                  </p>
+                                </div>
+                              )}
+                            </div>
+
+                            {/* File list */}
+                            {skillPackage.getFiles().length > 0 && (
+                              <div className="flex flex-col gap-2">
+                                <p className="text-xs font-medium">
+                                  Files (
+                                  {skillPackage.getFiles().length}
+                                  )
+                                </p>
+                                <div className="bg-muted/30 rounded-md p-2 space-y-1 text-xs font-mono max-h-32 overflow-y-auto">
+                                  {skillPackage.getFiles().slice(0, 10).map(file => (
+                                    <div key={file.name} className="truncate">
+                                      {file.name}
+                                    </div>
+                                  ))}
+                                  {skillPackage.getFiles().length > 10 && (
+                                    <p className="text-muted-foreground italic">
+                                      ...and
+                                      {' '}
+                                      {skillPackage.getFiles().length - 10}
+                                      {' '}
+                                      more
+                                    </p>
+                                  )}
+                                </div>
                               </div>
                             )}
                           </div>
-
-                          {/* File list */}
-                          {skillPackage.getFiles().length > 0 && (
-                            <div className="space-y-2">
-                              <p className="text-xs font-medium">
-                                Files (
-                                {skillPackage.getFiles().length}
-                                )
-                              </p>
-                              <div className="bg-muted/30 rounded-md p-2 space-y-1 text-xs font-mono max-h-32 overflow-y-auto">
-                                {skillPackage.getFiles().slice(0, 10).map(file => (
-                                  <div key={file.name} className="truncate">
-                                    {file.name}
-                                  </div>
-                                ))}
-                                {skillPackage.getFiles().length > 10 && (
-                                  <p className="text-muted-foreground italic">
-                                    ...and
-                                    {' '}
-                                    {skillPackage.getFiles().length - 10}
-                                    {' '}
-                                    more
-                                  </p>
-                                )}
-                              </div>
-                            </div>
-                          )}
-                        </div>
-                      )}
-                    </div>
-                  )}
+                        )}
+                      </div>
+                    )}
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -340,8 +342,8 @@ export function SubmitSkillForm({ onSubmit, onCancel, isSubmitting = false }: Su
             variant="accent"
             disabled={!skillPackage || isSubmitting || isParsing}
           >
-            {isSubmitting && <CircleNotchIcon className="animate-spin" />}
-            {isSubmitting ? 'Submitting...' : 'Submit Skill'}
+            {isSubmitting ? <CircleNotchIcon className="animate-spin" /> : <PaperPlaneTiltIcon weight="duotone" className="text-accent" />}
+            {isSubmitting ? 'Submitting...' : 'Submit'}
           </Button>
         </div>
       </form>

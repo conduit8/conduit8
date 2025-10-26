@@ -13,6 +13,28 @@ export interface FileInfo {
 }
 
 /**
+ * Check if file path is system metadata that should be excluded
+ * Covers macOS, Windows, Linux hidden/system files
+ */
+function isSystemMetadata(path: string): boolean {
+  // 1. Exclude OS-specific directory prefixes
+  if (path.includes('__MACOSX/'))
+    return true;
+
+  // 2. Exclude system files by name
+  const fileName = path.split('/').pop() || '';
+
+  const systemFiles = [
+    '.DS_Store', // macOS
+    'Thumbs.db', // Windows
+    'desktop.ini', // Windows
+    '.directory', // Linux KDE
+  ];
+
+  return systemFiles.includes(fileName);
+}
+
+/**
  * Parsed skill data from ZIP
  */
 export interface ParsedSkillData {
@@ -85,11 +107,15 @@ export class SkillPackage {
       // Extract first 200 chars of body for preview
       const excerpt = body.trim().slice(0, 200) + (body.length > 200 ? '...' : '');
 
-      // Get file list (exclude directories)
+      // Get file list (exclude directories and system metadata)
       const files = Object.keys(zip.files)
         .filter((path) => {
           const file = zip.files[path];
-          return file && !file.dir;
+          if (!file || file.dir)
+            return false;
+
+          // Exclude system metadata files
+          return !isSystemMetadata(path);
         })
         .map((path) => {
           return {
