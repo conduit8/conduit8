@@ -1,11 +1,11 @@
 import type {
   CheckSkillNameResponse,
-  ListMySubmissionsQuery,
-  ListMySubmissionsResponse,
   ListPendingSubmissionsQuery,
   ListPendingSubmissionsResponse,
   ListSkillsQuery,
   ListSkillsResponse,
+  ListSubmissionsQuery,
+  ListSubmissionsResponse,
   SkillCategory,
   SubmitSkillResponse,
 } from '@conduit8/core';
@@ -60,10 +60,10 @@ async function submitSkill(request: SubmitSkillRequest): Promise<SubmitSkillResp
 }
 
 /**
- * List current user's submissions
+ * List user's submissions
  */
-async function listMySubmissions(query: Partial<ListMySubmissionsQuery> = {}): Promise<ListMySubmissionsResponse> {
-  return api.get<ListMySubmissionsResponse>(getApiRoute('my_submissions'), {
+async function listSubmissions(query: Partial<ListSubmissionsQuery> = {}): Promise<ListSubmissionsResponse> {
+  return api.get<ListSubmissionsResponse>(getApiRoute('submissions'), {
     queryParams: {
       status: query.status,
       limit: query.limit ?? 50,
@@ -89,6 +89,6 @@ export const skillsApi = {
   checkSkillName,
   listSkills,
   submitSkill,
-  listMySubmissions,
+  listSubmissions,
   listAdminSubmissions,
 };
