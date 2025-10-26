@@ -1,5 +1,6 @@
-import type { ListMySubmissionsResponse, ListPendingSubmissionsResponse } from '@conduit8/core';
+import type { ListPendingSubmissionsResponse, ListSubmissionsResponse, SubmissionStatus } from '@conduit8/core';
 
+import { CheckIcon, XIcon } from '@phosphor-icons/react';
 import { SUBMISSION_STATUS } from '@conduit8/core';
 
 import { formatRelativeDate } from '@web/lib/utils/date-utils';
@@ -10,7 +11,7 @@ import { Alert } from '@web/ui/components/feedback/alerts/alert';
 import { Card } from '@web/ui/components/layout/containers/card';
 
 // Type for user submissions (no submittedBy field)
-type UserSubmission = ListMySubmissionsResponse['data'][number];
+type UserSubmission = ListSubmissionsResponse['data'][number];
 
 // Type for admin submissions (includes submittedBy field)
 type AdminSubmission = ListPendingSubmissionsResponse['data'][number];
@@ -61,8 +62,8 @@ export function SkillReviewCard({
           {/* Header: Skill Name + Status Badge */}
           <div className="flex items-start justify-between gap-3">
             <h3 className="font-semibold text-lg">{skill.name}</h3>
-            <Badge variant={SKILL_STATUS_COLORS[skill.status] as any}>
-              {SKILL_STATUS_LABELS[skill.status]}
+            <Badge variant={SKILL_STATUS_COLORS[skill.status as SubmissionStatus]}>
+              {SKILL_STATUS_LABELS[skill.status as SubmissionStatus]}
             </Badge>
           </div>
 
@@ -114,9 +115,10 @@ export function SkillReviewCard({
           <div className="flex flex-row md:flex-col gap-2 mt-4 md:mt-0 md:w-[30%] md:min-w-[180px]">
             <Button
               onClick={handleApprove}
-              variant="default"
+              variant="outline"
               className="flex-1 md:w-full"
             >
+              <CheckIcon weight="bold" />
               Approve
             </Button>
             <Button
@@ -124,6 +126,7 @@ export function SkillReviewCard({
               variant="destructive"
               className="flex-1 md:w-full"
             >
+              <XIcon weight="bold" />
               Reject
             </Button>
           </div>
