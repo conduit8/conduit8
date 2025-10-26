@@ -1,9 +1,10 @@
 import type { ListPendingSubmissionsResponse, ListSubmissionsResponse, SubmissionStatus } from '@conduit8/core';
 
-import { CheckIcon, XIcon } from '@phosphor-icons/react';
 import { SUBMISSION_STATUS } from '@conduit8/core';
+import { CheckIcon, XIcon } from '@phosphor-icons/react';
 
 import { formatRelativeDate } from '@web/lib/utils/date-utils';
+import { SKILL_CATEGORY_ICONS, SKILL_CATEGORY_LABELS } from '@web/pages/shared/models/skill-categories';
 import { SKILL_STATUS_COLORS, SKILL_STATUS_LABELS } from '@web/pages/shared/models/skill-status';
 import { Button } from '@web/ui/components/atoms/buttons/button';
 import { Badge } from '@web/ui/components/atoms/indicators/badge';
@@ -86,8 +87,12 @@ export function SkillReviewCard({
           {/* Metadata Row: Category, Submitter (admin only), Date */}
           <div className="flex items-center gap-3 text-sm flex-wrap">
             {/* Category Badge */}
-            <Badge variant="neutral" className="capitalize">
-              {skill.category}
+            <Badge variant="neutral">
+              {(() => {
+                const Icon = SKILL_CATEGORY_ICONS[skill.category];
+                return <Icon weight="duotone" />;
+              })()}
+              {SKILL_CATEGORY_LABELS[skill.category]}
             </Badge>
 
             {/* Submitter Info (admin view only) */}
