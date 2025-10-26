@@ -53,7 +53,6 @@ describe('skill markdown generation', () => {
       videoUrl: 'https://example.com/test-skill.webm',
       sourceType: 'import',
       downloadCount: 42,
-      examples: ['Example 1', 'Example 2']
     };
 
     // Test the expected structure

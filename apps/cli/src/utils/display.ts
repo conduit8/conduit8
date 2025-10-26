@@ -52,15 +52,6 @@ export function displayInstallSuccess(skill: Skill): void {
   console.log(chalk.bold('━'.repeat(boxWidth)));
   console.log();
 
-  // Only show examples if they exist
-  if (skill.examples.length > 0) {
-    console.log(chalk.bold(' Try it:'));
-    skill.examples.slice(0, 3).forEach((example) => {
-      console.log(chalk.cyan(` • ${example}`));
-    });
-    console.log();
-  }
-
   // Show author and verification status
   const authorInfo = skill.authorKind === 'verified'
     ? `By ${skill.author} · Verified`
@@ -116,7 +107,8 @@ export function displayInstalledSkills(skills: Array<{ id: string; name: string;
 
   skills.forEach((skill) => {
     console.log(chalk.cyan(skill.id.padEnd(20)) + skill.name);
-    console.log(' '.repeat(20) + chalk.dim(skill.description.slice(0, 60) + (skill.description.length > 60 ? '...' : '')));
+    const desc = skill.description || '';
+    console.log(' '.repeat(20) + chalk.dim(desc.slice(0, 60) + (desc.length > 60 ? '...' : '')));
     console.log();
   });
 
