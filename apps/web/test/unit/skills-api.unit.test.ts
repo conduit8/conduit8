@@ -1,43 +1,39 @@
 import type { ListSkillsResponse } from '@conduit8/core';
 
-import { describe, expect, it, vi } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { skillsApi } from '@web/pages/public/home/services/skills-api';
 
 // Mock the API client
-vi.mock('@web/lib/clients', () => ({
+vi.mock('@web/lib/clients/conduit8-http.client', () => ({
   api: {
     get: vi.fn(),
   },
 }));
 
 describe('skillsApi', () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
+
   it('calls API with correct endpoint and query params', async () => {
-    const { api } = await import('@web/lib/clients');
+    const { api } = await import('@web/lib/clients/conduit8-http.client');
     const mockResponse: ListSkillsResponse = {
       success: true,
       data: [],
-      pagination: {
-        page: 1,
-        limit: 20,
-        total: 0,
-        totalPages: 0,
-        hasNextPage: false,
-        hasPrevPage: false,
-      },
     };
 
     vi.mocked(api.get).mockResolvedValue(mockResponse);
 
-    const query = { page: 1, limit: 20, search: 'test' };
-    const result = await skillsApi.list(query);
+    const query = { q: 'test', limit: 20, offset: 0 };
+    const result = await skillsApi.listSkills(query);
 
     expect(api.get).toHaveBeenCalledWith('/api/v1/skills', { queryParams: query });
     expect(result).toEqual(mockResponse);
   });
 
   it('returns skills data from API', async () => {
-    const { api } = await import('@web/lib/clients');
+    const { api } = await import('@web/lib/clients/conduit8-http.client');
     const mockResponse: ListSkillsResponse = {
       success: true,
       data: [
@@ -52,25 +48,16 @@ describe('skillsApi', () => {
           author: 'Test',
           sourceType: 'import',
           sourceUrl: 'https://example.com',
-          zipKey: 'skills/test.zip',
-          imageKey: 'images/test.png',
-          examples: ['Example'],
-          curatorNote: null,
+          zipUrl: 'https://example.com/skills/test.zip',
+          imageUrl: 'https://example.com/images/test.png',
+          videoUrl: 'https://example.com/videos/test.mp4',
         },
       ],
-      pagination: {
-        page: 1,
-        limit: 20,
-        total: 1,
-        totalPages: 1,
-        hasNextPage: false,
-        hasPrevPage: false,
-      },
     };
 
     vi.mocked(api.get).mockResolvedValue(mockResponse);
 
-    const result = await skillsApi.list({ page: 1, limit: 20 });
+    const result = await skillsApi.listSkills({ q: undefined, limit: 20, offset: 0 });
 
     expect(result.data).toHaveLength(1);
     expect(result.data[0].slug).toBe('test-skill');

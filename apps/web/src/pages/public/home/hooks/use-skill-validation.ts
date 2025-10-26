@@ -1,3 +1,4 @@
+import { MAX_SKILL_PACKAGE_SIZE_BYTES } from '@conduit8/core';
 import { trackSkillNameUnavailable, trackSkillValidationPassed } from '@web/lib/analytics';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
@@ -6,10 +7,12 @@ import type { SkillPackage } from '../models/skill-package';
 
 import { skillsApi } from '../services/skills-api';
 
+const MAX_SIZE_MB = Number((MAX_SKILL_PACKAGE_SIZE_BYTES / 1024 / 1024).toFixed(0));
+
 const INITIAL_CHECKS: ValidationCheck[] = [
-  { label: 'ZIP file size (max 50MB)', state: 'checking' },
-  { label: 'SKILL.md frontmatter check', state: 'checking' },
-  { label: 'Skill name availability', state: 'checking' },
+  { label: `Check ZIP file size (max ${MAX_SIZE_MB}MB)`, state: 'checking' },
+  { label: 'Check SKILL.md frontmatter', state: 'checking' },
+  { label: 'Check skill name uniqueness', state: 'checking' },
 ];
 
 /**
@@ -59,13 +62,13 @@ export function useSkillValidation(skillPackage: SkillPackage | null) {
       // 1. File size check (already passed if we have a package)
       updateCheck(0, { state: 'checking' });
       await delay(300);
-      updateCheck(0, { state: 'success' });
+      updateCheck(0, { label: `ZIP file under size limit (max ${MAX_SIZE_MB}MB)`, state: 'success' });
       await delay(200);
 
       // 2. Frontmatter check (already passed if we have a package)
       updateCheck(1, { state: 'checking' });
       await delay(300);
-      updateCheck(1, { state: 'success' });
+      updateCheck(1, { label: 'SKILL.md frontmatter valid', state: 'success' });
       await delay(200);
 
       // 3. Name uniqueness check (API call)
@@ -76,7 +79,7 @@ export function useSkillValidation(skillPackage: SkillPackage | null) {
 
         if (response.data.available) {
           updateCheck(2, {
-            label: `Skill name available: ${response.data.slug}`,
+            label: 'Skill name is unique',
             state: 'success',
           });
           setSlug(response.data.slug);
@@ -88,7 +91,7 @@ export function useSkillValidation(skillPackage: SkillPackage | null) {
         }
         else {
           updateCheck(2, {
-            label: 'Skill name availability',
+            label: 'Skill name not unique',
             state: 'error',
             errorMessage: `Slug "${response.data.slug}" is already taken. Please use a different skill name.`,
           });
@@ -102,7 +105,7 @@ export function useSkillValidation(skillPackage: SkillPackage | null) {
       catch (error) {
         console.error('[Skill Validation] Failed to check skill name:', error);
         updateCheck(2, {
-          label: 'Skill name availability',
+          label: 'Failed to check name uniqueness',
           state: 'error',
           errorMessage: 'Failed to check name availability. Please try again.',
         });
