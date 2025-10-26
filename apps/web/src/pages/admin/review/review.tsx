@@ -1,10 +1,9 @@
+import type { SubmissionStatus } from '@conduit8/core';
+import { SUBMISSION_STATUS } from '@conduit8/core';
+
 import { useQuery } from '@tanstack/react-query';
 import { useAuth } from '@web/lib/auth/hooks';
 import { useState } from 'react';
-
-import type { SkillStatus } from '@web/lib/types/skill-status';
-
-import { SKILL_STATUS } from '@web/lib/types/skill-status';
 import { HomeHeader } from '@web/pages/public/home/home-header';
 import { useLoginModal } from '@web/pages/public/home/hooks/use-login-modal';
 import { skillsApi } from '@web/pages/public/home/services/skills-api';
@@ -21,7 +20,7 @@ import { SkillReviewCard } from './components/skill-review-card';
 export function AdminReviewPage() {
   const { user } = useAuth();
   const loginModal = useLoginModal();
-  const [selectedStatus, setSelectedStatus] = useState<SkillStatus>(SKILL_STATUS.PENDING);
+  const [selectedStatus, setSelectedStatus] = useState<SubmissionStatus>(SUBMISSION_STATUS.PENDING_REVIEW);
   const [selectedSkillSlug, setSelectedSkillSlug] = useState<string | null>(null);
 
   // Fetch skills by status
@@ -40,7 +39,7 @@ export function AdminReviewPage() {
   };
 
   const skills = data?.data || [];
-  const pendingCount = selectedStatus === SKILL_STATUS.PENDING ? skills.length : 0;
+  const pendingCount = selectedStatus === SUBMISSION_STATUS.PENDING_REVIEW ? skills.length : 0;
 
   return (
     <PageLayout variant="full-width" contentPadding={false} header={<HomeHeader user={user} loginModal={loginModal} />}>
@@ -54,23 +53,23 @@ export function AdminReviewPage() {
         </div>
 
         {/* Tabs */}
-        <Tabs value={selectedStatus} onValueChange={v => setSelectedStatus(v as SkillStatus)}>
+        <Tabs value={selectedStatus} onValueChange={v => setSelectedStatus(v as SubmissionStatus)}>
           <TabsList>
-            <TabsTrigger value={SKILL_STATUS.PENDING}>
+            <TabsTrigger value={SUBMISSION_STATUS.PENDING_REVIEW}>
               Pending
               {' '}
               {pendingCount > 0 && `(${pendingCount})`}
             </TabsTrigger>
-            <TabsTrigger value={SKILL_STATUS.APPROVED}>
+            <TabsTrigger value={SUBMISSION_STATUS.APPROVED}>
               Approved
             </TabsTrigger>
-            <TabsTrigger value={SKILL_STATUS.REJECTED}>
+            <TabsTrigger value={SUBMISSION_STATUS.REJECTED}>
               Rejected
             </TabsTrigger>
           </TabsList>
 
           {/* Pending Tab */}
-          <TabsContent value={SKILL_STATUS.PENDING} className="space-y-4 mt-6">
+          <TabsContent value={SUBMISSION_STATUS.PENDING_REVIEW} className="space-y-4 mt-6">
             {isLoading
               ? (
                   <div className="text-center py-12">
@@ -97,7 +96,7 @@ export function AdminReviewPage() {
           </TabsContent>
 
           {/* Approved Tab */}
-          <TabsContent value={SKILL_STATUS.APPROVED} className="space-y-4 mt-6">
+          <TabsContent value={SUBMISSION_STATUS.APPROVED} className="space-y-4 mt-6">
             {isLoading
               ? (
                   <div className="text-center py-12">
@@ -124,7 +123,7 @@ export function AdminReviewPage() {
           </TabsContent>
 
           {/* Rejected Tab */}
-          <TabsContent value={SKILL_STATUS.REJECTED} className="space-y-4 mt-6">
+          <TabsContent value={SUBMISSION_STATUS.REJECTED} className="space-y-4 mt-6">
             {isLoading
               ? (
                   <div className="text-center py-12">
