@@ -4,7 +4,6 @@ import { ListChecksIcon, SignOutIcon, UserIcon } from '@phosphor-icons/react';
 import { useQuery } from '@tanstack/react-query';
 import { useRouter } from '@tanstack/react-router';
 import { authService } from '@web/lib/auth';
-import { SubmissionsCollection } from '@web/pages/shared/models/submissions-collection';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -14,6 +13,7 @@ import {
 import { toast } from 'sonner';
 
 import { skillsApi } from '@web/pages/public/home/services/skills-api';
+import { SubmissionsCollection } from '@web/pages/shared/models/submissions-collection';
 
 import { UserAvatar } from './user-avatar';
 
