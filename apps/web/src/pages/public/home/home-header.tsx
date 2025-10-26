@@ -96,8 +96,8 @@ export function HomeHeader({
                                   className="w-full justify-start"
                                   onClick={() => setMobileMenuOpen(false)}
                                 >
-                                  <UnstyledLink to={'/dashboard' as any}>
-                                    Dashboard
+                                  <UnstyledLink to={'/' as any}>
+                                    Home
                                   </UnstyledLink>
                                 </Button>
                                 <Button
@@ -160,8 +160,11 @@ export function HomeHeader({
 
                   {isLoading
                     ? (
-                        // Match Button size="sm" height (h-8) to prevent layout shift
-                        <Skeleton className="h-8 w-32" />
+                        // Match final DOM structure to prevent layout shift
+                        <div className="flex items-center gap-3">
+                          <Skeleton className="h-8 w-24" />
+                          <Skeleton className="h-8 w-8 rounded-full" />
+                        </div>
                       )
                     : (
                         <>
