@@ -88,3 +88,21 @@ export const toUnixTimestamp = (input: DateInput, inSeconds: boolean = false): n
   const millis = toDate(input).getTime();
   return inSeconds ? Math.floor(millis / 1000) : millis;
 };
+
+/**
+ * Formats a date as a human-readable relative time string.
+ *
+ * @param input - Any supported {@link DateInput}.
+ *
+ * @example
+ * ```ts
+ * formatRelativeDate('2025-10-24T10:00:00Z'); // → '2 days ago'
+ * formatRelativeDate(Date.now() - 3600000);   // → 'about 1 hour ago'
+ * ```
+ *
+ * @returns A string such as '2 days ago', 'in 3 hours', etc.
+ */
+export const formatRelativeDate = (input: DateInput): string => {
+  const { formatDistanceToNow } = require('date-fns');
+  return formatDistanceToNow(toDate(input), { addSuffix: true });
+};

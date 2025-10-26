@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { trackSkillSubmissionDialogOpened } from '@web/lib/analytics';
+import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 
 import {
@@ -26,21 +27,30 @@ interface SubmitSkillDialogProps {
 export function SubmitSkillDialog({ open, onOpenChange }: SubmitSkillDialogProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  useEffect(() => {
+    if (open) {
+      trackSkillSubmissionDialogOpened();
+    }
+  }, [open]);
+
   const handleSubmit = async (values: SubmitSkillFormValues) => {
     setIsSubmitting(true);
 
     try {
-      // TODO: Replace with actual API call
-      console.log('Submitting skill:', values);
+      const { skillsApi } = await import('../../services/skills-api');
+      const result = await skillsApi.submitSkill({
+        zipFile: values.zipFile,
+        category: values.category,
+      });
 
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 2000));
-
-      toast.success('Skill submitted successfully!');
+      toast.success('Skill submitted successfully! We\'ll review it soon.');
       onOpenChange(false);
     }
     catch (error) {
-      toast.error('Failed to submit skill');
+      const errorMessage = error instanceof Error
+        ? error.message
+        : 'Failed to submit skill. Please try again.';
+      toast.error(errorMessage);
       console.error('Submission error:', error);
     }
     finally {
@@ -64,8 +74,8 @@ export function SubmitSkillDialog({ open, onOpenChange }: SubmitSkillDialogProps
         <DialogHeader>
           <DialogTitle>Submit a Skill</DialogTitle>
           <DialogDescription>
-            Upload your skill packaged in ZIP.
-            After review, it will be approved and published to the directory.
+            Upload your skill as a ZIP file.
+            After review, it will be published to the directory.
           </DialogDescription>
         </DialogHeader>
 

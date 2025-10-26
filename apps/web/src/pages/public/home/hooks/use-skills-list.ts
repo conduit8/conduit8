@@ -7,6 +7,6 @@ import { skillsApi } from '../services/skills-api';
 export function useSkillsList(query: ListSkillsQuery) {
   return useQuery({
     queryKey: ['skills', query],
-    queryFn: () => skillsApi.list(query),
+    queryFn: () => skillsApi.listSkills(query),
   });
 }

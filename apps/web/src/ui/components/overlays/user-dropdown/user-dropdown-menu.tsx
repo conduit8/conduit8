@@ -1,6 +1,7 @@
 import type { AuthUser } from '@web/lib/auth/models';
 
-import { SignOutIcon, UserIcon } from '@phosphor-icons/react';
+import { ListChecksIcon, SignOutIcon, UserIcon } from '@phosphor-icons/react';
+import { useQuery } from '@tanstack/react-query';
 import { useRouter } from '@tanstack/react-router';
 import { authService } from '@web/lib/auth';
 import {
@@ -10,6 +11,8 @@ import {
   DropdownMenuTrigger,
 } from '@web/ui/components/overlays';
 import { toast } from 'sonner';
+
+import { skillsApi } from '@web/pages/public/home/services/skills-api';
 
 import { UserAvatar } from './user-avatar';
 
@@ -22,6 +25,14 @@ export function UserDropdownMenu({ user, imageOnly = false }: UserDropdownMenuPr
   const variant = imageOnly ? 'image-only' : 'default';
   const router = useRouter();
   const { signOut } = authService();
+
+  // Fetch pending submissions count
+  const { data: countData } = useQuery({
+    queryKey: ['my-submissions-count'],
+    queryFn: () => skillsApi.getMySubmissionsCount(),
+  });
+
+  const pendingCount = countData?.data.pending || 0;
 
   const handleSignOut = async () => {
     const result = await signOut();
@@ -37,7 +48,7 @@ export function UserDropdownMenu({ user, imageOnly = false }: UserDropdownMenuPr
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <UserAvatar user={user} variant={variant} />
+        <UserAvatar user={user} variant={variant} badgeCount={pendingCount} />
       </DropdownMenuTrigger>
       <DropdownMenuContent
         className={imageOnly ? 'min-w-[200px]' : 'w-[var(--radix-dropdown-menu-trigger-width)]'}
@@ -47,7 +58,13 @@ export function UserDropdownMenu({ user, imageOnly = false }: UserDropdownMenuPr
           onClick={() => router.navigate({ to: '/' })}
           icon={<UserIcon size={16} />}
         >
-          Account settings
+          Profile
+        </DropdownMenuItem>
+        <DropdownMenuItem
+          onClick={() => router.navigate({ to: '/my-submissions' })}
+          icon={<ListChecksIcon size={16} />}
+        >
+          {pendingCount > 0 ? `My Submissions (${pendingCount})` : 'My Submissions'}
         </DropdownMenuItem>
         <DropdownMenuItem
           onClick={handleSignOut}

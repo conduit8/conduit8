@@ -177,6 +177,54 @@ export const FallbackVariations: Story = {
   ),
 };
 
+// Badge variations
+export const WithBadge: Story = {
+  args: {
+    user: mockUsers.withGithubAvatar,
+    size: 'md',
+    variant: 'image-only',
+    badgeCount: 3,
+  },
+};
+
+export const BadgeVariations: Story = {
+  render: () => (
+    <div className="flex gap-6">
+      <div className="flex flex-col items-center gap-2">
+        <UserAvatar user={mockUsers.withGithubAvatar} variant="image-only" badgeCount={0} />
+        <span className="text-xs">No badge</span>
+      </div>
+      <div className="flex flex-col items-center gap-2">
+        <UserAvatar user={mockUsers.withGithubAvatar} variant="image-only" badgeCount={3} />
+        <span className="text-xs">3 pending</span>
+      </div>
+      <div className="flex flex-col items-center gap-2">
+        <UserAvatar user={mockUsers.emailUserWithName} variant="image-only" badgeCount={12} />
+        <span className="text-xs">12 pending</span>
+      </div>
+      <div className="flex flex-col items-center gap-2">
+        <UserAvatar user={mockUsers.withGoogleAvatar} variant="image-only" badgeCount={99} />
+        <span className="text-xs">99 pending</span>
+      </div>
+    </div>
+  ),
+};
+
+export const BadgeOnDefaultVariant: Story = {
+  render: () => (
+    <div className="flex gap-6">
+      <div className="flex flex-col items-center gap-2">
+        <UserAvatar user={mockUsers.withGithubAvatar} variant="default" badgeCount={0} />
+        <span className="text-xs">No badge</span>
+      </div>
+      <div className="flex flex-col items-center gap-2">
+        <UserAvatar user={mockUsers.withGithubAvatar} variant="default" badgeCount={5} />
+        <span className="text-xs">With badge</span>
+      </div>
+    </div>
+  ),
+};
+
 // Integration example
 export const IntegrationExample: Story = {
   render: () => (
@@ -184,7 +232,7 @@ export const IntegrationExample: Story = {
       {/* Header with avatar */}
       <div className="flex items-center justify-between rounded-lg bg-white p-4 shadow">
         <div className="flex items-center gap-3">
-          <UserAvatar user={mockUsers.withGithubAvatar} size="md" />
+          <UserAvatar user={mockUsers.withGithubAvatar} size="md" badgeCount={2} />
           <div>
             <div className="font-medium">GitHub User</div>
             <div className="text-sm text-gray-500">github-user@example.com</div>
