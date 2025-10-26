@@ -1,16 +1,9 @@
 import { SKILL_CATEGORIES } from '@conduit8/core';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
-  BriefcaseIcon,
-  ChartBarIcon,
   CircleNotchIcon,
-  CodeIcon,
   FileArchiveIcon,
-  FileTextIcon,
-  MegaphoneIcon,
-  PaintBrushIcon,
   PaperPlaneTiltIcon,
-  PencilIcon,
   UploadSimpleIcon,
   XIcon,
 } from '@phosphor-icons/react';
@@ -18,6 +11,7 @@ import {
   trackSkillCategorySelected,
   trackSkillSubmissionStarted,
 } from '@web/lib/analytics';
+import { SKILL_CATEGORY_ICONS, SKILL_CATEGORY_LABELS } from '@web/pages/shared/models/skill-categories';
 import { Button } from '@web/ui/components/atoms/buttons';
 import {
   Select,
@@ -60,16 +54,6 @@ const ACCEPTED_SKILL_PACKAGE_FORMATS = {
   'application/zip': ['.zip'],
 } as const;
 
-const CATEGORY_LABELS: Record<(typeof SKILL_CATEGORIES)[number], string> = {
-  development: 'Development',
-  content: 'Content',
-  documents: 'Documents',
-  data: 'Data',
-  design: 'Design',
-  marketing: 'Marketing',
-  business: 'Business',
-};
-
 const CATEGORY_DESCRIPTIONS: Record<(typeof SKILL_CATEGORIES)[number], string> = {
   development: 'Backend, Frontend, DevOps, Security, Testing',
   content: 'Marketing Copy, Internal Comms, Research, Brand',
@@ -78,16 +62,6 @@ const CATEGORY_DESCRIPTIONS: Record<(typeof SKILL_CATEGORIES)[number], string> =
   design: 'Graphic Design, Generative Art, UI/UX, Media',
   marketing: 'SEO, Conversion, Sales',
   business: 'Strategy, Finance, Operations',
-};
-
-const CATEGORY_ICONS: Record<(typeof SKILL_CATEGORIES)[number], typeof CodeIcon> = {
-  development: CodeIcon,
-  content: PencilIcon,
-  documents: FileTextIcon,
-  data: ChartBarIcon,
-  design: PaintBrushIcon,
-  marketing: MegaphoneIcon,
-  business: BriefcaseIcon,
 };
 
 export function SubmitSkillForm({ onSubmit, onCancel, isSubmitting = false }: SubmitSkillFormProps) {
