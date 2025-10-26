@@ -1,4 +1,4 @@
-import type { ListMySubmissionsResponse, ListPendingSubmissionsResponse, SubmissionStatus } from '@conduit8/core';
+import type { ListPendingSubmissionsResponse, ListSubmissionsResponse, SubmissionStatus } from '@conduit8/core';
 
 import { SUBMISSION_STATUS } from '@conduit8/core';
 import { useQuery } from '@tanstack/react-query';
@@ -13,7 +13,7 @@ import { skillsApi } from '@web/pages/public/home/services/skills-api';
 import { PageLayout } from '@web/ui/components/layout/page/page-layout';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@web/ui/components/navigation/tabs';
 
-type Skill = ListMySubmissionsResponse['data'][number] | ListPendingSubmissionsResponse['data'][number];
+type Skill = ListSubmissionsResponse['data'][number] | ListPendingSubmissionsResponse['data'][number];
 
 /**
  * Reusable content renderer for skill lists
@@ -88,7 +88,7 @@ export function SkillsReviewPage() {
     queryKey: ['submissions', isAdmin, ...(isAdmin ? [selectedStatus] : [])],
     queryFn: () => isAdmin
       ? skillsApi.listAdminSubmissions({ status: selectedStatus, limit: 100, offset: 0 })
-      : skillsApi.listMySubmissions({ limit: 100, offset: 0 }),
+      : skillsApi.listSubmissions({ limit: 100, offset: 0 }),
   });
 
   const skills = data?.data ?? [];

@@ -1,9 +1,10 @@
 import type { SubmissionStatus } from '@conduit8/core';
-import { SUBMISSION_STATUS } from '@conduit8/core';
 
+import { SUBMISSION_STATUS } from '@conduit8/core';
 import { useQuery } from '@tanstack/react-query';
 import { useAuth } from '@web/lib/auth/hooks';
 import { useState } from 'react';
+
 import { HomeHeader } from '@web/pages/public/home/home-header';
 import { useLoginModal } from '@web/pages/public/home/hooks/use-login-modal';
 import { skillsApi } from '@web/pages/public/home/services/skills-api';
