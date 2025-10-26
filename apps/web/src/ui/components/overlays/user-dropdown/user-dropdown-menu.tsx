@@ -4,6 +4,7 @@ import { ListChecksIcon, SignOutIcon, UserIcon } from '@phosphor-icons/react';
 import { useQuery } from '@tanstack/react-query';
 import { useRouter } from '@tanstack/react-router';
 import { authService } from '@web/lib/auth';
+import { SubmissionsCollection } from '@web/pages/shared/models/submissions-collection';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -26,13 +27,14 @@ export function UserDropdownMenu({ user, imageOnly = false }: UserDropdownMenuPr
   const router = useRouter();
   const { signOut } = authService();
 
-  // Fetch pending submissions count
-  const { data: countData } = useQuery({
-    queryKey: ['submissions-count'],
-    queryFn: () => skillsApi.getSubmissionsCount(),
+  // Fetch all submissions (shared cache with My Submissions page)
+  const { data } = useQuery({
+    queryKey: ['submissions', false], // false = not admin
+    queryFn: () => skillsApi.listSubmissions({ limit: 100, offset: 0 }),
   });
 
-  const pendingCount = countData?.data.pending || 0;
+  const collection = new SubmissionsCollection(data?.data ?? []);
+  const pendingCount = collection.pendingCount;
 
   const handleSignOut = async () => {
     const result = await signOut();

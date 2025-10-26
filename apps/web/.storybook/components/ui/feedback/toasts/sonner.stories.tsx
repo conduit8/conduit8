@@ -209,7 +209,7 @@ export const AllToastTypes: Story = {
               onClick={() => {
                 const toastId = toast.loading('Loading...');
                 setTimeout(() => {
-                  toast.success('Loaded!', {
+                  toast.success('Loaded', {
                     id: toastId,
                   });
                 }, 2000);

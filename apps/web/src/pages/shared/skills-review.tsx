@@ -10,6 +10,7 @@ import { SkillReviewCard } from '@web/pages/admin/review/components/skill-review
 import { HomeHeader } from '@web/pages/public/home/home-header';
 import { useLoginModal } from '@web/pages/public/home/hooks/use-login-modal';
 import { skillsApi } from '@web/pages/public/home/services/skills-api';
+import { SubmissionsCollection } from '@web/pages/shared/models/submissions-collection';
 import { PageLayout } from '@web/ui/components/layout/page/page-layout';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@web/ui/components/navigation/tabs';
 
@@ -55,7 +56,7 @@ function SkillListContent({ isLoading, error, skills, isAdmin, emptyMessage }: S
     <div className="grid gap-4">
       {skills.map(skill => (
         <SkillReviewCard
-          key={skill.slug}
+          key={skill.id}
           skill={skill}
           isAdmin={isAdmin}
         />
@@ -91,8 +92,14 @@ export function SkillsReviewPage() {
       : skillsApi.listSubmissions({ limit: 100, offset: 0 }),
   });
 
+  // Fetch counts separately (role-based on backend)
+  const { data: countsData } = useQuery({
+    queryKey: ['submissions', 'counts'],
+    queryFn: () => skillsApi.getSubmissionsCount(),
+  });
+
   const skills = data?.data ?? [];
-  const pendingCount = selectedStatus === SUBMISSION_STATUS.PENDING_REVIEW ? skills.length : 0;
+  const counts = countsData?.data ?? { total: 0, pending: 0, approved: 0, rejected: 0 };
 
   // Conditional configuration
   const title = isAdmin ? 'Review' : 'My Submissions';
@@ -130,13 +137,17 @@ export function SkillsReviewPage() {
                   <TabsTrigger value={SUBMISSION_STATUS.PENDING_REVIEW} className="w-32">
                     Pending
                     {' '}
-                    {pendingCount > 0 && `(${pendingCount})`}
+                    {counts.pending > 0 && `(${counts.pending})`}
                   </TabsTrigger>
                   <TabsTrigger value={SUBMISSION_STATUS.APPROVED} className="w-32">
                     Approved
+                    {' '}
+                    {counts.approved > 0 && `(${counts.approved})`}
                   </TabsTrigger>
                   <TabsTrigger value={SUBMISSION_STATUS.REJECTED} className="w-32">
                     Rejected
+                    {' '}
+                    {counts.rejected > 0 && `(${counts.rejected})`}
                   </TabsTrigger>
                 </TabsList>
 
