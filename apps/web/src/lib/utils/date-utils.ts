@@ -91,8 +91,6 @@ export const toUnixTimestamp = (input: DateInput, inSeconds: boolean = false): n
   return inSeconds ? Math.floor(millis / 1000) : millis;
 };
 
-import { formatDistanceToNow } from 'date-fns';
-
 /**
  * Formats a date as a human-readable relative time string.
  *

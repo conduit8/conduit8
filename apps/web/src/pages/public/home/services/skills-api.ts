@@ -1,5 +1,6 @@
 import type {
   CheckSkillNameResponse,
+  GetSubmissionsCountResponse,
   ListPendingSubmissionsQuery,
   ListPendingSubmissionsResponse,
   ListSkillsQuery,
@@ -85,10 +86,18 @@ async function listAdminSubmissions(query: Partial<ListPendingSubmissionsQuery> 
   });
 }
 
+/**
+ * Get submissions count
+ */
+async function getSubmissionsCount(): Promise<GetSubmissionsCountResponse> {
+  return api.get<GetSubmissionsCountResponse>(getApiRoute('submissions_count'));
+}
+
 export const skillsApi = {
   checkSkillName,
   listSkills,
   submitSkill,
   listSubmissions,
   listAdminSubmissions,
+  getSubmissionsCount,
 };
