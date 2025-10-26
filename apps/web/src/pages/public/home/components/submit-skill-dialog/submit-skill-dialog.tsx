@@ -44,7 +44,7 @@ export function SubmitSkillDialog({ open, onOpenChange }: SubmitSkillDialogProps
       });
 
       toast.success('Skill submitted successfully', {
-        description: 'We\'ll review it soon',
+        description: 'After review, it will be published to the directory',
       });
       onOpenChange(false);
     }
