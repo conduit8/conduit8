@@ -1,8 +1,19 @@
-import { SkillFrontmatterSchema } from '@conduit8/core';
+import { MAX_SKILL_FILES, MAX_SKILL_PACKAGE_SIZE_BYTES, SkillFrontmatterSchema } from '@conduit8/core';
 import fm from 'front-matter';
 import JSZip from 'jszip';
+import { ZodError } from 'zod';
 
 import type { SkillFrontmatter } from '../components/submit-skill-dialog/submit-skill-form.schema';
+
+import {
+  FileTooLargeError,
+  InvalidFrontmatterError,
+  MissingSkillMdError,
+  MultipleSkillMdError,
+  NestedArchiveError,
+  ParseError,
+  TooManyFilesError,
+} from './skill-package-errors';
 
 /**
  * File information from ZIP
@@ -11,6 +22,20 @@ export interface FileInfo {
   name: string;
   size: number;
 }
+
+/**
+ * Archive file extensions (security - prevent nested archives)
+ */
+const ARCHIVE_EXTENSIONS = new Set([
+  '.zip',
+  '.tar',
+  '.gz',
+  '.rar',
+  '.7z',
+  '.bz2',
+  '.xz',
+  '.tgz',
+]);
 
 /**
  * Check if file path is system metadata that should be excluded
@@ -32,6 +57,15 @@ function isSystemMetadata(path: string): boolean {
   ];
 
   return systemFiles.includes(fileName);
+}
+
+/**
+ * Check if file is a nested archive (security check)
+ */
+function isNestedArchive(path: string): boolean {
+  const fileName = path.split('/').pop() || '';
+  const fileExt = fileName.toLowerCase().slice(fileName.lastIndexOf('.'));
+  return ARCHIVE_EXTENSIONS.has(fileExt);
 }
 
 /**
@@ -74,11 +108,11 @@ export class SkillPackage {
    */
   private static validateSkillMdCount(skillMdFiles: string[]): void {
     if (skillMdFiles.length === 0) {
-      throw new Error('ZIP must contain exactly one SKILL.md file.');
+      throw new MissingSkillMdError();
     }
 
     if (skillMdFiles.length > 1) {
-      throw new Error(`ZIP must contain exactly one SKILL.md file. Found ${skillMdFiles.length}: ${skillMdFiles.join(', ')}`);
+      throw new MultipleSkillMdError(skillMdFiles.length, skillMdFiles);
     }
   }
 
@@ -86,13 +120,20 @@ export class SkillPackage {
    * Create SkillPackage from uploaded file
    */
   static async fromFile(zipFile: File): Promise<SkillPackage> {
+    // Validate file size before parsing
+    if (zipFile.size > MAX_SKILL_PACKAGE_SIZE_BYTES) {
+      const sizeMB = Number((zipFile.size / 1024 / 1024).toFixed(1));
+      const maxMB = Number((MAX_SKILL_PACKAGE_SIZE_BYTES / 1024 / 1024).toFixed(0));
+      throw new FileTooLargeError(sizeMB, maxMB);
+    }
+
     try {
       const zip = await JSZip.loadAsync(zipFile);
       const skillMdPath = this.findSkillMdFile(zip);
       const skillMdFile = zip.file(skillMdPath);
 
       if (!skillMdFile) {
-        throw new Error('Failed to read SKILL.md file from ZIP');
+        throw new ParseError('Failed to read SKILL.md file from ZIP');
       }
 
       // Extract SKILL.md content
@@ -102,33 +143,52 @@ export class SkillPackage {
       const { attributes: rawFrontmatter, body } = fm(skillMdContent);
 
       // Validate frontmatter using core schema (business logic)
-      const frontmatter = SkillFrontmatterSchema.parse(rawFrontmatter);
+      let frontmatter: SkillFrontmatter;
+      try {
+        frontmatter = SkillFrontmatterSchema.parse(rawFrontmatter) as SkillFrontmatter;
+      }
+      catch (error) {
+        if (error instanceof ZodError) {
+          const issues = error.issues.map(issue => `${issue.path.join('.')}: ${issue.message}`).join('; ');
+          throw new InvalidFrontmatterError(issues);
+        }
+        throw new InvalidFrontmatterError('Unknown validation error');
+      }
 
       // Extract first 200 chars of body for preview
       const excerpt = body.trim().slice(0, 200) + (body.length > 200 ? '...' : '');
 
       // Get file list (exclude directories and system metadata)
-      const files = Object.keys(zip.files)
-        .filter((path) => {
-          const file = zip.files[path];
-          if (!file || file.dir)
-            return false;
+      const files: FileInfo[] = [];
 
-          // Exclude system metadata files
-          return !isSystemMetadata(path);
-        })
-        .map((path) => {
-          return {
-            name: path,
-            size: 0, // Size not available from JSZip without reading each file
-          };
-        })
-        .sort((a, b) => a.name.localeCompare(b.name));
+      for (const path of Object.keys(zip.files)) {
+        const file = zip.files[path];
+
+        // Skip directories
+        if (!file || file.dir)
+          continue;
+
+        // Skip system metadata files
+        if (isSystemMetadata(path))
+          continue;
+
+        // Check for nested archives (security - block malware hiding technique)
+        if (isNestedArchive(path)) {
+          throw new NestedArchiveError(path);
+        }
+
+        files.push({
+          name: path,
+          size: 0, // Size not available from JSZip without reading each file
+        });
+      }
+
+      // Sort files by name
+      files.sort((a, b) => a.name.localeCompare(b.name));
 
       // Validate max files (prevent excessive file uploads)
-      const MAX_FILES = 100;
-      if (files.length > MAX_FILES) {
-        throw new Error(`ZIP contains too many files. Maximum ${MAX_FILES} files allowed, found ${files.length}.`);
+      if (files.length > MAX_SKILL_FILES) {
+        throw new TooManyFilesError(files.length, MAX_SKILL_FILES);
       }
 
       const parsedData: ParsedSkillData = {
@@ -144,12 +204,22 @@ export class SkillPackage {
     catch (error) {
       console.error('[SkillPackage] Error parsing ZIP:', error);
 
-      // Re-throw with better context
-      if (error instanceof Error) {
+      // Re-throw typed errors as-is
+      if (error instanceof FileTooLargeError
+        || error instanceof MissingSkillMdError
+        || error instanceof MultipleSkillMdError
+        || error instanceof InvalidFrontmatterError
+        || error instanceof NestedArchiveError
+        || error instanceof TooManyFilesError) {
         throw error;
       }
 
-      throw new Error('Failed to parse ZIP file');
+      // Wrap unknown errors
+      if (error instanceof Error) {
+        throw new ParseError(error.message);
+      }
+
+      throw new ParseError();
     }
   }
 

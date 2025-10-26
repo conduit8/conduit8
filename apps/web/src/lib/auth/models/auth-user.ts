@@ -54,4 +54,12 @@ export class AuthUser {
   get avatarUrl() {
     return this.user.image ?? null;
   }
+
+  get role() {
+    return this.user.role;
+  }
+
+  get isAdmin() {
+    return this.user.role === 'admin';
+  }
 }

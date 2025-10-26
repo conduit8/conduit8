@@ -13,22 +13,22 @@ export function useSubmitSkill() {
   const queryClient = useQueryClient();
 
   return useMutation<SubmitSkillResponse, Error, SubmitSkillPayload>({
-    mutationFn: (payload: SubmitSkillPayload) => skillsApi.submit(payload),
+    mutationFn: (payload: SubmitSkillPayload) => skillsApi.submitSkill(payload),
 
     onSuccess: (data) => {
       // Invalidate skills list to refetch with new skill
       queryClient.invalidateQueries({ queryKey: ['skills'] });
 
       // Show success toast
-      toast.success('Skill submitted successfully!', {
-        description: data.message || 'Your skill is now being processed and will be reviewed shortly.',
+      toast.success('Skill submitted successfully', {
+        description: data.message,
       });
     },
 
     onError: (error) => {
       // Show error toast
       toast.error('Failed to submit skill', {
-        description: error.message || 'An unexpected error occurred. Please try again.',
+        description: error.message,
       });
     },
   });
