@@ -1,6 +1,7 @@
 import type { ListPendingSubmissionsResponse, ListSubmissionsResponse, SubmissionStatus } from '@conduit8/core';
 
 import { SUBMISSION_STATUS } from '@conduit8/core';
+import { CheckCircleIcon, ClockIcon, XCircleIcon } from '@phosphor-icons/react';
 import { useQuery } from '@tanstack/react-query';
 import { useAuth } from '@web/lib/auth/hooks';
 import { SubmitSkillDialog } from '@web/pages/public/home/components/submit-skill-dialog';
@@ -10,7 +11,6 @@ import { SkillReviewCard } from '@web/pages/admin/review/components/skill-review
 import { HomeHeader } from '@web/pages/public/home/home-header';
 import { useLoginModal } from '@web/pages/public/home/hooks/use-login-modal';
 import { skillsApi } from '@web/pages/public/home/services/skills-api';
-import { SubmissionsCollection } from '@web/pages/shared/models/submissions-collection';
 import { PageLayout } from '@web/ui/components/layout/page/page-layout';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@web/ui/components/navigation/tabs';
 
@@ -134,20 +134,29 @@ export function SkillsReviewPage() {
           ? (
               <Tabs value={selectedStatus} onValueChange={v => setSelectedStatus(v as SubmissionStatus)}>
                 <TabsList>
-                  <TabsTrigger value={SUBMISSION_STATUS.PENDING_REVIEW} className="w-32">
-                    Pending
-                    {' '}
-                    {counts.pending > 0 && `(${counts.pending})`}
+                  <TabsTrigger value={SUBMISSION_STATUS.PENDING_REVIEW} className="w-40 gap-2 group">
+                    <ClockIcon weight="duotone" className="text-muted-foreground size-4" />
+                    <span className="group-data-[state=active]:font-semibold">
+                      Pending
+                      {' '}
+                      {counts.pending > 0 && `(${counts.pending})`}
+                    </span>
                   </TabsTrigger>
-                  <TabsTrigger value={SUBMISSION_STATUS.APPROVED} className="w-32">
-                    Approved
-                    {' '}
-                    {counts.approved > 0 && `(${counts.approved})`}
+                  <TabsTrigger value={SUBMISSION_STATUS.APPROVED} className="w-40 gap-2 group">
+                    <CheckCircleIcon weight="duotone" className="text-muted-foreground group-data-[state=active]:text-success-muted-foreground size-4" />
+                    <span className="group-data-[state=active]:font-semibold">
+                      Approved
+                      {' '}
+                      {counts.approved > 0 && `(${counts.approved})`}
+                    </span>
                   </TabsTrigger>
-                  <TabsTrigger value={SUBMISSION_STATUS.REJECTED} className="w-32">
-                    Rejected
-                    {' '}
-                    {counts.rejected > 0 && `(${counts.rejected})`}
+                  <TabsTrigger value={SUBMISSION_STATUS.REJECTED} className="w-40 gap-2 group">
+                    <XCircleIcon weight="duotone" className="text-muted-foreground group-data-[state=active]:text-destructive-muted-foreground size-4" />
+                    <span className="group-data-[state=active]:font-semibold">
+                      Rejected
+                      {' '}
+                      {counts.rejected > 0 && `(${counts.rejected})`}
+                    </span>
                   </TabsTrigger>
                 </TabsList>
 
