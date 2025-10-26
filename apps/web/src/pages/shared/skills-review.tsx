@@ -1,13 +1,11 @@
-import type { ListMySubmissionsResponse, ListPendingSubmissionsResponse } from '@conduit8/core';
+import type { ListMySubmissionsResponse, ListPendingSubmissionsResponse, SubmissionStatus } from '@conduit8/core';
 
+import { SUBMISSION_STATUS } from '@conduit8/core';
 import { useQuery } from '@tanstack/react-query';
 import { useAuth } from '@web/lib/auth/hooks';
 import { SubmitSkillDialog } from '@web/pages/public/home/components/submit-skill-dialog';
 import { useState } from 'react';
 
-import type { SkillStatus } from '@web/lib/types/skill-status';
-
-import { SKILL_STATUS } from '@web/lib/types/skill-status';
 import { SkillReviewCard } from '@web/pages/admin/review/components/skill-review-card';
 import { HomeHeader } from '@web/pages/public/home/home-header';
 import { useLoginModal } from '@web/pages/public/home/hooks/use-login-modal';
@@ -80,21 +78,21 @@ export function SkillsReviewPage() {
   const loginModal = useLoginModal();
   const isAdmin = user?.isAdmin ?? false;
 
-  const [selectedStatus, setSelectedStatus] = useState<SkillStatus>(SKILL_STATUS.PENDING);
+  const [selectedStatus, setSelectedStatus] = useState<SubmissionStatus>(SUBMISSION_STATUS.PENDING_REVIEW);
   const [showSubmitDialog, setShowSubmitDialog] = useState(false);
 
   // Fetch skills - different endpoints based on role
   const { data, isLoading, error } = useQuery({
-    queryKey: isAdmin
-      ? ['submissions', 'admin', selectedStatus]
-      : ['submissions', 'user'],
+    // selectedStatus only used when isAdmin=true, conditional spread is correct
+    // eslint-disable-next-line @tanstack/query/exhaustive-deps
+    queryKey: ['submissions', isAdmin, ...(isAdmin ? [selectedStatus] : [])],
     queryFn: () => isAdmin
       ? skillsApi.listAdminSubmissions({ status: selectedStatus, limit: 100, offset: 0 })
       : skillsApi.listMySubmissions({ limit: 100, offset: 0 }),
   });
 
   const skills = data?.data ?? [];
-  const pendingCount = selectedStatus === SKILL_STATUS.PENDING ? skills.length : 0;
+  const pendingCount = selectedStatus === SUBMISSION_STATUS.PENDING_REVIEW ? skills.length : 0;
 
   // Conditional configuration
   const title = isAdmin ? 'Review' : 'My Submissions';
@@ -127,22 +125,22 @@ export function SkillsReviewPage() {
         {/* Admin: Tabs, User: Plain List */}
         {isAdmin
           ? (
-              <Tabs value={selectedStatus} onValueChange={v => setSelectedStatus(v as SkillStatus)}>
+              <Tabs value={selectedStatus} onValueChange={v => setSelectedStatus(v as SubmissionStatus)}>
                 <TabsList>
-                  <TabsTrigger value={SKILL_STATUS.PENDING}>
+                  <TabsTrigger value={SUBMISSION_STATUS.PENDING_REVIEW}>
                     Pending
                     {' '}
                     {pendingCount > 0 && `(${pendingCount})`}
                   </TabsTrigger>
-                  <TabsTrigger value={SKILL_STATUS.APPROVED}>
+                  <TabsTrigger value={SUBMISSION_STATUS.APPROVED}>
                     Approved
                   </TabsTrigger>
-                  <TabsTrigger value={SKILL_STATUS.REJECTED}>
+                  <TabsTrigger value={SUBMISSION_STATUS.REJECTED}>
                     Rejected
                   </TabsTrigger>
                 </TabsList>
 
-                <TabsContent value={SKILL_STATUS.PENDING} className="space-y-4 mt-6">
+                <TabsContent value={SUBMISSION_STATUS.PENDING_REVIEW} className="space-y-4 mt-6">
                   <SkillListContent
                     isLoading={isLoading}
                     error={error}
@@ -152,7 +150,7 @@ export function SkillsReviewPage() {
                   />
                 </TabsContent>
 
-                <TabsContent value={SKILL_STATUS.APPROVED} className="space-y-4 mt-6">
+                <TabsContent value={SUBMISSION_STATUS.APPROVED} className="space-y-4 mt-6">
                   <SkillListContent
                     isLoading={isLoading}
                     error={error}
@@ -162,7 +160,7 @@ export function SkillsReviewPage() {
                   />
                 </TabsContent>
 
-                <TabsContent value={SKILL_STATUS.REJECTED} className="space-y-4 mt-6">
+                <TabsContent value={SUBMISSION_STATUS.REJECTED} className="space-y-4 mt-6">
                   <SkillListContent
                     isLoading={isLoading}
                     error={error}
