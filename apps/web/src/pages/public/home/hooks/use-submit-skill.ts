@@ -25,7 +25,9 @@ export function useSubmitSkill() {
       queryClient.invalidateQueries({ queryKey: ['submissions', 'counts'] });
 
       // Show success toast
-      toast.success('Skill submitted successfully');
+      toast.success('Skill submitted successfully', {
+        description: 'After review, it will be published to the directory',
+      });
     },
 
     onError: (error) => {
