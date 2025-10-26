@@ -17,14 +17,15 @@ export function useSubmitSkill() {
   return useMutation<SubmitSkillResponse, Error, SubmitSkillPayload>({
     mutationFn: (payload: SubmitSkillPayload) => skillsApi.submitSkill(payload),
 
-    onSuccess: (data) => {
+    onSuccess: () => {
       // Invalidate skills list to refetch with new skill
       queryClient.invalidateQueries({ queryKey: ['skills'] });
 
+      // Invalidate submissions to update pending count in user dropdown
+      queryClient.invalidateQueries({ queryKey: ['submissions'] });
+
       // Show success toast
-      toast.success('Skill submitted successfully', {
-        description: data.message,
-      });
+      toast.success('Skill submitted successfully');
     },
 
     onError: (error) => {
