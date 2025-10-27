@@ -1,6 +1,7 @@
 import type { AuthUser } from '@web/lib/auth/models';
 
 import { useNavigate } from '@tanstack/react-router';
+import { trackSubmitButtonClicked } from '@web/lib/analytics';
 import * as sections from '@web/pages/public/home/components';
 import { SignInModal } from '@web/pages/public/home/components/sign-in-modal';
 import { SubmitSkillDialog } from '@web/pages/public/home/components/submit-skill-dialog';
@@ -57,6 +58,8 @@ export function HomePage({ user, loginModal }: LandingPageProps) {
   };
 
   const handleSubmitClick = () => {
+    trackSubmitButtonClicked(!!user);
+
     if (user) {
       submitSkillDialog.open();
     }

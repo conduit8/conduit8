@@ -3,6 +3,7 @@ import type { ListPendingSubmissionsResponse, ListSubmissionsResponse, Submissio
 import { SUBMISSION_STATUS } from '@conduit8/core';
 import { CheckCircleIcon, ClockIcon, XCircleIcon } from '@phosphor-icons/react';
 import { useQuery } from '@tanstack/react-query';
+import { trackSubmitButtonClicked } from '@web/lib/analytics';
 import { useAuth } from '@web/lib/auth/hooks';
 import { SubmitSkillDialog } from '@web/pages/public/home/components/submit-skill-dialog';
 import { useState } from 'react';
@@ -116,7 +117,10 @@ export function SkillsReviewPage() {
         <HomeHeader
           user={user}
           loginModal={loginModal}
-          onSubmitClick={() => setShowSubmitDialog(true)}
+          onSubmitClick={() => {
+            trackSubmitButtonClicked(!!user);
+            setShowSubmitDialog(true);
+          }}
         />
       )}
     >
