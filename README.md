@@ -105,16 +105,34 @@ pnpm lint
 
 ## 🤝 Contributing
 
-**Coming Soon** - Community contributions enabled in a future release.
+Contributions from the community are highly appreciated!
 
-**Current registry:**
-- Official Anthropic skills (algorithmic art, canvas design, web testing, MCP builder)
-- Conduit8 curated skills (brand voice, CSV analysis, SEO, security, more)
+### Submit a Skill
 
-**Future:**
-- Submit your own skills
-- Get verified and featured
-- Help others discover your work
+**Two submission methods** (both go through the same review process):
+
+1. **Web UI (Recommended)** - Visit https://conduit8.dev, click "Submit", upload your skill ZIP
+   - Real-time validation (size, frontmatter, name uniqueness)
+   - Instant feedback on errors
+   - No git/GitHub knowledge required
+
+2. **GitHub PR** - For those who prefer the git/GitHub workflow
+   - Fork repo, add skill to `/skill-submissions/`
+   - Open PR with skill submission template
+   - See [CONTRIBUTING.md](CONTRIBUTING.md) for details
+
+**All submissions require:**
+- `SKILL.md` with valid frontmatter (name, description)
+- File size under 50MB
+- Testing with Claude Code before submission
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for complete guidelines, SKILL.md format, and review process.
+
+### Other Contributions
+
+- **Bug reports:** Use our [issue templates](https://github.com/conduit8/conduit8/issues/new/choose)
+- **Feature requests:** Suggest improvements via GitHub issues
+- **Code contributions:** See development setup below and [CONTRIBUTING.md](CONTRIBUTING.md)
 
 ## License
 
