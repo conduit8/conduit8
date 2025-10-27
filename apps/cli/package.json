@@ -1,7 +1,7 @@
 {
   "name": "conduit8",
   "type": "module",
-  "version": "0.8.3",
+  "version": "0.8.4",
   "description": "Lightweight Claude Code Skills manager. Install skills directly, without plugins / marketplaces.",
   "author": "Alexander Zuev",
   "license": "AGPL-3.0",
