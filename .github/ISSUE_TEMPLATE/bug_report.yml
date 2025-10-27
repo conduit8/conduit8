@@ -1,0 +1,72 @@
+name: Bug Report
+description: Report a bug in the CLI, platform, or a specific skill
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report a bug! Please fill out the information below.
+
+  - type: dropdown
+    id: component
+    attributes:
+      label: Component
+      description: Which part of Conduit8 is affected?
+      options:
+        - CLI
+        - Web Platform
+        - Specific Skill
+        - Other
+    validations:
+      required: true
+
+  - type: input
+    id: skill-name
+    attributes:
+      label: Skill Name (if applicable)
+      description: If this is a skill-specific issue, which skill?
+      placeholder: e.g., pdf, canvas-design, brand-guidelines
+    validations:
+      required: false
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Bug Description
+      description: Clear description of what the bug is
+      placeholder: What happened? What did you expect to happen?
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to Reproduce
+      description: How can we reproduce this issue?
+      placeholder: |
+        1. Run command...
+        2. See error...
+    validations:
+      required: true
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Your environment details
+      placeholder: |
+        - OS: [e.g., macOS 14.0, Windows 11, Ubuntu 22.04]
+        - Node version: [e.g., 22.0.0]
+        - CLI version: [e.g., 0.8.0]
+        - Claude Code version: [e.g., 1.2.0]
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs / Screenshots
+      description: Add any error messages, logs, or screenshots
+      placeholder: Paste logs or drag & drop screenshots here
+    validations:
+      required: false

@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Web Submission (Recommended)
+    url: https://conduit8.dev
+    about: Submit skills via the web UI (easiest method with real-time validation)
+  - name: Documentation
+    url: https://github.com/conduit8/conduit8#readme
+    about: Read the documentation for usage guides and examples
