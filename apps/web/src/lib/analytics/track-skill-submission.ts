@@ -88,6 +88,15 @@ export function trackSkillCategorySelected(category: string) {
 }
 
 /**
+ * Track when submit button is clicked (entry point to submission flow)
+ */
+export function trackSubmitButtonClicked(isAuthenticated: boolean) {
+  posthog.capture('submit_button_clicked', {
+    is_authenticated: isAuthenticated,
+  });
+}
+
+/**
  * Track submission start
  */
 export function trackSkillSubmissionStarted(

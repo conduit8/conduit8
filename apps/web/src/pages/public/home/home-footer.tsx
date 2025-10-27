@@ -9,35 +9,61 @@ export function HomeFooter() {
         <div className="px-4">
           <div className="flex flex-col md:flex-row md:justify-between gap-8">
             {/* Left: Brand */}
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-3">
               <Logo variant="text" size="md" interactive={false} />
-              <small className="text-background/60">Curated Claude Code skills</small>
+              <small className="text-muted-foreground">Curated Claude Code skills</small>
+              <div className="flex items-center gap-3">
+                <a
+                  href="https://github.com/conduit8/conduit8"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="transition-opacity hover:opacity-80"
+                >
+                  <img
+                    src="https://img.shields.io/github/stars/conduit8/conduit8?style=flat-square&logo=github&logoColor=white&label=&color=f76707&labelColor=2b2b2b"
+                    alt="GitHub stars"
+                  />
+                </a>
+                <a
+                  href="https://www.npmjs.com/package/conduit8"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="transition-opacity hover:opacity-80"
+                >
+                  <img
+                    src="https://img.shields.io/npm/dm/conduit8?style=flat-square&logo=npm&logoColor=white&label=&color=f76707&labelColor=2b2b2b"
+                    alt="npm downloads"
+                  />
+                </a>
+              </div>
             </div>
 
             {/* Right: Links */}
             <div className="flex gap-12">
               <div className="flex flex-col gap-3">
-                <p className="text-background font-semibold text-sm">About</p>
+                <p className="text-background font-medium text-sm">Support</p>
                 <a
-                  href="mailto:support@conduit8.dev"
-                  className="text-background/70 hover:text-background text-sm transition-colors"
+                  href="https://github.com/conduit8/conduit8/issues/new/choose"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-muted-foreground hover:text-background text-sm transition-colors"
                 >
-                  Support
+                  GitHub Issues
                 </a>
               </div>
 
               <div className="flex flex-col gap-3">
-                <p className="text-background font-semibold text-sm">Legal</p>
+                <p className="text-background font-medium text-sm">Legal</p>
                 <div className="flex flex-col gap-2">
                   <Link
                     to="/privacy"
-                    className="text-background/70 hover:text-background text-sm transition-colors"
+                    className="text-muted-foreground hover:text-background text-sm transition-colors"
                   >
                     Privacy
                   </Link>
                   <Link
                     to="/terms"
-                    className="text-background/70 hover:text-background text-sm transition-colors"
+                    className="text-muted-foreground hover:text-background text-sm transition-colors"
                   >
                     Terms
                   </Link>

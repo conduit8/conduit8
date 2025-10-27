@@ -58,13 +58,18 @@ export function SupportPage({ user, loginModal }: SupportPageProps) {
 
         {/* Contact */}
         <div className="flex flex-col items-center gap-4 p-8 border border-border rounded-lg bg-surface/50">
-          <h2 className="text-xl font-medium">Get in Touch</h2>
+          <h2 className="text-xl font-medium">Get Support</h2>
           <a
-            href="mailto:az@conduit8.dev"
+            href="https://github.com/conduit8/conduit8/issues/new/choose"
+            target="_blank"
+            rel="noopener noreferrer"
             className="text-lg font-medium hover:underline"
           >
-            az@conduit8.dev
+            Open a GitHub Issue
           </a>
+          <p className="text-sm text-muted-foreground text-center">
+            Report bugs, request features, or get help
+          </p>
         </div>
 
         {/* FAQ */}
