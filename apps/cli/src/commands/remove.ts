@@ -1,5 +1,6 @@
 import chalk from 'chalk';
 
+import { trackEvent } from '../utils/analytics';
 import { PERSONAL_SKILLS_DIR, PROJECT_SKILLS_DIR } from '../utils/config';
 import { CliError, SkillNotInstalledError } from '../utils/errors';
 import { removeSkill } from '../utils/fs';
@@ -12,6 +13,7 @@ interface RemoveOptions {
 
 export async function remove(name: string, options: RemoveOptions): Promise<void> {
   try {
+    trackEvent('cli_command_executed', { command: 'remove' });
     addBreadcrumb('remove command started', { skill: name, project: options.project });
 
     // Determine removal directory

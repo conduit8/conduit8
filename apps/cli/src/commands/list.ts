@@ -1,11 +1,13 @@
 import chalk from 'chalk';
 
+import { trackEvent } from '../utils/analytics';
 import { displayInstalledSkills } from '../utils/display';
 import { CliError } from '../utils/errors';
 import { listInstalledSkills } from '../utils/fs';
 
 export async function list(): Promise<void> {
   try {
+    trackEvent('cli_command_executed', { command: 'list' });
     const skills = await listInstalledSkills();
     displayInstalledSkills(skills);
   }

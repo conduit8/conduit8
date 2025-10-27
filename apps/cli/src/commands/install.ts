@@ -1,6 +1,7 @@
 import chalk from 'chalk';
 import ora from 'ora';
 
+import { trackEvent } from '../utils/analytics';
 import { getSkill, trackDownload } from '../utils/api';
 import { PERSONAL_SKILLS_DIR, PROJECT_SKILLS_DIR } from '../utils/config';
 import { displayInstallSuccess } from '../utils/display';
@@ -23,6 +24,8 @@ export async function install(name: string, options: InstallOptions): Promise<vo
   let spinner: ReturnType<typeof ora> | null = null;
 
   try {
+    // Track command execution
+    trackEvent('cli_command_executed', { command: 'install' });
     addBreadcrumb('install command started', { skill: name, project: options.project });
 
     // Determine installation directory
@@ -47,8 +50,13 @@ export async function install(name: string, options: InstallOptions): Promise<vo
     spinner.succeed(`Installed to ${skillsDir}/${skill.slug}`);
     spinner = null;
 
-    // Track download (fire and forget)
+    // Track download (backend API + PostHog)
     trackDownload(skill.slug).catch(() => {});
+    trackEvent('cli_skill_downloaded', {
+      slug: skill.slug,
+      category: skill.category,
+      installation_location: options.project ? 'project' : 'personal',
+    });
 
     // Display success message
     displayInstallSuccess(skill);

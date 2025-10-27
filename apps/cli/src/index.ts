@@ -6,6 +6,7 @@ import { install } from './commands/install';
 import { list } from './commands/list';
 import { remove } from './commands/remove';
 import { search } from './commands/search';
+import { flushPostHog, initPostHog } from './utils/analytics';
 import { flushSentry, initSentry } from './utils/sentry';
 
 const program = new Command();
@@ -13,12 +14,16 @@ const program = new Command();
 // Parse --no-telemetry flag early (before commander processes it)
 const telemetryEnabled = !process.argv.includes('--no-telemetry');
 
-// Initialize Sentry (skipped if --no-telemetry flag present)
+// Initialize telemetry (skipped if --no-telemetry flag present)
 initSentry(telemetryEnabled);
+initPostHog(telemetryEnabled);
 
-// Ensure Sentry events are flushed before exit
-process.on('beforeExit', () => {
-  void flushSentry();
+// Ensure telemetry events are flushed before exit
+process.on('beforeExit', async () => {
+  await Promise.all([
+    flushSentry(),
+    flushPostHog(),
+  ]);
 });
 
 program
