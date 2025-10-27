@@ -1,6 +1,7 @@
 import chalk from 'chalk';
 import ora from 'ora';
 
+import { trackEvent } from '../utils/analytics';
 import { searchSkills } from '../utils/api';
 import { displaySearchResults } from '../utils/display';
 import { ApiUnavailableError, CliError } from '../utils/errors';
@@ -10,6 +11,7 @@ export async function search(query?: string): Promise<void> {
   let spinner: ReturnType<typeof ora> | null = null;
 
   try {
+    trackEvent('cli_command_executed', { command: 'search' });
     addBreadcrumb('search command started', { query });
 
     spinner = ora('Searching...').start();
