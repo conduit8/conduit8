@@ -17,6 +17,8 @@
     "import:skills": "cd scripts && pnpm exec tsx import-local-skills.ts",
     "deploy": "pnpm --filter @conduit8/web run deploy",
     "deploy:prod": "echo '⚠️  WARNING: Deploying to PRODUCTION! Use CI/CD instead.' && pnpm --filter @conduit8/web run deploy:prod",
+    "publish:cli-alpha": "pnpm --filter conduit8 run publish:alpha",
+    "publish:cli-prod": "pnpm --filter conduit8 run publish:prod",
     "version:patch": "pnpm version patch --tag-version-prefix=platform-v",
     "version:minor": "pnpm version minor --tag-version-prefix=platform-v",
     "version:major": "pnpm version major --tag-version-prefix=platform-v"
