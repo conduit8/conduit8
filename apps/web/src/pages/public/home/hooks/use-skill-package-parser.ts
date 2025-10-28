@@ -5,7 +5,7 @@ import {
 } from '@web/lib/analytics';
 import { useState } from 'react';
 
-import { SkillPackage } from '../models/skill-package';
+import { SkillPackage } from '@web/pages/shared/models/skill-package';
 
 /**
  * Result of parsing a skill package file

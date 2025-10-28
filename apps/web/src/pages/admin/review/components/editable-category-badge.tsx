@@ -14,7 +14,7 @@ import { useState } from 'react';
 
 import { SKILL_CATEGORY_ICONS, SKILL_CATEGORY_LABELS } from '@web/pages/shared/models/skill-categories';
 
-import { useUpdateSubmissionCategory } from '../hooks/use-update-submission';
+import { useUpdateSubmission } from '../hooks/use-update-submission';
 
 interface EditableCategoryBadgeProps {
   submissionId: string;
@@ -34,10 +34,10 @@ const CATEGORY_DESCRIPTIONS: Record<SkillCategory, string> = {
 
 export function EditableCategoryBadge({ submissionId, currentCategory, currentStatus }: EditableCategoryBadgeProps) {
   const [isEditing, setIsEditing] = useState(false);
-  const { mutate: updateCategory, isPending } = useUpdateSubmissionCategory(submissionId, currentStatus);
+  const { mutate: updateCategory, isPending } = useUpdateSubmission(submissionId, currentStatus);
 
   const handleCategoryChange = (newCategory: string) => {
-    updateCategory(newCategory as SkillCategory, {
+    updateCategory({ category: newCategory as SkillCategory }, {
       onSuccess: () => {
         setIsEditing(false);
         trackSkillCategorySelected(newCategory);

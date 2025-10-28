@@ -1,9 +1,9 @@
+import type { SkillFrontmatter } from '@conduit8/core';
+
 import { MAX_SKILL_FILES, MAX_SKILL_PACKAGE_SIZE_BYTES, SkillFrontmatterSchema } from '@conduit8/core';
 import fm from 'front-matter';
 import JSZip from 'jszip';
 import { ZodError } from 'zod';
-
-import type { SkillFrontmatter } from '../components/submit-skill-dialog/submit-skill-form.schema';
 
 import {
   FileTooLargeError,

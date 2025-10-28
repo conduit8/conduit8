@@ -1,4 +1,4 @@
-import type { Skill } from '@conduit8/core';
+import type { SkillDetail } from '@conduit8/core';
 
 import { ContentGrid } from '@web/ui/components/layout/content/content-grid';
 
@@ -6,7 +6,7 @@ import { LandingSectionWrapper } from './landing-section-wrapper';
 import { SkillCard } from './skill-card';
 
 interface SkillsGridProps {
-  skills: Skill[];
+  skills: SkillDetail[];
   onSkillClick: (slug: string) => void;
   isPending?: boolean;
 }

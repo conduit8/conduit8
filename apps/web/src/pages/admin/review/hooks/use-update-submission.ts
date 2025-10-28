@@ -1,50 +1,34 @@
-import type { ListPendingSubmissionsResponse, SkillCategory, SubmissionStatus, UpdateSubmissionRequest } from '@conduit8/core';
+import type { SubmissionStatus, UpdateSubmissionRequest } from '@conduit8/core';
 
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
 
-import { buildSubmissionsQueryKey } from '@web/pages/admin/review/utils/optimistic-updates';
 import { skillsApi } from '@web/pages/public/home/services/skills-api';
 
-type SubmissionsResponse = ListPendingSubmissionsResponse;
-
 /**
- * Hook to update a skill submission category
- * Updates the single submission in cache on success
+ * Hook to update skill submission fields (category, author, sourceType, etc.)
+ * Invalidates queries to trigger re-fetch on success
  */
-export function useUpdateSubmissionCategory(submissionId: string, currentStatus: SubmissionStatus) {
+export function useUpdateSubmission(submissionId: string, _currentStatus: SubmissionStatus) {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (category: SkillCategory) => {
-      const request: UpdateSubmissionRequest = { category };
-      return skillsApi.updateSubmission(submissionId, request);
+    mutationFn: (updates: UpdateSubmissionRequest) => {
+      return skillsApi.updateSubmission(submissionId, updates);
     },
 
-    onSuccess: (response) => {
-      // Build query key for current status
-      const queryKey = buildSubmissionsQueryKey(true, currentStatus);
+    onSuccess: () => {
+      // Invalidate submission list queries to trigger re-fetch
+      queryClient.invalidateQueries({ queryKey: ['submissions'] });
 
-      // Update the single submission in the cache
-      queryClient.setQueryData<SubmissionsResponse>(queryKey, (old) => {
-        if (!old)
-          return old;
+      // Invalidate individual submission query if it exists
+      queryClient.invalidateQueries({ queryKey: ['submission', submissionId] });
 
-        return {
-          ...old,
-          data: old.data.map(submission =>
-            submission.id === submissionId
-              ? { ...submission, category: response.data.category }
-              : submission,
-          ),
-        };
-      });
-
-      toast.success('Category updated');
+      toast.success('Submission updated');
     },
 
     onError: () => {
-      toast.error('Failed to update category');
+      toast.error('Failed to update submission');
     },
   });
 }

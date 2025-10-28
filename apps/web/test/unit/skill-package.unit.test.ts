@@ -1,7 +1,6 @@
+import { SkillPackage } from '@web/pages/public/home/models/skill-package';
 import JSZip from 'jszip';
 import { describe, expect, it } from 'vitest';
-
-import { SkillPackage } from '@web/pages/public/home/models/skill-package';
 
 const SKILL_MD_VALID = `---
 name: Test Skill

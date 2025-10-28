@@ -3,8 +3,8 @@ import type {
   ApproveSubmissionResponse,
   CheckSkillNameResponse,
   GetSubmissionsCountResponse,
-  ListPendingSubmissionsQuery,
-  ListPendingSubmissionsResponse,
+  ListAdminSubmissionsQuery,
+  ListAdminSubmissionsResponse,
   ListSkillsQuery,
   ListSkillsResponse,
   ListSubmissionsQuery,
@@ -82,8 +82,8 @@ async function listSubmissions(query: Partial<ListSubmissionsQuery> = {}): Promi
 /**
  * List all submissions (admin only)
  */
-async function listAdminSubmissions(query: Partial<ListPendingSubmissionsQuery> = {}): Promise<ListPendingSubmissionsResponse> {
-  return api.get<ListPendingSubmissionsResponse>(getApiRoute('admin_skills_submissions'), {
+async function listAdminSubmissions(query: Partial<ListAdminSubmissionsQuery> = {}): Promise<ListAdminSubmissionsResponse> {
+  return api.get<ListAdminSubmissionsResponse>(getApiRoute('admin_skills_submissions'), {
     queryParams: {
       status: query.status,
       limit: query.limit ?? 50,

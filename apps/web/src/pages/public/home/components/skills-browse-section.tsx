@@ -1,4 +1,4 @@
-import type { Skill } from '@conduit8/core';
+import type { SkillDetail } from '@conduit8/core';
 
 import { MagnifyingGlassIcon, PlusIcon } from '@phosphor-icons/react';
 import { Button } from '@web/ui/components/atoms/buttons';
@@ -16,7 +16,7 @@ import { SkillCard } from './skill-card';
 import { SkillCardSkeleton } from './skill-card-skeleton';
 
 interface SkillsBrowseSectionProps {
-  skills: Skill[];
+  skills: SkillDetail[];
   onSkillClick: (slug: string) => void;
   isPending?: boolean;
   onSubmitClick: () => void;

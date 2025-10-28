@@ -1,37 +1,23 @@
-import type { ListPendingSubmissionsResponse, ListSubmissionsResponse, SubmissionStatus } from '@conduit8/core';
-
-import { SUBMISSION_STATUS } from '@conduit8/core';
+import { SKILL_AUTHOR_KINDS, SKILL_SOURCE_TYPES } from '@conduit8/core';
 import { CheckIcon, XIcon } from '@phosphor-icons/react';
 import { useState } from 'react';
 
-import { formatRelativeDate } from '@web/lib/utils/date-utils';
+import type { SkillSubmission } from '@web/pages/shared/models/skill-submission';
+
 import { EditableCategoryBadge } from '@web/pages/admin/review/components/editable-category-badge';
+import { EditableSelect, EditableTextField } from '@web/pages/admin/review/components/editable-field';
 import { SkillReviewActionDialog } from '@web/pages/admin/review/components/skill-review-action-dialog';
 import { useApproveSubmission, useRejectSubmission } from '@web/pages/admin/review/hooks/use-review-actions';
-import { SKILL_CATEGORY_ICONS, SKILL_CATEGORY_LABELS } from '@web/pages/shared/models/skill-categories';
-import { SKILL_STATUS_COLORS, SKILL_STATUS_LABELS } from '@web/pages/shared/models/skill-status';
+import { useUpdateSubmission } from '@web/pages/admin/review/hooks/use-update-submission';
+import { SKILL_AUTHOR_KIND_LABELS, SKILL_SOURCE_TYPE_LABELS } from '@web/pages/shared/models/skill-metadata';
 import { Button } from '@web/ui/components/atoms/buttons/button';
 import { Badge } from '@web/ui/components/atoms/indicators/badge';
 import { Alert } from '@web/ui/components/feedback/alerts/alert';
 import { Card } from '@web/ui/components/layout/containers/card';
 
-// Type for user submissions (no submittedBy field)
-type UserSubmission = ListSubmissionsResponse['data'][number];
-
-// Type for admin submissions (includes submittedBy field)
-type AdminSubmission = ListPendingSubmissionsResponse['data'][number];
-
 interface SkillReviewCardProps {
-  skill: UserSubmission | AdminSubmission;
+  skill: SkillSubmission;
   isAdmin?: boolean;
-  isEditable?: boolean;
-}
-
-/**
- * Check if submission includes submittedBy (admin view)
- */
-function isAdminSubmission(skill: UserSubmission | AdminSubmission): skill is AdminSubmission {
-  return 'submittedBy' in skill;
 }
 
 /**
@@ -47,12 +33,16 @@ function isAdminSubmission(skill: UserSubmission | AdminSubmission): skill is Ad
 export function SkillReviewCard({
   skill,
   isAdmin = false,
-  isEditable = false,
 }: SkillReviewCardProps) {
+  const isEditable = skill.isEditable(isAdmin);
   const [dialogMode, setDialogMode] = useState<'approve' | 'reject' | null>(null);
 
   const { mutate: approve, isPending: isApproving } = useApproveSubmission();
   const { mutate: reject, isPending: isRejecting } = useRejectSubmission();
+  const {
+    mutate: updateSubmission,
+    isPending: isUpdating,
+  } = useUpdateSubmission(skill.id, skill.status);
 
   const handleApprove = () => {
     setDialogMode('approve');
@@ -85,22 +75,47 @@ export function SkillReviewCard({
     }
   };
 
-  const showActions = isAdmin && skill.status === SUBMISSION_STATUS.PENDING_REVIEW;
-  const showRejectionReason = skill.status === 'rejected' && skill.rejectionReason;
+  const showActions = skill.isPending() && isAdmin;
   const isLoading = isApproving || isRejecting;
 
+  // Options for editable selects
+  const authorKindOptions = SKILL_AUTHOR_KINDS.map(kind => ({
+    value: kind,
+    label: SKILL_AUTHOR_KIND_LABELS[kind],
+  }));
+
+  const sourceTypeOptions = SKILL_SOURCE_TYPES.map(type => ({
+    value: type,
+    label: SKILL_SOURCE_TYPE_LABELS[type],
+  }));
+
   return (
-    <Card className="p-4">
+    <Card className="relative p-4">
+
       <div className="flex flex-col md:flex-row md:gap-6">
         {/* Left Column: Content (70%) */}
         <div className="flex-1 space-y-3">
           {/* Header: Skill Name + Status Badge */}
           <div className="flex items-start justify-between gap-3">
-            <h3 className="font-semibold text-lg">{skill.name}</h3>
-            <Badge variant={SKILL_STATUS_COLORS[skill.status as SubmissionStatus]}>
-              {SKILL_STATUS_LABELS[skill.status as SubmissionStatus]}
+            {isEditable
+              ? (
+                  <EditableTextField
+                    value={skill.name}
+                    onSave={name => updateSubmission({ name })}
+                    isPending={isUpdating}
+                    className="font-semibold text-lg"
+                  />
+                )
+              : <h3 className="font-semibold text-lg">{skill.name}</h3>}
+            <Badge variant={skill.statusColor}>
+              {skill.statusLabel}
             </Badge>
           </div>
+
+          {/* Submission Date (muted) */}
+          <span className="text-sm text-muted-foreground">
+            {skill.formattedSubmittedDate}
+          </span>
 
           {/* Description */}
           <p className="text-sm text-muted-foreground line-clamp-3">
@@ -108,7 +123,7 @@ export function SkillReviewCard({
           </p>
 
           {/* Rejection Reason Alert (if rejected) */}
-          {showRejectionReason && (
+          {skill.shouldShowRejectionReason() && (
             <Alert variant="destructive">
               <p className="text-sm">
                 <strong>Rejection reason: </strong>
@@ -117,8 +132,8 @@ export function SkillReviewCard({
             </Alert>
           )}
 
-          {/* Metadata Row: Category, Submitter (admin only), Date */}
-          <div className="flex items-center gap-3 text-sm flex-wrap">
+          {/* Metadata Row: Category, Author, Kind, Source */}
+          <div className="flex items-center gap-2 text-sm flex-wrap">
             {/* Category Badge */}
             {isEditable
               ? (
@@ -131,30 +146,56 @@ export function SkillReviewCard({
               : (
                   <Badge variant="neutral">
                     {(() => {
-                      const Icon = SKILL_CATEGORY_ICONS[skill.category];
+                      const Icon = skill.categoryIcon;
                       return <Icon weight="duotone" />;
                     })()}
-                    {SKILL_CATEGORY_LABELS[skill.category]}
+                    {skill.categoryLabel}
                   </Badge>
                 )}
 
-            {/* Submitter Info (admin view only) */}
-            {isAdmin && isAdminSubmission(skill) && (
-              <>
-                <span className="text-muted-foreground">•</span>
-                <span className="text-muted-foreground">
-                  By:
-                  {' '}
-                  {skill.submittedBy.name || skill.submittedBy.email}
-                </span>
-              </>
-            )}
-
-            {/* Submission Date */}
             <span className="text-muted-foreground">•</span>
-            <span className="text-muted-foreground">
-              {formatRelativeDate(skill.submittedAt)}
-            </span>
+
+            {/* Author */}
+            {isEditable
+              ? (
+                  <EditableTextField
+                    value={skill.author}
+                    onSave={author => updateSubmission({ author })}
+                    isPending={isUpdating}
+                    className="text-muted-foreground"
+                  />
+                )
+              : <span className="text-muted-foreground">{skill.author}</span>}
+
+            <span className="text-muted-foreground">•</span>
+
+            {/* Author Kind */}
+            {isEditable
+              ? (
+                  <EditableSelect
+                    value={skill.authorKind}
+                    options={authorKindOptions}
+                    onSave={authorKind => updateSubmission({ authorKind: authorKind as 'verified' | 'community' })}
+                    isPending={isUpdating}
+                    className="text-muted-foreground"
+                  />
+                )
+              : <span className="text-muted-foreground">{skill.authorKindLabel}</span>}
+
+            <span className="text-muted-foreground">•</span>
+
+            {/* Source Type */}
+            {isEditable
+              ? (
+                  <EditableSelect
+                    value={skill.sourceType}
+                    options={sourceTypeOptions}
+                    onSave={sourceType => updateSubmission({ sourceType: sourceType as 'import' | 'pr' | 'submission' })}
+                    isPending={isUpdating}
+                    className="text-muted-foreground"
+                  />
+                )
+              : <span className="text-muted-foreground">{skill.sourceTypeLabel}</span>}
           </div>
         </div>
 
