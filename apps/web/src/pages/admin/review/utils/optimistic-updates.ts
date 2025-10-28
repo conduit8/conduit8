@@ -1,27 +1,13 @@
-import type { ListPendingSubmissionsResponse, SubmissionStatus } from '@conduit8/core';
-
-/**
- * API response type for admin submissions
- */
-type SubmissionsResponse = ListPendingSubmissionsResponse;
-
-/**
- * Submission item type
- */
-type Submission = SubmissionsResponse['data'][number];
+import type { ListAdminSubmissionsResponse, SubmissionListItem, SubmissionStatus } from '@conduit8/core';
 
 /**
  * Optimistically remove a submission from one status list
  * Used when approving or rejecting
- *
- * @param data - Current query data
- * @param submissionId - ID of submission to remove
- * @returns Updated data with submission removed
  */
 export function removeSubmissionFromList(
-  data: SubmissionsResponse | undefined,
+  data: ListAdminSubmissionsResponse | undefined,
   submissionId: string,
-): SubmissionsResponse | undefined {
+): ListAdminSubmissionsResponse | undefined {
   if (!data)
     return data;
 
@@ -34,22 +20,16 @@ export function removeSubmissionFromList(
 /**
  * Optimistically add a submission to a target status list
  * Used when approving or rejecting to add to approved/rejected list
- *
- * @param data - Current query data
- * @param submission - Submission to add
- * @param newStatus - New status of the submission
- * @returns Updated data with submission added
  */
 export function addSubmissionToList(
-  data: SubmissionsResponse | undefined,
-  submission: Submission,
+  data: ListAdminSubmissionsResponse | undefined,
+  submission: SubmissionListItem,
   newStatus: SubmissionStatus,
-): SubmissionsResponse | undefined {
+): ListAdminSubmissionsResponse | undefined {
   if (!data)
     return data;
 
-  // Update submission status
-  const updatedSubmission = {
+  const updatedSubmission: SubmissionListItem = {
     ...submission,
     status: newStatus,
     reviewedAt: new Date(),

@@ -1,4 +1,4 @@
-import type { ListPendingSubmissionsResponse, ListSubmissionsResponse, SubmissionStatus } from '@conduit8/core';
+import type { SubmissionStatus } from '@conduit8/core';
 
 import { SUBMISSION_STATUS } from '@conduit8/core';
 import { CheckCircleIcon, ClockIcon, XCircleIcon } from '@phosphor-icons/react';
@@ -12,10 +12,9 @@ import { SkillReviewCard } from '@web/pages/admin/review/components/skill-review
 import { HomeHeader } from '@web/pages/public/home/home-header';
 import { useLoginModal } from '@web/pages/public/home/hooks/use-login-modal';
 import { skillsApi } from '@web/pages/public/home/services/skills-api';
+import { SkillSubmission } from '@web/pages/shared/models/skill-submission';
 import { PageLayout } from '@web/ui/components/layout/page/page-layout';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@web/ui/components/navigation/tabs';
-
-type Skill = ListSubmissionsResponse['data'][number] | ListPendingSubmissionsResponse['data'][number];
 
 /**
  * Reusable content renderer for skill lists
@@ -23,13 +22,12 @@ type Skill = ListSubmissionsResponse['data'][number] | ListPendingSubmissionsRes
 interface SkillListContentProps {
   isLoading: boolean;
   error: Error | null;
-  skills: Skill[];
+  skills: SkillSubmission[];
   isAdmin: boolean;
-  isEditable: boolean;
   emptyMessage: string;
 }
 
-function SkillListContent({ isLoading, error, skills, isAdmin, isEditable, emptyMessage }: SkillListContentProps) {
+function SkillListContent({ isLoading, error, skills, isAdmin, emptyMessage }: SkillListContentProps) {
   if (error) {
     return (
       <div className="text-center py-12 border rounded-lg border-destructive">
@@ -61,7 +59,6 @@ function SkillListContent({ isLoading, error, skills, isAdmin, isEditable, empty
           key={skill.id}
           skill={skill}
           isAdmin={isAdmin}
-          isEditable={isEditable}
         />
       ))}
     </div>
@@ -101,7 +98,7 @@ export function SkillsReviewPage() {
     queryFn: () => skillsApi.getSubmissionsCount(),
   });
 
-  const skills = data?.data ?? [];
+  const skills = data?.data.map(item => SkillSubmission.fromApiResponse(item)) ?? [];
   const counts = countsData?.data ?? { total: 0, pending: 0, approved: 0, rejected: 0 };
 
   // Conditional configuration
@@ -172,7 +169,6 @@ export function SkillsReviewPage() {
                     error={error}
                     skills={skills}
                     isAdmin={true}
-                    isEditable={true}
                     emptyMessage="No pending skills"
                   />
                 </TabsContent>
@@ -183,7 +179,6 @@ export function SkillsReviewPage() {
                     error={error}
                     skills={skills}
                     isAdmin={true}
-                    isEditable={true}
                     emptyMessage="No approved skills"
                   />
                 </TabsContent>
@@ -194,7 +189,6 @@ export function SkillsReviewPage() {
                     error={error}
                     skills={skills}
                     isAdmin={true}
-                    isEditable={true}
                     emptyMessage="No rejected skills"
                   />
                 </TabsContent>
@@ -206,7 +200,6 @@ export function SkillsReviewPage() {
                 error={error}
                 skills={skills}
                 isAdmin={false}
-                isEditable={false}
                 emptyMessage="No submissions yet"
               />
             )}

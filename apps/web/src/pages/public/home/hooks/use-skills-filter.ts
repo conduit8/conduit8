@@ -1,4 +1,4 @@
-import type { Skill } from '@conduit8/core';
+import type { SkillDetail } from '@conduit8/core';
 
 import { useMemo } from 'react';
 
@@ -15,9 +15,9 @@ export interface SkillsFilterOptions {
  * Extracts filtering logic following Single Responsibility Principle
  */
 export function useSkillsFilter(
-  skills: Skill[] | undefined,
+  skills: SkillDetail[] | undefined,
   options: SkillsFilterOptions,
-): Skill[] {
+): SkillDetail[] {
   return useMemo(() => {
     // Return empty during loading - UI component handles loading state
     if (!skills)

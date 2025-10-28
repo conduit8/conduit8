@@ -1,6 +1,6 @@
 import { posthog } from '@web/lib/clients';
 
-import type { SkillPackageError } from '@web/pages/public/home/models/skill-package-errors';
+import type { SkillPackageError } from '@web/pages/shared/models/skill-package-errors';
 
 /**
  * Error types for skill file parsing failures

@@ -2,8 +2,9 @@ import { MAX_SKILL_PACKAGE_SIZE_BYTES } from '@conduit8/core';
 import { trackSkillNameUnavailable, trackSkillValidationPassed } from '@web/lib/analytics';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
+import type { SkillPackage } from '@web/pages/shared/models/skill-package';
+
 import type { ValidationCheck } from '../components/submit-skill-dialog/validation-checks';
-import type { SkillPackage } from '../models/skill-package';
 
 import { skillsApi } from '../services/skills-api';
 
