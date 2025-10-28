@@ -1,3 +1,4 @@
+import { APP_ROUTES } from '@conduit8/core';
 import { z, ZodError } from 'zod';
 
 // Environment schema
@@ -68,7 +69,9 @@ export const settings = {
 
   posthog: {
     apiKey: env.VITE_PUBLIC_POSTHOG_KEY,
-    apiHost: 'https://us.i.posthog.com',
+    apiHost: isDevelopment
+      ? 'https://us.i.posthog.com' // Direct in dev for debugging
+      : `${env.VITE_BASE_URL}${APP_ROUTES.api.prefix}${APP_ROUTES.api.paths.posthogProxy}`,
     enabled: !isDevelopment,
   },
 
