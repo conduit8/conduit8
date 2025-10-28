@@ -5,6 +5,7 @@ import { CheckIcon, XIcon } from '@phosphor-icons/react';
 import { useState } from 'react';
 
 import { formatRelativeDate } from '@web/lib/utils/date-utils';
+import { EditableCategoryBadge } from '@web/pages/admin/review/components/editable-category-badge';
 import { SkillReviewActionDialog } from '@web/pages/admin/review/components/skill-review-action-dialog';
 import { useApproveSubmission, useRejectSubmission } from '@web/pages/admin/review/hooks/use-review-actions';
 import { SKILL_CATEGORY_ICONS, SKILL_CATEGORY_LABELS } from '@web/pages/shared/models/skill-categories';
@@ -23,6 +24,7 @@ type AdminSubmission = ListPendingSubmissionsResponse['data'][number];
 interface SkillReviewCardProps {
   skill: UserSubmission | AdminSubmission;
   isAdmin?: boolean;
+  isEditable?: boolean;
 }
 
 /**
@@ -45,6 +47,7 @@ function isAdminSubmission(skill: UserSubmission | AdminSubmission): skill is Ad
 export function SkillReviewCard({
   skill,
   isAdmin = false,
+  isEditable = false,
 }: SkillReviewCardProps) {
   const [dialogMode, setDialogMode] = useState<'approve' | 'reject' | null>(null);
 
@@ -117,13 +120,23 @@ export function SkillReviewCard({
           {/* Metadata Row: Category, Submitter (admin only), Date */}
           <div className="flex items-center gap-3 text-sm flex-wrap">
             {/* Category Badge */}
-            <Badge variant="neutral">
-              {(() => {
-                const Icon = SKILL_CATEGORY_ICONS[skill.category];
-                return <Icon weight="duotone" />;
-              })()}
-              {SKILL_CATEGORY_LABELS[skill.category]}
-            </Badge>
+            {isEditable
+              ? (
+                  <EditableCategoryBadge
+                    submissionId={skill.id}
+                    currentCategory={skill.category}
+                    currentStatus={skill.status}
+                  />
+                )
+              : (
+                  <Badge variant="neutral">
+                    {(() => {
+                      const Icon = SKILL_CATEGORY_ICONS[skill.category];
+                      return <Icon weight="duotone" />;
+                    })()}
+                    {SKILL_CATEGORY_LABELS[skill.category]}
+                  </Badge>
+                )}
 
             {/* Submitter Info (admin view only) */}
             {isAdmin && isAdminSubmission(skill) && (

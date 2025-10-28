@@ -78,6 +78,17 @@ export class NestedArchiveError extends SkillPackageError {
 }
 
 /**
+ * SKILL.md is not at root level of ZIP
+ */
+export class NestedSkillMdError extends SkillPackageError {
+  readonly code = 'nested_skill_md';
+
+  constructor(actualPath: string) {
+    super(`SKILL.md must be at the root level of the ZIP file, but found at: ${actualPath}`);
+  }
+}
+
+/**
  * Generic parsing error for unexpected failures
  */
 export class ParseError extends SkillPackageError {

@@ -114,8 +114,8 @@ importers:
         specifier: ^1.9.3
         version: 1.9.3(react@19.2.0)
       '@conduit8/core':
-        specifier: ^0.1.17
-        version: 0.1.17
+        specifier: ^0.1.19
+        version: 0.1.19
       '@hookform/resolvers':
         specifier: ^5.2.0
         version: 5.2.2(react-hook-form@7.65.0(react@19.2.0))
@@ -473,7 +473,62 @@ importers:
         version: 3.2.4(@types/debug@4.1.12)(@types/node@24.9.1)(jiti@2.6.1)(jsdom@26.1.0)(lightningcss@1.30.2)(msw@2.11.6(@types/node@24.9.1)(typescript@5.9.3))(tsx@4.20.6)(yaml@2.8.1)
       wrangler:
         specifier: 'catalog:'
-        version: 4.44.0
+        version: 4.44.0(@cloudflare/workers-types@4.20251014.0)
+
+  backend/packages/core:
+    dependencies:
+      '@slack/types':
+        specifier: ^2.16.0
+        version: 2.18.0
+      camelcase-keys:
+        specifier: ^9.1.3
+        version: 9.1.3
+      snakecase-keys:
+        specifier: ^9.0.2
+        version: 9.0.2
+      zod:
+        specifier: 'catalog:'
+        version: 4.1.12
+    devDependencies:
+      '@cloudflare/workers-types':
+        specifier: ^4.20250831.0
+        version: 4.20251014.0
+      '@conduit8/eslint-config':
+        specifier: workspace:*
+        version: link:../../../packages/eslint-config
+      '@types/node':
+        specifier: 'catalog:'
+        version: 24.9.1
+      '@vitest/coverage-istanbul':
+        specifier: 'catalog:'
+        version: 3.2.4(vitest@3.2.4(@types/debug@4.1.12)(@types/node@24.9.1)(jiti@2.6.1)(jsdom@26.1.0)(lightningcss@1.30.2)(msw@2.11.6(@types/node@24.9.1)(typescript@5.9.3))(tsx@4.20.6)(yaml@2.8.1))
+      eslint:
+        specifier: 'catalog:'
+        version: 9.38.0(jiti@2.6.1)
+      tsdown:
+        specifier: ^0.15.3
+        version: 0.15.9(typescript@5.9.3)
+      typescript:
+        specifier: 'catalog:'
+        version: 5.9.3
+      vite-tsconfig-paths:
+        specifier: 'catalog:'
+        version: 5.1.4(typescript@5.9.3)(vite@7.1.11(@types/node@24.9.1)(jiti@2.6.1)(lightningcss@1.30.2)(tsx@4.20.6)(yaml@2.8.1))
+      vitest:
+        specifier: 'catalog:'
+        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.9.1)(jiti@2.6.1)(jsdom@26.1.0)(lightningcss@1.30.2)(msw@2.11.6(@types/node@24.9.1)(typescript@5.9.3))(tsx@4.20.6)(yaml@2.8.1)
+
+  backend/packages/eslint-config:
+    devDependencies:
+      '@antfu/eslint-config':
+        specifier: ^5.4.1
+        version: 5.4.1(@eslint-react/eslint-plugin@1.53.1(eslint@9.38.0(jiti@2.6.1))(ts-api-utils@2.1.0(typescript@5.9.3))(typescript@5.9.3))(@vue/compiler-sfc@3.5.22)(eslint-plugin-format@0.1.3(eslint@9.38.0(jiti@2.6.1)))(eslint-plugin-react-hooks@5.2.0(eslint@9.38.0(jiti@2.6.1)))(eslint-plugin-react-refresh@0.4.24(eslint@9.38.0(jiti@2.6.1)))(eslint@9.38.0(jiti@2.6.1))(typescript@5.9.3)(vitest@3.2.4(@types/debug@4.1.12)(@types/node@24.9.1)(jiti@2.6.1)(jsdom@26.1.0)(lightningcss@1.30.2)(msw@2.11.6(@types/node@24.9.1)(typescript@5.9.3))(tsx@4.20.6)(yaml@2.8.1))
+      eslint:
+        specifier: ^9.34.0
+        version: 9.38.0(jiti@2.6.1)
+      eslint-plugin-format:
+        specifier: ^0.1.3
+        version: 0.1.3(eslint@9.38.0(jiti@2.6.1))
 
   packages/eslint-config:
     devDependencies:
@@ -795,8 +850,14 @@ packages:
     cpu: [x64]
     os: [win32]
 
+  '@cloudflare/workers-types@4.20251014.0':
+    resolution: {integrity: sha512-tEW98J/kOa0TdylIUOrLKRdwkUw0rvvYVlo+Ce0mqRH3c8kSoxLzUH9gfCvwLe0M89z1RkzFovSKAW2Nwtyn3w==}
+
   '@conduit8/core@0.1.17':
     resolution: {integrity: sha512-+w1/jIpxzCvEBD6APeyJtPTeLH4ctwRY3fTdWvHqLux99bFopb+f7aysLPsYz1glvb2cFXI5Y2grgMWI6yGPVQ==, tarball: https://npm.pkg.github.com/download/@conduit8/core/0.1.17/73b76266ba4d3e233aa1f447339e77c4fcae7bdb}
+
+  '@conduit8/core@0.1.19':
+    resolution: {integrity: sha512-dTf2OR99s8rrC6tznYBn+COuHfWTKpJLbYNUqszZKp10q80tq9+CjBDO8jaOWRpnN+d2dkZnBc+fA3L6WNGSQA==, tarball: https://npm.pkg.github.com/download/@conduit8/core/0.1.19/87fa327a56e22bbca05299c22c1c34c228450686}
 
   '@cspotcode/source-map-support@0.8.1':
     resolution: {integrity: sha512-IchNf6dN4tHoMFIn/7OE8LWZ19Y6q/67Bmf6vnGREv8RSbBVb9LPJxEcnwrcwX6ixSvaiGoomAUvu4YSxXrVgw==}
@@ -7711,7 +7772,16 @@ snapshots:
   '@cloudflare/workerd-windows-64@1.20251011.0':
     optional: true
 
+  '@cloudflare/workers-types@4.20251014.0': {}
+
   '@conduit8/core@0.1.17':
+    dependencies:
+      '@slack/types': 2.18.0
+      camelcase-keys: 9.1.3
+      snakecase-keys: 9.0.2
+      zod: 4.1.12
+
+  '@conduit8/core@0.1.19':
     dependencies:
       '@slack/types': 2.18.0
       camelcase-keys: 9.1.3
@@ -10544,7 +10614,7 @@ snapshots:
   '@vitest/snapshot@3.2.4':
     dependencies:
       '@vitest/pretty-format': 3.2.4
-      magic-string: 0.30.19
+      magic-string: 0.30.21
       pathe: 2.0.3
 
   '@vitest/spy@3.2.4':
@@ -10724,7 +10794,7 @@ snapshots:
 
   ast-kit@2.1.3:
     dependencies:
-      '@babel/parser': 7.28.4
+      '@babel/parser': 7.28.5
       pathe: 2.0.3
 
   ast-types@0.16.1:
@@ -11741,7 +11811,7 @@ snapshots:
 
   eslint-plugin-unicorn@61.0.2(eslint@9.38.0(jiti@2.6.1)):
     dependencies:
-      '@babel/helper-validator-identifier': 7.27.1
+      '@babel/helper-validator-identifier': 7.28.5
       '@eslint-community/eslint-utils': 4.9.0(eslint@9.38.0(jiti@2.6.1))
       '@eslint/plugin-kit': 0.3.5
       change-case: 5.4.4
@@ -12403,7 +12473,7 @@ snapshots:
   istanbul-lib-instrument@6.0.3:
     dependencies:
       '@babel/core': 7.28.4
-      '@babel/parser': 7.28.4
+      '@babel/parser': 7.28.5
       '@istanbuljs/schema': 0.1.3
       istanbul-lib-coverage: 3.2.2
       semver: 7.7.3
@@ -12662,8 +12732,8 @@ snapshots:
 
   magicast@0.3.5:
     dependencies:
-      '@babel/parser': 7.28.4
-      '@babel/types': 7.28.4
+      '@babel/parser': 7.28.5
+      '@babel/types': 7.28.5
       source-map-js: 1.2.1
 
   make-dir@4.0.0:
@@ -13871,14 +13941,14 @@ snapshots:
   rolldown-plugin-dts@0.16.12(rolldown@1.0.0-beta.44)(typescript@5.9.3):
     dependencies:
       '@babel/generator': 7.28.3
-      '@babel/parser': 7.28.4
-      '@babel/types': 7.28.4
+      '@babel/parser': 7.28.5
+      '@babel/types': 7.28.5
       ast-kit: 2.1.3
       birpc: 2.6.1
       debug: 4.4.3
       dts-resolver: 2.1.2
       get-tsconfig: 4.13.0
-      magic-string: 0.30.19
+      magic-string: 0.30.21
       rolldown: 1.0.0-beta.44
     optionalDependencies:
       typescript: 5.9.3
@@ -14808,7 +14878,7 @@ snapshots:
       chai: 5.3.3
       debug: 4.4.3
       expect-type: 1.2.2
-      magic-string: 0.30.19
+      magic-string: 0.30.21
       pathe: 2.0.3
       picomatch: 4.0.3
       std-env: 3.10.0
@@ -14942,7 +15012,7 @@ snapshots:
       '@cloudflare/workerd-linux-arm64': 1.20251011.0
       '@cloudflare/workerd-windows-64': 1.20251011.0
 
-  wrangler@4.44.0:
+  wrangler@4.44.0(@cloudflare/workers-types@4.20251014.0):
     dependencies:
       '@cloudflare/kv-asset-handler': 0.4.0
       '@cloudflare/unenv-preset': 2.7.8(unenv@2.0.0-rc.21)(workerd@1.20251011.0)
@@ -14953,6 +15023,7 @@ snapshots:
       unenv: 2.0.0-rc.21
       workerd: 1.20251011.0
     optionalDependencies:
+      '@cloudflare/workers-types': 4.20251014.0
       fsevents: 2.3.3
     transitivePeerDependencies:
       - bufferutil
