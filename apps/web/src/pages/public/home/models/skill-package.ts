@@ -11,6 +11,7 @@ import {
   MissingSkillMdError,
   MultipleSkillMdError,
   NestedArchiveError,
+  NestedSkillMdError,
   ParseError,
   TooManyFilesError,
 } from './skill-package-errors';
@@ -82,6 +83,8 @@ export interface ParsedSkillData {
 /**
  * Domain model representing a skill package (ZIP file)
  * Handles parsing and validation of skill ZIP files
+ *
+ * TODO: Move shared validation logic to @conduit8/core to avoid duplication with backend
  */
 export class SkillPackage {
   private constructor(
@@ -91,6 +94,9 @@ export class SkillPackage {
 
   /**
    * Find SKILL.md file in ZIP (case-insensitive)
+   * Performs two checks:
+   * 1. Exactly one SKILL.md exists
+   * 2. SKILL.md is at root level (not nested in directories)
    */
   private static findSkillMdFile(zip: JSZip): string {
     const allFiles = Object.keys(zip.files);
@@ -99,7 +105,12 @@ export class SkillPackage {
       return fileName.toUpperCase() === 'SKILL.MD';
     });
 
+    // Check 1: Exactly one SKILL.md exists
     this.validateSkillMdCount(skillMdFiles);
+
+    // Check 2: SKILL.md is at root level
+    this.validateSkillMdLocation(skillMdFiles[0]!);
+
     return skillMdFiles[0]!;
   }
 
@@ -113,6 +124,16 @@ export class SkillPackage {
 
     if (skillMdFiles.length > 1) {
       throw new MultipleSkillMdError(skillMdFiles.length, skillMdFiles);
+    }
+  }
+
+  /**
+   * Validate SKILL.md is at root level (not nested in subdirectories)
+   */
+  private static validateSkillMdLocation(skillMdPath: string): void {
+    // SKILL.md must be at root - check case-insensitively
+    if (skillMdPath.toUpperCase() !== 'SKILL.MD') {
+      throw new NestedSkillMdError(skillMdPath);
     }
   }
 
@@ -208,6 +229,7 @@ export class SkillPackage {
       if (error instanceof FileTooLargeError
         || error instanceof MissingSkillMdError
         || error instanceof MultipleSkillMdError
+        || error instanceof NestedSkillMdError
         || error instanceof InvalidFrontmatterError
         || error instanceof NestedArchiveError
         || error instanceof TooManyFilesError) {

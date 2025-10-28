@@ -1,6 +1,7 @@
 packages:
   - packages/*
   - apps/*
+  - backend/packages/*
 
 catalog:
   '@types/node': ^24.7.0

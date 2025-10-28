@@ -25,10 +25,11 @@ interface SkillListContentProps {
   error: Error | null;
   skills: Skill[];
   isAdmin: boolean;
+  isEditable: boolean;
   emptyMessage: string;
 }
 
-function SkillListContent({ isLoading, error, skills, isAdmin, emptyMessage }: SkillListContentProps) {
+function SkillListContent({ isLoading, error, skills, isAdmin, isEditable, emptyMessage }: SkillListContentProps) {
   if (error) {
     return (
       <div className="text-center py-12 border rounded-lg border-destructive">
@@ -60,6 +61,7 @@ function SkillListContent({ isLoading, error, skills, isAdmin, emptyMessage }: S
           key={skill.id}
           skill={skill}
           isAdmin={isAdmin}
+          isEditable={isEditable}
         />
       ))}
     </div>
@@ -170,6 +172,7 @@ export function SkillsReviewPage() {
                     error={error}
                     skills={skills}
                     isAdmin={true}
+                    isEditable={true}
                     emptyMessage="No pending skills"
                   />
                 </TabsContent>
@@ -180,6 +183,7 @@ export function SkillsReviewPage() {
                     error={error}
                     skills={skills}
                     isAdmin={true}
+                    isEditable={true}
                     emptyMessage="No approved skills"
                   />
                 </TabsContent>
@@ -190,6 +194,7 @@ export function SkillsReviewPage() {
                     error={error}
                     skills={skills}
                     isAdmin={true}
+                    isEditable={true}
                     emptyMessage="No rejected skills"
                   />
                 </TabsContent>
@@ -201,6 +206,7 @@ export function SkillsReviewPage() {
                 error={error}
                 skills={skills}
                 isAdmin={false}
+                isEditable={false}
                 emptyMessage="No submissions yet"
               />
             )}

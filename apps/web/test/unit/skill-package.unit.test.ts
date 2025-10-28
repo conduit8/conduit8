@@ -167,6 +167,17 @@ describe('skillPackage', () => {
         .rejects
         .toThrow(/ZIP must contain exactly one SKILL.md file.*Found 2/);
     });
+
+    it('rejects ZIP with nested SKILL.md (not at root)', async () => {
+      const file = await createZipFile({
+        'notion-meeting-intelligence/SKILL.md': SKILL_MD_VALID,
+        'notion-meeting-intelligence/README.md': '# Readme',
+      });
+
+      await expect(SkillPackage.fromFile(file))
+        .rejects
+        .toThrow(/SKILL\.md must be at the root level.*found at: notion-meeting-intelligence\/SKILL\.md/);
+    });
   });
 
   describe('frontmatter validation', () => {

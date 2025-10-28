@@ -13,6 +13,8 @@ import type {
   RejectSubmissionResponse,
   SkillCategory,
   SubmitSkillResponse,
+  UpdateSubmissionRequest,
+  UpdateSubmissionResponse,
 } from '@conduit8/core';
 
 import { getApiRoute } from '@conduit8/core';
@@ -113,6 +115,17 @@ async function rejectSubmission(
 }
 
 /**
+ * Update a skill submission (admin only)
+ */
+async function updateSubmission(
+  submissionId: string,
+  request: UpdateSubmissionRequest,
+): Promise<UpdateSubmissionResponse> {
+  const route = getApiRoute('admin_skill_submissions_update').replace(':id', submissionId);
+  return api.put<UpdateSubmissionResponse>(route, request);
+}
+
+/**
  * Get submissions count (role-based)
  */
 async function getSubmissionsCount(): Promise<GetSubmissionsCountResponse> {
@@ -127,5 +140,6 @@ export const skillsApi = {
   listAdminSubmissions,
   approveSubmission,
   rejectSubmission,
+  updateSubmission,
   getSubmissionsCount,
 };
