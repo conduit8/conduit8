@@ -18,7 +18,7 @@ import {
 } from '@web/ui/components/overlays/dialog';
 import { TurnstileWidget } from '@web/ui/components/security/turnstile-widget';
 
-import { OAuthButtons } from './oauth-buttons';
+import { OAuthButton } from './oauth-button';
 
 // TODO:
 // Make buttons bigga!
@@ -114,19 +114,23 @@ export function SignInModal({
             Sign in via OAuth
           </DialogDescription>
         </DialogHeader>
-        <OAuthButtons
-          onGitHubSignIn={handleGitHubSignIn}
-          onGoogleSignIn={handleGoogleSignIn}
-          loadingProvider={
-            loadingMethod === 'github' || loadingMethod === 'google'
-              ? loadingMethod
-              : undefined
-          }
-        />
+        <div className="flex flex-col gap-3">
+          <OAuthButton
+            provider="github"
+            onSubmit={handleGitHubSignIn}
+            disabled={loadingMethod !== null && loadingMethod !== 'github'}
+          />
+          <OAuthButton
+            provider="google"
+            onSubmit={handleGoogleSignIn}
+            disabled={loadingMethod !== null && loadingMethod !== 'google'}
+          />
+        </div>
         <Divider text="Sign in via email" />
         <SignInForm
           onSubmit={handleEmailSubmit}
           isLoading={loadingMethod === 'email'}
+          disabled={loadingMethod === 'github' || loadingMethod === 'google'}
         />
         <small className="text-muted-foreground text-center">
           By signing in, you agree to our
