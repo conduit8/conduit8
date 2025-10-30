@@ -27,10 +27,11 @@ export type EmailFormValues = z.infer<typeof emailFormSchema>;
 interface EmailFormProps {
   onSubmit: (data: EmailFormValues) => void;
   isLoading?: boolean;
+  disabled?: boolean;
   className?: string;
 }
 
-export function SignInForm({ onSubmit, isLoading = false, className }: EmailFormProps) {
+export function SignInForm({ onSubmit, isLoading = false, disabled = false, className }: EmailFormProps) {
   const form = useForm<EmailFormValues>({
     resolver: zodResolver(emailFormSchema),
     defaultValues: {
@@ -65,6 +66,7 @@ export function SignInForm({ onSubmit, isLoading = false, className }: EmailForm
                     placeholder="email@example.com"
                     type="email"
                     autoComplete="email"
+                    disabled={isLoading || disabled}
                     {...field}
                   />
                 </FormControl>
@@ -72,7 +74,7 @@ export function SignInForm({ onSubmit, isLoading = false, className }: EmailForm
               </FormItem>
             )}
           />
-          <Button type="submit" disabled={isLoading} variant="accent" className="w-full">
+          <Button type="submit" disabled={isLoading || disabled} variant="accent" className="w-full">
             {isLoading ? <Loader2 className="size-4 animate-spin" /> : null}
             Sign In
           </Button>
