@@ -1,4 +1,5 @@
 import { Button } from '@web/ui/components/atoms/buttons';
+import { useState } from 'react';
 
 import {
   Dialog,
@@ -9,21 +10,55 @@ import {
   DialogTitle,
 } from '@web/ui/components/overlays/dialog';
 
+import { useDeleteSkill } from '../hooks/use-delete-skill';
+
+interface DeleteDialogState {
+  isOpen: boolean;
+  slug: string;
+  name: string;
+}
+
+/**
+ * Hook to manage delete skill dialog state
+ * Stores the skill being deleted (slug + name) for dialog display
+ */
+export function useDeleteSkillDialog() {
+  const [state, setState] = useState<DeleteDialogState>({
+    isOpen: false,
+    slug: '',
+    name: '',
+  });
+
+  return {
+    isOpen: state.isOpen,
+    skillSlug: state.slug,
+    skillName: state.name,
+    open: (slug: string, name: string) => setState({ isOpen: true, slug, name }),
+    close: () => setState({ isOpen: false, slug: '', name: '' }),
+  };
+}
+
 interface DeleteSkillDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  skillSlug: string;
   skillName: string;
-  onConfirm: () => void;
-  isDeleting?: boolean;
 }
 
 export function DeleteSkillDialog({
   open,
   onOpenChange,
+  skillSlug,
   skillName,
-  onConfirm,
-  isDeleting = false,
 }: DeleteSkillDialogProps) {
+  const { mutate: deleteSkill, isPending } = useDeleteSkill();
+
+  const handleConfirm = () => {
+    deleteSkill(skillSlug, {
+      onSuccess: () => onOpenChange(false),
+    });
+  };
+
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="component-width-card">
@@ -40,16 +75,16 @@ export function DeleteSkillDialog({
           <Button
             variant="outline"
             onClick={() => onOpenChange(false)}
-            disabled={isDeleting}
+            disabled={isPending}
           >
             Cancel
           </Button>
           <Button
             variant="destructive"
-            onClick={onConfirm}
-            disabled={isDeleting}
+            onClick={handleConfirm}
+            disabled={isPending}
           >
-            {isDeleting ? 'Deleting...' : 'Delete'}
+            {isPending ? 'Deleting...' : 'Delete'}
           </Button>
         </DialogFooter>
       </DialogContent>
