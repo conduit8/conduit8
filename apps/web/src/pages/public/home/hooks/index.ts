@@ -1,4 +1,3 @@
-export * from './use-delete-skill';
 export * from './use-github-stars';
 export * from './use-login-modal';
 export * from './use-scroll-detection';

@@ -1,17 +1,16 @@
 import type { AuthUser } from '@web/lib/auth/models';
 
-import { useNavigate } from '@tanstack/react-router';
 import { trackSubmitButtonClicked } from '@web/lib/analytics';
 import * as sections from '@web/pages/public/home/components';
 import { SignInModal } from '@web/pages/public/home/components/sign-in-modal';
 import { SubmitSkillDialog } from '@web/pages/public/home/components/submit-skill-dialog';
 
-import { DeleteSkillDialog } from '@web/pages/public/home/components/delete-skill-dialog';
+import { DeleteSkillDialog, useDeleteSkillDialog } from '@web/pages/public/home/components/delete-skill-dialog';
 import { PageLayout } from '@web/ui/components/layout/page/page-layout';
 
 import { HomeFooter } from './home-footer';
 import { HomeHeader } from './home-header';
-import { useDeleteSkill, useSkillsBrowse, useSkillsFilter, useSkillsList, useSubmitSkillDialog } from './hooks';
+import { useSkillsBrowse, useSkillsFilter, useSkillsList, useSubmitSkillDialog } from './hooks';
 
 interface LandingPageProps {
   user: AuthUser | null;
@@ -19,32 +18,20 @@ interface LandingPageProps {
 }
 
 export function HomePage({ user, loginModal }: LandingPageProps) {
-  const navigate = useNavigate();
-
   // Browse state
   const browse = useSkillsBrowse();
 
   // Submit skill dialog
   const submitSkillDialog = useSubmitSkillDialog();
 
-  // Delete skill dialog + mutation
-  const deleteSkill = useDeleteSkill();
-
-  // // Status filter state (show pending skills or not)
-  // const [showPendingSkills, setShowPendingSkills] = useState(true);
-
-  // // Fetch pending count
-  // const { data: pendingData } = useQuery({
-  //   queryKey: ['skills-pending-count'],
-  //   queryFn: () => skillsApi.list({ status: SKILL_STATUS.PENDING, limit: 1, offset: 0 }),
-  // });
+  // Delete skill dialog
+  const deleteSkillDialog = useDeleteSkillDialog();
 
   // Fetch skills from API (with status filter)
   const { data, isLoading } = useSkillsList({
     q: browse.searchQuery.trim().slice(0, 100) || undefined,
     limit: 100,
     offset: 0,
-    // status: showPendingSkills ? undefined : SKILL_STATUS.APPROVED,
   });
 
   // Client-side filter and sort (category, source, sort not supported by API yet)
@@ -53,8 +40,6 @@ export function HomePage({ user, loginModal }: LandingPageProps) {
     sources: browse.selectedSources,
     sortBy: browse.sortBy,
   });
-
-  // const pendingCount = pendingData?.pagination?.total || 0;
 
   const handleSkillClick = (skillId: string) => {
     // TODO: Navigate to skill detail page when implemented
@@ -73,7 +58,7 @@ export function HomePage({ user, loginModal }: LandingPageProps) {
   };
 
   const handleDeleteSkill = (slug: string, name: string) => {
-    deleteSkill.openDialog(slug, name);
+    deleteSkillDialog.open(slug, name);
   };
 
   return (
@@ -101,9 +86,6 @@ export function HomePage({ user, loginModal }: LandingPageProps) {
           hasActiveFilters={browse.hasActiveFilters}
           isAdmin={user?.role === 'admin'}
           onDeleteSkill={handleDeleteSkill}
-        // showPendingSkills={showPendingSkills}
-        // onTogglePendingSkills={setShowPendingSkills}
-        // pendingCount={pendingCount}
         />
       </PageLayout>
 
@@ -118,11 +100,10 @@ export function HomePage({ user, loginModal }: LandingPageProps) {
       />
 
       <DeleteSkillDialog
-        open={deleteSkill.dialogState.isOpen}
-        onOpenChange={open => open ? undefined : deleteSkill.closeDialog()}
-        skillName={deleteSkill.dialogState.name}
-        onConfirm={deleteSkill.confirmDelete}
-        isDeleting={deleteSkill.isDeleting}
+        open={deleteSkillDialog.isOpen}
+        onOpenChange={open => open ? undefined : deleteSkillDialog.close()}
+        skillSlug={deleteSkillDialog.skillSlug}
+        skillName={deleteSkillDialog.skillName}
       />
     </>
   );
