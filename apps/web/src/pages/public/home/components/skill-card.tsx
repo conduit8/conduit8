@@ -1,4 +1,4 @@
-import { CheckIcon, SealCheckIcon, UsersIcon } from '@phosphor-icons/react';
+import { CheckIcon, SealCheckIcon, TrashIcon, UsersIcon } from '@phosphor-icons/react';
 import { useRef, useState } from 'react';
 
 import { ArrowDownIcon } from '@web/ui/components/animate-ui/icons/arrow-down';
@@ -30,6 +30,8 @@ interface SkillCardProps {
   author: string;
   authorKind: 'verified' | 'community';
   onClick: () => void;
+  isAdmin?: boolean;
+  onDelete?: (slug: string, name: string) => void;
 }
 
 export function SkillCard({
@@ -41,6 +43,8 @@ export function SkillCard({
   author,
   authorKind,
   onClick,
+  isAdmin = false,
+  onDelete,
 }: SkillCardProps) {
   const [downloadBadgeHovered, setDownloadBadgeHovered] = useState(false);
   const [installButtonHovered, setInstallButtonHovered] = useState(false);
@@ -109,39 +113,62 @@ export function SkillCard({
         </CardHeader>
 
         {/* Metadata Row */}
-        <div className="flex items-center gap-2 flex-wrap">
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Badge variant="neutral" className="gap-1.5">
-                {authorKind === 'verified'
-                  ? <SealCheckIcon size={12} />
-                  : <UsersIcon size={12} />}
-                {authorKind === 'verified' ? 'Verified' : 'Community'}
-              </Badge>
-            </TooltipTrigger>
-            <TooltipContent>
-              Created by
-              {' '}
-              {author}
-            </TooltipContent>
-          </Tooltip>
+        <div className="flex items-center gap-2 flex-wrap justify-between">
+          <div className="flex items-center gap-2 flex-wrap">
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Badge variant="neutral" className="gap-1.5">
+                  {authorKind === 'verified'
+                    ? <SealCheckIcon size={12} />
+                    : <UsersIcon size={12} />}
+                  {authorKind === 'verified' ? 'Verified' : 'Community'}
+                </Badge>
+              </TooltipTrigger>
+              <TooltipContent>
+                Created by
+                {' '}
+                {author}
+              </TooltipContent>
+            </Tooltip>
 
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Badge
-                variant="neutral"
-                className="gap-1.5"
-                onMouseEnter={() => setDownloadBadgeHovered(true)}
-                onMouseLeave={() => setDownloadBadgeHovered(false)}
-              >
-                <ArrowDownIcon size={12} animate={downloadBadgeHovered} />
-                {downloadCount.toLocaleString()}
-              </Badge>
-            </TooltipTrigger>
-            <TooltipContent>
-              Total installs
-            </TooltipContent>
-          </Tooltip>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Badge
+                  variant="neutral"
+                  className="gap-1.5"
+                  onMouseEnter={() => setDownloadBadgeHovered(true)}
+                  onMouseLeave={() => setDownloadBadgeHovered(false)}
+                >
+                  <ArrowDownIcon size={12} animate={downloadBadgeHovered} />
+                  {downloadCount.toLocaleString()}
+                </Badge>
+              </TooltipTrigger>
+              <TooltipContent>
+                Total installs
+              </TooltipContent>
+            </Tooltip>
+          </div>
+
+          {isAdmin && onDelete && (
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="size-6"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onDelete(slug, name);
+                  }}
+                >
+                  <TrashIcon size={14} className="text-destructive" />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>
+                Delete skill
+              </TooltipContent>
+            </Tooltip>
+          )}
         </div>
 
         {/* Action Row */}

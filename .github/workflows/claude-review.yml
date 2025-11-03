@@ -12,6 +12,7 @@ permissions:
 jobs:
   review:
     runs-on: ubuntu-latest
+    if: ${{ secrets.ANTHROPIC_API_KEY != '' }}
     continue-on-error: true
     steps:
       - name: Checkout code

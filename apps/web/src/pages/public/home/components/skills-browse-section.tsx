@@ -32,6 +32,8 @@ interface SkillsBrowseSectionProps {
   showPendingSkills?: boolean;
   onTogglePendingSkills?: (show: boolean) => void;
   pendingCount?: number;
+  isAdmin?: boolean;
+  onDeleteSkill?: (slug: string, name: string) => void;
 }
 
 export function SkillsBrowseSection({
@@ -51,6 +53,8 @@ export function SkillsBrowseSection({
   showPendingSkills = true,
   onTogglePendingSkills,
   pendingCount = 0,
+  isAdmin = false,
+  onDeleteSkill,
 }: SkillsBrowseSectionProps) {
   return (
     <LandingSectionWrapper variant="default">
@@ -166,6 +170,8 @@ export function SkillsBrowseSection({
                       key={skill.slug}
                       {...skill}
                       onClick={() => onSkillClick(skill.slug)}
+                      isAdmin={isAdmin}
+                      onDelete={onDeleteSkill}
                     />
                   ))}
                 </ContentGrid>
