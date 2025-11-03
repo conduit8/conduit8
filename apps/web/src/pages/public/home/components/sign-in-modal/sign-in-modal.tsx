@@ -51,12 +51,11 @@ export function SignInModal({
     try {
       console.info('GitHub sign in');
       await signInWithOAuth('github', `/`);
+      // Keep loading state - redirect will unmount component
     }
     catch {
       toast.error('Failed to sign in with GitHub - please try again.');
-    }
-    finally {
-      setLoadingMethod(null);
+      setLoadingMethod(null); // Only clear on error
     }
   }, [signInWithOAuth]);
 
@@ -65,12 +64,11 @@ export function SignInModal({
     try {
       console.info('Google sign in');
       await signInWithOAuth('google', `/`);
+      // Keep loading state - redirect will unmount component
     }
     catch {
       toast.error('Failed to sign in with Google - please try again');
-    }
-    finally {
-      setLoadingMethod(null);
+      setLoadingMethod(null); // Only clear on error
     }
   }, [signInWithOAuth]);
 

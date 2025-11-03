@@ -6,11 +6,12 @@ import * as sections from '@web/pages/public/home/components';
 import { SignInModal } from '@web/pages/public/home/components/sign-in-modal';
 import { SubmitSkillDialog } from '@web/pages/public/home/components/submit-skill-dialog';
 
+import { DeleteSkillDialog } from '@web/pages/public/home/components/delete-skill-dialog';
 import { PageLayout } from '@web/ui/components/layout/page/page-layout';
 
 import { HomeFooter } from './home-footer';
 import { HomeHeader } from './home-header';
-import { useSkillsBrowse, useSkillsFilter, useSkillsList, useSubmitSkillDialog } from './hooks';
+import { useDeleteSkill, useSkillsBrowse, useSkillsFilter, useSkillsList, useSubmitSkillDialog } from './hooks';
 
 interface LandingPageProps {
   user: AuthUser | null;
@@ -23,8 +24,11 @@ export function HomePage({ user, loginModal }: LandingPageProps) {
   // Browse state
   const browse = useSkillsBrowse();
 
-  // Submit skill dialog state
+  // Submit skill dialog
   const submitSkillDialog = useSubmitSkillDialog();
+
+  // Delete skill dialog + mutation
+  const deleteSkill = useDeleteSkill();
 
   // // Status filter state (show pending skills or not)
   // const [showPendingSkills, setShowPendingSkills] = useState(true);
@@ -68,6 +72,10 @@ export function HomePage({ user, loginModal }: LandingPageProps) {
     }
   };
 
+  const handleDeleteSkill = (slug: string, name: string) => {
+    deleteSkill.openDialog(slug, name);
+  };
+
   return (
     <>
       <PageLayout
@@ -91,6 +99,8 @@ export function HomePage({ user, loginModal }: LandingPageProps) {
           onSourceChange={browse.setSources}
           onResetFilters={browse.resetFilters}
           hasActiveFilters={browse.hasActiveFilters}
+          isAdmin={user?.role === 'admin'}
+          onDeleteSkill={handleDeleteSkill}
         // showPendingSkills={showPendingSkills}
         // onTogglePendingSkills={setShowPendingSkills}
         // pendingCount={pendingCount}
@@ -105,6 +115,14 @@ export function HomePage({ user, loginModal }: LandingPageProps) {
       <SubmitSkillDialog
         open={submitSkillDialog.isOpen}
         onOpenChange={open => open ? submitSkillDialog.open() : submitSkillDialog.close()}
+      />
+
+      <DeleteSkillDialog
+        open={deleteSkill.dialogState.isOpen}
+        onOpenChange={open => open ? undefined : deleteSkill.closeDialog()}
+        skillName={deleteSkill.dialogState.name}
+        onConfirm={deleteSkill.confirmDelete}
+        isDeleting={deleteSkill.isDeleting}
       />
     </>
   );

@@ -25,9 +25,10 @@ export function OAuthButton({
     setIsLoading(true);
     try {
       await onSubmit();
+      // Keep loading state - OAuth redirect will unmount component
     }
-    finally {
-      setIsLoading(false);
+    catch {
+      // Parent handles error toast, keep loading until redirect or error
     }
   };
 
