@@ -1,0 +1,5 @@
+# Backend API URL (local dev server)
+BACKEND_BASE_URL=http://localhost:8787
+
+# Secret key for signing approved client cookies (generate with: openssl rand -hex 32)
+COOKIE_ENCRYPTION_KEY=<your cookie encryption key>

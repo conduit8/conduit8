@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "composite": false,
+    "target": "ESNext",
+    "lib": ["ESNext"],
+    "baseUrl": ".",
+    "paths": {
+      "@mcp/*": ["./src/*"]
+    }
+  },
+  "include": ["src/**/*.ts"]
+}
