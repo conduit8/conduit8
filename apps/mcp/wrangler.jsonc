@@ -1,0 +1,74 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "conduit8-mcp",
+  "main": "src/index.ts",
+  "compatibility_date": "2025-09-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "observability": {
+    "enabled": true
+  },
+  "migrations": [
+    {
+      "tag": "v1",
+      "new_sqlite_classes": ["Conduit8MCP"]
+    }
+  ],
+  "durable_objects": {
+    "bindings": [
+      {
+        "class_name": "Conduit8MCP",
+        "name": "MCP_OBJECT"
+      }
+    ]
+  },
+  "env": {
+    "preview": {
+      "name": "conduit8-mcp-preview",
+      "vars": {
+        "BACKEND_BASE_URL": "https://preview.conduit8.dev",
+        "COOKIE_ENCRYPTION_KEY": "<Add-Preview-Cookie-Secret>"
+      },
+      "kv_namespaces": [
+        {
+          "binding": "OAUTH_KV",
+          "id": "<Add-Preview-KV-ID>"
+        }
+      ],
+      "routes": [
+        {
+          "pattern": "mcp-preview.conduit8.dev/*",
+          "zone_id": "df9bffde8a9f3fbf6e6868ceaf70b594"
+        }
+      ]
+    },
+    "prod": {
+      "name": "conduit8-mcp-prod",
+      "vars": {
+        "BACKEND_BASE_URL": "https://conduit8.dev",
+        "COOKIE_ENCRYPTION_KEY": "<Add-Prod-Cookie-Secret>"
+      },
+      "kv_namespaces": [
+        {
+          "binding": "OAUTH_KV",
+          "id": "<Add-Prod-KV-ID>"
+        }
+      ],
+      "routes": [
+        {
+          "pattern": "mcp.conduit8.dev/*",
+          "zone_id": "df9bffde8a9f3fbf6e6868ceaf70b594"
+        }
+      ]
+    }
+  },
+  "dev": {
+    "port": 8788
+  },
+  "kv_namespaces": [
+    {
+      "binding": "OAUTH_KV",
+      "id": "preview_id",
+      "preview_id": "preview_id"
+    }
+  ]
+}
