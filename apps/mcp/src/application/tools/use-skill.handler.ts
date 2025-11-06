@@ -38,7 +38,8 @@ export async function useSkillHandler(
         },
       ],
     };
-  } catch (error: any) {
+  }
+  catch (error: any) {
     if (error.message === 'SESSION_EXPIRED') {
       throw error; // Let MCP server handle session expiration
     }

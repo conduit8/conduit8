@@ -3,14 +3,18 @@
   "name": "conduit8-mcp",
   "main": "src/index.ts",
   "compatibility_date": "2025-09-01",
-  "compatibility_flags": ["nodejs_compat"],
+  "compatibility_flags": [
+    "nodejs_compat"
+  ],
   "observability": {
     "enabled": true
   },
   "migrations": [
     {
       "tag": "v1",
-      "new_sqlite_classes": ["Conduit8MCP"]
+      "new_sqlite_classes": [
+        "Conduit8MCP"
+      ]
     }
   ],
   "durable_objects": {
@@ -25,13 +29,21 @@
     "preview": {
       "name": "conduit8-mcp-preview",
       "vars": {
-        "BACKEND_BASE_URL": "https://preview.conduit8.dev",
-        "COOKIE_ENCRYPTION_KEY": "<Add-Preview-Cookie-Secret>"
+        "ENV": "preview",
+        "WEB_APP_BASE_URL": "https://preview.conduit8.dev"
+      },
+      "durable_objects": {
+        "bindings": [
+          {
+            "class_name": "Conduit8MCP",
+            "name": "MCP_OBJECT"
+          }
+        ]
       },
       "kv_namespaces": [
         {
           "binding": "OAUTH_KV",
-          "id": "<Add-Preview-KV-ID>"
+          "id": "9e5460520e044080b2b85d6decce37d4"
         }
       ],
       "routes": [
@@ -44,13 +56,21 @@
     "prod": {
       "name": "conduit8-mcp-prod",
       "vars": {
-        "BACKEND_BASE_URL": "https://conduit8.dev",
-        "COOKIE_ENCRYPTION_KEY": "<Add-Prod-Cookie-Secret>"
+        "ENV": "production",
+        "WEB_APP_BASE_URL": "https://conduit8.dev"
+      },
+      "durable_objects": {
+        "bindings": [
+          {
+            "class_name": "Conduit8MCP",
+            "name": "MCP_OBJECT"
+          }
+        ]
       },
       "kv_namespaces": [
         {
           "binding": "OAUTH_KV",
-          "id": "<Add-Prod-KV-ID>"
+          "id": "35e160d43fc7455aa00888e1972fb47f"
         }
       ],
       "routes": [
@@ -62,13 +82,15 @@
     }
   },
   "dev": {
-    "port": 8788
+    "port": 8788,
+    "vars": {
+      "WEB_APP_BASE_URL": "http://localhost:5173"
+    }
   },
   "kv_namespaces": [
     {
       "binding": "OAUTH_KV",
-      "id": "preview_id",
-      "preview_id": "preview_id"
+      "id": "preview_id"
     }
   ]
 }

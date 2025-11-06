@@ -23,6 +23,8 @@ export const useLoginModal = (): UseLoginModalReturn => {
   // Check for redirect param on mount/change
   useLayoutEffect(() => {
     if (location.search?.redirect) {
+      // Save redirect URL to localStorage for use after successful login
+      localStorage.setItem('auth_redirect', location.search.redirect);
       setIsOpen(true);
 
       // Clear the redirect param from URL to prevent re-triggering
