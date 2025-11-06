@@ -1,5 +1,8 @@
-# Backend API URL (local dev server)
-BACKEND_BASE_URL=http://localhost:8787
+# Environment
+ENV=development
+
+# Web app URL (proxies /api and /auth to backend)
+WEB_APP_BASE_URL=http://localhost:5173
 
 # Secret key for signing approved client cookies (generate with: openssl rand -hex 32)
 COOKIE_ENCRYPTION_KEY=<your cookie encryption key>

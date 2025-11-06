@@ -50,7 +50,8 @@ export function SignInModal({
     setLoadingMethod('github');
     try {
       console.info('GitHub sign in');
-      await signInWithOAuth('github', `/`);
+      const redirectUrl = localStorage.getItem('auth_redirect') || `/`;
+      await signInWithOAuth('github', redirectUrl);
       // Keep loading state - redirect will unmount component
     }
     catch {
@@ -63,7 +64,8 @@ export function SignInModal({
     setLoadingMethod('google');
     try {
       console.info('Google sign in');
-      await signInWithOAuth('google', `/`);
+      const redirectUrl = localStorage.getItem('auth_redirect') || `/`;
+      await signInWithOAuth('google', redirectUrl);
       // Keep loading state - redirect will unmount component
     }
     catch {
@@ -76,9 +78,10 @@ export function SignInModal({
     async (data: EmailFormValues): Promise<void> => {
       setLoadingMethod('email');
       try {
+        const redirectUrl = localStorage.getItem('auth_redirect') || `${settings.site.url}/`;
         const result = await signInWithMagicLink(
           data.email,
-          `${settings.site.url}/`,
+          redirectUrl,
           turnstileToken,
         );
         if (result.success) {

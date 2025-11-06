@@ -6,13 +6,13 @@ import { listSkillsHandler } from '@mcp/application/tools/list-skills.handler';
 import { useSkillHandler } from '@mcp/application/tools/use-skill.handler';
 
 // Props stored in OAuth token (encrypted)
-export type Props = {
+export interface Props extends Record<string, unknown> {
   userId: string;
   email: string;
   name: string;
   sessionCookie: string;
-};
-
+}
+// TODO: name is incorrect
 export class Conduit8MCP extends McpAgent<Env, Record<string, never>, Props> {
   server = new McpServer({
     name: 'Conduit8',
@@ -68,7 +68,8 @@ export class Conduit8MCP extends McpAgent<Env, Record<string, never>, Props> {
             this.env,
             this.props.sessionCookie,
           );
-        } catch (error: any) {
+        }
+        catch (error: any) {
           if (error.message === 'SESSION_EXPIRED') {
             // Return error that will trigger re-auth
             return {
