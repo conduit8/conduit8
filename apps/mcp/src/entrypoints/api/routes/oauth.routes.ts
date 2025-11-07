@@ -4,8 +4,8 @@ import type { Context } from 'hono';
 
 import { mcpAuthorizeRequestSchema } from '@conduit8/core';
 import { zValidator } from '@mcp/entrypoints/api/utils';
-import { getCookie } from 'hono/cookie';
 import { Hono } from 'hono';
+import { getCookie } from 'hono/cookie';
 
 import type { Props } from '@mcp/application/server';
 

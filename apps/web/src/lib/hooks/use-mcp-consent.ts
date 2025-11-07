@@ -14,7 +14,7 @@ const authorizeRequest = async (
   approved: boolean,
 ): Promise<McpAuthorizeResponse> => {
   return mcpApi.post<McpAuthorizeResponse>(
-    `${APP_ROUTES.mcp.prefix}${APP_ROUTES.mcp.paths.authorize}`,
+    APP_ROUTES.mcp.paths.authorize,
     { state, approved },
   );
 };

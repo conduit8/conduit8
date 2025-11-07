@@ -114,8 +114,8 @@ importers:
         specifier: ^0.0.13
         version: 0.0.13
       '@conduit8/core':
-        specifier: ^0.1.36
-        version: 0.1.36
+        specifier: ^0.1.37
+        version: 0.1.37
       '@hono/zod-validator':
         specifier: ^0.7.4
         version: 0.7.4(hono@4.10.4)(zod@4.1.12)
@@ -172,8 +172,8 @@ importers:
         specifier: ^1.9.3
         version: 1.9.3(react@19.2.0)
       '@conduit8/core':
-        specifier: ^0.1.36
-        version: 0.1.36
+        specifier: ^0.1.37
+        version: 0.1.37
       '@hookform/resolvers':
         specifier: ^5.2.0
         version: 5.2.2(react-hook-form@7.65.0(react@19.2.0))
@@ -914,8 +914,8 @@ packages:
   '@conduit8/core@0.1.17':
     resolution: {integrity: sha512-+w1/jIpxzCvEBD6APeyJtPTeLH4ctwRY3fTdWvHqLux99bFopb+f7aysLPsYz1glvb2cFXI5Y2grgMWI6yGPVQ==, tarball: https://npm.pkg.github.com/download/@conduit8/core/0.1.17/73b76266ba4d3e233aa1f447339e77c4fcae7bdb}
 
-  '@conduit8/core@0.1.36':
-    resolution: {integrity: sha512-n3EQsM/cXgmrs+AyvlamztDYHtmLI0y7fQ0NJqaqpuMddV/DYQitdR9/KkAMB37n7qo1ujjyVGB+Fxf4PqM4GQ==, tarball: https://npm.pkg.github.com/download/@conduit8/core/0.1.36/73e3376c49f9244d85754d880210c4bbfdfc0250}
+  '@conduit8/core@0.1.37':
+    resolution: {integrity: sha512-37ZV8taKsuSfRLa4PkBvGxruaDh6SSQSBmIwQFwA7N/DkfieOyKTqWTFAykirLDelD5AtNxqFGzSUI3Ii2gizg==, tarball: https://npm.pkg.github.com/download/@conduit8/core/0.1.37/6b1369381e0d81078c01bf99d714c4b0c22188da}
 
   '@cspotcode/source-map-support@0.8.1':
     resolution: {integrity: sha512-IchNf6dN4tHoMFIn/7OE8LWZ19Y6q/67Bmf6vnGREv8RSbBVb9LPJxEcnwrcwX6ixSvaiGoomAUvu4YSxXrVgw==}
@@ -8421,7 +8421,7 @@ snapshots:
       snakecase-keys: 9.0.2
       zod: 4.1.12
 
-  '@conduit8/core@0.1.36':
+  '@conduit8/core@0.1.37':
     dependencies:
       '@slack/types': 2.18.0
       camelcase-keys: 9.1.3
