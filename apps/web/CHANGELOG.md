@@ -9,6 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.0] - 2025-11-07
+
+### Added
+- **MCP Server Integration** - You can now authenticate and connect Claude Code directly to Conduit8 using our MCP server. Install skills with a single command right from your editor.
+- **Secure OAuth Flow** - Clear consent screens show exactly what permissions you're granting when connecting the MCP server to your account.
+
 ## [0.2.0] - 2025-10-26
 
 ### Added
