@@ -3,6 +3,7 @@ import type { AppContext } from '@mcp/entrypoints/api/types';
 import type { Context } from 'hono';
 
 import { zValidator } from '@mcp/entrypoints/api/utils';
+import { getCookie } from 'hono/cookie';
 import { Hono } from 'hono';
 import { z } from 'zod';
 
@@ -33,7 +34,7 @@ oauthRoutes.get('/authorize', async (c) => {
   }
 
   // Extract session cookie from browser
-  const sessionCookie = c.req.header('Cookie')?.match(/better-auth\.session_token=([^;]+)/)?.[1];
+  const sessionCookie = getCookie(c, 'better-auth.session_token');
 
   // Check if user is logged into Conduit8
   let user: { id: string; email: string; name: string } | null = null;
