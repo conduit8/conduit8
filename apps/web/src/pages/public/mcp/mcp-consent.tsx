@@ -1,7 +1,7 @@
 import { CheckIcon, ShieldCheckIcon, XIcon } from '@phosphor-icons/react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@web/ui/components/layout';
-import { useState } from 'react';
 
+import { useMcpConsent } from '@web/lib/hooks/use-mcp-consent';
 import { Button } from '@web/ui/components/atoms/buttons/button';
 import { Alert } from '@web/ui/components/feedback/alerts/alert';
 
@@ -22,64 +22,15 @@ export const McpConsentPage = ({
   code_challenge_method,
   scope,
 }: McpConsentPageProps) => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  // Log OAuth params for debugging (not displayed to user)
+  console.debug('MCP OAuth consent params:', {
+    client_id,
+    redirect_uri,
+    code_challenge_method,
+    scope: scope ?? 'none',
+  });
 
-  const handleAllow = async () => {
-    setIsLoading(true);
-    setError(null);
-
-    try {
-      // Call MCP server to complete authorization
-      const mcpUrl = redirect_uri.startsWith('http://localhost')
-        ? 'http://localhost:8788' // Local MCP dev server
-        : 'https://mcp.conduit8.dev'; // Production MCP server
-
-      const response = await fetch(`${mcpUrl}/authorize`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ state, approved: true }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Authorization failed');
-      }
-
-      const data = await response.json() as { redirectTo: string };
-      window.location.href = data.redirectTo;
-    }
-    catch (err) {
-      const errorMessage = err instanceof Error ? err.message : 'Unknown error';
-      setError(errorMessage);
-      setIsLoading(false);
-    }
-  };
-
-  const handleDeny = async () => {
-    setIsLoading(true);
-
-    try {
-      const mcpUrl = redirect_uri.startsWith('http://localhost')
-        ? 'http://localhost:8788'
-        : 'https://mcp.conduit8.dev';
-
-      const response = await fetch(`${mcpUrl}/authorize`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ state, approved: false }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to deny authorization');
-      }
-
-      const data = await response.json() as { redirectTo: string };
-      window.location.href = data.redirectTo;
-    }
-    catch (err) {
-      setIsLoading(false);
-    }
-  };
+  const { isLoading, error, approve, deny } = useMcpConsent({ state });
 
   return (
     <div className="flex min-h-screen items-center justify-center p-4">
@@ -112,7 +63,7 @@ export const McpConsentPage = ({
 
           <div className="flex gap-3">
             <Button
-              onClick={handleDeny}
+              onClick={() => deny()}
               disabled={isLoading}
               variant="outline"
               className="flex-1 hover:no-underline"
@@ -121,7 +72,7 @@ export const McpConsentPage = ({
               Cancel
             </Button>
             <Button
-              onClick={handleAllow}
+              onClick={() => approve()}
               disabled={isLoading}
               className="flex-1 hover:no-underline"
               variant="accent"
