@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@cloudflare/workers-oauth-provider": "^0.0.13",
-    "@conduit8/core": "^0.1.36",
+    "@conduit8/core": "^0.1.37",
     "@hono/zod-validator": "^0.7.4",
     "@modelcontextprotocol/sdk": "1.20.2",
     "@sentry/cloudflare": "^10.22.0",
