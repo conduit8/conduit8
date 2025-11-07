@@ -18,18 +18,6 @@ export async function useSkillHandler(
       sessionCookie,
     );
 
-    if (!result.success) {
-      return {
-        content: [
-          {
-            type: 'text' as const,
-            text: `Error: ${result.error || 'Failed to execute skill'}`,
-          },
-        ],
-        isError: true,
-      };
-    }
-
     return {
       content: [
         {
@@ -40,10 +28,6 @@ export async function useSkillHandler(
     };
   }
   catch (error: any) {
-    if (error.message === 'SESSION_EXPIRED') {
-      throw error; // Let MCP server handle session expiration
-    }
-
     return {
       content: [
         {

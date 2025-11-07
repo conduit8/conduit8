@@ -1,6 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { McpCallbackPage } from '@web/pages/public/mcp-callback';
 import { z } from 'zod';
+
+import { McpCallbackPage } from '@web/pages/public/mcp-callback';
 
 const mcpCallbackSearchSchema = z.object({
   code: z.string().optional(),

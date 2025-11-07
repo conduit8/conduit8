@@ -9,11 +9,14 @@
     "dev": "wrangler dev",
     "start": "wrangler dev",
     "cf-typegen": "wrangler types",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage"
   },
   "dependencies": {
     "@cloudflare/workers-oauth-provider": "^0.0.13",
-    "@conduit8/core": "^0.1.31",
+    "@conduit8/core": "^0.1.32",
     "@hono/zod-validator": "^0.7.4",
     "@modelcontextprotocol/sdk": "1.20.2",
     "@sentry/cloudflare": "^10.22.0",
@@ -24,11 +27,13 @@
     "zod": "catalog:"
   },
   "devDependencies": {
+    "@cloudflare/vitest-pool-workers": "^0.10.4",
     "@conduit8/eslint-config": "workspace:*",
     "@types/node": "catalog:",
     "eslint": "catalog:",
     "prettier": "^3.6.2",
     "typescript": "catalog:",
+    "vitest": "catalog:",
     "wrangler": "catalog:"
   }
 }
