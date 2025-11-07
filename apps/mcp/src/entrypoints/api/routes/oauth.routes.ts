@@ -2,10 +2,10 @@ import type { AuthRequest } from '@cloudflare/workers-oauth-provider';
 import type { AppContext } from '@mcp/entrypoints/api/types';
 import type { Context } from 'hono';
 
+import { mcpAuthorizeRequestSchema } from '@conduit8/core';
 import { zValidator } from '@mcp/entrypoints/api/utils';
 import { getCookie } from 'hono/cookie';
 import { Hono } from 'hono';
-import { z } from 'zod';
 
 import type { Props } from '@mcp/application/server';
 
@@ -19,12 +19,6 @@ import {
 } from '@mcp/infrastructure/oauth/utils';
 
 const oauthRoutes = new Hono<AppContext>();
-
-// Schema for POST /authorize body
-const authorizeBodySchema = z.object({
-  state: z.string(),
-  approved: z.boolean(),
-});
 
 oauthRoutes.get('/authorize', async (c) => {
   const oauthReqInfo = await c.env.OAUTH_PROVIDER.parseAuthRequest(c.req.raw);
@@ -119,7 +113,7 @@ oauthRoutes.get('/authorize', async (c) => {
   return new Response(null, { status: 302, headers });
 });
 
-oauthRoutes.post('/authorize', zValidator('json', authorizeBodySchema), async (c) => {
+oauthRoutes.post('/authorize', zValidator('json', mcpAuthorizeRequestSchema), async (c) => {
   const body = c.req.valid('json');
 
   // Retrieve OAuth request from KV
