@@ -67,6 +67,12 @@ export const settings = {
         : 'https://conduit8.dev',
   },
 
+  mcp: {
+    url: isDevelopment
+      ? 'http://localhost:8788'
+      : 'https://mcp.conduit8.dev',
+  },
+
   posthog: {
     apiKey: env.VITE_PUBLIC_POSTHOG_KEY,
     apiHost: isDevelopment

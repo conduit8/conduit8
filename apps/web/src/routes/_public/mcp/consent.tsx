@@ -1,7 +1,7 @@
-import { createFileRoute } from '@tanstack/react-router';
+import { createFileRoute, redirect } from '@tanstack/react-router';
 import { z } from 'zod';
 
-import { McpConsentPage } from '@web/pages/public/mcp-consent';
+import { McpConsentPage } from '@web/pages/public/mcp/mcp-consent';
 
 const mcpConsentSearchSchema = z.object({
   client_id: z.string(),
@@ -14,6 +14,14 @@ const mcpConsentSearchSchema = z.object({
 
 export const Route = createFileRoute('/_public/mcp/consent')({
   validateSearch: mcpConsentSearchSchema,
+  beforeLoad: ({ search }) => {
+    const result = mcpConsentSearchSchema.safeParse(search);
+
+    if (!result.success) {
+      console.error('Invalid consent parameters - redirecting to home');
+      throw redirect({ to: '/' });
+    }
+  },
   component: RouteComponent,
 });
 
